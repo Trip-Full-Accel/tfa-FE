@@ -1,0 +1,11 @@
+.footer-div {
+  box-shadow: lightgrey 3px 3px 3px 3px;
+  justify-content: space-evenly;
+  display: flex;
+  padding-top: 3em;
+  padding-bottom: 3em;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.8rem;
+}

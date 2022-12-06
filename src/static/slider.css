@@ -1,0 +1,13 @@
+.slider-wrap {
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.busan {
+  width: 45%;
+}
+
+/* .daejeon {
+  width: 45%;
+} */

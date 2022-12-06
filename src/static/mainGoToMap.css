@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nanum+Pen+Script&display=swap");
+
+.main-maps {
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+p {
+  font-family: "Caveat", cursive;
+  font-size: 30px;
+  color: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+
+  /* font-weight: Bold 900; */
+}

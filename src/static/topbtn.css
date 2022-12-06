@@ -1,0 +1,13 @@
+.topbtn-div {
+  top: 77%;
+  position: fixed;
+  left: 90%;
+}
+.topbtn {
+  border: none;
+}
+.topbtn-img {
+  width: 50px;
+  background-color: #fafafa;
+  border: none;
+}

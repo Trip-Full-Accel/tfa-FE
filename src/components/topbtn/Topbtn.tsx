@@ -6,7 +6,7 @@ function Topbtn() {
   const scrollToTop = () => {
     window.scroll({
       top: 0,
-      behaivor: "smooth",
+      behavior: "smooth",
     });
   };
   useEffect(() => {
@@ -24,15 +24,15 @@ function Topbtn() {
     };
   }, []);
 
-  return (
-    showButton && (
-      <div className="topbtn-div">
-        <button className="topbtn" id="top" onClick={scrollToTop} type="button">
-          {" "}
-          <img className="topbtn-img" src="/img/pointer6.png"></img>
-        </button>
-      </div>
-    )
+  return showButton ? (
+    <div className="topbtn-div">
+      <button className="topbtn" id="top" onClick={scrollToTop} type="button">
+        {" "}
+        <img className="topbtn-img" src="/img/pointer6.png"></img>
+      </button>
+    </div>
+  ) : (
+    <></>
   );
 }
 export default Topbtn;

@@ -6,6 +6,18 @@ import "../../static/side.css";
 import Points from "./Points";
 import TourList from "./TourList";
 /*global kakao*/ //지우면 안됨
+
+interface city {
+  name: string;
+  x: number;
+}
+interface travelPoint {
+  city: string;
+  name: string;
+  x: number;
+  y: number;
+}
+
 const Maps = () => {
   const location = useLocation();
   const [markers, setMarkers] = useState([
@@ -19,14 +31,14 @@ const Maps = () => {
   ]);
 
   const city = [
-    { name: "부산시청", x: "35.1795543" },
-    { name: "대전시청", x: "36.3504119" },
-    { name: "서울시청", x: "37.5666805" },
-    { name: "대구시청", x: "35.8714354" },
-    { name: "강릉시청", x: "37.751853" },
-    { name: "제주시청", x: "33.4996213" },
-    { name: "전주시청", x: "35.8242238" },
-    { name: "광주시청", x: "35.1595454" },
+    { name: "부산시청", x: 35.1795543 },
+    { name: "대전시청", x: 36.3504119 },
+    { name: "서울시청", x: 37.5666805 },
+    { name: "대구시청", x: 35.8714354 },
+    { name: "강릉시청", x: 37.751853 },
+    { name: "제주시청", x: 33.4996213 },
+    { name: "전주시청", x: 35.8242238 },
+    { name: "광주시청", x: 35.1595454 },
   ];
 
   const travelPoint = [
@@ -59,11 +71,12 @@ const Maps = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [addr, setAddr] = useState([{ name: "서울시청" }]);
 
-  const getAddr = (lat, lng) => {
+  const getAddr = (lat: number, lng: number) => {
     let geocoder = new kakao.maps.services.Geocoder();
 
     let coord = new kakao.maps.LatLng(lat, lng);
-    let callback = function (result, status) {
+
+    let callback = function (result: any, status: string) {
       if (status === kakao.maps.services.Status.OK) {
         setAddr([...addr, { name: result[0].address.address_name }]);
       }
@@ -81,7 +94,7 @@ const Maps = () => {
 
       <div id="left">
         {addr.map((el, i) => {
-          return <Points key={el.name} idx={el.i} name={el.name}></Points>;
+          return <Points key={el.name} idx={i} name={el.name}></Points>;
         })}
       </div>
       <div id="center">

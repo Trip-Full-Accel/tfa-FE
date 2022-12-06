@@ -1,5 +1,12 @@
 import { useState } from "react";
-const TourList = ({ name, x, y }) => {
+
+interface props {
+  name: string;
+  x: number;
+  y: number;
+}
+
+const TourList = ({ name, x, y }: props) => {
   const [addr, setAddr] = useState([{ name: "서울시청" }]);
 
   const [markers, setMarkers] = useState([

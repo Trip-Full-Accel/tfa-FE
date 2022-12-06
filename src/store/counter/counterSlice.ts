@@ -17,7 +17,7 @@ export const counterSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.value += action.payload;
     },
-    getData: (state) => {
+    getData: (state: any) => {
       state.message = testApi();
     },
   },

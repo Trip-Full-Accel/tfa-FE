@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Component } from "react";
 import Slider from "react-slick";
 // import { useState, useNavigate } from "react";
 

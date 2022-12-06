@@ -5,8 +5,13 @@ import Tab from "react-bootstrap/Tab";
 import UserInfo from "./UserInfo";
 import TravelRoute from "./TravelRoute";
 import TravelCost from "./TravelCost";
+
+interface myPageType {
+  pageKey: string;
+  pageKorName: string;
+}
 const MyPage = () => {
-  const myPageList = [
+  const myPageList: myPageType[] = [
     { pageKey: "userInfo", pageKorName: "회원정보수정" },
     { pageKey: "travelRoute", pageKorName: "내 여행 플랜" },
     { pageKey: "travelCost", pageKorName: "여행 경비계산" },

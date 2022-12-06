@@ -1,17 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CustomAxios } from "./../../http/customAxios";
+import { CustomAxios } from "../../http/customAxios";
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await CustomAxios("/api/hello", "get"); //api 기능별로 만들어서 써야함
+  const response = await CustomAxios("/api/hello", "GET"); //api 기능별로 만들어서 써야함
   return response.data;
 });
+type Status = "failed" | "loading" | "succeeded" | "idle";
+type Error = string | undefined;
+interface initialType {
+  posts: string[];
+  status: Status;
+  error: Error;
+}
+const initialState: initialType = {
+  posts: [],
+  status: "idle",
+  error: "null",
+};
 
 const postSlice = createSlice({
   name: "posts",
-  initialState: {
-    posts: [],
-    status: "idle",
-    error: null,
-  },
+  initialState,
   reducers: {
     // omit existing reducers here
   },

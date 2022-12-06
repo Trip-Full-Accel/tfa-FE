@@ -1,9 +1,17 @@
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-const MainBtn = ({ name, x, y }) => {
+
+interface props {
+  name: string;
+  x: string;
+  y: string;
+}
+
+const MainBtn = ({ name, x, y }: props) => {
   const navigate = useNavigate();
-  const tripStart = (path, x, y) => {
-    navigate(path, { state: { x: x, y: y } });
+  const tripStart = (path: string) => {
+    navigate(path);
+    //, { state: { x: x, y: y } }
   };
 
   return (
@@ -15,7 +23,7 @@ const MainBtn = ({ name, x, y }) => {
         border: "0px",
         fontSize: "30px",
       }}
-      onClick={() => tripStart("/maps", x, y)}
+      onClick={() => tripStart("/maps")}
     >
       {name}
     </Button>

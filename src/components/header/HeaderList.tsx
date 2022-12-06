@@ -1,9 +1,13 @@
 import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
-
-const HeaderList = ({ value, name }) => {
+// import HeaderList from './HeaderList';
+type Props = {
+  value: string;
+  name: string;
+};
+const HeaderList = ({ value, name }: Props) => {
   const navigate = useNavigate();
-  const linkTo = (path) => {
+  const linkTo = (path: string) => {
     navigate(path);
   };
   return (

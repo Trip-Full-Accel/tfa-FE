@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getData, increment } from "../../store/counter/counterSlice";
+import { RootState, AppDispatch } from "store/store";
+import { increment } from "../../store/counter/counterSlice";
 import { fetchPosts } from "./../../store/posts/postSlice";
 
 const UserInfo = () => {
-  const count = useSelector((state) => state.counter.value);
-  const data = useSelector((state) => state.posts.posts);
-  const status = useSelector((state) => state.posts.status);
-  const error = useSelector((state) => state.posts.error);
+  const count = useSelector((state: RootState) => state.counter.value);
+  const data = useSelector((state: RootState) => state.posts.posts);
+  const status = useSelector((state: RootState) => state.posts.status);
+  const error = useSelector((state: RootState) => state.posts.error);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   console.log(count);
   // const increment = (count) => {
   //   dispatch(increment(count));

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "store/store";
-import { increment } from "../../store/counter/counterSlice";
-import { fetchPosts } from "./../../store/posts/postSlice";
+import { increment } from "../../store/counter/counterReducer";
+import { fetchPosts } from "../../store/posts/postReducer";
 
 const UserInfo = () => {
   const count = useSelector((state: RootState) => state.counter.value);

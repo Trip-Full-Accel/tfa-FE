@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterSlice from "./counter/counterSlice";
-import postSlice from "./posts/postSlice";
-import footerSlice from "./footerName/footerSlice";
+import counterSlice from "./counter/counterReducer";
+import postSlice from "./posts/postReducer";
+import footerSlice from "./footerName/footerReducer";
 export const store = configureStore({
   reducer: {
     counter: counterSlice,

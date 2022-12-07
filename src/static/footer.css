@@ -4,8 +4,11 @@
   display: flex;
   padding-top: 3em;
   padding-bottom: 3em;
-  position: fixed;
   bottom: 0;
   width: 100%;
   font-size: 0.8rem;
+  background-color: #fafafa;
+  height: 96px;
+  position: relative;
+  transform: translateY(-100%);
 }

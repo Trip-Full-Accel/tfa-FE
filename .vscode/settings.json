@@ -1,17 +1,17 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "workbench.colorCustomizations": {
-    "editorCursor.foreground": "#2f1717",
+    "editorCursor.foreground": "#fbf8f8",
     // "titleBar.activeBackground": "#01194eea",
     "titleBar.activeForeground": "#e0f3e0c0",
     "activityBar.activeBackground": "#e0f3e0c0",
     "activityBar.activeFocusBorder": "#bae0e96c",
     "activityBar.activeBorder": "#bae0e96c",
     // "activityBar.background": "#01194eea",
-    "tab.activeBorderTop": "#bae0e96c",
-    "tab.activeBackground": "#d3ecf36c"
+    "tab.activeBorderTop": "#098fad6c",
+    "tab.activeBackground": "#ffffff6c"
   },
   "editor.tokenColorCustomizations": {
-    "comments": "#3284aeea"
+    "comments": "#3fbd52ea"
   }
 }

@@ -70,3 +70,13 @@
   -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
+
+.video-div {
+  video::-webkit-media-controls-current-time-display {
+    display: none;
+  }
+
+  video::-webkit-media-controls-time-remaining-display {
+    display: none;
+  }
+}

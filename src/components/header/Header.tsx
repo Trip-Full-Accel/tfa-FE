@@ -14,7 +14,6 @@ const Header = () => {
 
   const tfaPath: tfaPath[] = [
     { name: "사이트 설명", value: "tfaInfo" },
-    { name: "여행가기", value: "maps" },
     { name: "마이페이지", value: "myPage" },
     { name: "사진보기", value: "photo" },
   ];
@@ -24,7 +23,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 1 }}>
       <>
         <Navbar bg="dark" variant="dark">
           <Container>

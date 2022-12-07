@@ -1,5 +1,4 @@
 .footer-div {
-  box-shadow: lightgrey 3px 3px 3px 3px;
   justify-content: space-evenly;
   display: flex;
   padding-top: 3em;
@@ -10,5 +9,4 @@
   background-color: #fafafa;
   height: 96px;
   position: relative;
-  transform: translateY(-100%);
 }

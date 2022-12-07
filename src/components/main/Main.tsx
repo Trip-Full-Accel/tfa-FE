@@ -53,7 +53,7 @@ const Main = () => {
           <button
             className="main-start-btn"
             onClick={() => {
-              tripStart("/maps");
+              tripStart("/");
             }}
           >
             <span>Start</span>
@@ -67,8 +67,8 @@ const Main = () => {
             muted
             className="main-video"
             src="./video/seoul_intro.mp4"
-            autoPlay //확인요망
-            loop //확인요망
+            autoPlay
+            loop
           ></video>
         </div>{" "}
       </div>

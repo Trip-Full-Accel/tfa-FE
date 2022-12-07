@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface props {
   name: string;
@@ -9,7 +10,7 @@ interface props {
 const TourList = ({ name, x, y }: props) => {
   // console.log(x, y);
   const [addr, setAddr] = useState([{ name: "서울시청" }]);
-  const location = useLocation<any>();
+  const location = useLocation();
 
   const [markers, setMarkers] = useState<any[]>([
     {

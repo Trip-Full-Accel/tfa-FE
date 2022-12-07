@@ -1,17 +1,26 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import HeaderList from "./HeaderList";
 import Topbtn from "./../topbtn/Topbtn";
+import LoginModal from "components/login/LoginModal";
+import { Button, Modal } from "react-bootstrap";
 type tfaPath = {
   value: string;
   name: string;
 };
 const Header = () => {
-  const navigate = useNavigate();
+  const [lgShow, setLgShow] = useState(false);
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+    console.log("모달 실행됨");
+  }, [isOpenModal]);
+
+  const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
     { name: "사이트 설명", value: "tfaInfo" },
     { name: "마이페이지", value: "myPage" },
@@ -46,14 +55,36 @@ const Header = () => {
                   ></HeaderList>
                 );
               })}
-
-              <Nav.Link>Join Us</Nav.Link>
+              <Nav.Link onClick={() => onClickToggleModal()}>Join Us</Nav.Link>
+              {/*  */}
+              {/* <Button variant="primary" onClick={() => setLgShow(true)}>
+                Custom Width Modal
+              </Button> */}
             </Nav>
           </Container>
 
           <Topbtn></Topbtn>
         </Navbar>
       </>
+      {/* <Modal
+        size="lg"
+        show={lgShow}
+        // style={{ marginTop: "100px" }}
+        onHide={() => setLgShow(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            Large Modal
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>로그인 메뉴</Modal.Body>
+      </Modal> */}
+      {isOpenModal && (
+        <LoginModal onClickToggleModal={onClickToggleModal}>
+          이곳에 children이 들어갑니다.
+        </LoginModal>
+      )}
     </div>
   );
 };

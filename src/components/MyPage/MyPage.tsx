@@ -25,7 +25,9 @@ const MyPage = () => {
             <Nav.Item>
               {myPageList.map((el) => {
                 return (
-                  <Nav.Link eventKey={el.pageKey}>{el.pageKorName}</Nav.Link>
+                  <Nav.Link key={el.pageKey} eventKey={el.pageKey}>
+                    {el.pageKorName}
+                  </Nav.Link>
                 );
               })}
             </Nav.Item>

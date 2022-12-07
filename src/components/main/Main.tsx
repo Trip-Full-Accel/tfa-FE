@@ -78,6 +78,7 @@ const Main = () => {
       {/* 이미지 슬라이드 시작 */}
       <div style={{ display: "inline-flex", marginTop: "150px" }}>
         <div style={{ margin: "20px" }}>
+          {/* <AutoPlay></AutoPlay> */}
           <div className="main-maps" style={{ fontFamily: "caveat" }}>
             {data.map((el: { name: string; x: string; y: string }) => {
               return (
@@ -90,7 +91,6 @@ const Main = () => {
               );
             })}
           </div>
-          <AutoPlay></AutoPlay>
         </div>
       </div>
     </div>

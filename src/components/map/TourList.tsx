@@ -9,7 +9,6 @@ interface props {
 const TourList = ({ name, x, y }: props) => {
   // console.log(x, y);
   const [addr, setAddr] = useState([{ name: "서울시청" }]);
-  const location = useLocation<any>();
 
   const [markers, setMarkers] = useState<any[]>([
     {
@@ -20,23 +19,16 @@ const TourList = ({ name, x, y }: props) => {
       },
     },
   ]);
-  // useEffect(() => {}, [setMarkers]);
-  // useEffect(() => {
-  //   if (location.state?.x && location.state?.y)
-  //     setMarkers([
-  //       {
-  //         position: {
-  //           lat: location.state.x,
-  //           lng: location.state.y,
-  //         },
-  //       },
-  //     ]);
-  //   city.map((el) => {
-  //     if (location.state?.x == el.x) {
-  //       setAddr([{ name: el.name }]);
-  //     }
-  //   });
-  // }, [location.state]);
+  useEffect(() => {
+    setMarkers([
+      {
+        position: {
+          lat: x,
+          lng: y,
+        },
+      },
+    ]);
+  }, [setMarkers]);
   return (
     <div key={name}>
       <div className="">
@@ -54,7 +46,7 @@ const TourList = ({ name, x, y }: props) => {
                 },
               },
             ]);
-            // console.log(markers);
+            console.log(x);
             setAddr([{ name: name }]);
             // console.log(name);
           }}

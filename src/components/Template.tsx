@@ -15,7 +15,7 @@ const Template = () => {
       }}
     >
       <Header></Header>
-      <div style={{ flex: 1, width: "100%" }}>
+      <div style={{ flex: 1, width: "100%", paddingTop: "56px" }}>
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

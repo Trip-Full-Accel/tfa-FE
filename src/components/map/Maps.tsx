@@ -14,8 +14,8 @@ interface city {
 interface travelPoint {
   city: string;
   name: string;
-  x: number;
-  y: number;
+  x: string;
+  y: string;
 }
 
 const Maps = () => {
@@ -42,13 +42,23 @@ const Maps = () => {
   ];
 
   const travelPoint = [
-    { city: "서울시청", name: "남산타워", x: 37.551343, y: 126.9881371 },
-    { city: "서울시청", name: "롯데월드", x: 37.5112348, y: 127.0980274 },
-    { city: "서울시청", name: "한강", x: 37.5175177, y: 126.9588607 },
-    { city: "서울시청", name: "도깨비야시장", x: 37.5308271, y: 126.9283536 },
-    { city: "서울시청", name: "엔코아", x: 37.549081, y: 126.953969 },
-    { city: "서울시청", name: "플레이데이터", x: 37.4681345, y: 126.8861139 },
-    { city: "서울시청", name: "광화문", x: 37.571665, y: 126.976502 },
+    { city: "서울시청", name: "남산타워", x: "37.551343", y: "126.9881371" },
+    { city: "서울시청", name: "롯데월드", x: "37.5112348", y: "127.0980274" },
+    { city: "서울시청", name: "한강", x: "37.5175177", y: "126.9588607" },
+    {
+      city: "서울시청",
+      name: "도깨비야시장",
+      x: "37.5308271",
+      y: "126.9283536",
+    },
+    { city: "서울시청", name: "엔코아", x: "37.549081", y: "126.953969" },
+    {
+      city: "서울시청",
+      name: "플레이데이터",
+      x: "37.4681345",
+      y: "126.8861139",
+    },
+    { city: "서울시청", name: "광화문", x: "37.571665", y: "126.976502" },
   ];
 
   useEffect(() => {
@@ -143,7 +153,12 @@ const Maps = () => {
         </a>
         {travelPoint.map((el) => {
           return (
-            <TourList key={el.name} name={el.name} x={el.x} y={el.y}></TourList>
+            <TourList
+              key={el.name + el.x}
+              name={el.name}
+              x={el.x}
+              y={el.y}
+            ></TourList>
           );
         })}
       </div>

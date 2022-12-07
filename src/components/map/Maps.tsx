@@ -14,8 +14,8 @@ interface city {
 interface travelPoint {
   city: string;
   name: string;
-  x: string;
-  y: string;
+  x: number;
+  y: number;
 }
 
 const Maps = () => {
@@ -42,23 +42,7 @@ const Maps = () => {
   ];
 
   const travelPoint = [
-    { city: "서울시청", name: "남산타워", x: "37.551343", y: "126.9881371" },
-    { city: "서울시청", name: "롯데월드", x: "37.5112348", y: "127.0980274" },
-    { city: "서울시청", name: "한강", x: "37.5175177", y: "126.9588607" },
-    {
-      city: "서울시청",
-      name: "도깨비야시장",
-      x: "37.5308271",
-      y: "126.9283536",
-    },
-    { city: "서울시청", name: "엔코아", x: "37.549081", y: "126.953969" },
-    {
-      city: "서울시청",
-      name: "플레이데이터",
-      x: "37.4681345",
-      y: "126.8861139",
-    },
-    { city: "서울시청", name: "광화문", x: "37.571665", y: "126.976502" },
+    { city: "서울시청", name: "남산타워", x: 37.551343, y: 126.9881371 },
   ];
 
   useEffect(() => {
@@ -153,12 +137,47 @@ const Maps = () => {
         </a>
         {travelPoint.map((el) => {
           return (
-            <TourList
-              key={el.name + el.x}
-              name={el.name}
-              x={el.x}
-              y={el.y}
-            ></TourList>
+            // TourList로 분기하게되면 Mapmarker사용 불가능해서 분기못함 추후에 리덕스에서 가져오면 가능할지도..
+            // ex - BE에서 보내주는 값을 리덕스에 정리해서 TourList에서도 받고 Maps에서도 받아서 동시에 처리하도록
+
+            // <TourList
+            //   key={el.name + el.x}
+            //   name={el.name}
+            //   x={el.x}
+            //   y={el.y}
+            // ></TourList>
+
+            <div key={el.name}>
+              <div className="">
+                <a
+                  href="#"
+                  className=""
+                  aria-current="true"
+                  onClick={() => {
+                    setMarkers([
+                      ...markers,
+                      {
+                        position: {
+                          lat: el.x,
+                          lng: el.y,
+                        },
+                      },
+                    ]);
+                    console.log(el.x);
+                    console.log(el.y);
+
+                    setAddr([{ name: el.name }]);
+                    // console.log(name);
+                  }}
+                >
+                  <strong className="">{el.name}</strong>
+                </a>
+                <div className="">
+                  <small>사진넣을거임</small>
+                </div>
+                <div className="">관광지 설명</div>
+              </div>
+            </div>
           );
         })}
       </div>

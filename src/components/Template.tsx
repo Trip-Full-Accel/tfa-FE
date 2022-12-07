@@ -4,9 +4,20 @@ import Footer from "./footer/Footer";
 
 const Template = () => {
   return (
-    <div style={{ height: "auto", minHeight: "100%", paddingBottom: "96px" }}>
+    <div
+      style={{
+        height: "auto",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        // width: "max-content",
+      }}
+    >
       <Header></Header>
-      <Outlet></Outlet>
+      <div style={{ flex: 1, width: "100%" }}>
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
     </div>
   );

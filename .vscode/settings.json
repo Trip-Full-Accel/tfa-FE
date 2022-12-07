@@ -2,7 +2,7 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "workbench.colorCustomizations": {
     "editorCursor.foreground": "#2f1717",
-    // "titleBar.activeBackground": "#01194eea",
+    // "titleBar.activeBackground": "#e0f3e0c0",
     "titleBar.activeForeground": "#e0f3e0c0",
     "activityBar.activeBackground": "#e0f3e0c0",
     "activityBar.activeFocusBorder": "#bae0e96c",

@@ -4,7 +4,7 @@ import Footer from "./footer/Footer";
 
 const Template = () => {
   return (
-    <div>
+    <div style={{ height: "auto", minHeight: "100%", paddingBottom: "96px" }}>
       <Header></Header>
       <Outlet></Outlet>
       <Footer></Footer>

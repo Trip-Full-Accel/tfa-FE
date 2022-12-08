@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,12 +9,32 @@ import LoginModal from "components/login/LoginModal";
 import { Button, Modal } from "react-bootstrap";
 import "../../static/loginBtn.css";
 import { Input } from "reactstrap";
+import "../../static/modal.css";
+
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+  MDBInput,
+} from "mdb-react-ui-kit";
 
 type tfaPath = {
   value: string;
   name: string;
 };
 const Header = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", updateScroll);
+  });
   const [lgShow, setLgShow] = useState(false);
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
@@ -36,53 +56,127 @@ const Header = () => {
 
   return (
     <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 1 }}>
-      <>
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand
-              onClick={() => {
-                linkTo("/");
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              TripFullAccel
-            </Navbar.Brand>
-
-            <Nav className="me-auto">
-              {tfaPath.map((el) => {
-                return (
-                  <HeaderList
-                    key={el.name}
-                    value={el.value}
-                    name={el.name}
-                  ></HeaderList>
-                );
-              })}
-              <Nav.Link onClick={() => onClickToggleModal()}>Join Us</Nav.Link>
-              {/*  */}
-              {/* <Button variant="primary" onClick={() => setLgShow(true)}>
-                Custom Width Modal
-              </Button> */}
-            </Nav>
-          </Container>
-
-          <Topbtn></Topbtn>
-        </Navbar>
-      </>
-      {/* <Modal
+      <nav
+        className={scrollPosition < 100 ? "original_header" : "change_header"}
+        style={{
+          display: "flex",
+          alignContent: "center",
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
+        <button
+          onClick={() => {
+            linkTo("/");
+          }}
+          style={{
+            cursor: "pointer",
+            border: "none",
+            backgroundColor: "transparent",
+            fontSize: "30px",
+          }}
+        >
+          TripFullAccel
+        </button>
+        <div style={{ display: "flex", placeItems: "center", float: "right" }}>
+          {tfaPath.map((el) => {
+            return (
+              <HeaderList
+                key={el.name}
+                value={el.value}
+                name={el.name}
+              ></HeaderList>
+            );
+          })}
+          <a
+            onClick={() => onClickToggleModal()}
+            style={{ fontSize: "16px", margin: "0", color: "white" }}
+          >
+            Join Us
+          </a>
+          <Button variant="primary" onClick={() => setLgShow(true)}>
+            Custom Width Modal
+          </Button>
+        </div>
+      </nav>
+      <Topbtn></Topbtn>
+      <Modal
+        // className="loginM"
         size="lg"
         show={lgShow}
-        // style={{ marginTop: "100px" }}
         onHide={() => setLgShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
+        style={{ borderRadius: "5%" }}
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
-            Large Modal
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>로그인 메뉴</Modal.Body>
-      </Modal> */}
+        {/* mdb 모달 테스트 */}
+        {/* <MDBContainer className="my-5"> */}
+        <MDBCard
+          style={{
+            width: "100%",
+            height: "100%",
+            // borderRadius: "5%",
+            border: "none",
+          }}
+        >
+          <MDBRow className="g-0">
+            <MDBCol md="6">
+              <MDBCardImage
+                src="/img/login.webp"
+                alt="login form"
+                className="rounded-start w-100"
+                style={{ height: "510px" }}
+              />
+            </MDBCol>
+
+            <MDBCol md="6">
+              <MDBCardBody className="d-flex flex-column">
+                <div className="d-flex flex-row mt-2">
+                  <span className="h1 fw-bold mb-0">Trip Full Accel</span>
+                </div>
+                <hr></hr>
+
+                <Input
+                  placeholder="ID"
+                  wrapperClass="mb-4"
+                  id="formControlLg"
+                  type="text"
+                />
+                <Input
+                  placeholder="PASSWORD"
+                  wrapperClass="mb-4"
+                  id="formControlLg"
+                  type="password"
+                />
+
+                <Button className="mb-4 px-5" color="light" size="lg">
+                  Login
+                </Button>
+                <a className="small text-muted" href="#!">
+                  비밀번호를 잊으셨나요?
+                </a>
+
+                <a href="#!" style={{ color: "#393f81" }}>
+                  회원가입
+                </a>
+
+                <div className="wrapper">
+                  <a href="#" className="icon">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+
+                  <a href="#" className="icon">
+                    <i className="fab fa-google-plus-g"></i>
+                  </a>
+                  <a href="#" className="icon">
+                    <i className="fab fa-youtube"></i>
+                  </a>
+                </div>
+              </MDBCardBody>
+            </MDBCol>
+          </MDBRow>
+        </MDBCard>
+        {/* </MDBContainer> */}
+      </Modal>
       {isOpenModal && (
         <LoginModal onClickToggleModal={onClickToggleModal}>
           <div style={{ display: " flex" }}>
@@ -111,18 +205,6 @@ const Header = () => {
                     </a>
                   </div>
                 </svg>
-              </div>
-              <div className="wrapper">
-                <a href="#" className="icon">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-
-                <a href="#" className="icon">
-                  <i className="fab fa-google-plus-g"></i>
-                </a>
-                <a href="#" className="icon">
-                  <i className="fab fa-youtube"></i>
-                </a>
               </div>
 
               <a href="#">Sing in</a>

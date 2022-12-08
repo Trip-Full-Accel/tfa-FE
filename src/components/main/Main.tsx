@@ -1,5 +1,6 @@
 import { stringify } from "querystring";
 import { useRef, useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../../static/login.css";
 import "../../static/main.css";
@@ -74,7 +75,6 @@ const Main = () => {
           ></video>
         </div>{" "}
       </div>
-
       {/* 이미지 슬라이드 시작 */}
       <div style={{ display: "inline-flex", marginTop: "150px" }}>
         <div style={{ margin: "20px" }}>

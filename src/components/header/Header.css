@@ -1,0 +1,31 @@
+@import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
+.original_header {
+  position: fixed;
+  color: transparent;
+  font-family: "NanumSquare", sans-serif;
+  background-color: #11ffee00;
+  font-size: 40px;
+  font-weight: 400;
+  width: 100%;
+  height: 80px;
+  top: 0;
+  /* transition: 2.8; */
+}
+.change_header {
+  position: fixed;
+  color: black;
+  font-family: "NanumSquare", sans-serif;
+  background-color: #fafafa;
+  font-size: 40px;
+  font-weight: 400;
+  width: 100%;
+  height: 80px;
+  top: 0;
+  border-bottom: 1px solid #ebebeb;
+}
+.original_header_list {
+  color: white;
+}
+.change_header_list {
+  color: black !important;
+}

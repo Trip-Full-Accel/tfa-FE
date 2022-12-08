@@ -1,5 +1,5 @@
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .wrapper {
@@ -47,17 +47,16 @@ a {
       fill. Multiple svg-wrapper classes can be put side by side.
   */
 
-.svg-wrapper {
+/* .svg-wrapper {
   margin-top: 0;
   position: relative;
   width: 150px;
-  /*make sure to use same height/width as in the html*/
   height: 40px;
   display: inline-block;
   border-radius: 3px;
   margin-left: 5px;
   margin-right: 5px;
-}
+} */
 /*
     This is where we define the fill, color, thickness,
     and stroke pattern of the SVG when there is no hover.

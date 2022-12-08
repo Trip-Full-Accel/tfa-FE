@@ -1,0 +1,42 @@
+.lginput:focus::placeholder {
+  color: transparent;
+}
+.lginput::placeholder {
+  font-weight: 100;
+}
+.lginputid {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+}
+.lginputpw {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+}
+.h1 fw-bold mb-0 {
+  /* margin-bottom: 2rem !important; */
+}
+.small text-muted {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.wrapper {
+  margin-top: 10px;
+}
+.loginM {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  top: 50% !important;
+  left: 50% !important;
+}
+
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}

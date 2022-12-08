@@ -15,7 +15,7 @@ const UserInfo = () => {
   //   dispatch(increment(count));
   // };
   return (
-    <div>
+    <div style={{ padding: "80px" }}>
       <p>리덕스에서 불러온 상수 : {count}</p>
       <p>
         리덕스에서 불러온 api데이터 : {status === "succeeded" && data}

@@ -1,4 +1,10 @@
+import AutoPlay from "components/slide/Slider";
+
 const Photo = () => {
-  return <div>사진 & three.js 뿌려줄화면</div>;
+  return (
+    <div style={{ padding: "80px" }}>
+      <AutoPlay></AutoPlay>
+    </div>
+  );
 };
 export default Photo;

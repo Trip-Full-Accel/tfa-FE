@@ -1,10 +1,11 @@
+.main {
+  display: flex;
+}
+
 .left-div {
   text-align: center;
-  float: left;
   font-family: "Nanum Pen Script", cursive;
-  position: absolute;
-  top: 50%;
-  transform: translate(25%, -50%);
+  align-self: center;
 }
 
 .main-video {

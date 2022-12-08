@@ -51,7 +51,7 @@ const Main = () => {
   return (
     <div style={{ backgroundColor: "#fafafa" }}>
       <div className="main">
-        <div className="left-div" style={{ alignItems: "right" }}>
+        <div className="left-div" style={{ alignItems: "right", width: "40%" }}>
           <h1 style={{ fontFamily: "Caveat" }}>TFA</h1>
           <br />
           <h3 style={{ fontFamily: "Caveat" }}>
@@ -64,7 +64,7 @@ const Main = () => {
           <br />
         </div>
         {/* video */}
-        <div className="video-div">
+        <div className="video-div" style={{}}>
           <video
             controls
             muted

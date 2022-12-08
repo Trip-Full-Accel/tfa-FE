@@ -33,26 +33,28 @@ const ModalContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  transition: 2s;
+  // transition: 2s;
+  border-radius: 20px;
 `;
 
 const DialogBox = styled.dialog`
-  width: 800px;
-  height: 400px;
   display: flex;
   flex-direction: column;
-  transition: 2s;
+  // transition: 2s;
   align-items: center;
   border: none;
-  border-radius: 3px;
+  border-radius: 20px;
   box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
   box-sizing: border-box;
   background-color: white;
   z-index: 10000;
+  width: "80%";
+  height: "80%";
 `;
 
 const Backdrop = styled.div`
-  transition: 2s;
+  border-radius: 20px;
+  // transition: 2s;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -62,3 +64,34 @@ const Backdrop = styled.div`
 `;
 
 export default Modal;
+
+// const LoginModal2 = () => {
+//   return (
+//     <div>
+//       <Modal
+//         // show={show}
+//         // onHide={() => setShow(false)}
+//         dialogClassName="modal-90w"
+//         aria-labelledby="example-custom-modal-styling-title"
+//       >
+//         <Modal.Header>
+//           <Modal.Title id="example-custom-modal-styling-title">
+//             Custom Modal Styling
+//           </Modal.Title>
+//         </Modal.Header>
+//         <Modal.Body>
+//           <p>
+//             Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
+//             commodi aspernatur enim, consectetur. Cumque deleniti temporibus
+//             ipsam atque a dolores quisquam quisquam adipisci possimus
+//             laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
+//             accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
+//             reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
+//             deleniti rem!
+//           </p>
+//         </Modal.Body>
+//       </Modal>
+//     </div>
+//   );
+// };
+// export default LoginModal2;

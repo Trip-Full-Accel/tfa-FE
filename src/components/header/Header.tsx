@@ -7,6 +7,9 @@ import HeaderList from "./HeaderList";
 import Topbtn from "./../topbtn/Topbtn";
 import LoginModal from "components/login/LoginModal";
 import { Button, Modal } from "react-bootstrap";
+import "../../static/loginBtn.css";
+import { Input } from "reactstrap";
+
 type tfaPath = {
   value: string;
   name: string;
@@ -82,7 +85,59 @@ const Header = () => {
       </Modal> */}
       {isOpenModal && (
         <LoginModal onClickToggleModal={onClickToggleModal}>
-          이곳에 children이 들어갑니다.
+          <div style={{ display: " flex" }}>
+            <div
+              style={{
+                display: "grid",
+                justifyItems: "center",
+                alignContent: "space-evenly",
+                width: "50%",
+              }}
+            >
+              <h2 style={{ display: "flex", justifyContent: "space-between" }}>
+                {" "}
+                <i className="fa-solid fa-plane"></i>Trip Full Accel
+              </h2>
+
+              <Input style={{ width: "70%" }} placeholder="id" />
+              <Input style={{ width: "70%" }} placeholder="pw" />
+
+              <div className="svg-wrapper">
+                <svg height="40" width="150">
+                  <rect id="shape" height="40" width="150" />
+                  <div id="text">
+                    <a href="#" style={{ color: "black" }}>
+                      <span className="spot"></span>로그인
+                    </a>
+                  </div>
+                </svg>
+              </div>
+              <div className="wrapper">
+                <a href="#" className="icon">
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="#" className="icon">
+                  <i className="fab fa-google-plus-g"></i>
+                </a>
+                <a href="#" className="icon">
+                  <i className="fab fa-youtube"></i>
+                </a>
+              </div>
+
+              <a href="#">Sing in</a>
+            </div>
+            <div style={{ width: "50%" }}>
+              <img
+                src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191229153530528_ttiel"
+                style={{
+                  width: "100%",
+                  height: "500px",
+                  borderRadius: "0  20px 20px 0",
+                }}
+              ></img>
+            </div>
+          </div>
         </LoginModal>
       )}
     </div>

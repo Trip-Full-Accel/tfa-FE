@@ -58,7 +58,6 @@ export default class AutoPlay extends Component {
             </div>
           </Slider>
           <br></br>
-          <h2>snapshot</h2>
         </div>
       </div>
     );

@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import HeaderList from "./HeaderList";
 import Topbtn from "./../topbtn/Topbtn";
 import LoginModal from "components/login/LoginModal";
-import { Button, Modal } from "react-bootstrap";
 import "../../static/loginBtn.css";
-import { Input } from "reactstrap";
+// import Input from "reactstrap";
+import { Button, Modal } from "react-bootstrap";
+import "./Header.css";
+import "./modal.css";
 import "../../static/modal.css";
 
 import {
@@ -22,12 +24,22 @@ import {
   MDBIcon,
   MDBInput,
 } from "mdb-react-ui-kit";
+import { Input } from "reactstrap";
+import "../../static/modal.css";
 
 type tfaPath = {
   value: string;
   name: string;
 };
 const Header = () => {
+  const [lgShow, setLgShow] = useState(false);
+  // const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  // const onClickToggleModal = useCallback(() => {
+  // setOpenModal(!isOpenModal);
+  // console.log("모달 실행됨");
+  // }, [isOpenModal]);
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -35,19 +47,12 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
-  const [lgShow, setLgShow] = useState(false);
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-    console.log("모달 실행됨");
-  }, [isOpenModal]);
 
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
-    { name: "사이트 설명", value: "tfaInfo" },
-    { name: "마이페이지", value: "myPage" },
-    { name: "사진보기", value: "photo" },
+    { name: "Info", value: "tfaInfo" },
+    // { name: "마이페이지", value: "myPage" },
+    { name: "Photo", value: "photo" },
   ];
 
   const linkTo = (path: string) => {
@@ -57,51 +62,74 @@ const Header = () => {
   return (
     <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 1 }}>
       <nav
-        className={scrollPosition < 100 ? "original_header" : "change_header"}
+        className={scrollPosition < 10 ? "original_header" : "change_header"}
         style={{
           display: "flex",
           alignContent: "center",
           flexDirection: "row",
           flexWrap: "wrap",
+          border: "none",
+          // boxShadow:
+          // "0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%) !important",
         }}
       >
-        <button
-          onClick={() => {
-            linkTo("/");
-          }}
+        <div
           style={{
-            cursor: "pointer",
-            border: "none",
-            backgroundColor: "transparent",
-            fontSize: "30px",
+            display: "flex",
+            justifyContent: "space-between",
+            width: "90%",
+            alignItems: "center",
           }}
         >
-          TripFullAccel
-        </button>
-        <div style={{ display: "flex", placeItems: "center", float: "right" }}>
-          {tfaPath.map((el) => {
-            return (
-              <HeaderList
-                key={el.name}
-                value={el.value}
-                name={el.name}
-              ></HeaderList>
-            );
-          })}
-          <a
-            onClick={() => onClickToggleModal()}
-            style={{ fontSize: "16px", margin: "0", color: "white" }}
+          <div className="titleDiv">
+            <b
+              onClick={() => {
+                linkTo("/");
+              }}
+              style={{
+                color: "black",
+                cursor: "pointer",
+                border: "none",
+                backgroundColor: "transparent",
+                fontSize: "30px",
+                float: "left",
+              }}
+            >
+              TripFullAccel
+            </b>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              cursor: "pointer",
+            }}
           >
-            Join Us
-          </a>
-          <Button variant="primary" onClick={() => setLgShow(true)}>
-            Custom Width Modal
-          </Button>
+            {tfaPath.map((el) => {
+              return (
+                <HeaderList
+                  key={el.name}
+                  value={el.value}
+                  name={el.name}
+                ></HeaderList>
+              );
+            })}
+            <div
+              style={{ padding: "0 10px" }}
+              className={
+                scrollPosition < 10
+                  ? "original_header_list"
+                  : "change_header_list"
+              }
+              onClick={() => setLgShow(true)}
+            >
+              &nbsp; Join
+            </div>
+          </div>
         </div>
       </nav>
-      <Topbtn></Topbtn>
+
       <Modal
-        // className="loginM"
+        className="loginM"
         size="lg"
         show={lgShow}
         onHide={() => setLgShow(false)}
@@ -124,24 +152,31 @@ const Header = () => {
                 src="/img/login.webp"
                 alt="login form"
                 className="rounded-start w-100"
-                style={{ height: "510px" }}
+                style={{ height: "513px" }}
               />
             </MDBCol>
 
             <MDBCol md="6">
               <MDBCardBody className="d-flex flex-column">
                 <div className="d-flex flex-row mt-2">
-                  <span className="h1 fw-bold mb-0">Trip Full Accel</span>
+                  <span
+                    className="h1 fw-bold mb-0"
+                    style={{ marginTop: "3rem" }}
+                  >
+                    Trip Full Accel
+                  </span>
                 </div>
-                <hr></hr>
 
                 <Input
+                  className="lginputid"
                   placeholder="ID"
                   wrapperClass="mb-4"
                   id="formControlLg"
                   type="text"
+                  style={{ marginTop: "2rem" }}
                 />
                 <Input
+                  className="lginputpw"
                   placeholder="PASSWORD"
                   wrapperClass="mb-4"
                   id="formControlLg"
@@ -177,51 +212,7 @@ const Header = () => {
         </MDBCard>
         {/* </MDBContainer> */}
       </Modal>
-      {isOpenModal && (
-        <LoginModal onClickToggleModal={onClickToggleModal}>
-          <div style={{ display: " flex" }}>
-            <div
-              style={{
-                display: "grid",
-                justifyItems: "center",
-                alignContent: "space-evenly",
-                width: "50%",
-              }}
-            >
-              <h2 style={{ display: "flex", justifyContent: "space-between" }}>
-                {" "}
-                <i className="fa-solid fa-plane"></i>Trip Full Accel
-              </h2>
-
-              <Input style={{ width: "70%" }} placeholder="id" />
-              <Input style={{ width: "70%" }} placeholder="pw" />
-
-              <div className="svg-wrapper">
-                <svg height="40" width="150">
-                  <rect id="shape" height="40" width="150" />
-                  <div id="text">
-                    <a href="#" style={{ color: "black" }}>
-                      <span className="spot"></span>로그인
-                    </a>
-                  </div>
-                </svg>
-              </div>
-
-              <a href="#">Sing in</a>
-            </div>
-            <div style={{ width: "50%" }}>
-              <img
-                src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191229153530528_ttiel"
-                style={{
-                  width: "100%",
-                  height: "500px",
-                  borderRadius: "0  20px 20px 0",
-                }}
-              ></img>
-            </div>
-          </div>
-        </LoginModal>
-      )}
+      <Topbtn></Topbtn>
     </div>
   );
 };

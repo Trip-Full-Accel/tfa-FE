@@ -4,7 +4,7 @@ import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
 import HeaderList from "./HeaderList";
 import { Button, Modal } from "react-bootstrap";
-import "../../static/modal.css";
+import "../../static/bootmodal.css";
 import "./Header.css";
 import "./modal.css";
 
@@ -17,7 +17,7 @@ import {
   MDBRow,
 } from "mdb-react-ui-kit";
 import { Input } from "reactstrap";
-import "../../static/modal.css";
+import "../../static/bootmodal.css";
 
 type tfaPath = {
   value: string;
@@ -67,8 +67,8 @@ const Header = () => {
 
   const loginImg = () => {
     var imgList = [];
-    imgList.push("/img/login/login1.webp");
-    imgList.push("/img/login/login2.png");
+    imgList.push("/img/login/login1.jpg");
+    imgList.push("/img/login/login2.jpg");
     imgList.push("/img/login/login3.jpg");
     imgList.push("/img/login/login4.jpg");
     imgList.push("/img/login/login5.jpg");
@@ -82,7 +82,7 @@ const Header = () => {
   };
 
   return (
-    <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 1 }}>
+    <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 2 }}>
       <nav
         className={scrollPosition < 10 ? "original_header" : "change_header"}
         style={{
@@ -113,6 +113,7 @@ const Header = () => {
                 backgroundColor: "transparent",
                 fontSize: "30px",
                 float: "left",
+                zIndex: "9999",
               }}
             >
               TripFullAccel
@@ -166,10 +167,7 @@ const Header = () => {
             <MDBCol md="6">
               <MDBCardImage
                 onBlur={MDBIcon}
-                src={
-                  loginImg()
-                  // scrollPosition > 10 ? "/img/login.webp" : "/img/login2.png"
-                }
+                src={loginImg()}
                 alt="login form"
                 className="rounded-start w-100"
                 style={{ height: "513px" }}

@@ -13,7 +13,6 @@ const MyRoute = () => {
         <Route element={<Template></Template>}>
           <Route path="" element={<Main></Main>}></Route>
           <Route path="maps" element={<Maps></Maps>}></Route>
-          {/* <Route path="login" element={""}></Route> */}
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
 

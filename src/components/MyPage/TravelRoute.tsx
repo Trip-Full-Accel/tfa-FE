@@ -1,5 +1,3 @@
-import "../../static/test.css";
-
 const TravelRoute = () => {
   return (
     <div>

@@ -8,7 +8,6 @@ interface props {
 }
 
 const TourList = ({ name, x, y }: props) => {
-  // console.log(x, y);
   const [addr, setAddr] = useState([{ name: "서울시청" }]);
 
   const [markers, setMarkers] = useState<any[]>([
@@ -47,9 +46,7 @@ const TourList = ({ name, x, y }: props) => {
                 },
               },
             ]);
-            console.log(x);
             setAddr([{ name: name }]);
-            // console.log(name);
           }}
         >
           <strong className="">{name}</strong>

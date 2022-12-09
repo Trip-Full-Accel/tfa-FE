@@ -1,0 +1,30 @@
+.modal-open {
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+.rounded-start w-100 {
+  border-radius: 5% 0 0 5% !important;
+}
+
+.loginM {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  top: 50% !important;
+  left: 50% !important;
+}
+
+@media screen {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+.modal-dialog {
+  width: 800px !important;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}

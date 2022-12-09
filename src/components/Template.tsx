@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
-// import "/static/template.css";
 import "../static/template.css";
 
 const Template = () => {
@@ -24,7 +23,6 @@ const Template = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        // width: "max-content",
       }}
     >
       <Header></Header>

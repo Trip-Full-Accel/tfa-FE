@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-
+import "./silder.css";
 export default class AutoPlay extends Component {
   render() {
     const settings = {
@@ -8,9 +8,8 @@ export default class AutoPlay extends Component {
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: true,
-      speed: 3000,
-      autoplaySpeed: 5000,
+      autoplay: false,
+      speed: 700,
       cssEase: "linear",
     };
 
@@ -58,7 +57,6 @@ export default class AutoPlay extends Component {
             </div>
           </Slider>
           <br></br>
-          <h2>snapshot</h2>
         </div>
       </div>
     );

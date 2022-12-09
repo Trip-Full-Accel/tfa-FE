@@ -15,6 +15,8 @@ const MyRoute = () => {
           <Route path="maps" element={<Maps></Maps>}></Route>
           {/* <Route path="login" element={""}></Route> */}
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
+          {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
+
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
           <Route path="photo" element={<Photo></Photo>}></Route>
         </Route>

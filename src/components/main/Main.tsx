@@ -1,10 +1,8 @@
-import { stringify } from "querystring";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../static/login.css";
 import "../../static/main.css";
 import "../../static/mainGoToMap.css";
-import AutoPlay from "../slide/Slider";
 import MainBtn from "./MainBtn";
 
 interface dataType {
@@ -12,9 +10,6 @@ interface dataType {
   x: string;
   y: string;
 }
-// interface autoplay {
-//   autoPlay?: boolean | undefined | string;
-// }
 
 const Main = () => {
   const navigate = useNavigate();
@@ -40,28 +35,31 @@ const Main = () => {
     //, { state: { x: x, y: y } }
   };
 
+  const scrollToMap = () => {
+    window.scroll({
+      top: 650,
+      left: 650,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div style={{ backgroundColor: "#fafafa" }}>
       <div className="main">
-        <div className="left-div" style={{ alignItems: "right" }}>
+        <div className="left-div" style={{ alignItems: "right", width: "40%" }}>
           <h1 style={{ fontFamily: "Caveat" }}>TFA</h1>
           <br />
           <h3 style={{ fontFamily: "Caveat" }}>
-            Trip Full Accel에서 여행을 시작하세요
+            Trip Full Accel 에서 여행을 시작하세요
           </h3>
           <br />
-          <button
-            className="main-start-btn"
-            onClick={() => {
-              tripStart("/");
-            }}
-          >
+          <button className="main-start-btn" onClick={scrollToMap}>
             <span>Start</span>
           </button>
           <br />
         </div>
         {/* video */}
-        <div className="video-div">
+        <div className="video-div" style={{}}>
           <video
             controls
             muted
@@ -72,10 +70,13 @@ const Main = () => {
           ></video>
         </div>{" "}
       </div>
-
       {/* 이미지 슬라이드 시작 */}
-      <div style={{ display: "inline-flex", margin: "100px" }}>
+
+      {/* <Polygon></Polygon> */}
+      {/* 폴리곤 끝 */}
+      <div style={{ display: "inline-flex", marginTop: "150px" }}>
         <div style={{ margin: "20px" }}>
+          {/* <AutoPlay></AutoPlay> */}
           <div className="main-maps" style={{ fontFamily: "caveat" }}>
             {data.map((el: { name: string; x: string; y: string }) => {
               return (
@@ -88,7 +89,6 @@ const Main = () => {
               );
             })}
           </div>
-          <AutoPlay></AutoPlay>
         </div>
       </div>
     </div>

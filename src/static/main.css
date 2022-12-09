@@ -1,16 +1,16 @@
+.main {
+  display: flex;
+}
+
 .left-div {
   text-align: center;
-  margin-left: 140px;
-  margin-top: 150px;
-  margin-right: 0px;
-  float: left;
   font-family: "Nanum Pen Script", cursive;
+  align-self: center;
 }
 
 .main-video {
-  width: 835px;
+  width: 900px;
   float: right;
-  height: 470px;
 }
 
 /* .main-start-btn {
@@ -71,12 +71,62 @@
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
-.video-div {
-  video::-webkit-media-controls-current-time-display {
-    display: none;
-  }
+video::-webkit-media-controls-enclosure {
+  display: none;
+}
 
-  video::-webkit-media-controls-time-remaining-display {
-    display: none;
-  }
+video:-webkit-full-page-media::-webkit-media-controls-panel {
+  bottom: 0px;
+}
+
+::-webkit-media-controls {
+  width: inherit;
+  height: 300px;
+  position: relative;
+  display: -webkit-flex !important;
+  font-family: -apple-system;
+  overflow: hidden;
+  /* 전체화면 버튼 */
+}
+.video::-webkit-media-controls-fullscreen-button {
+  display: none !important;
+}
+
+/* 일시정지, 재생 버튼 */
+.video::-webkit-media-controls-play-button {
+}
+
+/* 재생 슬라이드..? */
+.video::-webkit-media-controls-timeline {
+  display: none !important;
+}
+
+/* 현재 진행 시간 */
+.video::-webkit-media-controls-current-time-display {
+  display: none !important;
+}
+
+/* 전체 시간 */
+.video::-webkit-media-controls-time-remaining-display {
+  display: none !important;
+}
+
+/* 음소거 버튼 */
+.video::-webkit-media-controls-mute-button {
+  display: none !important;
+}
+
+/* 볼륨 조절 슬라이드 */
+.video::-webkit-media-controls-volume-slider {
+  display: none !important;
+}
+
+.video::-webkit-media-controls-download-button {
+  /* display: none !important; */
+}
+.video::-webkit-media-controls-enclosure {
+  /* overflow: hidden; */
+}
+.video::-webkit-media-controls-menu-list {
+  display: none !important;
 }

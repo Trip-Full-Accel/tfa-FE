@@ -1,59 +1,238 @@
-import { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { useNavigate } from "react-router-dom";
-import HeaderList from "./HeaderList";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
+import HeaderList from "./HeaderList";
+import { Button, Modal } from "react-bootstrap";
+import "../../static/modal.css";
+import "./Header.css";
+import "./modal.css";
+
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCol,
+  MDBIcon,
+  MDBRow,
+} from "mdb-react-ui-kit";
+import { Input } from "reactstrap";
+import "../../static/modal.css";
+
 type tfaPath = {
   value: string;
   name: string;
 };
 const Header = () => {
-  const navigate = useNavigate();
+  const [lgShow, setLgShow] = useState(false);
+  const [modalImg, setModalImg] = useState<string>("");
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", updateScroll);
+  });
 
+  const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
-    { name: "사이트 설명", value: "tfaInfo" },
-    { name: "마이페이지", value: "myPage" },
-    { name: "사진보기", value: "photo" },
+    { name: "Info", value: "tfaInfo" },
+    // { name: "마이페이지", value: "myPage" },
+    { name: "Photo", value: "photo" },
   ];
 
   const linkTo = (path: string) => {
     navigate(path);
   };
+  const location = useLocation();
+  const loc = location.pathname;
+
+  const locFunction = () => {
+    if (loc == "/tfaInfo") {
+      return "info_header_list";
+    } else if (loc == "/photo") {
+      return "info_header_list";
+    } else if (loc == "/maps") {
+      return "info_header_list";
+    } else if (loc == "/myPage") {
+      return "info_header_list";
+    } else if (loc == "/") {
+      if (scrollPosition < 10) {
+        return "original_header_list";
+      } else {
+        return "change_header_list";
+      }
+    }
+  };
+
+  const loginImg = () => {
+    var imgList = [];
+    imgList.push("/img/login/login1.webp");
+    imgList.push("/img/login/login2.png");
+    imgList.push("/img/login/login3.jpg");
+    imgList.push("/img/login/login4.jpg");
+    imgList.push("/img/login/login5.jpg");
+    imgList.push("/img/login/login6.jpg");
+    imgList.push("/img/login/login7.jpg");
+    imgList.push("/img/login/login8.jpg");
+    let random = Math.round(Math.random() * 7 + 1);
+
+    let imgRandom = imgList[random - 1];
+    return imgRandom;
+  };
 
   return (
     <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 1 }}>
-      <>
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand
+      <nav
+        className={scrollPosition < 10 ? "original_header" : "change_header"}
+        style={{
+          display: "flex",
+          alignContent: "center",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          border: "none",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "90%",
+            alignItems: "center",
+          }}
+        >
+          <div className="titleDiv">
+            <b
               onClick={() => {
                 linkTo("/");
               }}
-              style={{ cursor: "pointer" }}
+              style={{
+                color: "black",
+                cursor: "pointer",
+                border: "none",
+                backgroundColor: "transparent",
+                fontSize: "30px",
+                float: "left",
+              }}
             >
               TripFullAccel
-            </Navbar.Brand>
+            </b>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              cursor: "pointer",
+            }}
+          >
+            {tfaPath.map((el) => {
+              return (
+                <HeaderList
+                  key={el.name}
+                  value={el.value}
+                  name={el.name}
+                ></HeaderList>
+              );
+            })}
+            <div
+              style={{ padding: "0 10px" }}
+              className={locFunction()}
+              onClick={() => setLgShow(true)}
+            >
+              &nbsp; Join
+            </div>
+          </div>
+        </div>
+      </nav>
 
-            <Nav className="me-auto">
-              {tfaPath.map((el) => {
-                return (
-                  <HeaderList
-                    key={el.name}
-                    value={el.value}
-                    name={el.name}
-                  ></HeaderList>
-                );
-              })}
+      <Modal
+        className="loginM"
+        size="lg"
+        show={lgShow}
+        onHide={() => setLgShow(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+        style={{ borderRadius: "5%" }}
+      >
+        {/* mdb 모달 테스트 */}
+        {/* <MDBContainer className="my-5"> */}
+        <MDBCard
+          style={{
+            width: "100%",
+            height: "100%",
+            // borderRadius: "5%",
+            border: "none",
+          }}
+        >
+          <MDBRow className="g-0">
+            <MDBCol md="6">
+              <MDBCardImage
+                onBlur={MDBIcon}
+                src={
+                  loginImg()
+                  // scrollPosition > 10 ? "/img/login.webp" : "/img/login2.png"
+                }
+                alt="login form"
+                className="rounded-start w-100"
+                style={{ height: "513px" }}
+              ></MDBCardImage>
+            </MDBCol>
 
-              <Nav.Link>Join Us</Nav.Link>
-            </Nav>
-          </Container>
+            <MDBCol md="6">
+              <MDBCardBody className="d-flex flex-column">
+                <div className="d-flex flex-row mt-2">
+                  <span
+                    className="h1 fw-bold mb-0"
+                    style={{ marginTop: "3rem" }}
+                  >
+                    Trip Full Accel
+                  </span>
+                </div>
 
-          <Topbtn></Topbtn>
-        </Navbar>
-      </>
+                <Input
+                  className="lginputid"
+                  placeholder="ID"
+                  type="text"
+                  style={{ marginTop: "2rem" }}
+                />
+                <Input
+                  className="lginputpw"
+                  placeholder="PASSWORD"
+                  type="password"
+                />
+
+                <Button
+                  className="mb-4 px-5"
+                  color="light"
+                  size="lg"
+                  onClick={() => loginImg()}
+                >
+                  Login
+                </Button>
+                <a className="small text-muted" href="#!">
+                  비밀번호를 잊으셨나요?
+                </a>
+
+                <a href="#!" style={{ color: "#393f81" }}>
+                  회원가입
+                </a>
+
+                <div className="wrapper">
+                  <a href="#" className="icon">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+
+                  <a href="#" className="icon">
+                    <i className="fab fa-google-plus-g"></i>
+                  </a>
+                  <a href="#" className="icon">
+                    <i className="fab fa-youtube"></i>
+                  </a>
+                </div>
+              </MDBCardBody>
+            </MDBCol>
+          </MDBRow>
+        </MDBCard>
+      </Modal>
+      <Topbtn></Topbtn>
     </div>
   );
 };

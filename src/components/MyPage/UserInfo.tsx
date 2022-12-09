@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
+import { fetchPost } from "store/postMappingTest/postMappingTestReducer";
 import { RootState, AppDispatch } from "store/store";
 import { increment } from "../../store/counter/counterReducer";
-import { fetchPosts } from "../../store/posts/postReducer";
+import { fetchGet } from "../../store/getMappingTest/getMappingTestReducer";
 
 const UserInfo = () => {
   const count = useSelector((state: RootState) => state.counter.value);
-  const data = useSelector((state: RootState) => state.posts.posts);
-  const status = useSelector((state: RootState) => state.posts.status);
-  const error = useSelector((state: RootState) => state.posts.error);
+  const data = useSelector((state: RootState) => state.getMappingTest.posts);
+  const status = useSelector((state: RootState) => state.getMappingTest.status);
+  const error = useSelector((state: RootState) => state.getMappingTest.error);
 
   const dispatch = useDispatch<AppDispatch>();
   console.log(count);
@@ -24,7 +25,8 @@ const UserInfo = () => {
       </p>
       <p>리덕스에서 불러온 status : {status}</p>
       <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(fetchPosts())}>get data</button>
+      <button onClick={() => dispatch(fetchGet())}>get data</button>
+      <button onClick={() => dispatch(fetchPost())}>send data</button>
     </div>
   );
 };

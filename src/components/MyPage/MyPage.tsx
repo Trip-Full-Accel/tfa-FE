@@ -48,6 +48,7 @@ const MyPage = () => {
         </Col>
       </Row>
     </Tab.Container>
+    // </div>
   );
 };
 

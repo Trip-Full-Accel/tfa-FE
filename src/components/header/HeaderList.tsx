@@ -1,8 +1,6 @@
-import Nav from "react-bootstrap/Nav";
 import { useLocation, useNavigate } from "react-router-dom";
 // import HeaderList from './HeaderList';
-import { useCallback, useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import "./Header.css";
 
@@ -35,6 +33,8 @@ const HeaderList = ({ value, name }: Props) => {
       return "info_header_list";
     } else if (loc == "/maps") {
       return "info_header_list";
+    } else if (loc == "/myPage") {
+      return "info_header_list";
     } else if (loc == "/") {
       if (scrollPosition < 10) {
         return "original_header_list";
@@ -53,14 +53,7 @@ const HeaderList = ({ value, name }: Props) => {
         color: "white",
         justifyContent: "space-between",
       }}
-      className={
-        // loc == "/tfaInfo"
-        //   ? "info_header_list"
-        //   : scrollPosition < 10
-        //   ? "original_header_list"
-        //   : "change_header_list"
-        locFunction()
-      }
+      className={locFunction()}
     >
       <li
         // listStyle:"none",

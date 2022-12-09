@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterSlice from "./counter/counterReducer";
-import postSlice from "./posts/postReducer";
-import footerSlice from "./footerName/footerReducer";
+import counterReducer from "./counter/counterReducer";
+import footerReducer from "./footerName/footerReducer";
+import getMappingTestReducer from "./getMappingTest/getMappingTestReducer";
+import postMappingTestReducer from "./postMappingTest/postMappingTestReducer";
 export const store = configureStore({
   reducer: {
-    counter: counterSlice,
-    posts: postSlice,
-    footerName: footerSlice,
+    counter: counterReducer,
+    getMappingTest: getMappingTestReducer,
+    postMappingTest: postMappingTestReducer,
+    footerName: footerReducer,
   },
   devTools: true,
 });

@@ -1,0 +1,7 @@
+.slick-next:before,
+.slick-prev:before {
+  opacity: 0.75;
+  color: black !important;
+  font-size: 40px;
+  /* padding: 0%; */
+}

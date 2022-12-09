@@ -1,8 +1,21 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
+// import "/static/template.css";
+import "../static/template.css";
 
 const Template = () => {
+  const location = useLocation();
+  const loc = location.pathname;
+
+  const locFunction = () => {
+    if (loc == "/") {
+      return "top_no_padding";
+    } else {
+      return "top_padding";
+    }
+  };
+
   return (
     <div
       style={{
@@ -15,7 +28,7 @@ const Template = () => {
       }}
     >
       <Header></Header>
-      <div style={{ flex: 1, width: "100%", paddingTop: "" }}>
+      <div style={{ flex: 1, width: "100%" }} className={locFunction()}>
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

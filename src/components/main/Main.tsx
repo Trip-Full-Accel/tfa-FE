@@ -1,11 +1,8 @@
-import { stringify } from "querystring";
-import { useRef, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../static/login.css";
 import "../../static/main.css";
 import "../../static/mainGoToMap.css";
-import AutoPlay from "../slide/Slider";
 import MainBtn from "./MainBtn";
 
 interface dataType {
@@ -76,6 +73,9 @@ const Main = () => {
         </div>{" "}
       </div>
       {/* 이미지 슬라이드 시작 */}
+
+      {/* <Polygon></Polygon> */}
+      {/* 폴리곤 끝 */}
       <div style={{ display: "inline-flex", marginTop: "150px" }}>
         <div style={{ margin: "20px" }}>
           {/* <AutoPlay></AutoPlay> */}

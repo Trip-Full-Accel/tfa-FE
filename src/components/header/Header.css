@@ -42,6 +42,13 @@
   font-size: 20px !important;
   font-weight: bold;
 }
+.info_header_list {
+  /* margin-left: 150px !important; */
+  padding: 0 !important;
+  color: black !important;
+  font-size: 20px !important;
+  font-weight: bold;
+}
 
 .original_header_list::after {
   display: none;

@@ -1,7 +1,13 @@
-.lginput:focus::placeholder {
+.lginputid:focus::placeholder {
   color: transparent;
 }
-.lginput::placeholder {
+.lginputpw:focus::placeholder {
+  color: transparent;
+}
+.lginputid::placeholder {
+  font-weight: 100;
+}
+.lginputpw::placeholder {
   font-weight: 100;
 }
 .lginputid {

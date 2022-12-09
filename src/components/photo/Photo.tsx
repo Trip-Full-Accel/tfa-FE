@@ -1,9 +1,11 @@
+import LoginSilder from "components/slide/LoginSlider";
 import AutoPlay from "components/slide/Slider";
 
 const Photo = () => {
   return (
-    <div style={{ padding: "80px" }}>
+    <div>
       <AutoPlay></AutoPlay>
+      {/* <LoginSilder></LoginSilder> */}
     </div>
   );
 };

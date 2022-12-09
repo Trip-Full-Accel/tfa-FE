@@ -1,5 +1,5 @@
 import Nav from "react-bootstrap/Nav";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import HeaderList from './HeaderList';
 import { useCallback, useState } from "react";
 import { useEffect } from "react";
@@ -12,12 +12,6 @@ type Props = {
 };
 const HeaderList = ({ value, name }: Props) => {
   const [lgShow, setLgShow] = useState(false);
-  // const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
-  // const onClickToggleModal = useCallback(() => {
-  // setOpenModal(!isOpenModal);
-  // console.log("모달 실행됨");
-  // }, [isOpenModal]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -29,6 +23,27 @@ const HeaderList = ({ value, name }: Props) => {
   const linkTo = (path: string) => {
     navigate(path);
   };
+
+  // locaion
+  const location = useLocation();
+  const loc = location.pathname;
+
+  const locFunction = () => {
+    if (loc == "/tfaInfo") {
+      return "info_header_list";
+    } else if (loc == "/photo") {
+      return "info_header_list";
+    } else if (loc == "/maps") {
+      return "info_header_list";
+    } else if (loc == "/") {
+      if (scrollPosition < 10) {
+        return "original_header_list";
+      } else {
+        return "change_header_list";
+      }
+    }
+  };
+
   return (
     <ul
       style={{
@@ -39,7 +54,12 @@ const HeaderList = ({ value, name }: Props) => {
         justifyContent: "space-between",
       }}
       className={
-        scrollPosition < 10 ? "original_header_list" : "change_header_list"
+        // loc == "/tfaInfo"
+        //   ? "info_header_list"
+        //   : scrollPosition < 10
+        //   ? "original_header_list"
+        //   : "change_header_list"
+        locFunction()
       }
     >
       <li

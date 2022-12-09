@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HeaderList from "./HeaderList";
 import Topbtn from "./../topbtn/Topbtn";
 import LoginModal from "components/login/LoginModal";
@@ -26,6 +26,7 @@ import {
 } from "mdb-react-ui-kit";
 import { Input } from "reactstrap";
 import "../../static/modal.css";
+import LoginSilder from "components/slide/LoginSlider";
 
 type tfaPath = {
   value: string;
@@ -33,13 +34,7 @@ type tfaPath = {
 };
 const Header = () => {
   const [lgShow, setLgShow] = useState(false);
-  // const [isOpenModal, setOpenModal] = useState<boolean>(false);
-
-  // const onClickToggleModal = useCallback(() => {
-  // setOpenModal(!isOpenModal);
-  // console.log("모달 실행됨");
-  // }, [isOpenModal]);
-
+  const [modalImg, setModalImg] = useState<string>("");
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -57,6 +52,41 @@ const Header = () => {
 
   const linkTo = (path: string) => {
     navigate(path);
+  };
+  const location = useLocation();
+  const loc = location.pathname;
+
+  const locFunction = () => {
+    if (loc == "/tfaInfo") {
+      return "info_header_list";
+    } else if (loc == "/photo") {
+      return "info_header_list";
+    } else if (loc == "/maps") {
+      return "info_header_list";
+    } else if (loc == "/") {
+      if (scrollPosition < 10) {
+        return "original_header_list";
+      } else {
+        return "change_header_list";
+      }
+    }
+  };
+
+  const loginImg = () => {
+    var imgList = [];
+    imgList.push("/img/login/login1.webp");
+    imgList.push("/img/login/login2.png");
+    imgList.push("/img/login/login3.jpg");
+    imgList.push("/img/login/login4.jpg");
+    imgList.push("/img/login/login5.jpg");
+    imgList.push("/img/login/login6.jpg");
+    imgList.push("/img/login/login7.jpg");
+    imgList.push("/img/login/login8.jpg");
+    let random = Math.round(Math.random() * 7 + 1);
+    // setModalImg("/img/login" + random + ".png");
+
+    let imgRandom = imgList[random - 1];
+    return imgRandom;
   };
 
   return (
@@ -115,11 +145,7 @@ const Header = () => {
             })}
             <div
               style={{ padding: "0 10px" }}
-              className={
-                scrollPosition < 10
-                  ? "original_header_list"
-                  : "change_header_list"
-              }
+              className={locFunction()}
               onClick={() => setLgShow(true)}
             >
               &nbsp; Join
@@ -149,11 +175,17 @@ const Header = () => {
           <MDBRow className="g-0">
             <MDBCol md="6">
               <MDBCardImage
-                src="/img/login.webp"
+                onBlur={MDBIcon}
+                src={
+                  loginImg()
+                  // scrollPosition > 10 ? "/img/login.webp" : "/img/login2.png"
+                }
                 alt="login form"
                 className="rounded-start w-100"
                 style={{ height: "513px" }}
-              />
+              >
+                {/* <LoginSilder></LoginSilder> */}
+              </MDBCardImage>
             </MDBCol>
 
             <MDBCol md="6">
@@ -183,7 +215,12 @@ const Header = () => {
                   type="password"
                 />
 
-                <Button className="mb-4 px-5" color="light" size="lg">
+                <Button
+                  className="mb-4 px-5"
+                  color="light"
+                  size="lg"
+                  onClick={() => loginImg()}
+                >
                   Login
                 </Button>
                 <a className="small text-muted" href="#!">

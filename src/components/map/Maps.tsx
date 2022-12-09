@@ -163,11 +163,8 @@ const Maps = () => {
                         },
                       },
                     ]);
-                    console.log(el.x);
-                    console.log(el.y);
 
                     setAddr([{ name: el.name }]);
-                    // console.log(name);
                   }}
                 >
                   <strong className="">{el.name}</strong>

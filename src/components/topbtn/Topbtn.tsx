@@ -28,7 +28,7 @@ function Topbtn() {
     <div className="topbtn-div">
       <button className="topbtn" id="top" onClick={scrollToTop} type="button">
         {" "}
-        <img className="topbtn-img" src="/img/pointer6.png"></img>
+        <img className="topbtn-img" src="/img/topbtn.png"></img>
       </button>
     </div>
   ) : (

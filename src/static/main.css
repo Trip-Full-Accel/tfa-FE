@@ -1,31 +1,23 @@
 .main {
   display: flex;
+  margin: 0 !important;
 }
 
 .left-div {
+  width: 40%;
   text-align: center;
   font-family: "Nanum Pen Script", cursive;
   align-self: center;
 }
 
+.video-div {
+  width: 60%;
+}
 .main-video {
-  width: 900px;
+  width: 100%;
   float: right;
 }
 
-/* .main-start-btn {
-  background: rgb(0, 172, 238);
-  background: linear-gradient(
-    0deg,
-    rgba(0, 172, 238, 1) 0%,
-    rgba(2, 126, 251, 1) 100%
-  );
-  width: 130px;
-  height: 40px;
-  line-height: 42px;
-  padding: 0;
-  border: none;
-} */
 .main-start-btn {
   border: none;
   display: block;
@@ -56,9 +48,6 @@
   top: 0;
   height: 490%;
   width: 140%;
-  /* background: #78c7d2; */
-  /* background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%); */
-  /* background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%); */
   background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
@@ -73,60 +62,4 @@
 
 video::-webkit-media-controls-enclosure {
   display: none;
-}
-
-video:-webkit-full-page-media::-webkit-media-controls-panel {
-  bottom: 0px;
-}
-
-::-webkit-media-controls {
-  width: inherit;
-  height: 300px;
-  position: relative;
-  display: -webkit-flex !important;
-  font-family: -apple-system;
-  overflow: hidden;
-  /* 전체화면 버튼 */
-}
-.video::-webkit-media-controls-fullscreen-button {
-  display: none !important;
-}
-
-/* 일시정지, 재생 버튼 */
-.video::-webkit-media-controls-play-button {
-}
-
-/* 재생 슬라이드..? */
-.video::-webkit-media-controls-timeline {
-  display: none !important;
-}
-
-/* 현재 진행 시간 */
-.video::-webkit-media-controls-current-time-display {
-  display: none !important;
-}
-
-/* 전체 시간 */
-.video::-webkit-media-controls-time-remaining-display {
-  display: none !important;
-}
-
-/* 음소거 버튼 */
-.video::-webkit-media-controls-mute-button {
-  display: none !important;
-}
-
-/* 볼륨 조절 슬라이드 */
-.video::-webkit-media-controls-volume-slider {
-  display: none !important;
-}
-
-.video::-webkit-media-controls-download-button {
-  /* display: none !important; */
-}
-.video::-webkit-media-controls-enclosure {
-  /* overflow: hidden; */
-}
-.video::-webkit-media-controls-menu-list {
-  display: none !important;
 }

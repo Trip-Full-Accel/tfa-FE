@@ -11,10 +11,7 @@ const UserInfo = () => {
   const error = useSelector((state: RootState) => state.getMappingTest.error);
 
   const dispatch = useDispatch<AppDispatch>();
-  console.log(count);
-  // const increment = (count) => {
-  //   dispatch(increment(count));
-  // };
+
   return (
     <div style={{ padding: "80px" }}>
       <p>리덕스에서 불러온 상수 : {count}</p>

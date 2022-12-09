@@ -67,28 +67,22 @@ const Main = () => {
             src="./video/seoul_intro.mp4"
             autoPlay
             loop
+            style={{ border: "-10px " }}
           ></video>
-        </div>{" "}
+        </div>
       </div>
-      {/* 이미지 슬라이드 시작 */}
-
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
       <div style={{ display: "inline-flex", marginTop: "150px" }}>
-        <div style={{ margin: "20px" }}>
-          {/* <AutoPlay></AutoPlay> */}
-          <div className="main-maps" style={{ fontFamily: "caveat" }}>
-            {data.map((el: { name: string; x: string; y: string }) => {
-              return (
-                <MainBtn
-                  key={el.name}
-                  name={el.name}
-                  x={el.x}
-                  y={el.y}
-                ></MainBtn>
-              );
-            })}
-          </div>
+        <div
+          className="main-maps"
+          style={{ fontFamily: "caveat", margin: "20px" }}
+        >
+          {data.map((el: { name: string; x: string; y: string }) => {
+            return (
+              <MainBtn key={el.name} name={el.name} x={el.x} y={el.y}></MainBtn>
+            );
+          })}
         </div>
       </div>
     </div>

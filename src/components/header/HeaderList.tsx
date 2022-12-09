@@ -55,10 +55,7 @@ const HeaderList = ({ value, name }: Props) => {
       }}
       className={locFunction()}
     >
-      <li
-        // listStyle:"none",
-        style={{ padding: "0 10px" }}
-      >
+      <li style={{ padding: "0 10px" }}>
         <a
           onClick={() => {
             linkTo(`/${value}`);

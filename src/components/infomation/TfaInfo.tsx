@@ -1,8 +1,4 @@
 const TfaInfo = () => {
-  return (
-    <div>
-      <main></main>
-    </div>
-  );
+  return <div>사이트 설명</div>;
 };
 export default TfaInfo;

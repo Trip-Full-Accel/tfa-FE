@@ -1,12 +1,6 @@
-import LoginSilder from "components/slide/LoginSlider";
-import AutoPlay from "components/slide/Slider";
+import Slide from "../slide/Slide";
 
 const Photo = () => {
-  return (
-    <div>
-      <AutoPlay></AutoPlay>
-      {/* <LoginSilder></LoginSilder> */}
-    </div>
-  );
+  return <Slide></Slide>;
 };
 export default Photo;

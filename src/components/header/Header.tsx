@@ -1,32 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import HeaderList from "./HeaderList";
-import Topbtn from "./../topbtn/Topbtn";
-import LoginModal from "components/login/LoginModal";
 import "../../static/loginBtn.css";
-// import Input from "reactstrap";
+import Topbtn from "./../topbtn/Topbtn";
+import HeaderList from "./HeaderList";
 import { Button, Modal } from "react-bootstrap";
+import "../../static/modal.css";
 import "./Header.css";
 import "./modal.css";
-import "../../static/modal.css";
 
 import {
-  MDBBtn,
-  MDBContainer,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
-  MDBRow,
   MDBCol,
   MDBIcon,
-  MDBInput,
+  MDBRow,
 } from "mdb-react-ui-kit";
 import { Input } from "reactstrap";
 import "../../static/modal.css";
-import LoginSilder from "components/slide/LoginSlider";
 
 type tfaPath = {
   value: string;
@@ -63,6 +54,8 @@ const Header = () => {
       return "info_header_list";
     } else if (loc == "/maps") {
       return "info_header_list";
+    } else if (loc == "/myPage") {
+      return "info_header_list";
     } else if (loc == "/") {
       if (scrollPosition < 10) {
         return "original_header_list";
@@ -83,7 +76,6 @@ const Header = () => {
     imgList.push("/img/login/login7.jpg");
     imgList.push("/img/login/login8.jpg");
     let random = Math.round(Math.random() * 7 + 1);
-    // setModalImg("/img/login" + random + ".png");
 
     let imgRandom = imgList[random - 1];
     return imgRandom;
@@ -99,8 +91,6 @@ const Header = () => {
           flexDirection: "row",
           flexWrap: "wrap",
           border: "none",
-          // boxShadow:
-          // "0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%) !important",
         }}
       >
         <div
@@ -183,9 +173,7 @@ const Header = () => {
                 alt="login form"
                 className="rounded-start w-100"
                 style={{ height: "513px" }}
-              >
-                {/* <LoginSilder></LoginSilder> */}
-              </MDBCardImage>
+              ></MDBCardImage>
             </MDBCol>
 
             <MDBCol md="6">
@@ -202,16 +190,12 @@ const Header = () => {
                 <Input
                   className="lginputid"
                   placeholder="ID"
-                  wrapperClass="mb-4"
-                  id="formControlLg"
                   type="text"
                   style={{ marginTop: "2rem" }}
                 />
                 <Input
                   className="lginputpw"
                   placeholder="PASSWORD"
-                  wrapperClass="mb-4"
-                  id="formControlLg"
                   type="password"
                 />
 
@@ -247,7 +231,6 @@ const Header = () => {
             </MDBCol>
           </MDBRow>
         </MDBCard>
-        {/* </MDBContainer> */}
       </Modal>
       <Topbtn></Topbtn>
     </div>

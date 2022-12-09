@@ -10,9 +10,6 @@ interface dataType {
   x: string;
   y: string;
 }
-// interface autoplay {
-//   autoPlay?: boolean | undefined | string;
-// }
 
 const Main = () => {
   const navigate = useNavigate();
@@ -41,6 +38,7 @@ const Main = () => {
   const scrollToMap = () => {
     window.scroll({
       top: 650,
+      left: 650,
       behavior: "smooth",
     });
   };

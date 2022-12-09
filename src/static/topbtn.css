@@ -2,6 +2,7 @@
   top: 77%;
   position: fixed;
   left: 90%;
+  transition: all 0.4s;
 }
 .topbtn {
   border: none;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { redirect, useLocation, useNavigate } from "react-router-dom";
 import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
 import HeaderList from "./HeaderList";
@@ -79,6 +79,16 @@ const Header = () => {
 
     let imgRandom = imgList[random - 1];
     return imgRandom;
+  };
+
+  // 카톡 로그인 구현
+  const { Kakao } = window;
+  const loginKakao = () => {
+    Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/kakao",
+      scope: "profile_nickname, account_email, gender,age_range",
+    });
+    console.log("카톡로그인 메서드 실행됨");
   };
 
   return (
@@ -215,7 +225,10 @@ const Header = () => {
 
                 <div className="wrapper">
                   <a href="#" className="icon">
-                    <i className="fab fa-facebook-f"></i>
+                    <i
+                      className="fab fa-facebook-f"
+                      onClick={() => loginKakao()}
+                    ></i>
                   </a>
 
                   <a href="#" className="icon">

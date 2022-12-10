@@ -26,7 +26,10 @@ const Template = () => {
       }}
     >
       <Header></Header>
-      <div style={{ flex: 1, width: "100%" }} className={locFunction()}>
+      <div
+        style={{ flex: 1, width: "100%", backgroundColor: "#fafafa" }}
+        className={locFunction()}
+      >
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

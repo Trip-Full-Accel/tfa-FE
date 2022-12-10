@@ -22,11 +22,29 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
     />
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 부트스트랩 -->
+    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- 카카오맵 활용 -->
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c044ff363c9ce38dfcaee4c19ae22ba&libraries=services,clusterer"
     ></script>
+
+    <!-- 카카오 로그인  -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script>
+      Kakao.init("5c044ff363c9ce38dfcaee4c19ae22ba");
+      console.log("카톡 로그인 실행됨 " + Kakao.isInitialized());
+    </script>
+
+    <!-- 구글로그인 -->
+    <meta name="google-signin-scope" content="profile email" />
+    <meta
+      name="google-signin-client_id"
+      content="%211887729069-e1tmdi51mma8bkhmd8b5k6rq29tf8s21.apps.googleusercontent.com%"
+    />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <!-- fontawesome 아이콘 사용 스크립트 -->
     <script
       src="https://kit.fontawesome.com/b7d4e93961.js"

@@ -91,6 +91,14 @@ const Header = () => {
     console.log("카톡로그인 메서드 실행됨");
   };
 
+  // const CLIENT_ID = "82e8a356b706e9f7b99ef65f77a5fd43";
+  // const REDIRECT_URI = "http://localhost:3000/kakao";
+  // 프런트엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
+  // 백엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
   return (
     <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 2 }}>
       <nav

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { redirect, useLocation, useNavigate } from "react-router-dom";
 import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
 import HeaderList from "./HeaderList";
@@ -80,6 +80,44 @@ const Header = () => {
     let imgRandom = imgList[random - 1];
     return imgRandom;
   };
+
+  // 카톡 로그인 구현
+  const { Kakao } = window;
+  const loginKakao = () => {
+    Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/kakao",
+      scope: "profile_nickname, account_email, gender,age_range",
+    });
+    console.log("카톡로그인 메서드 실행됨");
+  };
+
+  // const CLIENT_ID = "82e8a356b706e9f7b99ef65f77a5fd43";
+  // const REDIRECT_URI = "http://localhost:3000/kakao";
+  // 프런트엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
+  // 백엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  //구글 로그인
+  //구글 로그인 구현
+  let googleClientId: string =
+    "211887729069-e1tmdi51mma8bkhmd8b5k6rq29tf8s21.apps.googleusercontent.com";
+  //사용자 정보를 담아둘 userObj
+  const [userObj, setUserObj] = useState({
+    email: "",
+    name: "",
+  });
+  //로그인 성공시 res처리
+  const onLoginSuccess = (res: any) => {
+    setUserObj({
+      ...userObj,
+      email: res.profileObj.email,
+      name: res.profileObj.name,
+    });
+  };
+
+  // 네이버 로그인
 
   return (
     <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 2 }}>
@@ -214,15 +252,20 @@ const Header = () => {
                 </a>
 
                 <div className="wrapper">
+                  {/* 카카오 */}
                   <a href="#" className="icon">
-                    <i className="fab fa-facebook-f"></i>
+                    <i
+                      className="fab fa-facebook-f"
+                      onClick={() => loginKakao()}
+                    ></i>
                   </a>
 
                   <a href="#" className="icon">
                     <i className="fab fa-google-plus-g"></i>
                   </a>
-                  <a href="#" className="icon">
-                    <i className="fab fa-youtube"></i>
+                  {/* 네이버 */}
+                  <a href="/naver" className="icon">
+                    <i className="fab fa-youtube" id="naverIdLogin"></i>
                   </a>
                 </div>
               </MDBCardBody>

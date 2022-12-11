@@ -99,6 +99,26 @@ const Header = () => {
   // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
   // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
+  //구글 로그인
+  //구글 로그인 구현
+  let googleClientId: string =
+    "211887729069-e1tmdi51mma8bkhmd8b5k6rq29tf8s21.apps.googleusercontent.com";
+  //사용자 정보를 담아둘 userObj
+  const [userObj, setUserObj] = useState({
+    email: "",
+    name: "",
+  });
+  //로그인 성공시 res처리
+  const onLoginSuccess = (res: any) => {
+    setUserObj({
+      ...userObj,
+      email: res.profileObj.email,
+      name: res.profileObj.name,
+    });
+  };
+
+  // 네이버 로그인
+
   return (
     <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 2 }}>
       <nav
@@ -232,6 +252,7 @@ const Header = () => {
                 </a>
 
                 <div className="wrapper">
+                  {/* 카카오 */}
                   <a href="#" className="icon">
                     <i
                       className="fab fa-facebook-f"
@@ -242,8 +263,9 @@ const Header = () => {
                   <a href="#" className="icon">
                     <i className="fab fa-google-plus-g"></i>
                   </a>
-                  <a href="#" className="icon">
-                    <i className="fab fa-youtube"></i>
+                  {/* 네이버 */}
+                  <a href="/naver" className="icon">
+                    <i className="fab fa-youtube" id="naverIdLogin"></i>
                   </a>
                 </div>
               </MDBCardBody>

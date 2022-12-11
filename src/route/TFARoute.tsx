@@ -7,6 +7,7 @@ import Maps from "../components/map/Maps";
 import Main from "../components/main/Main";
 import Kakao from "components/kakao";
 import KakaoRedirectHandler from "components/kakaoRedirect";
+import NaverLogin from "components/naver";
 
 const MyRoute = () => {
   return (
@@ -24,6 +25,7 @@ const MyRoute = () => {
             path="/kakao"
             element={<KakaoRedirectHandler></KakaoRedirectHandler>}
           ></Route>
+          <Route path="/naver" element={<NaverLogin></NaverLogin>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

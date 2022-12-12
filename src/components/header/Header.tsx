@@ -259,8 +259,8 @@ const Header = () => {
                       onClick={() => loginKakao()}
                     ></i>
                   </a>
-
-                  <a href="#" className="icon">
+                  {/* 구글로그인 */}
+                  <a href="/google" className="icon">
                     <i className="fab fa-google-plus-g"></i>
                   </a>
                   {/* 네이버 */}

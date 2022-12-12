@@ -7,6 +7,7 @@ import { Button, Modal } from "react-bootstrap";
 import "../../static/bootmodal.css";
 import "./Header.css";
 import "./modal.css";
+import styled from "styled-components";
 
 import {
   MDBCard,
@@ -39,6 +40,7 @@ const Header = () => {
     { name: "Info", value: "tfaInfo" },
     // { name: "마이페이지", value: "myPage" },
     { name: "Photo", value: "photo" },
+    { name: "board", value: "board" },
   ];
 
   const linkTo = (path: string) => {
@@ -55,6 +57,8 @@ const Header = () => {
     } else if (loc == "/maps") {
       return "info_header_list";
     } else if (loc == "/myPage") {
+      return "info_header_list";
+    } else if (loc == "/board") {
       return "info_header_list";
     } else if (loc == "/") {
       if (scrollPosition < 10) {
@@ -260,7 +264,7 @@ const Header = () => {
                     ></i>
                   </a>
 
-                  <a href="#" className="icon">
+                  <a href="/google" className="icon">
                     <i className="fab fa-google-plus-g"></i>
                   </a>
                   {/* 네이버 */}

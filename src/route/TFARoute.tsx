@@ -8,6 +8,7 @@ import Main from "../components/main/Main";
 import Kakao from "components/kakao";
 import KakaoRedirectHandler from "components/kakaoRedirect";
 import NaverLogin from "components/naver";
+import Board from "./../components/board/board";
 
 const MyRoute = () => {
   return (
@@ -21,6 +22,7 @@ const MyRoute = () => {
 
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
           <Route path="photo" element={<Photo></Photo>}></Route>
+          <Route path="board" element={<Board></Board>}></Route>
           <Route
             path="/kakao"
             element={<KakaoRedirectHandler></KakaoRedirectHandler>}

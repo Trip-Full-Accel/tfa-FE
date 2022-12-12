@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../static/login.css";
-import "../../static/main.css";
-import "../../static/mainGoToMap.css";
+import "../../static/all.css";
 import MainBtn from "./MainBtn";
+import styled from "styled-components";
 
 interface dataType {
   name: string;
@@ -44,48 +43,122 @@ const Main = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#fafafa" }}>
-      <div className="main">
-        <div className="left-div" style={{ alignItems: "right", width: "40%" }}>
-          <h1 style={{ fontFamily: "Caveat" }}>TFA</h1>
+    <TopLvDiv>
+      <FirstDiv>
+        <LeftDiv>
+          <MainTitle>TFA</MainTitle>
           <br />
-          <h3 style={{ fontFamily: "Caveat" }}>
-            Trip Full Accel 에서 여행을 시작하세요
-          </h3>
+          <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
           <br />
-          <button className="main-start-btn" onClick={scrollToMap}>
+          <StartBtn onClick={scrollToMap}>
             <span>Start</span>
-          </button>
+          </StartBtn>
           <br />
-        </div>
+        </LeftDiv>
         {/* video */}
-        <div className="video-div" style={{}}>
-          <video
-            controls
-            muted
-            className="main-video"
-            src="./video/seoul_intro.mp4"
-            autoPlay
-            loop
-            style={{ border: "-10px " }}
-          ></video>
-        </div>
-      </div>
+        <VideoDiv>
+          <Video muted src="./video/seoul_intro.mp4" autoPlay loop></Video>
+        </VideoDiv>
+      </FirstDiv>
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
-      <div style={{ display: "inline-flex", marginTop: "150px" }}>
-        <div
-          className="main-maps"
-          style={{ fontFamily: "caveat", margin: "20px" }}
-        >
+      <SecondDiv>
+        <BtnDiv>
           {data.map((el: { name: string; x: string; y: string }) => {
             return (
               <MainBtn key={el.name} name={el.name} x={el.x} y={el.y}></MainBtn>
             );
           })}
-        </div>
-      </div>
-    </div>
+        </BtnDiv>
+      </SecondDiv>
+    </TopLvDiv>
   );
 };
 export default Main;
+
+const TopLvDiv = styled.div`
+  background-color: #fafafa;
+`;
+
+const LeftDiv = styled.div`
+  align-items: right;
+  width: 40%;
+  text-align: center;
+  font-family: "Nanum Pen Script", cursive;
+  align-self: center;
+`;
+
+const VideoDiv = styled.div`
+  width: 60%;
+`;
+
+const BtnDiv = styled.div`
+  font-family: caveat;
+  margin: 20px;
+`;
+
+const FirstDiv = styled.div`
+  display: flex;
+  margin: 0 !important;
+`;
+
+const MainTitle = styled.h1`
+  font-family: Caveat;
+`;
+
+const SubTitle = styled.h3`
+  font-family: Caveat;
+`;
+
+const StartBtn = styled.button`
+  border: none;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #222;
+  padding: 17px 60px;
+  margin: 0 auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 140%;
+    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  }
+
+  &:hover::after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  }
+  span {
+    position: relative;
+    z-index: 1;
+  }
+`;
+
+const Video = styled.video`
+  width: 100%;
+  float: right;
+  &video::-webkit-media-controls-enclosure {
+    display: none;
+  }
+`;
+
+const SecondDiv = styled.div`
+  display: inline-flex;
+  margin-top: 150px;
+`;

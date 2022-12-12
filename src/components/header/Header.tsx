@@ -124,49 +124,21 @@ const Header = () => {
   // 네이버 로그인
 
   return (
-    <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 2 }}>
-      <nav
+    <HeaderMainDiv>
+      <MainNav
         className={scrollPosition < 10 ? "original_header" : "change_header"}
-        style={{
-          display: "flex",
-          alignContent: "center",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          border: "none",
-        }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "90%",
-            alignItems: "center",
-          }}
-        >
-          <div className="titleDiv">
-            <b
+        <FirstNavDiv>
+          <TitleNav>
+            <TitleB
               onClick={() => {
                 linkTo("/");
               }}
-              style={{
-                color: "black",
-                cursor: "pointer",
-                border: "none",
-                backgroundColor: "transparent",
-                fontSize: "30px",
-                float: "left",
-                zIndex: "9999",
-              }}
             >
               TripFullAccel
-            </b>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              cursor: "pointer",
-            }}
-          >
+            </TitleB>
+          </TitleNav>
+          <ListNav>
             {tfaPath.map((el) => {
               return (
                 <HeaderList
@@ -176,16 +148,12 @@ const Header = () => {
                 ></HeaderList>
               );
             })}
-            <div
-              style={{ padding: "0 10px" }}
-              className={locFunction()}
-              onClick={() => setLgShow(true)}
-            >
+            <JoinNav className={locFunction()} onClick={() => setLgShow(true)}>
               &nbsp; Join
-            </div>
-          </div>
-        </div>
-      </nav>
+            </JoinNav>
+          </ListNav>
+        </FirstNavDiv>
+      </MainNav>
 
       <Modal
         className="loginM"
@@ -278,8 +246,50 @@ const Header = () => {
         </MDBCard>
       </Modal>
       <Topbtn></Topbtn>
-    </div>
+    </HeaderMainDiv>
   );
 };
 
 export default Header;
+
+const HeaderMainDiv = styled.div`
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  z-index: 2;
+  border: none;
+`;
+
+const MainNav = styled.nav`
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: none;
+`;
+
+const FirstNavDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  align-items: center;
+`;
+const TitleNav = styled.div``;
+
+const TitleB = styled.b`
+  color: black;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+  float: left;
+  z-index: 9999;
+`;
+
+const ListNav = styled.div`
+  display: flex;
+  cursor: pointer;
+`;
+const JoinNav = styled.div`
+  padding: 0 10px;
+`;

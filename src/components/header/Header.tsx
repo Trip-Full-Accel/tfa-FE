@@ -19,6 +19,8 @@ import {
 } from "mdb-react-ui-kit";
 import { Input } from "reactstrap";
 import "../../static/bootmodal.css";
+import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils";
+import { CustomAxios } from "./../../http/customAxios";
 
 type tfaPath = {
   value: string;
@@ -26,8 +28,9 @@ type tfaPath = {
 };
 const Header = () => {
   const [lgShow, setLgShow] = useState(false);
-  const [modalImg, setModalImg] = useState<string>("");
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [idInput, setIdInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
@@ -122,6 +125,24 @@ const Header = () => {
   };
 
   // 네이버 로그인
+  //
+  //
+  //
+  // 로그인 인풋값 전송
+
+  const idInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIdInput(e.target.value);
+  };
+  const pwInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordInput(e.target.value);
+  };
+
+  const goToLogin = async () => {
+    await CustomAxios("/", "POST", {
+      id: idInput,
+      pw: passwordInput,
+    });
+  };
 
   return (
     <HeaderMainDiv>
@@ -200,18 +221,24 @@ const Header = () => {
                   placeholder="ID"
                   type="text"
                   style={{ marginTop: "2rem" }}
+                  onChange={(e) => {
+                    idInputHandler(e);
+                  }}
                 />
                 <Input
                   className="lginputpw"
                   placeholder="PASSWORD"
                   type="password"
+                  onChange={(e) => {
+                    pwInputHandler(e);
+                  }}
                 />
 
                 <Button
                   className="mb-4 px-5"
                   color="light"
                   size="lg"
-                  onClick={() => loginImg()}
+                  onClick={() => goToLogin()}
                 >
                   Login
                 </Button>
@@ -227,17 +254,21 @@ const Header = () => {
                   {/* 카카오 */}
                   <a href="#" className="icon">
                     <i
-                      className="fab fa-facebook-f"
+                      style={{ fontSize: "35px" }}
+                      className="xi-kakaotalk"
                       onClick={() => loginKakao()}
                     ></i>
                   </a>
                   {/* 구글로그인 */}
                   <a href="/google" className="icon">
-                    <i className="fab fa-google-plus-g"></i>
+                    <i
+                      style={{ fontSize: "35px" }}
+                      className="xi-google-plus"
+                    ></i>
                   </a>
                   {/* 네이버 */}
                   <a href="/naver" className="icon">
-                    <i className="fab fa-youtube" id="naverIdLogin"></i>
+                    <i style={{ fontSize: "30px" }} className="xi-naver"></i>
                   </a>
                 </div>
               </MDBCardBody>

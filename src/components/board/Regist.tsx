@@ -2,22 +2,30 @@ import { Input, Button } from "reactstrap";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchPost } from "store/postMappingTest/postMappingTestReducer";
+import axios from "axios";
+import { CustomAxios } from "../../http/customAxios";
+
 const Regist = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [select, setSelect] = useState<string>("리뷰");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch<any>();
 
-  const registHandler = (e: any) => {
+  const registHandler = async () => {
     navigate("/board");
     console.log(title);
     console.log(content);
     console.log(select);
 
-    // db에 보내는 post 엑시오스
-    // db에서 받는 get 엑시오스
-    // 강사님한테 질문 예정
+    await CustomAxios("/", "POST", {
+      title: title,
+      content: content,
+      select: select,
+    });
   };
 
   const textRef = useRef<any>();
@@ -62,7 +70,7 @@ const Regist = () => {
           ></Contentarea>
         </Contentdiv>
         <Btndiv>
-          <Button onClick={(e) => registHandler(e)}>등록</Button>
+          <Button onClick={() => registHandler()}>등록</Button>
         </Btndiv>
       </RegistFirstdiv>
     </RegistMainDiv>
@@ -104,7 +112,12 @@ const Contentarea = styled.textarea`
   overflow: visible;
   /* &::-webkit-scrollbar {
     display: flex !important;
-  } */
+  } */import { fetchPost } from './../../store/postMappingTest/postMappingTestReducer';
+import { fetchPost } from 'store/postMappingTest/postMappingTestReducer';
+import { useDispatch } from 'react-redux';
+import { axios } from 'axios';
+import { CustomAxios } from './../../http/customAxios';
+
 `;
 
 const SelectBox = styled.select`

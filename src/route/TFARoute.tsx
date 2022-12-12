@@ -1,13 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Template from "../components/Template";
-import Photo from "../components/photo/Photo";
-import TfaInfo from "../components/infomation/TfaInfo";
-import MyPage from "../components/MyPage/MyPage";
-import Maps from "../components/map/Maps";
-import Main from "../components/main/Main";
-import Kakao from "components/kakao";
 import KakaoRedirectHandler from "components/kakaoRedirect";
+import GLogin from "components/lgGoogle";
 import NaverLogin from "components/naver";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import TfaInfo from "../components/infomation/TfaInfo";
+import Main from "../components/main/Main";
+import Maps from "../components/map/Maps";
+import MyPage from "../components/MyPage/MyPage";
+import Photo from "../components/photo/Photo";
+import Template from "../components/Template";
 
 const MyRoute = () => {
   return (
@@ -26,6 +26,7 @@ const MyRoute = () => {
             element={<KakaoRedirectHandler></KakaoRedirectHandler>}
           ></Route>
           <Route path="/naver" element={<NaverLogin></NaverLogin>}></Route>
+          <Route path="/google" element={<GLogin></GLogin>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

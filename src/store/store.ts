@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import boardReducer from "./board/boardReducer";
 import counterReducer from "./counter/counterReducer";
 import footerReducer from "./footerName/footerReducer";
 import getMappingTestReducer from "./getMappingTest/getMappingTestReducer";
@@ -11,6 +12,7 @@ export const store = configureStore({
     postMappingTest: postMappingTestReducer,
     footerName: footerReducer,
     tokenTest: tokenTest,
+    boardList: boardReducer,
   },
   devTools: true,
 });

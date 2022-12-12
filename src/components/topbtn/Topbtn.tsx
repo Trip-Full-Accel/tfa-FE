@@ -41,13 +41,15 @@ const TopBtnDiv = styled.div`
   position: fixed;
   left: 90%;
   transition: all 0.4s;
+  background-color: transparent;
 `;
 const Topbutton = styled.button`
   border: none;
+  background-color: transparent;
 `;
 
 const TopBtnImg = styled.img`
   width: 50px;
-  background-color: #fafafa;
+  background-color: transparent;
   border: none;
 `;

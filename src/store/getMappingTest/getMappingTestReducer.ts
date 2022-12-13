@@ -3,7 +3,8 @@ import { CustomAxios } from "../../http/customAxios";
 export const fetchGet = createAsyncThunk(
   "getMappingTest/getMappingTestReducer",
   async () => {
-    const response = await CustomAxios("/api/hello", "GET"); //api 기능별로 만들어서 써야함
+    const response = await CustomAxios("/post/list", "GET"); //api 기능별로 만들어서 써야함
+    console.log(response);
     return response.data;
   }
 );

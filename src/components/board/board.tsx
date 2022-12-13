@@ -37,7 +37,7 @@ const Board = () => {
           );
         })}
       </BoardMainDiv>
-      <Button onClick={() => boardBtn()}>글쓰러 가기</Button>
+      <Button onClick={() => boardBtn()}>글쓰러</Button>
     </div>
   );
 };

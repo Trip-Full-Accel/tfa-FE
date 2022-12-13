@@ -6,6 +6,12 @@ import { useDispatch } from "react-redux";
 import { fetchPost } from "store/postMappingTest/postMappingTestReducer";
 import axios from "axios";
 import { CustomAxios } from "../../http/customAxios";
+import { AppDispatch } from "store/store";
+import {
+  fetchDeleteBoard,
+  fetchPostBoard,
+  // fetchPutBoard,
+} from "store/board/boardReducer";
 
 const Regist = () => {
   const [title, setTitle] = useState<string>("");
@@ -13,19 +19,33 @@ const Regist = () => {
   const [select, setSelect] = useState<string>("리뷰");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const registHandler = async () => {
     navigate("/board");
-    console.log(title);
-    console.log(content);
-    console.log(select);
+    dispatch(fetchPostBoard({ title, content, id: 0, writer: "asd", select }));
+    // CustomAxios("/post/create", "POST", {
+    //   title: title,
+    //   content: content,
+    // });
+  };
 
-    await CustomAxios("/", "POST", {
+  const deleteHandler = async () => {
+    dispatch(fetchDeleteBoard(4));
+  };
+  const updateHandler = async () => {
+    // dispatch(fetchPutBoard({ title, content, id: 3 }));
+    await CustomAxios("/post/update/4", "PUT", {
       title: title,
       content: content,
-      select: select,
+      id: 4,
+      createdDate: "asdf",
+      deleteYn: "n",
+      hits: 1,
+      modifiedDate: "asdfdddddd",
+      writer: "123",
     });
+    navigate("/board");
   };
 
   const textRef = useRef<any>();
@@ -72,6 +92,12 @@ const Regist = () => {
         <Btndiv>
           <Button onClick={() => registHandler()}>등록</Button>
         </Btndiv>
+        <Btndiv>
+          <Button onClick={() => deleteHandler()}>삭제테스트</Button>
+        </Btndiv>
+        <Btndiv>
+          <Button onClick={() => updateHandler()}>수정테스트</Button>
+        </Btndiv>
       </RegistFirstdiv>
     </RegistMainDiv>
   );
@@ -112,12 +138,7 @@ const Contentarea = styled.textarea`
   overflow: visible;
   /* &::-webkit-scrollbar {
     display: flex !important;
-  } */import { fetchPost } from './../../store/postMappingTest/postMappingTestReducer';
-import { fetchPost } from 'store/postMappingTest/postMappingTestReducer';
-import { useDispatch } from 'react-redux';
-import { axios } from 'axios';
-import { CustomAxios } from './../../http/customAxios';
-
+  } */
 `;
 
 const SelectBox = styled.select`

@@ -1,59 +1,68 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { boardState } from "./boardType";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { CustomAxios } from "../../http/customAxios";
+import { BoardList, boardState, BoardUpdate } from "./boardType";
 
-const initialState: boardState = {
-  board: [
-    {
-      title: "title1",
-      content: "content1",
-      writer: "writer1",
-      regdate: "regdate1",
-      like: "1",
-    },
-    {
-      title: "title2",
-      content: "content2",
-      writer: "writer2",
-      regdate: "regdate2",
-      like: "1",
-    },
-    {
-      title: "title3",
-      content: "content3",
-      writer: "writer3",
-      regdate: "regdate3",
-      like: "1",
-    },
-    {
-      title: "title4",
-      content: "content4",
-      writer: "writer4",
-      regdate: "regdate4",
-      like: "1",
-    },
-    {
-      title: "title5",
-      content: "content5",
-      writer: "writer5",
-      regdate: "regdate5",
-      like: "1",
-    },
-    {
-      title: "title6",
-      content: "content6",
-      writer: "writer6",
-      regdate: "regdate6",
-      like: "1",
-    },
-  ],
+// 비동기 처리로 BE의 post list에 전체글 list 요청
+export const fetchGetBoard = createAsyncThunk("BOARD/GET", async () => {
+  const response = await CustomAxios("/post/list", "GET");
+  return response.data;
+});
+export const fetchPostBoard = createAsyncThunk(
+  "BOARD/POST",
+  async (payload: BoardList) => {
+    console.log(payload);
+    await CustomAxios("/post/create", "POST", payload);
+  }
+);
+// export const fetchPutBoard = createAsyncThunk(
+//   "BOARD/PUT",
+//   async (payload: BoardUpdate) => {
+//     await CustomAxios(`/post/update/${payload.id}`, "PUT");
+//   }
+// );
+export const fetchDeleteBoard = createAsyncThunk(
+  "BOARD/DELETE",
+  async (id: number) => {
+    await CustomAxios(`/post/delete/${id}`, "DELETE");
+  }
+);
+
+// 타입에 따라서 처리 가능
+type Status = "failed" | "loading" | "succeeded" | "idle";
+type Error = string | undefined;
+interface initialType {
+  board: BoardList[];
+  status: Status;
+  error: Error;
+}
+const initialState: initialType = {
+  board: [],
+  status: "idle",
+  error: "null",
 };
 
-export const boardSlice = createSlice({
+const boardReducer = createSlice({
   name: "board",
   initialState,
-  reducers: {},
+  reducers: {
+    // omit existing reducers here
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchGetBoard.pending, (state, action) => {
+        state.status = "loading";
+        console.log(action);
+      })
+      .addCase(fetchGetBoard.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.board = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(fetchGetBoard.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  },
 });
 
-export const {} = boardSlice.actions;
-
-export default boardSlice.reducer;
+export default boardReducer.reducer;

@@ -12,7 +12,7 @@ export const store = configureStore({
     postMappingTest: postMappingTestReducer,
     footerName: footerReducer,
     tokenTest: tokenTest,
-    boardList: boardReducer,
+    board: boardReducer,
   },
   devTools: true,
 });

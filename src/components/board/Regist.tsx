@@ -17,9 +17,6 @@ const Regist = () => {
 
   const registHandler = async () => {
     navigate("/board");
-    console.log(title);
-    console.log(content);
-    console.log(select);
 
     await CustomAxios("/", "POST", {
       title: title,
@@ -112,12 +109,7 @@ const Contentarea = styled.textarea`
   overflow: visible;
   /* &::-webkit-scrollbar {
     display: flex !important;
-  } */import { fetchPost } from './../../store/postMappingTest/postMappingTestReducer';
-import { fetchPost } from 'store/postMappingTest/postMappingTestReducer';
-import { useDispatch } from 'react-redux';
-import { axios } from 'axios';
-import { CustomAxios } from './../../http/customAxios';
-
+  } */
 `;
 
 const SelectBox = styled.select`

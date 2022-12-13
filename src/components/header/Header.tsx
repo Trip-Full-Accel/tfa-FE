@@ -61,6 +61,8 @@ const Header = () => {
       return "info_header_list";
     } else if (loc == "/myPage") {
       return "info_header_list";
+    } else if (loc == "/boardDetail") {
+      return "info_header_list";
     } else if (loc == "/board") {
       return "info_header_list";
     } else if (loc == "/") {
@@ -239,6 +241,7 @@ const Header = () => {
                   color="light"
                   size="lg"
                   onClick={() => goToLogin()}
+                  style={{ backgroundColor: "#7C74AB", borderColor: "#7C74AB" }}
                 >
                   Login
                 </Button>

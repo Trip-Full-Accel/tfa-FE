@@ -10,6 +10,7 @@ import MyPage from "../components/MyPage/MyPage";
 import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Regist from "components/board/Regist";
+import BoardDetail from "components/board/boardDetail";
 
 const MyRoute = () => {
   return (
@@ -31,6 +32,10 @@ const MyRoute = () => {
           <Route path="/naver" element={<NaverLogin></NaverLogin>}></Route>
           <Route path="/google" element={<GLogin></GLogin>}></Route>
           <Route path="/regist" element={<Regist></Regist>}></Route>
+          <Route
+            path="/boardDetail"
+            element={<BoardDetail></BoardDetail>}
+          ></Route>
         </Route>
       </Routes>
     </BrowserRouter>

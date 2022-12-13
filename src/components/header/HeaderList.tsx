@@ -35,6 +35,8 @@ const HeaderList = ({ value, name }: Props) => {
       return "info_header_list";
     } else if (loc == "/myPage") {
       return "info_header_list";
+    } else if (loc == "/boardDetail") {
+      return "info_header_list";
     } else if (loc == "/board") {
       return "info_header_list";
     } else if (loc == "/") {

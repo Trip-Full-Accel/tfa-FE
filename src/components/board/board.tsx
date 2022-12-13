@@ -9,6 +9,9 @@ const Board = () => {
   const boardBtn = () => {
     navigate("/regist");
   };
+  const detailBtn = () => {
+    navigate("/boardDetail");
+  };
 
   // board페이지 진입시 useEffect 활용해서 getData가 실행되야함 비동기처리필요
 
@@ -16,21 +19,45 @@ const Board = () => {
 
   return (
     <div>
-      <BoardTitleDiv>게시판</BoardTitleDiv>
+      <BoardTitleDiv>
+        <img
+          src="	https://ldb-phinf.pstatic.net/20200528_186/1590621301783PJgRP_PNG/%BD%E6%B3%D7%C0%CF.png"
+          style={{ width: "1300px" }}
+        ></img>{" "}
+      </BoardTitleDiv>
       <BoardMainDiv>
         {boardList.map((el) => {
           return (
-            <ContentDiv key={el.title + el.regdate}>
-              <div>{el.title}</div>
-              <div>{el.content}</div>
+            <ContentDiv
+              onClick={() => detailBtn()}
+              style={{ position: "relative" }}
+              key={el.title /*+ el.regdate*/}
+            >
+              <div style={{ float: "right", padding: "30px" }}>{el.like}</div>
+              <div
+                style={{
+                  position: "absolute",
+                  transform: "translate(-50%, -50%)",
+                  top: "50%",
+                  left: "50%",
+                }}
+              >
+                {el.title}
+              </div>
+              {/* <div>{el.content}</div>
               <div>{el.writer}</div>
               <div>{el.regdate}</div>
-              <div>{el.like}</div>
+              <div style={{}}>{el.views}</div> */}
             </ContentDiv>
           );
         })}
       </BoardMainDiv>
-      <Button onClick={() => boardBtn()}>글쓰러 가기</Button>
+      <Button
+        style={{ float: "right", marginRight: "13rem" }}
+        onClick={() => boardBtn()}
+      >
+        글쓰러 가기
+      </Button>
     </div>
   );
 };

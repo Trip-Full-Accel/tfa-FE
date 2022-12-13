@@ -122,10 +122,9 @@ const StartBtn = styled.button`
   color: #fff;
   font-weight: 700;
   font-size: 15px;
-  background-color: #222;
+  background-color: black;
   padding: 17px 60px;
   margin: 0 auto;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   &::after {
     content: "";
     position: absolute;
@@ -133,7 +132,12 @@ const StartBtn = styled.button`
     top: 0;
     height: 490%;
     width: 140%;
-    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+    background-image: linear-gradient(
+      -225deg,
+      #69eacb 0%,
+      #eaccf8 48%,
+      #6654f1 100%
+    );
     -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);

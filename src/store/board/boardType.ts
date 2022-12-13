@@ -3,8 +3,9 @@ export interface boardState {
 }
 interface BoardList {
   title: string;
-  writer: string;
-  content: string;
-  regdate: string;
-  like: string;
+  // writer: string;
+  // content: string;
+  // regdate: string;
+  // views: string;
+  like: number;
 }

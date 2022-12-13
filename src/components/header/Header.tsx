@@ -63,6 +63,8 @@ const Header = () => {
       return "info_header_list";
     } else if (loc == "/board") {
       return "info_header_list";
+    } else if (loc == "/boardDetail") {
+      return "info_header_list";
     } else if (loc == "/") {
       if (scrollPosition < 10) {
         return "original_header_list";
@@ -156,7 +158,11 @@ const Header = () => {
                 linkTo("/");
               }}
             >
-              TripFullAccel
+              Trip Full Accel
+              {/* <img
+                style={{ width: "250px" }}
+                src="/img/Trip Full Accel - MarkMaker Logo3.png"
+              ></img> */}
             </TitleB>
           </TitleNav>
           <ListNav>
@@ -239,6 +245,7 @@ const Header = () => {
                   color="light"
                   size="lg"
                   onClick={() => goToLogin()}
+                  style={{ backgroundColor: "#7c74ab", borderColor: "#7c74ab" }}
                 >
                   Login
                 </Button>
@@ -246,7 +253,7 @@ const Header = () => {
                   비밀번호를 잊으셨나요?
                 </a>
 
-                <a href="#!" style={{ color: "#393f81" }}>
+                <a href="#!" style={{ color: "#7c74ab" }}>
                   회원가입
                 </a>
 

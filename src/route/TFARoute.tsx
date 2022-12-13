@@ -10,6 +10,7 @@ import MyPage from "../components/MyPage/MyPage";
 import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Regist from "components/board/Regist";
+import BoardDetail from "../components/board/boardDetail";
 
 const MyRoute = () => {
   return (
@@ -24,6 +25,10 @@ const MyRoute = () => {
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
           <Route path="photo" element={<Photo></Photo>}></Route>
           <Route path="board" element={<Board></Board>}></Route>
+          <Route
+            path="boardDetail"
+            element={<BoardDetail></BoardDetail>}
+          ></Route>
           <Route
             path="/kakao"
             element={<KakaoRedirectHandler></KakaoRedirectHandler>}

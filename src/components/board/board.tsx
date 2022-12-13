@@ -56,7 +56,7 @@ const Board = () => {
         style={{ float: "right", marginRight: "13rem" }}
         onClick={() => boardBtn()}
       >
-        글쓰러 가기
+        글쓰러 gogo
       </Button>
     </div>
   );

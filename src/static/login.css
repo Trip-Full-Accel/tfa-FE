@@ -1,37 +1,11 @@
-* {
-  margin: 0px auto;
-  padding: 0px;
-  text-align: center;
-  font-family: "Open Sans", sans-serif;
-}
-
+/* 추후삭제 */
+/* 
 .cotn_principal {
   position: absolute;
-  /* width: 100%; */
   display: flex;
   height: 700px;
   margin: -50px 0 0 -70px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cfd8dc+0,607d8b+100,b0bec5+100 */
-  /* background: #cfd8dc; Old browsers */
-  /* background: -moz-linear-gradient(
-    -45deg,
-    #cfd8dc 0%,
-    #607d8b 100%,
-    #b0bec5 100% */
-  /* ); FF3.6-15 */
-  /* background: -webkit-linear-gradient(
-    -45deg,
-    #cfd8dc 0%,
-    #607d8b 100%,
-    #b0bec5 100%
-  ); /* Chrome10-25,Safari5.1-6 */
-  /* background: linear-gradient(
-    135deg,
-    #cfd8dc 0%,
-    #607d8b 100%,
-    #b0bec5 100%
-  ); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cfd8dc', endColorstr='#b0bec5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cfd8dc', endColorstr='#b0bec5',GradientType=1 );
 }
 
 .cont_centrar {
@@ -103,9 +77,6 @@
 
 .cont_img_back_grey > img {
   width: 100%;
-  /* -webkit-filter: grayscale(100%); */
-  /* filter: grayscale(100%); */
-  /* opacity: 0.2; */
   animation-name: animar_fondo;
   animation-duration: 20s;
   animation-timing-function: linear;
@@ -204,10 +175,7 @@
   margin-top: 15px;
   color: #fff;
 }
-/* ----------------------------------
-  background text    
-  ------------------------------------
-   */
+
 .cont_ba_opcitiy {
   position: relative;
   background-color: rgba(120, 144, 156, 0.55);
@@ -232,22 +200,6 @@
   z-index: 2;
 }
 
-@-webkit-keyframes animar_fondo {
-  from {
-    -webkit-transform: scale(1) translate(0px);
-    -moz-transform: scale(1) translate(0px);
-    -ms-transform: scale(1) translate(0px);
-    -o-transform: scale(1) translate(0px);
-    transform: scale(1) translate(0px);
-  }
-  to {
-    -webkit-transform: scale(1.5) translate(50px);
-    -moz-transform: scale(1.5) translate(50px);
-    -ms-transform: scale(1.5) translate(50px);
-    -o-transform: scale(1.5) translate(50px);
-    transform: scale(1.5) translate(50px);
-  }
-}
 @-o-keyframes identifier {
   from {
     -webkit-transform: scale(1);
@@ -363,4 +315,4 @@
   float: left;
   margin: 10px;
   margin-left: 30px;
-}
+} */

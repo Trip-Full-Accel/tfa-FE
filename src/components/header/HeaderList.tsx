@@ -35,6 +35,8 @@ const HeaderList = ({ value, name }: Props) => {
       return "info_header_list";
     } else if (loc == "/myPage") {
       return "info_header_list";
+    } else if (loc == "/board") {
+      return "info_header_list";
     } else if (loc == "/") {
       if (scrollPosition < 10) {
         return "original_header_list";
@@ -55,10 +57,7 @@ const HeaderList = ({ value, name }: Props) => {
       }}
       className={locFunction()}
     >
-      <li
-        // listStyle:"none",
-        style={{ padding: "0 10px" }}
-      >
+      <li style={{ padding: "0 10px" }}>
         <a
           onClick={() => {
             linkTo(`/${value}`);

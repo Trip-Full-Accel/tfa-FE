@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import "./silder.css";
-export default class AutoPlay extends Component {
+import "./slider.css";
+import styled from "styled-components";
+export default class Slide extends Component {
   render() {
     const settings = {
       dots: true,
@@ -14,20 +15,11 @@ export default class AutoPlay extends Component {
     };
 
     return (
-      <div
-        className="silder-wrap"
-        style={{
-          width: "1000px",
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* 부산 */}
-
+      <MainSlideDiv>
         <div
           className="busan"
           style={{
-            width: "1000px",
+            width: "100px",
           }}
         >
           <Slider {...settings}>
@@ -58,7 +50,13 @@ export default class AutoPlay extends Component {
           </Slider>
           <br></br>
         </div>
-      </div>
+      </MainSlideDiv>
     );
   }
 }
+
+const MainSlideDiv = styled.div`
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+`;

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { redirect, useLocation, useNavigate } from "react-router-dom";
 import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
 import HeaderList from "./HeaderList";
 import { Button, Modal } from "react-bootstrap";
-import "../../static/modal.css";
+import "../../static/bootmodal.css";
 import "./Header.css";
 import "./modal.css";
+import styled from "styled-components";
 
 import {
   MDBCard,
@@ -17,7 +18,9 @@ import {
   MDBRow,
 } from "mdb-react-ui-kit";
 import { Input } from "reactstrap";
-import "../../static/modal.css";
+import "../../static/bootmodal.css";
+import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils";
+import { CustomAxios } from "./../../http/customAxios";
 
 type tfaPath = {
   value: string;
@@ -25,8 +28,9 @@ type tfaPath = {
 };
 const Header = () => {
   const [lgShow, setLgShow] = useState(false);
-  const [modalImg, setModalImg] = useState<string>("");
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [idInput, setIdInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
@@ -39,6 +43,7 @@ const Header = () => {
     { name: "Info", value: "tfaInfo" },
     // { name: "마이페이지", value: "myPage" },
     { name: "Photo", value: "photo" },
+    { name: "board", value: "board" },
   ];
 
   const linkTo = (path: string) => {
@@ -56,6 +61,8 @@ const Header = () => {
       return "info_header_list";
     } else if (loc == "/myPage") {
       return "info_header_list";
+    } else if (loc == "/board") {
+      return "info_header_list";
     } else if (loc == "/") {
       if (scrollPosition < 10) {
         return "original_header_list";
@@ -67,8 +74,8 @@ const Header = () => {
 
   const loginImg = () => {
     var imgList = [];
-    imgList.push("/img/login/login1.webp");
-    imgList.push("/img/login/login2.png");
+    imgList.push("/img/login/login1.jpg");
+    imgList.push("/img/login/login2.jpg");
     imgList.push("/img/login/login3.jpg");
     imgList.push("/img/login/login4.jpg");
     imgList.push("/img/login/login5.jpg");
@@ -81,49 +88,78 @@ const Header = () => {
     return imgRandom;
   };
 
+  // 카톡 로그인 구현
+  const { Kakao } = window;
+  const loginKakao = () => {
+    Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/kakao",
+      scope: "profile_nickname, account_email, gender,age_range",
+    });
+    console.log("카톡로그인 메서드 실행됨");
+  };
+
+  // const CLIENT_ID = "82e8a356b706e9f7b99ef65f77a5fd43";
+  // const REDIRECT_URI = "http://localhost:3000/kakao";
+  // 프런트엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
+  // 백엔드 리다이랙트 URI 예시
+  // const REDIRECT_URI =  "http://localhost:5000/kakao/code";
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  //구글 로그인
+  //구글 로그인 구현
+  let googleClientId: string =
+    "211887729069-e1tmdi51mma8bkhmd8b5k6rq29tf8s21.apps.googleusercontent.com";
+  //사용자 정보를 담아둘 userObj
+  const [userObj, setUserObj] = useState({
+    email: "",
+    name: "",
+  });
+  //로그인 성공시 res처리
+  const onLoginSuccess = (res: any) => {
+    setUserObj({
+      ...userObj,
+      email: res.profileObj.email,
+      name: res.profileObj.name,
+    });
+  };
+
+  // 네이버 로그인
+  //
+  //
+  //
+  // 로그인 인풋값 전송
+
+  const idInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIdInput(e.target.value);
+  };
+  const pwInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordInput(e.target.value);
+  };
+
+  const goToLogin = async () => {
+    await CustomAxios("/", "POST", {
+      id: idInput,
+      pw: passwordInput,
+    });
+  };
+
   return (
-    <div style={{ width: "100%", margin: 0, position: "fixed", zIndex: 1 }}>
-      <nav
+    <HeaderMainDiv>
+      <MainNav
         className={scrollPosition < 10 ? "original_header" : "change_header"}
-        style={{
-          display: "flex",
-          alignContent: "center",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          border: "none",
-        }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "90%",
-            alignItems: "center",
-          }}
-        >
-          <div className="titleDiv">
-            <b
+        <FirstNavDiv>
+          <TitleNav>
+            <TitleB
               onClick={() => {
                 linkTo("/");
               }}
-              style={{
-                color: "black",
-                cursor: "pointer",
-                border: "none",
-                backgroundColor: "transparent",
-                fontSize: "30px",
-                float: "left",
-              }}
             >
               TripFullAccel
-            </b>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              cursor: "pointer",
-            }}
-          >
+            </TitleB>
+          </TitleNav>
+          <ListNav>
             {tfaPath.map((el) => {
               return (
                 <HeaderList
@@ -133,16 +169,12 @@ const Header = () => {
                 ></HeaderList>
               );
             })}
-            <div
-              style={{ padding: "0 10px" }}
-              className={locFunction()}
-              onClick={() => setLgShow(true)}
-            >
+            <JoinNav className={locFunction()} onClick={() => setLgShow(true)}>
               &nbsp; Join
-            </div>
-          </div>
-        </div>
-      </nav>
+            </JoinNav>
+          </ListNav>
+        </FirstNavDiv>
+      </MainNav>
 
       <Modal
         className="loginM"
@@ -166,10 +198,7 @@ const Header = () => {
             <MDBCol md="6">
               <MDBCardImage
                 onBlur={MDBIcon}
-                src={
-                  loginImg()
-                  // scrollPosition > 10 ? "/img/login.webp" : "/img/login2.png"
-                }
+                src={loginImg()}
                 alt="login form"
                 className="rounded-start w-100"
                 style={{ height: "513px" }}
@@ -192,18 +221,24 @@ const Header = () => {
                   placeholder="ID"
                   type="text"
                   style={{ marginTop: "2rem" }}
+                  onChange={(e) => {
+                    idInputHandler(e);
+                  }}
                 />
                 <Input
                   className="lginputpw"
                   placeholder="PASSWORD"
                   type="password"
+                  onChange={(e) => {
+                    pwInputHandler(e);
+                  }}
                 />
 
                 <Button
                   className="mb-4 px-5"
                   color="light"
                   size="lg"
-                  onClick={() => loginImg()}
+                  onClick={() => goToLogin()}
                 >
                   Login
                 </Button>
@@ -216,15 +251,24 @@ const Header = () => {
                 </a>
 
                 <div className="wrapper">
+                  {/* 카카오 */}
                   <a href="#" className="icon">
-                    <i className="fab fa-facebook-f"></i>
+                    <i
+                      style={{ fontSize: "35px" }}
+                      className="xi-kakaotalk"
+                      onClick={() => loginKakao()}
+                    ></i>
                   </a>
-
-                  <a href="#" className="icon">
-                    <i className="fab fa-google-plus-g"></i>
+                  {/* 구글로그인 */}
+                  <a href="/google" className="icon">
+                    <i
+                      style={{ fontSize: "35px" }}
+                      className="xi-google-plus"
+                    ></i>
                   </a>
-                  <a href="#" className="icon">
-                    <i className="fab fa-youtube"></i>
+                  {/* 네이버 */}
+                  <a href="/naver" className="icon">
+                    <i style={{ fontSize: "30px" }} className="xi-naver"></i>
                   </a>
                 </div>
               </MDBCardBody>
@@ -233,8 +277,50 @@ const Header = () => {
         </MDBCard>
       </Modal>
       <Topbtn></Topbtn>
-    </div>
+    </HeaderMainDiv>
   );
 };
 
 export default Header;
+
+const HeaderMainDiv = styled.div`
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  z-index: 2;
+  border: none;
+`;
+
+const MainNav = styled.nav`
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: none;
+`;
+
+const FirstNavDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  align-items: center;
+`;
+const TitleNav = styled.div``;
+
+const TitleB = styled.b`
+  color: black;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+  float: left;
+  z-index: 9999;
+`;
+
+const ListNav = styled.div`
+  display: flex;
+  cursor: pointer;
+`;
+const JoinNav = styled.div`
+  padding: 0 10px;
+`;

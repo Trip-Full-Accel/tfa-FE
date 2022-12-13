@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useLocation } from "react-router-dom";
-import "../../static/Maps.css";
+import styled from "styled-components";
 import "../../static/side.css";
 import Points from "./Points";
-import TourList from "./TourList";
 /*global kakao*/ //지우면 안됨
 
 interface city {
@@ -81,23 +80,19 @@ const Maps = () => {
   };
 
   return (
-    <div className="App" id="mapPage">
-      <div>
-        <h1>plan your trip</h1>
-      </div>
-
-      <div id="left">
+    <MapPageDiv>
+      <SelectListDiv>
         {addr.map((el, i) => {
           return <Points key={el.name} idx={i} name={el.name}></Points>;
         })}
-      </div>
-      <div id="center">
+      </SelectListDiv>
+      <MapDiv>
         <Map
           center={{
             lat: markers[0].position.lat,
             lng: markers[0].position.lng,
           }}
-          style={{ width: "40em", height: "30rem" }}
+          style={{ width: "40rem", height: "40rem" }}
           level={8} // 작을 수록 범위가 좁아짐
           onClick={(_target, mouseEvent) => {
             setMarkers([
@@ -119,22 +114,11 @@ const Maps = () => {
                 position={marker.position} // 마커를 표시할 위치
               />
             ))}
-
-          <Polyline
-            path={[markers.map((data) => data?.position)]}
-            strokeWeight={10} // 두께
-            strokeColor={"#FF3CBB"} // 색
-            strokeOpacity={0.8} // 불투명도
-            strokeStyle={"dashed"} // 스타일
-          />
         </Map>
-      </div>
+      </MapDiv>
 
-      <div className="" style={{ width: "380px" }}>
-        <a href="#" className="">
-          <svg className="" width="30" height="24"></svg>
-          <span className="">관광지 리스트</span>
-        </a>
+      <TourListTopDiv>
+        <span className="">관광지 리스트</span>
         {travelPoint.map((el) => {
           return (
             // TourList로 분기하게되면 Mapmarker사용 불가능해서 분기못함 추후에 리덕스에서 가져오면 가능할지도..
@@ -147,8 +131,8 @@ const Maps = () => {
             //   y={el.y}
             // ></TourList>
 
-            <div key={el.name}>
-              <div className="">
+            <TListDiv>
+              <TNameDiv>
                 <a
                   href="#"
                   className=""
@@ -163,26 +147,37 @@ const Maps = () => {
                         },
                       },
                     ]);
-                    console.log(el.x);
-                    console.log(el.y);
 
                     setAddr([{ name: el.name }]);
-                    // console.log(name);
                   }}
                 >
                   <strong className="">{el.name}</strong>
                 </a>
-                <div className="">
-                  <small>사진넣을거임</small>
-                </div>
-                <div className="">관광지 설명</div>
-              </div>
-            </div>
+              </TNameDiv>
+              <TImgDiv>
+                <small>사진넣을거임</small>
+              </TImgDiv>
+              <TContentDiv>관광지 설명</TContentDiv>
+            </TListDiv>
           );
         })}
-      </div>
-    </div>
+      </TourListTopDiv>
+    </MapPageDiv>
   );
 };
 
 export default Maps;
+
+const MapPageDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const SelectListDiv = styled.div``;
+const MapDiv = styled.div``;
+
+const TourListTopDiv = styled.div``;
+const TListDiv = styled.div``;
+const TNameDiv = styled.div``;
+const TImgDiv = styled.div``;
+const TContentDiv = styled.div``;

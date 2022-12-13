@@ -6,4 +6,3 @@ export const CustomAxios = async (url: string, method: Method, body?: any) => {
   const data = await axios({ url, method, data: body });
   return data;
 };
-// export default CustomAxios;

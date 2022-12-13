@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "../../static/topbtn.css";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 function Topbtn() {
   const [showButton, setShowButton] = useState(false);
 
@@ -25,14 +25,31 @@ function Topbtn() {
   }, []);
 
   return showButton ? (
-    <div className="topbtn-div">
-      <button className="topbtn" id="top" onClick={scrollToTop} type="button">
-        {" "}
-        <img className="topbtn-img" src="/img/pointer6.png"></img>
-      </button>
-    </div>
+    <TopBtnDiv>
+      <Topbutton onClick={scrollToTop} type="button">
+        <TopBtnImg src="/img/topbtn.png"></TopBtnImg>
+      </Topbutton>
+    </TopBtnDiv>
   ) : (
     <></>
   );
 }
 export default Topbtn;
+
+const TopBtnDiv = styled.div`
+  top: 77%;
+  position: fixed;
+  left: 90%;
+  transition: all 0.4s;
+  background-color: transparent;
+`;
+const Topbutton = styled.button`
+  border: none;
+  background-color: transparent;
+`;
+
+const TopBtnImg = styled.img`
+  width: 50px;
+  background-color: transparent;
+  border: none;
+`;

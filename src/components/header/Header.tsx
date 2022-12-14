@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { redirect, useLocation, useNavigate } from "react-router-dom";
+import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
 import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
 import HeaderList from "./HeaderList";
@@ -31,12 +31,20 @@ const Header = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [idInput, setIdInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [loginImges, setLoginImges] = useState("");
+
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
+
+  useEffect(() => {
+    if (lgShow == true) {
+      loginImg();
+    }
+  }, [lgShow]);
 
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
@@ -81,7 +89,6 @@ const Header = () => {
     imgList.push("/img/login/login7.jpg");
     imgList.push("/img/login/login8.jpg");
     let random = Math.round(Math.random() * 7 + 1);
-
     let imgRandom = imgList[random - 1];
     setLoginImges(imgRandom);
   };
@@ -140,6 +147,7 @@ const Header = () => {
       id: idInput,
       pw: passwordInput,
     });
+    navigate("/");
   };
 
   return (
@@ -245,9 +253,10 @@ const Header = () => {
                   비밀번호를 잊으셨나요?
                 </a>
 
+                <Link to="/account" style={{ color: "#393f81" }}>
                 <a href="/account" style={{ color: "#393f81" }}>
                   회원가입
-                </a>
+                </Link>
 
                 <div className="wrapper">
                   {/* 카카오 */}

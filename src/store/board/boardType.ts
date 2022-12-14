@@ -4,12 +4,11 @@ export interface boardState {
 export interface BoardList {
   id: number;
   title: string;
-  writer: string;
+  writer: string | number;
   content: string;
-  regdate?: string; //자동생성인지?
   hits?: number | null;
   like?: number | null;
-  select: string;
+  // select: string;
 }
 export interface BoardUpdate {
   id: number;

@@ -16,7 +16,7 @@ const Board = () => {
   // board페이지 진입시 useEffect 활용해서 getData가 실행되야함 비동기처리필요
   useEffect(() => {
     dispatch(fetchGetBoard());
-  }, []);
+  });
 
   //boardReducer에 담긴 data
   const boardList = useSelector((state: RootState) => state.board.board);
@@ -27,7 +27,7 @@ const Board = () => {
       <BoardMainDiv>
         {boardList.map((el, i) => {
           return (
-            <ContentDiv key={el.title + el.regdate}>
+            <ContentDiv key={el.title + el.writer}>
               <TitleDiv>{el.title}</TitleDiv>
               {/* <div>{el.content}</div> */}
               {/* <div>{el.writer}</div> */}

@@ -1,28 +1,31 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { BoardList } from "./boardType";
+import { CostList } from "./costType";
 
-// 비동기 처리로 BE의 post list에 전체글 list 요청
-export const fetchGetBoard = createAsyncThunk("BOARD/GET", async () => {
-  const response = await CustomAxios("/post/list", "GET");
+//
+export const fetchGetCost = createAsyncThunk("COST/GET", async () => {
+  const response = await CustomAxios("/cost/getcost", "GET");
   return response.data;
 });
-export const fetchPostBoard = createAsyncThunk(
-  "BOARD/POST",
-  async (payload: BoardList) => {
+export const fetchPostCost = createAsyncThunk(
+  "COST/POST",
+  async (payload: CostList) => {
     console.log(payload);
-    await CustomAxios("/post/create", "POST", payload);
+    await CustomAxios("/cost/create", "POST", payload);
   }
 );
+
+// cost 수정 사용 안할예정
 export const fetchPutBoard = createAsyncThunk(
-  "BOARD/PUT",
-  async (payload: BoardList) => {
+  "COST/PUT",
+  async (payload: CostList) => {
     console.log(payload);
     await CustomAxios(`/post/update/${payload.id}`, "PUT", payload);
   }
 );
+// cost 삭제 사용 안할예정
 export const fetchDeleteBoard = createAsyncThunk(
-  "BOARD/DELETE",
+  "COST/DELETE",
   async (id: number) => {
     await CustomAxios(`/post/delete/${id}`, "DELETE");
   }
@@ -32,38 +35,38 @@ export const fetchDeleteBoard = createAsyncThunk(
 type Status = "failed" | "loading" | "succeeded" | "idle";
 type Error = string | undefined;
 interface initialType {
-  board: BoardList[];
+  cost: CostList[];
   status: Status;
   error: Error;
 }
 const initialState: initialType = {
-  board: [],
+  cost: [],
   status: "idle",
   error: "null",
 };
 
-const boardReducer = createSlice({
-  name: "board",
+const costReducer = createSlice({
+  name: "cost",
   initialState,
   reducers: {
     // omit existing reducers here
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchGetBoard.pending, (state, action) => {
+      .addCase(fetchGetCost.pending, (state, action) => {
         state.status = "loading";
         // console.log(action);
       })
-      .addCase(fetchGetBoard.fulfilled, (state, action) => {
+      .addCase(fetchGetCost.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.board = action.payload;
+        state.cost = action.payload;
         // console.log(action.payload);
       })
-      .addCase(fetchGetBoard.rejected, (state, action) => {
+      .addCase(fetchGetCost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-export default boardReducer.reducer;
+export default costReducer.reducer;

@@ -57,6 +57,7 @@ export default class Slide extends Component {
 
 const MainSlideDiv = styled.div`
   width: 1000px;
+  height: 10000px;
   display: flex;
   flex-wrap: wrap;
 `;

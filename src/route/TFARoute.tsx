@@ -34,6 +34,7 @@ const MyRoute = () => {
           <Route path="/naver" element={<NaverLogin></NaverLogin>}></Route>
           <Route path="/google" element={<GLogin></GLogin>}></Route>
           <Route path="/regist" element={<Regist></Regist>}></Route>
+          <Route path="/account" element={<Account></Account>}></Route>
           <Route
             path="/boardDetail"
             element={<BoardDetail></BoardDetail>}

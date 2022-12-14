@@ -72,6 +72,12 @@ const Header = () => {
     }
   };
 
+  const [loginImges, setLoginImges] = useState("");
+  useEffect(() => {
+    if (lgShow == true) {
+      loginImg();
+    }
+  }, [lgShow]);
   const loginImg = () => {
     var imgList = [];
     imgList.push("/img/login/login1.jpg");
@@ -156,7 +162,7 @@ const Header = () => {
                 linkTo("/");
               }}
             >
-              TripFullAccel
+              <img src="/img/TFAlogo.png" style={{ width: "200px" }}></img>
             </TitleB>
           </TitleNav>
           <ListNav>
@@ -248,6 +254,7 @@ const Header = () => {
                 </a>
 
                 <Link to="/account" style={{ color: "#393f81" }}>
+                <a href="/account" style={{ color: "#393f81" }}>
                   회원가입
                 </Link>
 

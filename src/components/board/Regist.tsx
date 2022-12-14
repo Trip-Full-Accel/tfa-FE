@@ -2,7 +2,11 @@ import { useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
-import { fetchDeleteBoard, fetchPostBoard } from "store/board/boardReducer";
+import {
+  fetchDeleteBoard,
+  fetchPostBoard,
+  fetchPutBoard,
+} from "store/board/boardReducer";
 import { AppDispatch } from "store/store";
 import styled from "styled-components";
 import { CustomAxios } from "../../http/customAxios";
@@ -17,7 +21,7 @@ const Regist = () => {
 
   const registHandler = async () => {
     navigate("/board");
-    dispatch(fetchPostBoard({ title, content, id: 0, writer: "asd", select }));
+    dispatch(fetchPostBoard({ title, content, id: 0, writer: 0 }));
     // CustomAxios("/post/create", "POST", {
     //   title: title,
     //   content: content,
@@ -28,17 +32,26 @@ const Regist = () => {
     dispatch(fetchDeleteBoard(4));
   };
   const updateHandler = async () => {
-    // dispatch(fetchPutBoard({ title, content, id: 3 }));
-    await CustomAxios("/post/update/4", "PUT", {
-      title: title,
-      content: content,
-      id: 4,
-      createdDate: "asdf",
-      deleteYn: "n",
-      hits: 1,
-      modifiedDate: "asdfdddddd",
-      writer: "123",
-    });
+    dispatch(
+      fetchPutBoard({
+        title,
+        content,
+        id: 3,
+        writer: "user_id",
+      })
+    );
+
+    //엑시오스로 put 보낼때
+    // await CustomAxios("/post/update/4", "PUT", {
+    //   title: title,
+    //   content: content,
+    //   id: 4,
+    //   createdDate: "asdf",
+    //   deleteYn: "n",
+    //   hits: 1,
+    //   modifiedDate: "asdfdddddd",
+    //   writer: "123",
+    // });
     navigate("/board");
   };
 

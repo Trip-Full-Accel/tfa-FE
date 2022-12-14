@@ -11,6 +11,7 @@ import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Regist from "components/board/Regist";
 import BoardDetail from "components/board/boardDetail";
+import Account from "components/account/account";
 
 const MyRoute = () => {
   return (
@@ -32,6 +33,7 @@ const MyRoute = () => {
           <Route path="/naver" element={<NaverLogin></NaverLogin>}></Route>
           <Route path="/google" element={<GLogin></GLogin>}></Route>
           <Route path="/regist" element={<Regist></Regist>}></Route>
+          <Route path="/account" element={<Account></Account>}></Route>
           <Route
             path="/boardDetail"
             element={<BoardDetail></BoardDetail>}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { redirect, useLocation, useNavigate } from "react-router-dom";
+import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
 import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
 import HeaderList from "./HeaderList";
@@ -31,12 +31,20 @@ const Header = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [idInput, setIdInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [loginImges, setLoginImges] = useState("");
+
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   });
+
+  useEffect(() => {
+    if (lgShow == true) {
+      loginImg();
+    }
+  }, [lgShow]);
 
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
@@ -53,24 +61,14 @@ const Header = () => {
   const loc = location.pathname;
 
   const locFunction = () => {
-    if (loc == "/tfaInfo") {
-      return "info_header_list";
-    } else if (loc == "/photo") {
-      return "info_header_list";
-    } else if (loc == "/maps") {
-      return "info_header_list";
-    } else if (loc == "/myPage") {
-      return "info_header_list";
-    } else if (loc == "/boardDetail") {
-      return "info_header_list";
-    } else if (loc == "/board") {
-      return "info_header_list";
-    } else if (loc == "/") {
+    if (loc == "/") {
       if (scrollPosition < 10) {
         return "original_header_list";
       } else {
         return "change_header_list";
       }
+    } else {
+      return "info_header_list";
     }
   };
 
@@ -85,9 +83,8 @@ const Header = () => {
     imgList.push("/img/login/login7.jpg");
     imgList.push("/img/login/login8.jpg");
     let random = Math.round(Math.random() * 7 + 1);
-
     let imgRandom = imgList[random - 1];
-    return imgRandom;
+    setLoginImges(imgRandom);
   };
 
   // 카톡 로그인 구현
@@ -144,6 +141,7 @@ const Header = () => {
       id: idInput,
       pw: passwordInput,
     });
+    navigate("/");
   };
 
   return (
@@ -200,7 +198,7 @@ const Header = () => {
             <MDBCol md="6">
               <MDBCardImage
                 onBlur={MDBIcon}
-                src={loginImg()}
+                src={loginImges}
                 alt="login form"
                 className="rounded-start w-100"
                 style={{ height: "513px" }}
@@ -249,9 +247,9 @@ const Header = () => {
                   비밀번호를 잊으셨나요?
                 </a>
 
-                <a href="#!" style={{ color: "#393f81" }}>
+                <Link to="/account" style={{ color: "#393f81" }}>
                   회원가입
-                </a>
+                </Link>
 
                 <div className="wrapper">
                   {/* 카카오 */}

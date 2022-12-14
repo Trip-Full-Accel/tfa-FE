@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../../static/all.css";
 import MainBtn from "./MainBtn";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 interface dataType {
   name: string;
   x: string;
@@ -10,6 +12,10 @@ interface dataType {
 }
 const Main = () => {
   const navigate = useNavigate();
+  const reduxData = useSelector((state: RootState) => state.user.userId);
+  console.log(reduxData);
+  const local = localStorage.getItem("userId");
+
   const [coordinate, setCoordinate] = useState({ x: "", y: "" });
   const data: dataType[] = [
     { name: "Busan", x: "35.1795543", y: "129.0756416" },
@@ -41,7 +47,7 @@ const Main = () => {
     <TopLvDiv>
       <FirstDiv>
         <LeftDiv>
-          <MainTitle>TFA</MainTitle>
+          <MainTitle>TFA {local}</MainTitle>
           <br />
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
           <br />

@@ -5,6 +5,7 @@ import MainBtn from "./MainBtn";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
+import { Spinner } from "reactstrap";
 interface dataType {
   name: string;
   x: string;

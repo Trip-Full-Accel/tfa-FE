@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
 import { findUserPw, User, userInfoUpdate } from "./userType";
 
-// 유저 정보 가져오는 리듀서
+/** 유저 정보 가져오는 리듀서*/
 export const fetchGetUserInfo = createAsyncThunk("USERINFO/GET", async () => {
   const response = await CustomAxios("/user/info", "GET");
   return response.data;
 });
 
-// 비밀번호 찾기 리듀서
+/** 비밀번호 찾기 리듀서*/
 export const fetchPostUserPwFind = createAsyncThunk(
   "FINDPW/POST",
   async (payload: findUserPw) => {
@@ -19,7 +19,7 @@ export const fetchPostUserPwFind = createAsyncThunk(
   }
 );
 
-// 회원가입 리듀서
+/** 회원가입 리듀서*/
 export const fetchPostUserJoin = createAsyncThunk(
   "USERJOIN/POST",
   async (payload: User) => {
@@ -30,7 +30,7 @@ export const fetchPostUserJoin = createAsyncThunk(
   }
 );
 
-// 아이디 중복확인 리듀서
+/** 아이디 중복확인 리듀서*/
 export const fetchUserCheck = createAsyncThunk(
   "USERCHECK/POST",
   async (id: string) => {
@@ -41,7 +41,7 @@ export const fetchUserCheck = createAsyncThunk(
   }
 );
 
-// 닉네임 중복확인 리듀서
+/**닉네임 중복확인 리듀서*/
 export const fetchUserNickCheck = createAsyncThunk(
   "USERNICKCHECK/POST",
   async (nick: string) => {
@@ -91,23 +91,6 @@ const initialState: initialType = {
   error: "null",
 };
 
-// interface userIdType {
-//   userId: string;
-//   status: Status;
-//   error: Error;
-// }
-// const initialState2: userIdType = {
-//   userId: "",
-//   status: "idle",
-//   error: "null",
-// };
-
-// const userIdReducer = createSlice({
-//   name: "userId",
-//   initialState2,
-//   reducers: {},
-// });
-
 const userReducer = createSlice({
   name: "user",
   initialState,
@@ -127,6 +110,7 @@ const userReducer = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+      // 로그인 성공시 스테이트에 값 담음
       .addCase(fetchPostUserJoin.fulfilled, (state, action) => {
         // state.user = [...state.user, action.payload];
         state.userId = action.payload;
@@ -134,6 +118,7 @@ const userReducer = createSlice({
         // localStorage.setItem("userId", state.userId);
       })
 
+      // 비밀번호 찾기 성공시 스테이트에 값 담음
       .addCase(fetchPostUserPwFind.fulfilled, (state, action) => {
         state.findedpw = action.payload;
       });

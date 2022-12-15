@@ -11,6 +11,7 @@ export interface User {
   pw: string;
   userCode: string;
   nickName: string;
+  email: string;
 }
 export interface userInfoUpdate {
   id: number;

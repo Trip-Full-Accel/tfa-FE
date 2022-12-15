@@ -96,14 +96,14 @@ const ForgotPw = () => {
   const navigate = useNavigate();
 
   const joinHandler = async () => {
-    await dispatch(
-      fetchPostUserJoin({
-        userId: join.id,
-        pw: join.email,
-        userCode: "나중에 카톡이나 네이버로 받아옴",
-        nickName: join.nick,
-      })
-    );
+    // await dispatch(
+    //   fetchPostUserJoin({
+    //     userId: join.id,
+    //     pw: join.email,
+    //     userCode: "나중에 카톡이나 네이버로 받아옴",
+    //     nickName: join.nick,
+    //   })
+    // );
     navigate("/");
   };
 

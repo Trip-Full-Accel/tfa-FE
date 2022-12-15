@@ -57,6 +57,8 @@ const Header = () => {
     navigate(path);
     if (path === "/account") {
       setLgShow(false);
+    } else if (path === "/forgotPw") {
+      setLgShow(false);
     }
   };
   const location = useLocation();
@@ -250,11 +252,19 @@ const Header = () => {
                   style={{
                     backgroundColor: "#7C74AB",
                     borderColor: "#7C74AB",
+                    marginBottom: "0rem",
                   }}
                 >
                   Login
                 </Button>
-                <a className="small text-muted" href="/forgotPw">
+                <a
+                  className="small text-muted"
+                  onClick={() => linkTo("/forgotPw")}
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "none",
+                  }}
+                >
                   비밀번호를 잊으셨나요?
                 </a>
 
@@ -263,6 +273,7 @@ const Header = () => {
                   style={{
                     color: "#393f81",
                     cursor: "pointer",
+                    textDecoration: "none",
                   }}
                 >
                   회원가입

@@ -50,12 +50,14 @@ const Header = () => {
     { name: "Info", value: "tfaInfo" },
     // { name: "마이페이지", value: "myPage" },
     { name: "Photo", value: "photo" },
-    { name: "board", value: "board" },
+    { name: "Board", value: "board" },
   ];
 
   const linkTo = (path: string) => {
     navigate(path);
     if (path === "/account") {
+      setLgShow(false);
+    } else if (path === "/forgotPw") {
       setLgShow(false);
     }
   };
@@ -255,7 +257,14 @@ const Header = () => {
                 >
                   Login
                 </Button>
-                <a className="small text-muted" href="#!">
+                <a
+                  className="small text-muted"
+                  onClick={() => linkTo("/forgotPw")}
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "none",
+                  }}
+                >
                   비밀번호를 잊으셨나요?
                 </a>
 
@@ -343,4 +352,8 @@ const ListNav = styled.div`
 `;
 const JoinNav = styled.div`
   padding: 0 10px;
+`;
+
+const Butto = styled.button`
+  background-color: red;
 `;

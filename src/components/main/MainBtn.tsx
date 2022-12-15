@@ -19,7 +19,7 @@ const MainBtn = ({ name, x, y }: props) => {
         color: "black",
         border: "0px",
         fontSize: "30px",
-        height: "10000px",
+        height: "1000px",
       }}
       onClick={() => tripStart("/maps")}
     >

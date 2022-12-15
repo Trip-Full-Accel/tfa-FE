@@ -2,16 +2,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store/store";
-import {
-  fetchPostUserJoin,
-  fetchPostUserPwFind,
-  fetchUserCheck,
-} from "store/user/userReducer";
+import { fetchPostUserPwFind } from "store/user/userReducer";
 import styled from "styled-components";
 
 const ForgotPw = () => {
-  const [lgShow, setLgShow] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const findpw = useSelector((state: RootState) => state.user.findedpw);
 
+  // 유저 상태저장
   const [join, setJoin] = useState({
     id: "",
     nick: "",
@@ -31,7 +30,8 @@ const ForgotPw = () => {
     nick: false,
     email: false,
   });
-  // 아이디
+
+  // 아이디 유효성검사
   const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
@@ -48,7 +48,7 @@ const ForgotPw = () => {
     }
   };
 
-  //닉네임
+  // 닉네임 유효성검사
   const onChangeNick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setJoin({ ...join, [name]: value });
@@ -63,7 +63,7 @@ const ForgotPw = () => {
       setValid({ ...valid, [name]: true });
     }
   };
-  // 이메일
+  // 이메일 유효성검사
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailRegex =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -82,14 +82,9 @@ const ForgotPw = () => {
     }
   };
 
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-
-  // 비번 찾기
-  const findpw = useSelector((state: RootState) => state.user.findedpw);
-  // console.log(findpw);
+  // 비밀번호 찾는 리듀서 호출
   const findPwHandler = () => {
-    // console.log(findpw);
+    console.log("find" + findpw);
     dispatch(
       fetchPostUserPwFind({
         userId: join.id,
@@ -165,21 +160,33 @@ const ForgotPw = () => {
               </WarningSpan>
             )}
           </ValidDiv>
+          <InDiv>
+            <LeftDiv>비밀번호 : </LeftDiv>
+            <RightInput
+              type="text"
+              placeholder="확인후에 join버튼으로 로그인 해주세요"
+              readOnly
+            ></RightInput>
+          </InDiv>
+          {findpw === null ? (
+            <Button1
+              disabled={!(valid.id && valid.nick && valid.email)}
+              type="submit"
+              onClick={findPwHandler}
+            >
+              확인
+            </Button1>
+          ) : (
+            <Button1 onClick={() => navigate("/")}>메인으로</Button1>
+          )}
         </div>
-        <Button1
-          disabled={!(valid.id && valid.nick && valid.email)}
-          type="submit"
-          onClick={findPwHandler}
-        >
-          확인
-        </Button1>
-        <Button1 onClick={() => navigate("/")}>메인으로</Button1>
-        <WarningSpan
+
+        {/* <WarningSpan
           // style={{ display: "block" }}
           className={`message ${valid.id ? "success" : "error"}`}
         >
           비밀번호는 : {findpw}
-        </WarningSpan>
+        </WarningSpan> */}
       </InputDiv>
     </GrandDiv>
   );
@@ -187,7 +194,7 @@ const ForgotPw = () => {
 export default ForgotPw;
 const GrandDiv = styled.div`
   width: 1000px;
-  height: 400px;
+  height: 480px;
   padding: 40px;
   border: 2px solid #eaccf8;
   margin: auto !important;

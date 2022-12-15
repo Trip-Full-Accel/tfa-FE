@@ -9,6 +9,8 @@ const Account = () => {
   // 중복까지 체크해야지 가입버튼 뚫림 있는 아이디면 안뚤림
   const [중복, set중복] = useState<boolean>(false);
   const [닉중복, set닉중복] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   //이름, 이메일, 비밀번호, 비밀번호 확인
   const [join, setJoin] = useState({
@@ -37,7 +39,7 @@ const Account = () => {
     passwordConfirm: false,
   });
 
-  // 아이디
+  // 아이디 유효성검사
   const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
@@ -57,7 +59,7 @@ const Account = () => {
     }
   };
 
-  // 닉네임
+  // 닉네임 유효성검사
   const onChangeNick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setJoin({ ...join, [name]: value });
@@ -75,7 +77,7 @@ const Account = () => {
       setValid({ ...valid, [name]: true });
     }
   };
-  // 비밀번호
+  // 비밀번호 유효성검사
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*null)(?=.*[0-9]).{4,25}$/;
     const { value, name } = e.target;
@@ -93,7 +95,7 @@ const Account = () => {
     }
   };
 
-  // 비밀번호 확인
+  // 비밀번호 확인 유효성검사
   const onChangePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setJoin({ ...join, [name]: value });
@@ -110,7 +112,7 @@ const Account = () => {
     }
   };
 
-  //이메일
+  //이메일 유효성검사
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailRegex =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -128,9 +130,6 @@ const Account = () => {
       setValid({ ...valid, [name]: true });
     }
   };
-
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   // user 회원가입 절차
   const joinHandler = async () => {
@@ -400,4 +399,9 @@ const Button2 = styled.button`
   color: white;
   width: 50px;
   height: 40px;
+`;
+
+const ValidIcon = styled.i`
+  font-size: 35px;
+  color: yellowgreen;
 `;

@@ -31,7 +31,17 @@ const Header = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [idInput, setIdInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const navigate = useNavigate();
+  const tfaPath: tfaPath[] = [
+    { name: "Info", value: "tfaInfo" },
+    // { name: "마이페이지", value: "myPage" },
+    { name: "Photo", value: "photo" },
+    { name: "Board", value: "board" },
+  ];
+  const location = useLocation();
+  const loc = location.pathname;
 
+  // 스크롤에 따라 업데이트
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
@@ -45,14 +55,6 @@ const Header = () => {
     }
   }, [lgShow]);
 
-  const navigate = useNavigate();
-  const tfaPath: tfaPath[] = [
-    { name: "Info", value: "tfaInfo" },
-    // { name: "마이페이지", value: "myPage" },
-    { name: "Photo", value: "photo" },
-    { name: "Board", value: "board" },
-  ];
-
   const linkTo = (path: string) => {
     navigate(path);
     if (path === "/account") {
@@ -61,8 +63,6 @@ const Header = () => {
       setLgShow(false);
     }
   };
-  const location = useLocation();
-  const loc = location.pathname;
 
   const locFunction = () => {
     if (loc == "/") {
@@ -146,6 +146,8 @@ const Header = () => {
     setPasswordInput(e.target.value);
   };
 
+  //////////////////
+  // 회원정보 입력하면 로그인되도록 리듀서로 수정 필요함
   const goToLogin = async () => {
     await CustomAxios("/", "POST", {
       id: idInput,

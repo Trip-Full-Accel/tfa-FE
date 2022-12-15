@@ -2,11 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
 import { BoardList } from "./boardType";
 
-// 비동기 처리로 BE의 post list에 전체글 list 요청
+/** 전체글 list 요청 리듀서 */
 export const fetchGetBoard = createAsyncThunk("BOARD/GET", async () => {
   const response = await CustomAxios("/post/list", "GET");
   return response.data;
 });
+
+/** 글 create 리듀서 */
 export const fetchPostBoard = createAsyncThunk(
   "BOARD/POST",
   async (payload: BoardList) => {
@@ -14,6 +16,8 @@ export const fetchPostBoard = createAsyncThunk(
     await CustomAxios("/post/create", "POST", payload);
   }
 );
+
+/** 글 update 리듀서 */
 export const fetchPutBoard = createAsyncThunk(
   "BOARD/PUT",
   async (payload: BoardList) => {
@@ -21,6 +25,8 @@ export const fetchPutBoard = createAsyncThunk(
     await CustomAxios(`/post/update/${payload.id}`, "PUT", payload);
   }
 );
+
+/** 글 delete 리듀서 */
 export const fetchDeleteBoard = createAsyncThunk(
   "BOARD/DELETE",
   async (id: number) => {

@@ -1,12 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { User, userInfoUpdate } from "./userType";
+import { findUserPw, User, userInfoUpdate } from "./userType";
 
-//
+// 유저 정보 가져오는 리듀서
 export const fetchGetUserInfo = createAsyncThunk("USERINFO/GET", async () => {
   const response = await CustomAxios("/user/info", "GET");
   return response.data;
 });
+
+// 비밀번호 찾기 리듀서
+export const fetchPostUserPwFind = createAsyncThunk(
+  "FINDPW/POST",
+  async (payload: findUserPw) => {
+    console.log(payload.email, payload.nickName, payload.userId);
+    const { data } = await CustomAxios(`/user/findpw`, "POST", payload);
+    console.log(data[0].pw);
+    return data[0].pw;
+  }
+);
+
+// 회원가입 리듀서
 export const fetchPostUserJoin = createAsyncThunk(
   "USERJOIN/POST",
   async (payload: User) => {
@@ -16,6 +29,8 @@ export const fetchPostUserJoin = createAsyncThunk(
     return data.userId;
   }
 );
+
+// 아이디 중복확인 리듀서
 export const fetchUserCheck = createAsyncThunk(
   "USERCHECK/POST",
   async (id: string) => {
@@ -25,6 +40,8 @@ export const fetchUserCheck = createAsyncThunk(
     return data;
   }
 );
+
+// 닉네임 중복확인 리듀서
 export const fetchUserNickCheck = createAsyncThunk(
   "USERNICKCHECK/POST",
   async (nick: string) => {
@@ -35,6 +52,7 @@ export const fetchUserNickCheck = createAsyncThunk(
   }
 );
 
+// 회원정보 수정 리듀서
 export const fetchPutUserInfo = createAsyncThunk(
   "USERINFOUPDATE/PUT",
   async (payload: userInfoUpdate) => {
@@ -42,6 +60,8 @@ export const fetchPutUserInfo = createAsyncThunk(
     await CustomAxios(`/user/update/${payload.id}`, "PUT", payload);
   }
 );
+
+// 회원 탈퇴 리듀서
 export const fetchDeleteUser = createAsyncThunk(
   "USERDELETE/DELETE",
   async (id: number) => {
@@ -55,12 +75,18 @@ type Error = string | undefined;
 interface initialType {
   user: User[];
   userId: string;
+  nickName: string;
+  email: string;
+  findedpw: string;
   status: Status;
   error: Error;
 }
 const initialState: initialType = {
   user: [],
   userId: "",
+  nickName: "",
+  email: "",
+  findedpw: "",
   status: "idle",
   error: "null",
 };
@@ -106,6 +132,10 @@ const userReducer = createSlice({
         state.userId = action.payload;
         console.log("state.user값" + state.userId);
         // localStorage.setItem("userId", state.userId);
+      })
+
+      .addCase(fetchPostUserPwFind.fulfilled, (state, action) => {
+        state.findedpw = action.payload;
       });
   },
 });

@@ -17,6 +17,11 @@ export interface userInfoUpdate {
   id: number;
   nickName: string;
 }
+export interface findUserPw {
+  userId: string;
+  nickName: string;
+  email: string;
+}
 
 export interface session {
   userId: string;

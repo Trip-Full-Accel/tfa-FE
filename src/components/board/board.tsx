@@ -24,7 +24,9 @@ const Board = () => {
 
   return (
     <>
-      <BoardTitleDiv>게시판</BoardTitleDiv>
+      <BoardTitleDiv>
+        <img src="/img/boardimg.png" />
+      </BoardTitleDiv>
       <BoardMainDiv>
         <BList />
       </BoardMainDiv>
@@ -36,7 +38,7 @@ const Board = () => {
 export default Board;
 
 const BoardTitleDiv = styled.div`
-  padding: 5rem;
+  /* padding: 5rem; */
 `;
 
 const BoardMainDiv = styled.div`

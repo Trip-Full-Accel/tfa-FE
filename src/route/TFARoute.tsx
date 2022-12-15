@@ -12,6 +12,7 @@ import Template from "../components/Template";
 import Regist from "components/board/Regist";
 import BoardDetail from "components/board/boardDetail";
 import Account from "components/account/account";
+import ForgotPw from "components/forgotPw/forgotPw";
 
 const MyRoute = () => {
   return (
@@ -35,6 +36,7 @@ const MyRoute = () => {
           <Route path="/google" element={<GLogin></GLogin>}></Route>
           <Route path="/regist" element={<Regist></Regist>}></Route>
           <Route path="/account" element={<Account></Account>}></Route>
+          <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
           <Route
             path="/boardDetail"
             element={<BoardDetail></BoardDetail>}

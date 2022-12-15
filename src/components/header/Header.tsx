@@ -50,7 +50,7 @@ const Header = () => {
     { name: "Info", value: "tfaInfo" },
     // { name: "마이페이지", value: "myPage" },
     { name: "Photo", value: "photo" },
-    { name: "board", value: "board" },
+    { name: "Board", value: "board" },
   ];
 
   const linkTo = (path: string) => {
@@ -247,17 +247,23 @@ const Header = () => {
                   color="light"
                   size="lg"
                   onClick={() => goToLogin()}
-                  style={{ backgroundColor: "#7C74AB", borderColor: "#7C74AB" }}
+                  style={{
+                    backgroundColor: "#7C74AB",
+                    borderColor: "#7C74AB",
+                  }}
                 >
                   Login
                 </Button>
-                <a className="small text-muted" href="#!">
+                <a className="small text-muted" href="/forgotPw">
                   비밀번호를 잊으셨나요?
                 </a>
 
                 <a
                   onClick={() => linkTo("/account")}
-                  style={{ color: "#393f81", cursor: "pointer" }}
+                  style={{
+                    color: "#393f81",
+                    cursor: "pointer",
+                  }}
                 >
                   회원가입
                 </a>
@@ -335,4 +341,8 @@ const ListNav = styled.div`
 `;
 const JoinNav = styled.div`
   padding: 0 10px;
+`;
+
+const Butto = styled.button`
+  background-color: red;
 `;

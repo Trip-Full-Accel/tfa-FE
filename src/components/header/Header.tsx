@@ -247,7 +247,11 @@ const Header = () => {
                   color="light"
                   size="lg"
                   onClick={() => goToLogin()}
-                  style={{ backgroundColor: "#7C74AB", borderColor: "#7C74AB" }}
+                  style={{
+                    backgroundColor: "#7C74AB",
+                    borderColor: "#7C74AB",
+                    marginBottom: "0rem",
+                  }}
                 >
                   Login
                 </Button>
@@ -257,7 +261,11 @@ const Header = () => {
 
                 <a
                   onClick={() => linkTo("/account")}
-                  style={{ color: "#393f81", cursor: "pointer" }}
+                  style={{
+                    color: "#393f81",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                  }}
                 >
                   회원가입
                 </a>

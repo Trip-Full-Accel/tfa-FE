@@ -6,47 +6,38 @@ import { AppDispatch } from "store/store";
 import { fetchPostUserJoin, fetchUserCheck } from "store/user/userReducer";
 import styled from "styled-components";
 const Account = () => {
+  // 중복까지 체크해야지 가입버튼 뚫림 있는 아이디면 안뚤림
+  const [중복, set중복] = useState<boolean>(false);
+  const [닉중복, set닉중복] = useState<boolean>(false);
+
   //이름, 이메일, 비밀번호, 비밀번호 확인
   const [join, setJoin] = useState({
     id: "",
     nick: "",
+    email: "",
     password: "",
     passwordConfirm: "",
   });
-
-  // const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = e.target;
-  //   setJoin({ ...join, [name]: value });
-  // };
 
   //오류메시지 상태저장
   const [errMessage, setErrMessage] = useState({
     id: "",
     nick: "",
+    email: "",
     password: "",
     passwordConfirm: "",
   });
 
-  // const errHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = e.target;
-  //   setErrMessage({ ...errMessage, [name]: value });
-  // };
-
   // 유효성 검사
-
   const [valid, setValid] = useState({
     id: false,
     nick: false,
+    email: false,
     password: false,
     passwordConfirm: false,
   });
 
-  // const validHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = e.target;
-  //   setValid({ ...valid, [name]: value });
-  // };
-
-  // 이름
+  // 아이디
   const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
@@ -58,11 +49,15 @@ const Account = () => {
       });
       setValid({ ...valid, [name]: false });
     } else {
-      setErrMessage({ ...errMessage, [name]: "" });
+      setErrMessage({
+        ...errMessage,
+        [name]: "아이디 중복검사도 진행해주세요",
+      });
       setValid({ ...valid, [name]: true });
     }
   };
 
+  // 닉네임
   const onChangeNick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setJoin({ ...join, [name]: value });
@@ -73,7 +68,10 @@ const Account = () => {
       });
       setValid({ ...valid, [name]: false });
     } else {
-      setErrMessage({ ...errMessage, [name]: "" });
+      setErrMessage({
+        ...errMessage,
+        [name]: "닉네임 중복검사도 진행해주세요",
+      });
       setValid({ ...valid, [name]: true });
     }
   };
@@ -112,6 +110,25 @@ const Account = () => {
     }
   };
 
+  //이메일
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const { value, name } = e.target;
+    setJoin({ ...join, [name]: value });
+
+    if (!emailRegex.test(value)) {
+      setErrMessage({
+        ...errMessage,
+        [name]: "email의 형식에 맞게 입력해주세요",
+      });
+      setValid({ ...valid, [name]: false });
+    } else {
+      setErrMessage({ ...errMessage, [name]: "" });
+      setValid({ ...valid, [name]: true });
+    }
+  };
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -121,6 +138,7 @@ const Account = () => {
       fetchPostUserJoin({
         userId: join.id,
         pw: join.password,
+        email: join.email,
         userCode: "나중에 카톡이나 네이버로 받아옴",
         nickName: join.nick,
       })
@@ -128,6 +146,7 @@ const Account = () => {
     navigate("/");
   };
 
+  // 아이디 중복검사
   const checkId = () => {
     dispatch(fetchUserCheck(join.id))
       .unwrap()
@@ -136,16 +155,32 @@ const Account = () => {
           alert("이미 존재하는 회원입니다.");
         } else {
           alert("가입가능한 아이디 입니다.");
+          set중복(true);
+          setErrMessage({
+            ...errMessage,
+            id: "",
+          });
+        }
+      });
+  };
+  // 닉네임 중복검사
+  const checkNick = () => {
+    dispatch(fetchUserCheck(join.nick))
+      .unwrap()
+      .then((res) => {
+        if (res === true) {
+          alert("이미 존재하는 닉네임입니다.");
+        } else {
+          alert("사용가능한 닉네임 입니다.");
+          set닉중복(true);
+          setErrMessage({
+            ...errMessage,
+            nick: "",
+          });
         }
       });
   };
 
-  const ㅇㅇ = () => {
-    console.log(valid.id);
-    console.log(valid.password);
-    console.log(valid.passwordConfirm);
-    console.log(valid.nick);
-  };
   return (
     <GrandDiv>
       <h2>회원가입</h2>
@@ -160,7 +195,15 @@ const Account = () => {
             required
             onChange={onChangeId}
           ></RightInput>
-          <Button2 onClick={checkId}>중복</Button2>
+          {중복 ? (
+            <i
+              style={{ fontSize: "35px", color: "green" }}
+              className="xi-check-thin"
+              onClick={checkId}
+            ></i>
+          ) : (
+            <Button2 onClick={checkId}>중복</Button2>
+          )}
         </InDiv>
         <ValidDiv>
           {join.id.length > 0 && (
@@ -172,6 +215,36 @@ const Account = () => {
             </WarningSpan>
           )}
         </ValidDiv>
+        {/* 닉네임 시작 */}
+        <InDiv>
+          <LeftDiv>닉네임</LeftDiv>
+          <RightInput
+            type="text"
+            name="nick"
+            placeholder="닉네임을 입력하세요"
+            required
+            onChange={onChangeNick}
+          ></RightInput>
+          {닉중복 ? (
+            <i
+              style={{ fontSize: "35px", color: "green" }}
+              className="xi-check-thin"
+              onClick={checkNick}
+            ></i>
+          ) : (
+            <Button2 onClick={checkNick}>중복</Button2>
+          )}
+        </InDiv>
+        <ValidDiv>
+          {join.nick.length > 0 && (
+            <WarningSpan
+              className={`message ${valid.nick ? "success" : "error"}`}
+            >
+              {errMessage.nick}
+            </WarningSpan>
+          )}
+        </ValidDiv>
+
         <InDiv>
           <LeftDiv>비밀번호</LeftDiv>
           <RightInput
@@ -212,35 +285,45 @@ const Account = () => {
             </WarningSpan>
           )}
         </ValidDiv>
+
+        {/* 이메일 시작 */}
         <InDiv>
-          <LeftDiv>닉네임</LeftDiv>
+          <LeftDiv>이메일</LeftDiv>
           <RightInput
             type="text"
-            name="nick"
-            placeholder="닉네임을 입력하세요"
+            name="email"
+            placeholder="email을 입력하세요"
             required
-            onChange={onChangeNick}
+            onChange={onChangeEmail}
           ></RightInput>
         </InDiv>
         <ValidDiv>
-          {join.nick.length > 0 && (
+          {join.email.length > 0 && (
             <WarningSpan
-              className={`message ${valid.nick ? "success" : "error"}`}
+              className={`message ${valid.email ? "success" : "error"}`}
             >
-              {errMessage.nick}
+              {errMessage.email}
             </WarningSpan>
           )}
         </ValidDiv>
+
         <Button1
           disabled={
-            !(valid.id && valid.nick && valid.password && valid.passwordConfirm)
+            !(
+              valid.id &&
+              valid.nick &&
+              valid.password &&
+              valid.passwordConfirm &&
+              valid.email &&
+              중복 &&
+              닉중복
+            )
           }
           type="submit"
           onClick={joinHandler}
         >
           가입하기
         </Button1>
-        <Button1 onClick={ㅇㅇ}>궁금</Button1>
       </InputDiv>
     </GrandDiv>
   );
@@ -248,7 +331,7 @@ const Account = () => {
 export default Account;
 const GrandDiv = styled.div`
   width: 500px;
-  height: 600px;
+  height: 700px;
   padding: 40px;
   border: 2px solid #eaccf8;
   margin: auto !important;

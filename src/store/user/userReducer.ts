@@ -25,6 +25,15 @@ export const fetchUserCheck = createAsyncThunk(
     return data;
   }
 );
+export const fetchUserNickCheck = createAsyncThunk(
+  "USERNICKCHECK/POST",
+  async (nick: string) => {
+    console.log(nick);
+    const { data } = await CustomAxios(`/user/check/${nick}`, "GET", nick);
+    // console.log(data);
+    return data;
+  }
+);
 
 export const fetchPutUserInfo = createAsyncThunk(
   "USERINFOUPDATE/PUT",

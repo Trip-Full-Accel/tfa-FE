@@ -1,5 +1,4 @@
-import React from "react";
-
+import { useEffect, useState } from "react";
 import "./Pagenation.css";
 
 interface props {
@@ -15,11 +14,19 @@ const Pagenation = ({
   setCurrentPage,
   currentPage,
 }: props) => {
-  let pages = [];
+  // let pages = [];
+  const [pages, setPages] = useState<number[]>([]);
+  const pagefunction = () => {
+    let temp = [];
+    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+      temp.push(i);
+    }
+    setPages(temp);
+  };
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pages.push(i);
-  }
+  useEffect(() => {
+    pagefunction();
+  }, [totalPosts, postsPerPage]);
 
   return (
     <div className="pagination">

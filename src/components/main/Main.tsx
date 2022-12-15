@@ -3,15 +3,19 @@ import { useNavigate } from "react-router-dom";
 import "../../static/all.css";
 import MainBtn from "./MainBtn";
 import styled from "styled-components";
-
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 interface dataType {
   name: string;
   x: string;
   y: string;
 }
-
 const Main = () => {
   const navigate = useNavigate();
+  const reduxData = useSelector((state: RootState) => state.user.userId);
+  console.log("리덕스에서 가져온 userid값 [" + reduxData + "]");
+  const local = localStorage.getItem("userId");
+
   const [coordinate, setCoordinate] = useState({ x: "", y: "" });
   const data: dataType[] = [
     { name: "Busan", x: "35.1795543", y: "129.0756416" },
@@ -23,7 +27,6 @@ const Main = () => {
     { name: "Jeonju", x: "35.8242238", y: "127.1479532" },
     { name: "gwangju", x: "35.1595454", y: "126.8526012" },
   ];
-
   data.filter((el: { name: string; x: string; y: string }) => {
     if (el.name === "Daejeon") {
     } else if (el.name === "Busan") {
@@ -33,7 +36,6 @@ const Main = () => {
     navigate(path);
     //, { state: { x: x, y: y } }
   };
-
   const scrollToMap = () => {
     window.scroll({
       top: 650,
@@ -41,12 +43,11 @@ const Main = () => {
       behavior: "smooth",
     });
   };
-
   return (
     <TopLvDiv>
       <FirstDiv>
         <LeftDiv>
-          <MainTitle>TFA</MainTitle>
+          <MainTitle>TFA {local}</MainTitle>
           <br />
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
           <br />
@@ -75,11 +76,9 @@ const Main = () => {
   );
 };
 export default Main;
-
 const TopLvDiv = styled.div`
   background-color: #fafafa;
 `;
-
 const LeftDiv = styled.div`
   align-items: right;
   width: 40%;
@@ -87,29 +86,23 @@ const LeftDiv = styled.div`
   font-family: "Nanum Pen Script", cursive;
   align-self: center;
 `;
-
 const VideoDiv = styled.div`
   width: 60%;
 `;
-
 const BtnDiv = styled.div`
   font-family: caveat;
   margin: 20px;
 `;
-
 const FirstDiv = styled.div`
   display: flex;
   margin: 0 !important;
 `;
-
 const MainTitle = styled.h1`
   font-family: Caveat;
 `;
-
 const SubTitle = styled.h3`
   font-family: Caveat;
 `;
-
 const StartBtn = styled.button`
   border: none;
   display: block;
@@ -122,10 +115,9 @@ const StartBtn = styled.button`
   color: #fff;
   font-weight: 700;
   font-size: 15px;
-  background-color: #222;
+  background-color: black;
   padding: 17px 60px;
   margin: 0 auto;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   &::after {
     content: "";
     position: absolute;
@@ -133,13 +125,17 @@ const StartBtn = styled.button`
     top: 0;
     height: 490%;
     width: 140%;
-    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+    background-image: linear-gradient(
+      -225deg,
+      #69eacb 0%,
+      #eaccf8 48%,
+      #6654f1 100%
+    );
     -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
     transform: translateX(-98%) translateY(-25%) rotate(45deg);
   }
-
   &:hover::after {
     -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
     transform: translateX(-9%) translateY(-25%) rotate(45deg);
@@ -149,7 +145,6 @@ const StartBtn = styled.button`
     z-index: 1;
   }
 `;
-
 const Video = styled.video`
   width: 100%;
   float: right;
@@ -157,7 +152,6 @@ const Video = styled.video`
     display: none;
   }
 `;
-
 const SecondDiv = styled.div`
   display: inline-flex;
   margin-top: 150px;

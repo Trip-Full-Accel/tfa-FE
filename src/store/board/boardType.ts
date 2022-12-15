@@ -1,10 +1,18 @@
 export interface boardState {
   board: BoardList[];
 }
-interface BoardList {
+export interface BoardList {
+  id: number;
+  selected: string;
   title: string;
-  writer: string;
+  writer: string | number;
   content: string;
-  regdate: string;
-  like: string;
+  hits?: number | null;
+  like?: number | null;
+  // select: string;
+}
+export interface BoardUpdate {
+  id: number;
+  title: string;
+  content: string;
 }

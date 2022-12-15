@@ -10,6 +10,8 @@ import MyPage from "../components/MyPage/MyPage";
 import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Regist from "components/board/Regist";
+import BoardDetail from "components/board/boardDetail";
+import Account from "components/account/account";
 
 const MyRoute = () => {
   return (
@@ -17,6 +19,7 @@ const MyRoute = () => {
       <Routes>
         <Route element={<Template></Template>}>
           <Route path="" element={<Main></Main>}></Route>
+          <Route path="account" element={<Account></Account>}></Route>
           <Route path="maps" element={<Maps></Maps>}></Route>
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
@@ -31,6 +34,11 @@ const MyRoute = () => {
           <Route path="/naver" element={<NaverLogin></NaverLogin>}></Route>
           <Route path="/google" element={<GLogin></GLogin>}></Route>
           <Route path="/regist" element={<Regist></Regist>}></Route>
+          <Route path="/account" element={<Account></Account>}></Route>
+          <Route
+            path="/boardDetail"
+            element={<BoardDetail></BoardDetail>}
+          ></Route>
         </Route>
       </Routes>
     </BrowserRouter>

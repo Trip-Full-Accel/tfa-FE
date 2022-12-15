@@ -27,22 +27,14 @@ const HeaderList = ({ value, name }: Props) => {
   const loc = location.pathname;
 
   const locFunction = () => {
-    if (loc == "/tfaInfo") {
-      return "info_header_list";
-    } else if (loc == "/photo") {
-      return "info_header_list";
-    } else if (loc == "/maps") {
-      return "info_header_list";
-    } else if (loc == "/myPage") {
-      return "info_header_list";
-    } else if (loc == "/board") {
-      return "info_header_list";
-    } else if (loc == "/") {
+    if (loc == "/") {
       if (scrollPosition < 10) {
         return "original_header_list";
       } else {
         return "change_header_list";
       }
+    } else {
+      return "info_header_list";
     }
   };
 

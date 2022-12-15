@@ -1,31 +1,59 @@
-import { Input, Button } from "reactstrap";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchPost } from "store/postMappingTest/postMappingTestReducer";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Button } from "reactstrap";
+import {
+  fetchDeleteBoard,
+  fetchPostBoard,
+  fetchPutBoard,
+} from "store/board/boardReducer";
+import { AppDispatch } from "store/store";
+import styled from "styled-components";
 import { CustomAxios } from "../../http/customAxios";
 
 const Regist = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [select, setSelect] = useState<string>("리뷰");
+  const [selected, setSelected] = useState<string>("리뷰");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const registHandler = async () => {
     navigate("/board");
-    console.log(title);
-    console.log(content);
-    console.log(select);
+    dispatch(fetchPostBoard({ title, selected, content, id: 0, writer: 0 }));
+    // CustomAxios("/post/create", "POST", {
+    //   title: title,
+    //   content: content,
+    // });
+  };
 
-    await CustomAxios("/", "POST", {
-      title: title,
-      content: content,
-      select: select,
-    });
+  const deleteHandler = async () => {
+    dispatch(fetchDeleteBoard(4));
+  };
+  const updateHandler = async () => {
+    dispatch(
+      fetchPutBoard({
+        title,
+        selected,
+        content,
+        id: 3,
+        writer: "user_id",
+      })
+    );
+
+    //엑시오스로 put 보낼때
+    // await CustomAxios("/post/update/4", "PUT", {
+    //   title: title,
+    //   content: content,
+    //   id: 4,
+    //   createdDate: "asdf",
+    //   deleteYn: "n",
+    //   hits: 1,
+    //   modifiedDate: "asdfdddddd",
+    //   writer: "123",
+    // });
+    navigate("/board");
   };
 
   const textRef = useRef<any>();
@@ -40,7 +68,7 @@ const Regist = () => {
     setContent(e.target.value);
   };
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect(e.target.value);
+    setSelected(e.target.value);
   };
 
   return (
@@ -71,6 +99,12 @@ const Regist = () => {
         </Contentdiv>
         <Btndiv>
           <Button onClick={() => registHandler()}>등록</Button>
+        </Btndiv>
+        <Btndiv>
+          <Button onClick={() => deleteHandler()}>삭제테스트</Button>
+        </Btndiv>
+        <Btndiv>
+          <Button onClick={() => updateHandler()}>수정테스트</Button>
         </Btndiv>
       </RegistFirstdiv>
     </RegistMainDiv>
@@ -112,12 +146,7 @@ const Contentarea = styled.textarea`
   overflow: visible;
   /* &::-webkit-scrollbar {
     display: flex !important;
-  } */import { fetchPost } from './../../store/postMappingTest/postMappingTestReducer';
-import { fetchPost } from 'store/postMappingTest/postMappingTestReducer';
-import { useDispatch } from 'react-redux';
-import { axios } from 'axios';
-import { CustomAxios } from './../../http/customAxios';
-
+  } */
 `;
 
 const SelectBox = styled.select`

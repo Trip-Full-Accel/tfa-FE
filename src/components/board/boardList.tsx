@@ -18,7 +18,7 @@ const BList = () => {
 
   useEffect(() => {
     dispatch(fetchGetBoard());
-    console.log(bList);
+    // console.log(bList);
     // setBoardList(bList);
     // setData(/* fetch(또는 전체 데이터에서 slice)로 현재 page의 데이터를 가져온다. */);
     // 한 페이지에 10개씩 보여준다.

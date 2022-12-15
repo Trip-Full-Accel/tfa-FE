@@ -1,21 +1,22 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "store/store";
-import { fetchPostUserJoin, fetchUserCheck } from "store/user/userReducer";
+import { AppDispatch, RootState } from "store/store";
+import {
+  fetchPostUserJoin,
+  fetchPostUserPwFind,
+  fetchUserCheck,
+} from "store/user/userReducer";
 import styled from "styled-components";
 
 const ForgotPw = () => {
+  const [lgShow, setLgShow] = useState(false);
+
   const [join, setJoin] = useState({
     id: "",
     nick: "",
     email: "",
   });
-
-  // const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = e.target;
-  //   setJoin({ ...join, [name]: value });
-  // };
 
   //오류메시지 상태저장
   const [errMessage, setErrMessage] = useState({
@@ -24,24 +25,12 @@ const ForgotPw = () => {
     email: "",
   });
 
-  // const errHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = e.target;
-  //   setErrMessage({ ...errMessage, [name]: value });
-  // };
-
   // 유효성 검사
-
   const [valid, setValid] = useState({
     id: false,
     nick: false,
     email: false,
   });
-
-  // const validHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = e.target;
-  //   setValid({ ...valid, [name]: value });
-  // };
-
   // 아이디
   const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -59,6 +48,7 @@ const ForgotPw = () => {
     }
   };
 
+  //닉네임
   const onChangeNick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setJoin({ ...join, [name]: value });
@@ -95,15 +85,19 @@ const ForgotPw = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const joinHandler = async () => {
-    // await dispatch(
-    //   fetchPostUserJoin({
-    //     userId: join.id,
-    //     pw: join.email,
-    //     userCode: "나중에 카톡이나 네이버로 받아옴",
-    //     nickName: join.nick,
-    //   })
-    // );
+  // 비번 찾기
+  const findpw = useSelector((state: RootState) => state.user.findedpw);
+  // console.log(findpw);
+  const findPwHandler = () => {
+    // console.log(findpw);
+    dispatch(
+      fetchPostUserPwFind({
+        userId: join.id,
+        nickName: join.nick,
+        email: join.email,
+      })
+    );
+    // alert(findpw);
     navigate("/");
   };
 
@@ -175,10 +169,17 @@ const ForgotPw = () => {
         <Button1
           disabled={!(valid.id && valid.nick && valid.email)}
           type="submit"
-          onClick={joinHandler}
+          onClick={findPwHandler}
         >
           확인
         </Button1>
+        <Button1 onClick={() => navigate("/")}>메인으로</Button1>
+        <WarningSpan
+          // style={{ display: "block" }}
+          className={`message ${valid.id ? "success" : "error"}`}
+        >
+          비밀번호는 : {findpw}
+        </WarningSpan>
       </InputDiv>
     </GrandDiv>
   );

@@ -13,7 +13,7 @@ interface dataType {
 const Main = () => {
   const navigate = useNavigate();
   const reduxData = useSelector((state: RootState) => state.user.userId);
-  console.log(reduxData);
+  console.log("리덕스에서 가져온 userid값 [" + reduxData + "]");
   const local = localStorage.getItem("userId");
 
   const [coordinate, setCoordinate] = useState({ x: "", y: "" });

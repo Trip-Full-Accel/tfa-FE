@@ -14,14 +14,14 @@ import { CustomAxios } from "../../http/customAxios";
 const Regist = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [select, setSelect] = useState<string>("리뷰");
+  const [selected, setSelected] = useState<string>("리뷰");
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const registHandler = async () => {
     navigate("/board");
-    dispatch(fetchPostBoard({ title, content, id: 0, writer: 0 }));
+    dispatch(fetchPostBoard({ title, selected, content, id: 0, writer: 0 }));
     // CustomAxios("/post/create", "POST", {
     //   title: title,
     //   content: content,
@@ -35,6 +35,7 @@ const Regist = () => {
     dispatch(
       fetchPutBoard({
         title,
+        selected,
         content,
         id: 3,
         writer: "user_id",
@@ -67,7 +68,7 @@ const Regist = () => {
     setContent(e.target.value);
   };
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect(e.target.value);
+    setSelected(e.target.value);
   };
 
   return (

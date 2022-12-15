@@ -31,7 +31,6 @@ const Header = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [idInput, setIdInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const [loginImges, setLoginImges] = useState("");
 
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -56,6 +55,9 @@ const Header = () => {
 
   const linkTo = (path: string) => {
     navigate(path);
+    if (path === "/account") {
+      setLgShow(false);
+    }
   };
   const location = useLocation();
   const loc = location.pathname;
@@ -253,10 +255,12 @@ const Header = () => {
                   비밀번호를 잊으셨나요?
                 </a>
 
-                <Link to="/account" style={{ color: "#393f81" }}>
-                <a href="/account" style={{ color: "#393f81" }}>
+                <a
+                  onClick={() => linkTo("/account")}
+                  style={{ color: "#393f81", cursor: "pointer" }}
+                >
                   회원가입
-                </Link>
+                </a>
 
                 <div className="wrapper">
                   {/* 카카오 */}

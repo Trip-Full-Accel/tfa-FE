@@ -96,7 +96,7 @@ const userReducer = createSlice({
         // state.user = [...state.user, action.payload];
         state.userId = action.payload;
         console.log("state.user값" + state.userId);
-        localStorage.setItem("userId", state.userId);
+        // localStorage.setItem("userId", state.userId);
       });
   },
 });

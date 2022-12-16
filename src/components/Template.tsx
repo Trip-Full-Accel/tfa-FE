@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import "../static/template.css";
+import "static/font/font.css";
 
 const Template = () => {
   const location = useLocation();

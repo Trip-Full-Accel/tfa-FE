@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "KNPSBandali";
+  font-display: fallback;
+
+  src: url(./KNPSBandali.otf) format(truetype);
+  unicode-range: U+AC00-D7A3;
+  font-style: normal;
+}

@@ -1,7 +1,10 @@
+import Account from "components/account/account";
+import BoardDetail from "components/board/boardDetail";
+import Regist from "components/board/Regist";
+import ForgotPw from "components/forgotPw/forgotPw";
 import KakaoRedirectHandler from "components/kakaoRedirect";
 import GLogin from "components/lgGoogle";
 import NaverLogin from "components/naver";
-import Board from "./../components/board/board";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TfaInfo from "../components/infomation/TfaInfo";
 import Main from "../components/main/Main";
@@ -9,10 +12,7 @@ import Maps from "../components/map/Maps";
 import MyPage from "../components/MyPage/MyPage";
 import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
-import Regist from "components/board/Regist";
-import BoardDetail from "components/board/boardDetail";
-import Account from "components/account/account";
-import ForgotPw from "components/forgotPw/forgotPw";
+import Board from "./../components/board/board";
 
 const MyRoute = () => {
   return (
@@ -24,7 +24,6 @@ const MyRoute = () => {
           <Route path="maps" element={<Maps></Maps>}></Route>
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
-
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
           <Route path="photo" element={<Photo></Photo>}></Route>
           <Route path="board" element={<Board></Board>}></Route>

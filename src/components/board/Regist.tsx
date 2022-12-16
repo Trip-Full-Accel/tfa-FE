@@ -100,6 +100,7 @@ const Regist = () => {
         <Btndiv>
           <Button onClick={() => registHandler()}>등록</Button>
         </Btndiv>
+        {/* TEST 버튼들 추후 삭제 예정 */}
         <Btndiv>
           <Button onClick={() => deleteHandler()}>삭제테스트</Button>
         </Btndiv>

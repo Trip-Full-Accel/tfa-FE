@@ -1,12 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { findUserPw, User, userInfoUpdate } from "./userType";
+import { findUserPw, User, userInfoUpdate, userLogin } from "./userType";
 
 /** 유저 정보 가져오는 리듀서*/
 export const fetchGetUserInfo = createAsyncThunk("USERINFO/GET", async () => {
   const response = await CustomAxios("/user/info", "GET");
   return response.data;
 });
+
+/** 로그인 리듀서 */
+export const fetchPostLogin = createAsyncThunk(
+  "LOGIN/POST",
+  async (payload: userLogin) => {
+    const { data } = await CustomAxios("/user/login", "POST", payload);
+    return data[0].nickName;
+  }
+);
 
 /** 비밀번호 찾기 리듀서*/
 export const fetchPostUserPwFind = createAsyncThunk(
@@ -80,6 +89,7 @@ interface initialType {
   findedpw: string;
   status: Status;
   error: Error;
+  successLogin: string;
 }
 const initialState: initialType = {
   user: [],
@@ -89,6 +99,7 @@ const initialState: initialType = {
   findedpw: "",
   status: "idle",
   error: "null",
+  successLogin: "",
 };
 
 const userReducer = createSlice({
@@ -110,17 +121,22 @@ const userReducer = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-      // 로그인 성공시 스테이트에 값 담음
+      // 회원가입 성공시 스테이트에 값 담음
       .addCase(fetchPostUserJoin.fulfilled, (state, action) => {
         // state.user = [...state.user, action.payload];
         state.userId = action.payload;
-        console.log("state.user값" + state.userId);
+        console.log("회원 가입시 state.user값" + state.userId);
         // localStorage.setItem("userId", state.userId);
       })
 
       // 비밀번호 찾기 성공시 스테이트에 값 담음
       .addCase(fetchPostUserPwFind.fulfilled, (state, action) => {
         state.findedpw = action.payload;
+      })
+
+      // 로그인 성공시 스테이트에 값 담음
+      .addCase(fetchPostLogin.fulfilled, (state, action) => {
+        state.successLogin = action.payload;
       });
   },
 });

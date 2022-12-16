@@ -17,7 +17,6 @@ const BList = () => {
   //   const [data, setData] = useState(9);
 
   useEffect(() => {
-    dispatch(fetchGetBoard());
     // console.log(bList);
     // setBoardList(bList);
     // setData(/* fetch(또는 전체 데이터에서 slice)로 현재 page의 데이터를 가져온다. */);
@@ -28,7 +27,7 @@ const BList = () => {
     } else {
       setBoardList(bList.slice(10 * (page - 1), 10 * (page - 1) + 9));
     }
-  }, [boardList, page]);
+  }, [bList, page]);
 
   const handlePage = (e: any) => {
     const nowPageInt = parseInt(e.target.outerText);

@@ -21,6 +21,9 @@ import { Input } from "reactstrap";
 import "../../static/bootmodal.css";
 import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils";
 import { CustomAxios } from "./../../http/customAxios";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "store/store";
+import { fetchPostLogin } from "store/user/userReducer";
 
 type tfaPath = {
   value: string;
@@ -40,6 +43,11 @@ const Header = () => {
   ];
   const location = useLocation();
   const loc = location.pathname;
+  const dispatch = useDispatch<AppDispatch>();
+  const OnLogin = useSelector((state: RootState) => state.user.userId);
+
+  // console.log(idInput);
+  // console.log(passwordInput);
 
   // 스크롤에 따라 업데이트
   const updateScroll = () => {
@@ -146,14 +154,19 @@ const Header = () => {
     setPasswordInput(e.target.value);
   };
 
-  //////////////////
-  // 회원정보 입력하면 로그인되도록 리듀서로 수정 필요함
+  // 로그인하고 로그인 성공시에 alert로 닉네임 띄워줌
+  const successLogin = useSelector(
+    (state: RootState) => state.user.successLogin
+  );
   const goToLogin = async () => {
-    await CustomAxios("/", "POST", {
-      id: idInput,
-      pw: passwordInput,
-    });
-    navigate("/");
+    dispatch(fetchPostLogin({ userId: idInput, pw: passwordInput }));
+    if (successLogin.length > 0) {
+      setLgShow(false);
+      alert("환영해~" + successLogin);
+      navigate("/");
+    } else {
+      alert("id or pw 확인해주세요");
+    }
   };
 
   return (
@@ -181,9 +194,22 @@ const Header = () => {
                 ></HeaderList>
               );
             })}
-            <JoinNav className={locFunction()} onClick={() => setLgShow(true)}>
-              &nbsp; Join
-            </JoinNav>
+
+            {successLogin.length > 0 ? (
+              <JoinNav
+                className={locFunction()}
+                onClick={() => linkTo("/myPage")}
+              >
+                &nbsp; 마이페이지
+              </JoinNav>
+            ) : (
+              <JoinNav
+                className={locFunction()}
+                onClick={() => setLgShow(true)}
+              >
+                &nbsp; Join
+              </JoinNav>
+            )}
           </ListNav>
         </FirstNavDiv>
       </MainNav>

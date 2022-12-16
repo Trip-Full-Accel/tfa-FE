@@ -93,7 +93,7 @@ const ForgotPw = () => {
       })
     );
     // alert(findpw);
-    navigate("/");
+    // navigate("/");
   };
 
   return (
@@ -166,9 +166,13 @@ const ForgotPw = () => {
               type="text"
               placeholder="확인후에 join버튼으로 로그인 해주세요"
               readOnly
+              value={findpw}
             ></RightInput>
           </InDiv>
-          {findpw === null ? (
+
+          {findpw.length > 0 ? (
+            <Button1 onClick={() => navigate("/")}>메인으로</Button1>
+          ) : (
             <Button1
               disabled={!(valid.id && valid.nick && valid.email)}
               type="submit"
@@ -176,17 +180,8 @@ const ForgotPw = () => {
             >
               확인
             </Button1>
-          ) : (
-            <Button1 onClick={() => navigate("/")}>메인으로</Button1>
           )}
         </div>
-
-        {/* <WarningSpan
-          // style={{ display: "block" }}
-          className={`message ${valid.id ? "success" : "error"}`}
-        >
-          비밀번호는 : {findpw}
-        </WarningSpan> */}
       </InputDiv>
     </GrandDiv>
   );

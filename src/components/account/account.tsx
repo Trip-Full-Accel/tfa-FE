@@ -195,11 +195,7 @@ const Account = () => {
             onChange={onChangeId}
           ></RightInput>
           {중복 ? (
-            <i
-              style={{ fontSize: "35px", color: "green" }}
-              className="xi-check-thin"
-              onClick={checkId}
-            ></i>
+            <ValidIcon className="xi-check-thin" onClick={checkId}></ValidIcon>
           ) : (
             <Button2 onClick={checkId}>중복</Button2>
           )}
@@ -207,7 +203,6 @@ const Account = () => {
         <ValidDiv>
           {join.id.length > 0 && (
             <WarningSpan
-              // style={{ display: "block" }}
               className={`message ${valid.id ? "success" : "error"}`}
             >
               {errMessage.id}
@@ -225,11 +220,10 @@ const Account = () => {
             onChange={onChangeNick}
           ></RightInput>
           {닉중복 ? (
-            <i
-              style={{ fontSize: "35px", color: "green" }}
+            <ValidIcon
               className="xi-check-thin"
               onClick={checkNick}
-            ></i>
+            ></ValidIcon>
           ) : (
             <Button2 onClick={checkNick}>중복</Button2>
           )}

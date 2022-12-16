@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
+import { fetchGetBoard } from "store/board/boardReducer";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import BList from "./boardList";
@@ -14,7 +16,9 @@ const Board = () => {
   const boardBtn = () => {
     navigate("/regist");
   };
-
+  useEffect(() => {
+    dispatch(fetchGetBoard());
+  }, []);
   // board list 요청시 spinner
   const load = useSelector((state: RootState) => state.board.status);
 

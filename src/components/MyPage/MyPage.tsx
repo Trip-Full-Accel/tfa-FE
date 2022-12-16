@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 import styled from "styled-components";
 
 interface myPageType {

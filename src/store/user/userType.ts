@@ -24,3 +24,8 @@ export interface findUserPw {
 export interface session {
   userId: string;
 }
+
+export interface userLogin {
+  userId: string;
+  pw: string;
+}

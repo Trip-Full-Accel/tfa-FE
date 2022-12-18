@@ -161,11 +161,11 @@ const ForgotPw = () => {
             )}
           </ValidDiv>
           <InDiv>
-            <LeftDiv>비밀번호 : </LeftDiv>
             <RightInput
               type="text"
               placeholder="확인후에 join버튼으로 로그인 해주세요"
               readOnly
+              style={{ textAlign: "center", fontSize: "20px" }}
               value={findpw}
             ></RightInput>
           </InDiv>

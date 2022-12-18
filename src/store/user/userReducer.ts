@@ -17,6 +17,17 @@ export const fetchPostLogin = createAsyncThunk(
   }
 );
 
+/** 로그아웃 리듀서 */
+export const fetchUserlogout = createAsyncThunk(
+  "USERCHECK/POST",
+  async (id: string) => {
+    // console.log(id);
+    const { data } = await CustomAxios(`/user/logout/${id}`, "GET", id);
+    // console.log(data);
+    return data;
+  }
+);
+
 /** 비밀번호 찾기 리듀서*/
 export const fetchPostUserPwFind = createAsyncThunk(
   "FINDPW/POST",
@@ -90,6 +101,7 @@ interface initialType {
   status: Status;
   error: Error;
   successLogin: string;
+  logout: string;
 }
 const initialState: initialType = {
   user: [],
@@ -100,12 +112,17 @@ const initialState: initialType = {
   status: "idle",
   error: "null",
   successLogin: "",
+  logout: "",
 };
 
 const userReducer = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    loginNick: (state, action) => {
+      state.nickName = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchGetUserInfo.pending, (state, action) => {
@@ -137,6 +154,12 @@ const userReducer = createSlice({
       // 로그인 성공시 스테이트에 값 담음
       .addCase(fetchPostLogin.fulfilled, (state, action) => {
         state.successLogin = action.payload;
+        // console.log("payload" + action.payload);
+      })
+
+      // 로그아웃 성공시에 스테이트에 널값할당
+      .addCase(fetchUserlogout.fulfilled, (state, action) => {
+        state.successLogin = "";
       });
   },
 });

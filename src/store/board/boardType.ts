@@ -16,3 +16,6 @@ export interface BoardUpdate {
   title: string;
   content: string;
 }
+export interface BoardSearch {
+  keyword?: string | null;
+}

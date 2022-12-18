@@ -1,5 +1,6 @@
 import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetBoard } from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
@@ -57,6 +58,13 @@ const BList = () => {
           sx={{ margin: 2 }}
           onChange={(e) => handlePage(e)}
         />
+        {/* <ReactPaginate
+          pageCount={boardList.length}
+          pageRangeDisplayed={9}
+          previousLabel={"이전"}
+          nextLabel={"다음"}
+          onPageChange={(e) => handlePage(e)}
+        /> */}
       </div>
     </>
   );

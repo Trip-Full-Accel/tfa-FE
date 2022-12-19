@@ -2,11 +2,11 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import "../static/template.css";
+import "static/font/font.css";
 
 const Template = () => {
   const location = useLocation();
   const loc = location.pathname;
-
   const locFunction = () => {
     if (loc == "/") {
       return "top_no_padding";
@@ -26,6 +26,7 @@ const Template = () => {
       }}
     >
       <Header></Header>
+
       <div
         style={{ flex: 1, width: "100%", backgroundColor: "#fafafa" }}
         className={locFunction()}

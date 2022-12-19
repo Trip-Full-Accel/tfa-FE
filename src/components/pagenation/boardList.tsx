@@ -1,4 +1,3 @@
-import { dividerClasses } from "@mui/material";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";

@@ -5,6 +5,7 @@ import counterReducer from "./counter/counterReducer";
 import footerReducer from "./footerName/footerReducer";
 import getMappingTestReducer from "./getMappingTest/getMappingTestReducer";
 import tokenTest from "./kakaoTokenTest/tokenTest";
+import mapReducer from "./map/mapReducer";
 import postMappingTestReducer from "./postMappingTest/postMappingTestReducer";
 import userReducer from "./user/userReducer";
 export const store = configureStore({
@@ -17,6 +18,7 @@ export const store = configureStore({
     board: boardReducer,
     user: userReducer,
     cost: costReducer,
+    map: mapReducer,
   },
   devTools: true,
 });

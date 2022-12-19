@@ -49,6 +49,6 @@
   font-size: 4px;
   height: 40px;
   left: 0;
-  position: absolute;
+  /* position: absolute; */
   width: 150px;
 }

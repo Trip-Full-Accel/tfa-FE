@@ -51,7 +51,7 @@ const MyPage = () => {
               </ul>
             </RecordDiv>
             <CostDiv>
-              <H4Tag>비용 계싼</H4Tag>
+              <H4Tag>비용 계산</H4Tag>
               <input type="text" value={"교통비"} />
               <input type="text" value={"식비"} />
               <input type="text" value={"숙소비"} />

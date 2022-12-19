@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import "../../static/bootmodal.css";
 import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
-import HeaderList from "./HeaderList";
-import { Button, Modal } from "react-bootstrap";
-import "../../static/bootmodal.css";
 import "./Header.css";
+import HeaderList from "./HeaderList";
 import "./modal.css";
-import styled from "styled-components";
 
 import {
   MDBCard,
@@ -17,13 +17,11 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { Input } from "reactstrap";
-import "../../static/bootmodal.css";
-import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils";
-import { CustomAxios } from "./../../http/customAxios";
 import { useDispatch, useSelector } from "react-redux";
+import { Input } from "reactstrap";
 import { AppDispatch, RootState } from "store/store";
-import { fetchPostLogin } from "store/user/userReducer";
+import { fetchPostLogin, fetchUserlogout } from "store/user/userReducer";
+import "../../static/bootmodal.css";
 
 type tfaPath = {
   value: string;
@@ -42,6 +40,7 @@ const Header = () => {
     { name: "Board", value: "board" },
   ];
   const location = useLocation();
+
   const loc = location.pathname;
   const dispatch = useDispatch<AppDispatch>();
   const OnLogin = useSelector((state: RootState) => state.user.userId);
@@ -158,15 +157,55 @@ const Header = () => {
   const successLogin = useSelector(
     (state: RootState) => state.user.successLogin
   );
-  const goToLogin = async () => {
-    dispatch(fetchPostLogin({ userId: idInput, pw: passwordInput }));
-    if (successLogin.length > 0) {
-      setLgShow(false);
-      alert("환영해~" + successLogin);
-      navigate("/");
-    } else {
-      alert("id or pw 확인해주세요");
-    }
+  // console.log(successLogin);
+
+  // 로그아웃 기능 구현시 식별값 보내줄 거임 백에 따라서 정해짐 일단은 새로고침으로 구현
+  const logout = () => {
+    dispatch(fetchUserlogout(idInput))
+      .unwrap()
+      .then((res) => {
+        if (res) {
+          alert("로그아웃되었음");
+        } else {
+          alert("로그아웃실패했음 관리자한테 문의하삼");
+        }
+      });
+  };
+
+  const goToLogin = () => {
+    dispatch(fetchPostLogin({ userId: idInput, pw: passwordInput }))
+      .unwrap()
+      .then((res) => {
+        if (res.length > 0) {
+          if (loc === "/") {
+            setLgShow(false);
+            alert("환영해~" + res);
+            navigate("/");
+          } else {
+            setLgShow(false);
+            alert("환영해~" + res);
+          }
+        } else {
+          alert("id or pw 확인해주세요");
+        }
+      });
+
+    // const [nick, setNick] = useState("");
+    // CustomAxios("user/login", "POST", {
+    //   userId: idInput,
+    //   pw: passwordInput,
+    // }).then((res) => {
+    //   const nick = res.data[0].nickName;
+    //   if (nick.length > 0) {
+    //     // setNick(nick);
+    //     setLgShow(false);
+    //     alert(nick);
+    //   }
+    // });
+    // dispatch(loginNick({
+    //   userId:idInput,
+    //   pw:passwordInput
+    // }))
   };
 
   return (
@@ -196,12 +235,17 @@ const Header = () => {
             })}
 
             {successLogin.length > 0 ? (
-              <JoinNav
-                className={locFunction()}
-                onClick={() => linkTo("/myPage")}
-              >
-                &nbsp; 마이페이지
-              </JoinNav>
+              <>
+                <JoinNav
+                  className={locFunction()}
+                  onClick={() => linkTo("/myPage")}
+                >
+                  &nbsp; Mypage
+                </JoinNav>
+                <JoinNav className={locFunction()} onClick={logout}>
+                  &nbsp; Logout
+                </JoinNav>
+              </>
             ) : (
               <JoinNav
                 className={locFunction()}

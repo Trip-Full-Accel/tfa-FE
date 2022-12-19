@@ -4,10 +4,7 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@fullpage/react-fullpage": "^0.1.31",
-    "@mui/material": "^5.11.0",
+
     "@react-oauth/google": "^0.5.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/react": "^13.4.0",
@@ -27,6 +24,7 @@
     "react-fullpage": "^0.1.19",
     "react-js-pagination": "^3.0.3",
     "react-kakao-maps-sdk": "^1.1.5",
+    "react-paginate": "^8.1.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.4",
     "react-script": "^2.0.5",

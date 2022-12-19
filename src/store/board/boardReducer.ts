@@ -1,12 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { BoardList } from "./boardType";
+import { BoardList, BoardSearch } from "./boardType";
 
 /** 전체글 list 요청 리듀서 */
 export const fetchGetBoard = createAsyncThunk("BOARD/GET", async () => {
   const response = await CustomAxios("/post/list", "GET");
   return response.data;
 });
+
+/** 글 search 요청 리듀서 */
+export const fetchGetSearch = createAsyncThunk(
+  "BOARDSEARCH/GET",
+  async (keyword: string) => {
+    const { data } = await CustomAxios(
+      `/posts/search/${keyword}`,
+      "GET",
+      keyword
+    );
+    console.log(data);
+    return data;
+  }
+);
 
 /** 글 create 리듀서 */
 export const fetchPostBoard = createAsyncThunk(
@@ -39,11 +53,13 @@ type Status = "failed" | "loading" | "succeeded" | "idle";
 type Error = string | undefined;
 interface initialType {
   board: BoardList[];
+  findedbaord: BoardList[];
   status: Status;
   error: Error;
 }
 const initialState: initialType = {
   board: [],
+  findedbaord: [],
   status: "idle",
   error: "null",
 };
@@ -68,6 +84,9 @@ const boardReducer = createSlice({
       .addCase(fetchGetBoard.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(fetchGetSearch.fulfilled, (state, action) => {
+        state.findedbaord = action.payload;
       });
   },
 });

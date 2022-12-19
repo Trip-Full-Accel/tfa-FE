@@ -1,6 +1,10 @@
+import { CustomAxios } from "http/customAxios";
 import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { fetchPostMap } from "store/map/mapReducer";
+import { AppDispatch } from "store/store";
 import styled from "styled-components";
 import "../../static/side.css";
 import Points from "./Points";
@@ -79,6 +83,20 @@ const Maps = () => {
     return addr;
   };
 
+  const dispatch = useDispatch<AppDispatch>();
+  const createMaps = () => {
+    dispatch(
+      fetchPostMap({
+        firstCourseName: "test",
+        otherCourseNames: ["test1", "test3", "test3"],
+        firstCourseLat: 123,
+        firstCourseLng: 123,
+        otherCourseLats: [11, 22, 33],
+        otherCourseLngs: [44, 55, 66],
+      })
+    );
+  };
+
   return (
     <MapPageDiv>
       <SelectListDiv>
@@ -86,6 +104,8 @@ const Maps = () => {
           return <Points key={el.name} idx={i} name={el.name}></Points>;
         })}
       </SelectListDiv>
+      <button onClick={createMaps}>경로만들기</button>
+
       <MapDiv>
         <Map
           center={{

@@ -12,13 +12,12 @@ export const fetchGetBoard = createAsyncThunk("BOARD/GET", async () => {
 export const fetchGetSearch = createAsyncThunk(
   "BOARDSEARCH/GET",
   async (keyword: string) => {
-    console.log(keyword);
     const { data } = await CustomAxios(
       `/posts/search/${keyword}`,
       "GET",
       keyword
     );
-    // console.log(data);
+    console.log(data);
     return data;
   }
 );

@@ -1,24 +1,24 @@
+import BList from "components/pagenation/boardList";
 import { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
-import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
-import { BoardSearch } from "store/board/boardType";
+import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
-import BList from "./boardList";
 
 const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
   const successLogin = useSelector(
     (state: RootState) => state.user.successLogin
   );
 
   //검색어
-  const [keyword, setKeyword] = useState("");
+  const [firstKeyword, setFirstKeyword] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>("");
 
   // 글작성 페이지 이동
   const boardBtn = () => {
@@ -31,24 +31,27 @@ const Board = () => {
   useEffect(() => {
     dispatch(fetchGetBoard());
   }, []);
+  const boardList = useSelector((state: RootState) => state.board.board);
+  const load = useSelector((state: RootState) => state.board.status);
 
   // 게시판 검색 메서드
   const searchBtn = () => {
-    dispatch(fetchGetSearch(keyword));
-
-    console.log(keyword);
+    setKeyword(firstKeyword);
   };
 
-  const findedBoard = useSelector(
-    (state: RootState) => state.board.findedbaord
-  );
-  console.log(findedBoard);
+  // 리뷰글, 모집글 구분
 
-  // board list 요청시 spinner
-  const load = useSelector((state: RootState) => state.board.status);
+  const [select, setSelect] = useState("");
+  const reviewBtn = () => {
+    setSelect("리뷰");
+  };
+  const recruitBtn = () => {
+    setSelect("모집");
+  };
 
-  const keywordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const [searchKey, setSearchKey] = useState<string>("title");
+  const searchKeyHandler = (e: any) => {
+    setSearchKey(e.target.value);
   };
 
   return (
@@ -58,18 +61,32 @@ const Board = () => {
       </BoardTitleDiv>
       <BoardMainDiv>
         <div>
-          <Button onClick={() => {}}>리뷰글보기</Button>
-          <Button onClick={() => {}}>모집글보기</Button>
+          <Button onClick={() => reviewBtn()}>리뷰글보기</Button>
+          <Button onClick={() => recruitBtn()}>모집글보기</Button>
+          <select onChange={(e) => searchKeyHandler(e)}>
+            <option value="title">제목</option>
+            <option value="content">내용</option>
+            <option value="writer">작성자</option>
+          </select>
           <RightInput
-            onChange={(e) => {
-              keywordHandler(e);
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setFirstKeyword(e.target.value);
             }}
           ></RightInput>
 
           <Button onClick={() => boardBtn()}>글쓰러</Button>
           <Button onClick={() => searchBtn()}>검색</Button>
         </div>
-        {load === "loading" ? <Spinner></Spinner> : <BList />}
+        {load === "loading" ? (
+          <Spinner></Spinner>
+        ) : (
+          <BList
+            data={boardList}
+            keyword={keyword}
+            searchKey={searchKey}
+            select={select}
+          />
+        )}
       </BoardMainDiv>
     </>
   );

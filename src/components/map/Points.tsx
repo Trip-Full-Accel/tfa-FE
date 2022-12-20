@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import styled from "styled-components";
 
 interface props {
   idx: number;
@@ -61,37 +62,46 @@ const Points = ({ idx, name }: props) => {
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Droppable droppableId="characters">
         {(provided: any) => (
-          <ul
-            className="characters"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={{ listStyle: "none", padding: "10px" }}
-          >
-            {characters.map(({ id, name, thumb }, index) => {
-              return (
-                <Draggable key={id} draggableId={id} index={index}>
-                  {(provided: any) => (
-                    <li
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <div>
-                        <img
-                          src={thumb}
-                          style={{ width: "90px", height: "90px" }}
-                        />
-                        {/* {idx + 1}번째  */}
-                        여행지 {name}
-                      </div>
-                      {/* <p>{name}</p> */}
-                    </li>
-                  )}
-                </Draggable>
-              );
-            })}
-            {provided.placeholder}
-          </ul>
+          <ListDiv>
+            <ul
+              className="characters"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={{ listStyle: "none", padding: 0, margin: 0 }}
+            >
+              {characters.map(({ id, name, thumb }, index) => {
+                return (
+                  <Draggable key={id} draggableId={id} index={index}>
+                    {(provided: any) => (
+                      <li
+                        style={{ width: "100%" }}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <ContentDiv>
+                          <img
+                            src={thumb}
+                            style={{
+                              width: "89px",
+                              height: "89px",
+                              borderRadius: "5px 0 0 5px",
+                              float: "left",
+                              margin: 0,
+                            }}
+                          />
+                          {/* {idx + 1}번째  */}
+                          여행지 {name}
+                        </ContentDiv>
+                        {/* <p>{name}</p> */}
+                      </li>
+                    )}
+                  </Draggable>
+                );
+              })}
+              {provided.placeholder}
+            </ul>
+          </ListDiv>
         )}
       </Droppable>
     </DragDropContext>
@@ -99,3 +109,18 @@ const Points = ({ idx, name }: props) => {
 };
 
 export default Points;
+
+const ListDiv = styled.div`
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 550px;
+`;
+
+const ContentDiv = styled.div`
+  border: 1px solid black;
+  background-color: #eaeaea;
+  border-radius: 5px;
+  height: 91px;
+  display: flex;
+  align-items: center;
+`;

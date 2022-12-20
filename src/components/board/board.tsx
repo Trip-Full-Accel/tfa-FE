@@ -71,11 +71,12 @@ const Board = () => {
           </SearchDiv>
         </div>
         <Button
-          style={{ width: "90px", marginLeft: "20px" }}
+          style={{ width: "90px", marginLeft: "100px" }}
           onClick={() => boardBtn()}
         >
           글쓰러
         </Button>
+
         {load === "loading" ? (
           <Spinner></Spinner>
         ) : (

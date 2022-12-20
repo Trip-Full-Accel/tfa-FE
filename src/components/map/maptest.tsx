@@ -13,7 +13,6 @@ const MapTest = () => {
       setItems({ ...items, hasMore: false });
       return;
     }
-
     setTimeout(() => {
       setItems({
         ...items,

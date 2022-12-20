@@ -8,7 +8,6 @@ const TfaInfo = () => {
         src="/img/boardimg.png"
         style={{ width: "1300px", height: "700px", placeSelf: "center" }}
       />
-
       <Fade direction="left" style={{ marginLeft: "10rem" }}>
         <BoxDiv>
           <div>

@@ -7,6 +7,7 @@ import getMappingTestReducer from "./getMappingTest/getMappingTestReducer";
 import tokenTest from "./kakaoTokenTest/tokenTest";
 import mapReducer from "./map/mapReducer";
 import postMappingTestReducer from "./postMappingTest/postMappingTestReducer";
+import reduxTestReducer from "./reduxTest/reduxTestReducer";
 import userReducer from "./user/userReducer";
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     user: userReducer,
     cost: costReducer,
     map: mapReducer,
+    test: reduxTestReducer,
   },
   devTools: true,
 });

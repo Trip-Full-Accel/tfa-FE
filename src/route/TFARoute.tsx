@@ -1,5 +1,6 @@
 import Account from "components/account/account";
 import BoardDetail from "components/board/boardDetail";
+import BoardModify from "components/board/boardModify";
 import Regist from "components/board/Regist";
 import ForgotPw from "components/forgotPw/forgotPw";
 import KakaoRedirectHandler from "components/kakaoRedirect";
@@ -37,7 +38,11 @@ const MyRoute = () => {
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
           <Route
-            path="/boardDetail"
+            path="/boardModify/:boardId"
+            element={<BoardModify></BoardModify>}
+          ></Route>
+          <Route
+            path="/boardDetail/:boardId"
             element={<BoardDetail></BoardDetail>}
           ></Route>
         </Route>

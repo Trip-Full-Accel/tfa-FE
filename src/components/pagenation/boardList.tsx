@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import BoardDetail from "components/board/boardDetail";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -65,10 +66,11 @@ const BList = (props: any) => {
 
   const navigate = useNavigate();
 
-  const asdf = () => {
-    const goDetail = (title: any) => {
-      navigate("/boardDetail");
-    };
+  const goDetail = (id: number) => {
+    console.log(id);
+    navigate(`/boardDetail/${id}`, {
+      state: id,
+    });
   };
 
   return (
@@ -79,7 +81,7 @@ const BList = (props: any) => {
             // .slice(itemOffset, itemOffset + itemsPerPage)
             .map((el: any, i) => {
               return (
-                <ContentDiv key={i}>
+                <ContentDiv onClick={() => goDetail(el.id)} key={i}>
                   <TitleDiv>{el.title}</TitleDiv>
                   {/* <div>{el.content}</div> */}
                   {/* <div>{el.writer}</div> */}
@@ -90,7 +92,7 @@ const BList = (props: any) => {
             })
         : currentItems.map((el: any) => {
             return (
-              <ContentDiv onClick={() => asdf()} key={el.title}>
+              <ContentDiv onClick={() => goDetail(el.id)} key={el.title}>
                 <TitleDiv>{el.title}</TitleDiv>
                 {/* <div>{el.content}</div> */}
                 {/* <div>{el.writer}</div> */}

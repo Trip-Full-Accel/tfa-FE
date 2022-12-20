@@ -1,8 +1,5 @@
-import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGetBoard } from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
@@ -49,15 +46,6 @@ const BList = () => {
         );
       })}
       <div>
-        <Pagination
-          count={lastPage}
-          defaultPage={1}
-          boundaryCount={1}
-          color="primary"
-          size="large"
-          sx={{ margin: 2 }}
-          onChange={(e) => handlePage(e)}
-        />
         {/* <ReactPaginate
           pageCount={boardList.length}
           pageRangeDisplayed={9}

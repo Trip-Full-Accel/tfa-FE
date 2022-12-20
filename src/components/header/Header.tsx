@@ -283,7 +283,7 @@ const Header = () => {
                 src={loginImges}
                 alt="login form"
                 className="rounded-start w-100"
-                style={{ height: "513px" }}
+                style={{ height: "100%" }}
               ></MDBCardImage>
             </MDBCol>
 
@@ -424,8 +424,4 @@ const ListNav = styled.div`
 `;
 const JoinNav = styled.div`
   padding: 0 10px;
-`;
-
-const Butto = styled.button`
-  background-color: red;
 `;

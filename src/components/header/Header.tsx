@@ -292,7 +292,7 @@ const Header = () => {
                 <div className="d-flex flex-row mt-2">
                   <span
                     className="h1 fw-bold mb-0"
-                    style={{ marginTop: "3rem" }}
+                    style={{ marginTop: "0.5rem" }}
                   >
                     Trip Full Accel
                   </span>

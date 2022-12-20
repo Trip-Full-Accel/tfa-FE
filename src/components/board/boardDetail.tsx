@@ -39,8 +39,12 @@ const BoardDetail = () => {
     setBoardDetail(returnValue);
   }, [boardList]);
 
-  const deleteHandler = () => {
-    dispatch(fetchDeleteBoard(Number(boardId)));
+  const deleteHandler = async () => {
+    await dispatch(fetchDeleteBoard(Number(boardId)));
+
+    //리턴에따라 다른 alert필요
+    alert("삭제되었습니다.");
+    navigate("/board");
   };
   const navigate = useNavigate();
   const updateHandler = () => {

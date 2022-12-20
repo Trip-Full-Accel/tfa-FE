@@ -40,8 +40,9 @@ const BoardModify = () => {
     setBoardModify(returnValue);
   }, [boardList]);
 
-  const updateHandler = () => {
-    dispatch(
+  const navigate = useNavigate();
+  const updateHandler = async () => {
+    await dispatch(
       fetchPutBoard({
         id: Number(boardId),
         title: title,
@@ -49,6 +50,11 @@ const BoardModify = () => {
         content: content,
       })
     );
+
+    // 리턴응답에따라서 다른 alert 처리필요
+    alert("수정되었습니다.");
+
+    navigate("/board");
   };
   const titleHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);

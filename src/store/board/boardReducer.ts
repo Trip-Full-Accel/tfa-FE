@@ -36,7 +36,13 @@ export const fetchPutBoard = createAsyncThunk(
   "BOARD/PUT",
   async (payload: BoardList) => {
     console.log(payload);
-    await CustomAxios(`/post/update/${payload.id}`, "PUT", payload);
+    const { data } = await CustomAxios(
+      `/post/update/${payload.id}`,
+      "PUT",
+      payload
+    );
+    console.log(data);
+    return data;
   }
 );
 
@@ -44,7 +50,8 @@ export const fetchPutBoard = createAsyncThunk(
 export const fetchDeleteBoard = createAsyncThunk(
   "BOARD/DELETE",
   async (id: number) => {
-    await CustomAxios(`/post/delete/${id}`, "DELETE");
+    const { data } = await CustomAxios(`/post/delete/${id}`, "DELETE");
+    return data;
   }
 );
 

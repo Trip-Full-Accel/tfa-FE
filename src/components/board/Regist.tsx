@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
@@ -7,25 +8,41 @@ import {
   fetchPostBoard,
   fetchPutBoard,
 } from "store/board/boardReducer";
-import { AppDispatch } from "store/store";
+import { reduxTest } from "store/reduxTest/reduxTestReducer";
+import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import { CustomAxios } from "../../http/customAxios";
 
 const Regist = () => {
+  ///////// test //////////
+  const [goRedux, setGoRedux] = useState<any>([]);
+  const [testData, setTestData] = useState<any>("");
+
+  const onc = () => {
+    setGoRedux([...goRedux, testData]);
+    setTestData("");
+  };
+
+  const redux = useSelector((state: any) => state.test.test);
+  const onc2 = () => {
+    dispatch(reduxTest(goRedux));
+    setGoRedux([]);
+  };
+  ////////////////////////
+
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [selected, setSelected] = useState<string>("리뷰");
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-
+  const userId = useSelector((state: RootState) => state.user.successLogin);
+  console.log(userId);
   const registHandler = async () => {
     navigate("/board");
-    dispatch(fetchPostBoard({ title, selected, content, id: 0, writer: 0 }));
-    // CustomAxios("/post/create", "POST", {
-    //   title: title,
-    //   content: content,
-    // });
+    dispatch(
+      fetchPostBoard({ title, selected, content, id: 0, writer: userId })
+    );
   };
 
   const deleteHandler = async () => {
@@ -101,13 +118,19 @@ const Regist = () => {
           <Button onClick={() => registHandler()}>등록</Button>
         </Btndiv>
         {/* TEST 버튼들 추후 삭제 예정 */}
+
+        <div>리덕스 테스트</div>
+        <input onChange={(e: any) => setTestData(e.target.value)}></input>
         <Btndiv>
-          <Button onClick={() => deleteHandler()}>삭제테스트</Button>
+          <Button onClick={onc}>스테이트 저장</Button>
         </Btndiv>
         <Btndiv>
-          <Button onClick={() => updateHandler()}>수정테스트</Button>
+          <Button onClick={onc2}>리덕스 저장</Button>
         </Btndiv>
       </RegistFirstdiv>
+
+      <h2>스테이트값 {goRedux.map((el: any) => el)}</h2>
+      <h2>리덕스값 {redux.map((el: any) => el)}</h2>
     </RegistMainDiv>
   );
 };

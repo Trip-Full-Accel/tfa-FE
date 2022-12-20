@@ -26,7 +26,7 @@ const Board = () => {
   };
   useEffect(() => {
     dispatch(fetchGetBoard());
-  }, []);
+  }, [navigate]);
   const boardList = useSelector((state: RootState) => state.board.board);
   const load = useSelector((state: RootState) => state.board.status);
   // 게시판 검색 메서드

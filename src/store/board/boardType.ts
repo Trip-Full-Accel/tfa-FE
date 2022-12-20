@@ -3,7 +3,7 @@ export interface boardState {
 }
 export interface BoardList {
   id: number;
-  selected: string;
+  selected?: string;
   title: string;
   writer: string | number;
   content: string;

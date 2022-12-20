@@ -7,19 +7,15 @@ import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
-
 const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
   const successLogin = useSelector(
     (state: RootState) => state.user.successLogin
   );
-
   //검색어
   const [firstKeyword, setFirstKeyword] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
-
   // 글작성 페이지 이동
   const boardBtn = () => {
     if (successLogin.length > 0) {
@@ -33,14 +29,11 @@ const Board = () => {
   }, []);
   const boardList = useSelector((state: RootState) => state.board.board);
   const load = useSelector((state: RootState) => state.board.status);
-
   // 게시판 검색 메서드
   const searchBtn = () => {
     setKeyword(firstKeyword);
   };
-
   // 리뷰글, 모집글 구분
-
   const [select, setSelect] = useState("");
   const reviewBtn = () => {
     setSelect("리뷰");
@@ -48,12 +41,10 @@ const Board = () => {
   const recruitBtn = () => {
     setSelect("모집");
   };
-
   const [searchKey, setSearchKey] = useState<string>("title");
   const searchKeyHandler = (e: any) => {
     setSearchKey(e.target.value);
   };
-
   return (
     <>
       <BoardTitleDiv>
@@ -99,13 +90,10 @@ const Board = () => {
     </>
   );
 };
-
 export default Board;
-
 const BoardTitleDiv = styled.div`
   /* padding: 5rem; */
 `;
-
 const BoardMainDiv = styled.div`
   width: 100%;
   height: 100%;
@@ -116,7 +104,6 @@ const BoardMainDiv = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
-
 const RightInput = styled.input`
   border: none;
   text-align: left;

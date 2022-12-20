@@ -9,24 +9,20 @@
   width: 40px;
   position: relative;
 }
-
 .disabled-page {
   color: #808e9b;
 }
-
 .active {
   border: solid 1px #808e9b;
   border-radius: 40px;
   color: black !important;
 }
-
 .next {
   font-size: 16px;
   height: 60px;
   right: 0;
   width: 50px;
 }
-
 .pagination {
   align-items: center;
   display: flex;
@@ -35,12 +31,14 @@
   justify-content: center;
   list-style-type: none;
   width: 700px;
+
 }
 
 .pagination-page {
   font-weight: 700;
   margin: 10px;
 }
+
 
 .previous {
   font-size: 16px;

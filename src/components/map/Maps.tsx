@@ -1,6 +1,10 @@
+import { CustomAxios } from "http/customAxios";
 import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { fetchPostMap } from "store/map/mapReducer";
+import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/side.css";
 import Points from "./Points";
@@ -79,6 +83,23 @@ const Maps = () => {
     return addr;
   };
 
+  const dispatch = useDispatch<AppDispatch>();
+  const createMaps = () => {
+    dispatch(
+      fetchPostMap({
+        firstCourseName: "서울",
+        otherCourseNames: ["경기", "대구", "속초", "대전"],
+        firstCourseLat: 37.56070556,
+        firstCourseLng: 126.9105306,
+        otherCourseLats: [37.65590833, 35.82692778, 35.80361, 37.39444],
+        otherCourseLngs: [126.7770556, 128.5350639, 126.88083, 126.95556],
+      })
+    );
+    alert("첫번째 여행지가 x 맞음?");
+  };
+
+  const mapData = useSelector((state: RootState) => state.map.maps);
+  console.log(mapData);
   return (
     <MapPageDiv>
       <SelectListDiv>
@@ -86,6 +107,7 @@ const Maps = () => {
           return <Points key={el.name} idx={i} name={el.name}></Points>;
         })}
       </SelectListDiv>
+      <button onClick={createMaps}>경로만들기</button>
       <MapDiv>
         <Map
           center={{
@@ -116,7 +138,6 @@ const Maps = () => {
             ))}
         </Map>
       </MapDiv>
-
       <TourListTopDiv>
         <span className="">관광지 리스트</span>
         {travelPoint.map((el) => {

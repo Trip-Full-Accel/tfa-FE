@@ -8,7 +8,8 @@ export const fetchPostMap = createAsyncThunk(
   "MAP/POST",
   async (payload: MapList) => {
     console.log(payload);
-    const { data } = await CustomAxiosMap("/course/make", "POST", payload);
+    const { data } = await CustomAxiosMap("/course/create", "POST", payload);
+    // console.log(data);
     return data;
   }
 );

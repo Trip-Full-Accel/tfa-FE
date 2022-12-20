@@ -1,5 +1,7 @@
+import BoardDetail from "components/board/boardDetail";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "./Pagenation.css";
 
@@ -61,6 +63,14 @@ const BList = (props: any) => {
     setItemOffset(newOffset);
   };
 
+  const navigate = useNavigate();
+
+  const asdf = () => {
+    const goDetail = (title: any) => {
+      navigate("/boardDetail");
+    };
+  };
+
   return (
     <MainDiv>
       {keyword
@@ -69,7 +79,7 @@ const BList = (props: any) => {
             // .slice(itemOffset, itemOffset + itemsPerPage)
             .map((el: any, i) => {
               return (
-                <ContentDiv className="image" key={i}>
+                <ContentDiv key={i}>
                   <TitleDiv>{el.title}</TitleDiv>
                   {/* <div>{el.content}</div> */}
                   {/* <div>{el.writer}</div> */}
@@ -80,7 +90,7 @@ const BList = (props: any) => {
             })
         : currentItems.map((el: any) => {
             return (
-              <ContentDiv className="image" key={el.title}>
+              <ContentDiv onClick={() => asdf()} key={el.title}>
                 <TitleDiv>{el.title}</TitleDiv>
                 {/* <div>{el.content}</div> */}
                 {/* <div>{el.writer}</div> */}
@@ -91,10 +101,7 @@ const BList = (props: any) => {
           })}
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          boxSizing: "border-box",
+          lineHeight: "37px",
         }}
       >
         <ReactPaginate

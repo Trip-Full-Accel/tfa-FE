@@ -1,4 +1,3 @@
-import { dividerClasses } from "@mui/material";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
@@ -48,11 +47,7 @@ const BList = (props: any) => {
           .slice(itemOffset, endOffset)
       );
     } else if (keyword === null) {
-      setCurrentItems(
-        data
-          // .filter((el: any) => el.writer.includes(keyword))
-          .slice(itemOffset, endOffset)
-      );
+      setCurrentItems(data.slice(itemOffset, endOffset));
     }
     setPageCount(Math.ceil(data.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, data, keyword, select, searchKey]);
@@ -64,11 +59,9 @@ const BList = (props: any) => {
 
   return (
     <MainDiv>
-      {keyword
-        ? currentItems
-            // .filter((el: any) => el.title.includes(keyword))
-            // .slice(itemOffset, itemOffset + itemsPerPage)
-            .map((el: any, i) => {
+      <ListDiv>
+        {keyword
+          ? currentItems.map((el: any, i) => {
               return (
                 <ContentDiv className="image" key={i}>
                   <TitleDiv>{el.title}</TitleDiv>
@@ -79,25 +72,19 @@ const BList = (props: any) => {
                 </ContentDiv>
               );
             })
-        : currentItems.map((el: any) => {
-            return (
-              <ContentDiv className="image" key={el.title}>
-                <TitleDiv>{el.title}</TitleDiv>
-                {/* <div>{el.content}</div> */}
-                {/* <div>{el.writer}</div> */}
-                {/* <div>{el.regdate}</div> */}
-                <LikeDiv>{el.like}</LikeDiv>
-              </ContentDiv>
-            );
-          })}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          boxSizing: "border-box",
-        }}
-      >
+          : currentItems.map((el: any) => {
+              return (
+                <ContentDiv className="image" key={el.title}>
+                  <TitleDiv>{el.title}</TitleDiv>
+                  {/* <div>{el.content}</div> */}
+                  {/* <div>{el.writer}</div> */}
+                  {/* <div>{el.regdate}</div> */}
+                  <LikeDiv>{el.like}</LikeDiv>
+                </ContentDiv>
+              );
+            })}
+      </ListDiv>
+      <div style={{ lineHeight: "37px" }}>
         <ReactPaginate
           //   breakLabel="..."
           nextLabel="다음 >"
@@ -128,6 +115,13 @@ const MainDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  flex-direction: column;
+`;
+
+const ListDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const ContentDiv = styled.div`

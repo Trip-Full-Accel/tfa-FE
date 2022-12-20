@@ -4,7 +4,7 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
-
+    "@fullpage/react-fullpage": "^0.1.31",
     "@react-oauth/google": "^0.5.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/react": "^13.4.0",
@@ -16,6 +16,7 @@
     "@types/styled-components": "^5.1.26",
     "axios": "^1.2.0",
     "bootstrap": "^5.2.3",
+    "fullpage.js": "^4.0.15",
     "mdb-react-ui-kit": "^5.0.0",
     "react": "^18.2.0",
     "react-awesome-reveal": "^4.1.0",

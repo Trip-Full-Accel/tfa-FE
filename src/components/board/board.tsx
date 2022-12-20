@@ -63,20 +63,28 @@ const Board = () => {
         <div>
           <Button onClick={() => reviewBtn()}>리뷰글보기</Button>
           <Button onClick={() => recruitBtn()}>모집글보기</Button>
-          <select onChange={(e) => searchKeyHandler(e)}>
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="writer">작성자</option>
-          </select>
-          <RightInput
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setFirstKeyword(e.target.value);
-            }}
-          ></RightInput>
-
-          <Button onClick={() => boardBtn()}>글쓰러</Button>
-          <Button onClick={() => searchBtn()}>검색</Button>
+          <SearchDiv>
+            <select onChange={(e) => searchKeyHandler(e)}>
+              <option value="title">제목</option>
+              <option value="content">내용</option>
+              <option value="writer">작성자</option>
+            </select>
+            <RightInput
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setFirstKeyword(e.target.value);
+              }}
+            ></RightInput>
+            <Button style={{ width: "90px" }} onClick={() => searchBtn()}>
+              검색
+            </Button>
+          </SearchDiv>
         </div>
+        <Button
+          style={{ width: "90px", marginLeft: "20px" }}
+          onClick={() => boardBtn()}
+        >
+          글쓰러
+        </Button>
         {load === "loading" ? (
           <Spinner></Spinner>
         ) : (
@@ -106,6 +114,7 @@ const BoardMainDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  flex-direction: column;
 `;
 
 const RightInput = styled.input`
@@ -119,4 +128,8 @@ const RightInput = styled.input`
   :focus {
     border-bottom: 3px solid #7c74ab;
   }
+`;
+
+const SearchDiv = styled.div`
+  display: flex;
 `;

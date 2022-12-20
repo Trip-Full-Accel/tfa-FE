@@ -1,9 +1,16 @@
+import { CustomAxios } from "http/customAxios";
 import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { fetchPostMap } from "store/map/mapReducer";
+import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/side.css";
 import Points from "./Points";
+import InfiniteScroll from "react-infinite-scroller";
+import { Button } from "reactstrap";
+import MapTest from "./maptest";
 /*global kakao*/ //지우면 안됨
 
 interface city {
@@ -79,13 +86,43 @@ const Maps = () => {
     return addr;
   };
 
+  const dispatch = useDispatch<AppDispatch>();
+  const createMaps = () => {
+    dispatch(
+      fetchPostMap({
+        firstCourseName: "서울",
+        otherCourseNames: ["경기", "대구", "속초", "대전"],
+        firstCourseLat: 37.56070556,
+        firstCourseLng: 126.9105306,
+        otherCourseLats: [37.65590833, 35.82692778, 35.80361, 37.39444],
+        otherCourseLngs: [126.7770556, 128.5350639, 126.88083, 126.95556],
+      })
+    );
+    alert("첫번째 여행지가 x 맞음?");
+  };
+
+  const mapData = useSelector((state: RootState) => state.map.maps);
+  console.log(mapData);
+
+  const onLoadMore = () => {};
   return (
     <MapPageDiv>
       <SelectListDiv>
-        {addr.map((el, i) => {
-          return <Points key={el.name} idx={i} name={el.name}></Points>;
-        })}
+        <input
+          style={{ width: "100%" }}
+          type="text"
+          placeholder="여행 제목"
+        ></input>
+        <SelectDiv>
+          {addr.map((el, i) => {
+            return <Points key={el.name} idx={i} name={el.name}></Points>;
+          })}
+        </SelectDiv>
+        <Button style={{ width: "100%", height: "50px" }} onClick={createMaps}>
+          경로만들기
+        </Button>
       </SelectListDiv>
+
       <MapDiv>
         <Map
           center={{
@@ -116,7 +153,6 @@ const Maps = () => {
             ))}
         </Map>
       </MapDiv>
-
       <TourListTopDiv>
         <span className="">관광지 리스트</span>
         {travelPoint.map((el) => {
@@ -130,35 +166,9 @@ const Maps = () => {
             //   x={el.x}
             //   y={el.y}
             // ></TourList>
-
-            <TListDiv key={el.x}>
-              <TNameDiv>
-                <a
-                  href="#"
-                  className=""
-                  aria-current="true"
-                  onClick={() => {
-                    setMarkers([
-                      ...markers,
-                      {
-                        position: {
-                          lat: el.x,
-                          lng: el.y,
-                        },
-                      },
-                    ]);
-
-                    setAddr([{ name: el.name }]);
-                  }}
-                >
-                  <strong className="">{el.name}</strong>
-                </a>
-              </TNameDiv>
-              <TImgDiv>
-                <small>사진넣을거임</small>
-              </TImgDiv>
-              <TContentDiv>관광지 설명</TContentDiv>
-            </TListDiv>
+            <div>
+              <MapTest></MapTest>
+            </div>
           );
         })}
       </TourListTopDiv>
@@ -173,10 +183,19 @@ const MapPageDiv = styled.div`
   flex-direction: row;
 `;
 
-const SelectListDiv = styled.div``;
+const SelectListDiv = styled.div`
+  width: 25%;
+`;
+
+const SelectDiv = styled.div``;
+
 const MapDiv = styled.div``;
 
-const TourListTopDiv = styled.div``;
+const TourListTopDiv = styled.div`
+  width: 25%;
+  height: 600px;
+  overflow: hidden;
+`;
 const TListDiv = styled.div``;
 const TNameDiv = styled.div``;
 const TImgDiv = styled.div``;

@@ -21,6 +21,7 @@ import MyPage from "../components/MyPage/MyPage";
 import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Board from "./../components/board/board";
+import MapTest from "./../components/map/maptest";
 
 const MyRoute = () => {
   return (
@@ -61,6 +62,7 @@ const MyRoute = () => {
           <Route path="/regist" element={<Regist></Regist>}></Route>
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
+          <Route path="/maptest" element={<MapTest></MapTest>}></Route>
           <Route
             path="/boardDetail"
             element={<BoardDetail></BoardDetail>}

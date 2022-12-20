@@ -49,7 +49,7 @@ const Topbutton = styled.button`
 `;
 
 const TopBtnImg = styled.img`
-  width: 50px;
+  width: 60px;
   background-color: transparent;
   border: none;
 `;

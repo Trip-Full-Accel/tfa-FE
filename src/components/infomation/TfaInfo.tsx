@@ -1,5 +1,6 @@
 import { Fade } from "react-awesome-reveal";
 import styled from "styled-components";
+
 const TfaInfo = () => {
   return (
     <ContainerDiv>
@@ -64,7 +65,6 @@ const TfaInfo = () => {
           </div>
         </BoxDiv>
       </Fade>
-
       <Fade direction="right" style={{ marginLeft: "30rem" }}>
         <BoxDiv>
           <div>

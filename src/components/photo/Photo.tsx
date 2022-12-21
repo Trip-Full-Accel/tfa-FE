@@ -6,6 +6,7 @@ import Slide from "../slide/Slide";
 const Photo = () => {
   return (
     <div>
+      <h1>전국 명소</h1>
       <AreaName></AreaName>
       <div>
         <Slide></Slide>

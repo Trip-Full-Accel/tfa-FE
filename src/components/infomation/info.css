@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+}
+
+.outer {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.inner {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

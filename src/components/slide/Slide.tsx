@@ -67,7 +67,6 @@ export default class Slide extends Component {
             <br></br>
           </div>
         </MainSlideDiv>
-        <h1>전국 best 명소</h1>
       </div>
     );
   }

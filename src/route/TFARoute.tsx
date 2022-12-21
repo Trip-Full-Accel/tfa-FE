@@ -22,6 +22,7 @@ import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Board from "./../components/board/board";
 import MapTest from "./../components/map/maptest";
+import FullPageTest from "./../components/infomation/fullpagetest";
 
 const MyRoute = () => {
   return (
@@ -63,6 +64,10 @@ const MyRoute = () => {
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
           <Route path="/maptest" element={<MapTest></MapTest>}></Route>
+          <Route
+            path="/fullpagetest"
+            element={<FullPageTest></FullPageTest>}
+          ></Route>
           <Route
             path="/boardDetail"
             element={<BoardDetail></BoardDetail>}

@@ -44,6 +44,10 @@ const Main = () => {
       behavior: "smooth",
     });
   };
+
+  const test = () => {
+    navigate("/edit");
+  };
   return (
     <TopLvDiv>
       <FirstDiv>
@@ -56,6 +60,8 @@ const Main = () => {
             <span>Start</span>
           </StartBtn>
           <br />
+          <button onClick={test}>에디터</button>
+          <img src="https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/143b7a7ce9bc4dbd93f330e851af5c68?alt=media&"></img>
         </LeftDiv>
         {/* video */}
         <VideoDiv>

@@ -4,6 +4,7 @@ import costReducer from "./cost/costReducer";
 import counterReducer from "./counter/counterReducer";
 import footerReducer from "./footerName/footerReducer";
 import getMappingTestReducer from "./getMappingTest/getMappingTestReducer";
+import imgReducer from "./image/imgReducer";
 import tokenTest from "./kakaoTokenTest/tokenTest";
 import mapReducer from "./map/mapReducer";
 import postMappingTestReducer from "./postMappingTest/postMappingTestReducer";
@@ -21,6 +22,7 @@ export const store = configureStore({
     cost: costReducer,
     map: mapReducer,
     test: reduxTestReducer,
+    img: imgReducer,
   },
   devTools: true,
 });

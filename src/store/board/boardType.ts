@@ -9,6 +9,7 @@ export interface BoardList {
   content: string;
   hits?: number | null;
   like?: number | null;
+  img: string | null;
   // select: string;
 }
 export interface BoardUpdate {

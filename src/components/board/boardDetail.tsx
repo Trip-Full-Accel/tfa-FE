@@ -47,10 +47,10 @@ const BoardDetail = () => {
     navigate("/board");
   };
   const navigate = useNavigate();
-  const updateHandler = () => {
+  const updateHandler = (el: BoardList) => {
     console.log(boardId);
     navigate(`/boardModify/${boardId}`, {
-      state: boardId,
+      state: el,
     });
   };
   const titleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,23 +75,24 @@ const BoardDetail = () => {
                 <Detaildiv key={el.id}>
                   <div style={{ display: "flex" }}>
                     <Writerdiv>작성자 : {el.writer}</Writerdiv>
+                    <div>글 카테고리 : {el.selected}</div>
                     <Hitsdiv>조회수 : {el.hits}</Hitsdiv>
                   </div>
-                  <Titlediv>
-                    <InputTitle value={el.title} readOnly />
-                  </Titlediv>
-                  <SelectBox name="select" onChange={(e) => selectHandler(e)}>
-                    <OptionBox value="리뷰">리뷰</OptionBox>
-                    <OptionBox value="모집">모집</OptionBox>
-                  </SelectBox>
+                  <Titlediv>제목 : {el.title}</Titlediv>
                   <Contentdiv>
-                    <Contentarea value={el.content} readOnly />
+                    <pre dangerouslySetInnerHTML={{ __html: el.content }}></pre>
+                    {/* <img src=`{{el.img}}` /> */}
+                    {/* {el.img} */}
+
+                    {/* <img src={`${el.img}`}></img> */}
                   </Contentdiv>
                   <Btndiv>
                     <Button onClick={() => deleteHandler()}>삭제테스트</Button>
                   </Btndiv>
                   <Btndiv>
-                    <Button onClick={() => updateHandler()}>수정테스트</Button>
+                    <Button onClick={() => updateHandler(el)}>
+                      수정테스트
+                    </Button>
                   </Btndiv>
                 </Detaildiv>
               );
@@ -100,17 +101,16 @@ const BoardDetail = () => {
                 <Detaildiv key={el.id}>
                   <div style={{ display: "flex" }}>
                     <Writerdiv>작성자 : {el.writer}</Writerdiv>
+                    <div>글 카테고리 : {el.selected}</div>
                     <Hitsdiv>조회수 : {el.hits}</Hitsdiv>
                   </div>
-                  <Titlediv>
-                    <InputTitle value={el.title} readOnly />
-                  </Titlediv>
-                  <SelectBox name="select" onChange={(e) => selectHandler(e)}>
-                    <OptionBox value="리뷰">리뷰</OptionBox>
-                    <OptionBox value="모집">모집</OptionBox>
-                  </SelectBox>
+                  <Titlediv>제목 : {el.title}</Titlediv>
                   <Contentdiv>
-                    <Contentarea value={el.content} readOnly />
+                    {el.content}
+                    {/* <img src=`{{el.img}}` /> */}
+                    {/* {el.img} */}
+
+                    {/* <img src={`${el.img}`}></img> */}
                   </Contentdiv>
                 </Detaildiv>
               );

@@ -48,6 +48,9 @@ const Main = () => {
     navigate(path);
   };
 
+  const test = () => {
+    navigate("/edit");
+  };
   const date = new Date();
   const [state, setState] = useState<any>([
     {
@@ -102,6 +105,8 @@ const Main = () => {
             <span>Start</span>
           </StartBtn>
           <br />
+          <button onClick={test}>에디터</button>
+          <img src="https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/143b7a7ce9bc4dbd93f330e851af5c68?alt=media&"></img>
         </LeftDiv>
         {/* video */}
         <VideoDiv>

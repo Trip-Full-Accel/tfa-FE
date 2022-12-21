@@ -11,7 +11,7 @@ export default class BusanSlide extends Component {
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: true,
+      autoplay: false,
       speed: 700,
       cssEase: "linear",
     };
@@ -24,53 +24,48 @@ export default class BusanSlide extends Component {
             <div
               className="busan"
               style={{
-                width: "80%",
+                width: "50%",
               }}
             >
               <Slider {...settings}>
-                <div style={{ width: "1000" }}>
-                  <img src="/img/busan/busan1.jpeg" style={{ width: "100%" }} />
-                  <h3>부산</h3>
-                </div>
-                <div>
-                  <img src="/img/seoul/seoul1.jpg" style={{ width: "100%" }} />
-                  <h3>부산</h3>
-                </div>
-                <div>
-                  <img src="/img/daegu/daegu1.jpg" style={{ width: "100%" }} />
-                  <h3>부산</h3>
-                </div>
                 <div>
                   <img
-                    src="/img/daejeon/daejeon1.jpeg"
-                    style={{ width: "100%" }}
+                    style={{ margin: "auto" }}
+                    src="/img/busan/busan1.jpeg"
                   />
+                </div>
+                <div>
+                  <img src="/img/seoul/seoul1.jpg" />
                   <h3>부산</h3>
                 </div>
                 <div>
-                  <img src="/img/busan/busan2.jpeg" style={{ width: "100%" }} />
+                  <img src="/img/daegu/daegu1.jpg" />
                   <h3>부산</h3>
                 </div>
                 <div>
-                  <img src="/img/seoul/seoul2.jpg" style={{ width: "100%" }} />
+                  <img src="/img/daejeon/daejeon1.jpeg" />
                   <h3>부산</h3>
                 </div>
                 <div>
-                  <img src="/img/daegu/daegu2.jpg" style={{ width: "100%" }} />
+                  <img src="/img/busan/busan2.jpeg" />
                   <h3>부산</h3>
                 </div>
                 <div>
-                  <img
-                    src="/img/daejeon/daejeon2.jpeg"
-                    style={{ width: "100%" }}
-                  />
+                  <img src="/img/seoul/seoul2.jpg" />
+                  <h3>부산</h3>
+                </div>
+                <div>
+                  <img src="/img/daegu/daegu2.jpg" />
+                  <h3>부산</h3>
+                </div>
+                <div>
+                  <img src="/img/daejeon/daejeon2.jpeg" />
                   <h3>부산</h3>
                 </div>
               </Slider>
               <br></br>
             </div>
           </MainSlideDiv>
-          <h1>부산</h1>
         </div>
       </div>
     );
@@ -78,8 +73,6 @@ export default class BusanSlide extends Component {
 }
 
 const MainSlideDiv = styled.div`
-  width: 1000px;
-  height: 650px;
   display: flex;
   flex-wrap: wrap;
 `;

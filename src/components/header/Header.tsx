@@ -84,11 +84,7 @@ const Header = () => {
   };
 
   const [loginImges, setLoginImges] = useState("");
-  useEffect(() => {
-    if (lgShow == true) {
-      loginImg();
-    }
-  }, [lgShow]);
+
   const loginImg = () => {
     var imgList = [];
     imgList.push("/img/login/login1.jpg");

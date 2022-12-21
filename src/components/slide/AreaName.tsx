@@ -24,13 +24,13 @@ const AreaName = () => {
     Navigate(path);
   };
   return (
-    <div style={{ display: "flex", flexDirection: "row", paddingTop: "30px" }}>
+    <div style={{ display: "flex", flexDirection: "row", paddingTop: "10px" }}>
       {areaName.map((el: aa) => {
         return (
           <div
             onClick={() => MoveRegionalArea(`/photo/${el.value}`)}
             key={el.name}
-            style={{ height: "100px", padding: "10px", cursor: "pointer" }}
+            style={{ height: "70px", padding: "5px", cursor: "pointer" }}
           >
             <h3>{el.name}</h3>
           </div>

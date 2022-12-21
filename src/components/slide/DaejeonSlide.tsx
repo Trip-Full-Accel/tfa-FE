@@ -29,48 +29,41 @@ export default class DaejeonSlide extends Component {
             >
               <Slider {...settings}>
                 <div style={{ width: "1000" }}>
-                  <img src="/img/busan/busan1.jpeg" style={{ width: "100%" }} />
+                  <img src="/img/busan/busan1.jpeg" />
                   <h3>대전</h3>
                 </div>
                 <div>
-                  <img src="/img/seoul/seoul1.jpg" style={{ width: "100%" }} />
+                  <img src="/img/seoul/seoul1.jpg" />
                   <h3>대전</h3>
                 </div>
                 <div>
-                  <img src="/img/daegu/daegu1.jpg" style={{ width: "100%" }} />
+                  <img src="/img/daegu/daegu1.jpg" />
                   <h3>대전</h3>
                 </div>
                 <div>
-                  <img
-                    src="/img/daejeon/daejeon1.jpeg"
-                    style={{ width: "100%" }}
-                  />
+                  <img src="/img/daejeon/daejeon1.jpeg" />
                   <h3>대전</h3>
                 </div>
                 <div>
-                  <img src="/img/busan/busan2.jpeg" style={{ width: "100%" }} />
+                  <img src="/img/busan/busan2.jpeg" />
                   <h3>대전</h3>
                 </div>
                 <div>
-                  <img src="/img/seoul/seoul2.jpg" style={{ width: "100%" }} />
+                  <img src="/img/seoul/seoul2.jpg" />
                   <h3>대전</h3>
                 </div>
                 <div>
-                  <img src="/img/daegu/daegu2.jpg" style={{ width: "100%" }} />
+                  <img src="/img/daegu/daegu2.jpg" />
                   <h3>대전</h3>
                 </div>
                 <div>
-                  <img
-                    src="/img/daejeon/daejeon2.jpeg"
-                    style={{ width: "100%" }}
-                  />
+                  <img src="/img/daejeon/daejeon2.jpeg" />
                   <h3>대전</h3>
                 </div>
               </Slider>
               <br></br>
             </div>
           </MainSlideDiv>
-          <h1>대전</h1>
         </div>
       </div>
     );
@@ -78,8 +71,6 @@ export default class DaejeonSlide extends Component {
 }
 
 const MainSlideDiv = styled.div`
-  width: 1000px;
-  height: 650px;
   display: flex;
   flex-wrap: wrap;
 `;

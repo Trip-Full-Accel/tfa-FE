@@ -78,8 +78,6 @@ export default class YeosuSlide extends Component {
 }
 
 const MainSlideDiv = styled.div`
-  width: 1000px;
-  height: 650px;
   display: flex;
   flex-wrap: wrap;
 `;

@@ -108,17 +108,15 @@ const Maps = () => {
   return (
     <MapPageDiv>
       <SelectListDiv>
-        <input
-          style={{ width: "100%" }}
-          type="text"
-          placeholder="여행 제목"
-        ></input>
         <SelectDiv>
           {addr.map((el, i) => {
             return <Points key={el.name} idx={i} name={el.name}></Points>;
           })}
         </SelectDiv>
-        <Button style={{ width: "100%", height: "50px" }} onClick={createMaps}>
+        <Button
+          style={{ width: "80%", height: "50px", marginTop: "1rem" }}
+          onClick={createMaps}
+        >
           경로만들기
         </Button>
       </SelectListDiv>
@@ -129,7 +127,7 @@ const Maps = () => {
             lat: markers[0].position.lat,
             lng: markers[0].position.lng,
           }}
-          style={{ width: "40rem", height: "40rem" }}
+          style={{ width: "100%", height: "40rem" }}
           level={8} // 작을 수록 범위가 좁아짐
           onClick={(_target, mouseEvent) => {
             setMarkers([
@@ -166,7 +164,7 @@ const Maps = () => {
             //   x={el.x}
             //   y={el.y}
             // ></TourList>
-            <div>
+            <div style={{ marginTop: "1rem" }}>
               <MapTest></MapTest>
             </div>
           );
@@ -184,17 +182,24 @@ const MapPageDiv = styled.div`
 `;
 
 const SelectListDiv = styled.div`
-  width: 25%;
+  width: 20%;
+  margin-left: 0.5rem;
 `;
 
 const SelectDiv = styled.div``;
 
-const MapDiv = styled.div``;
+const MapDiv = styled.div`
+  width: 100%;
+  margin: 0;
+  padding: 0 1.5rem 0 1.5rem;
+`;
 
 const TourListTopDiv = styled.div`
-  width: 25%;
+  width: 20%;
   height: 600px;
+  margin-right: 0.5rem;
   overflow: hidden;
+  border-radius: 5px;
 `;
 const TListDiv = styled.div``;
 const TNameDiv = styled.div``;

@@ -80,18 +80,9 @@ const Points = ({ idx, name }: props) => {
                         {...provided.dragHandleProps}
                       >
                         <ContentDiv>
-                          <img
-                            src={thumb}
-                            style={{
-                              width: "89px",
-                              height: "89px",
-                              borderRadius: "5px 0 0 5px",
-                              float: "left",
-                              margin: 0,
-                            }}
-                          />
+                          <ImgTag src={thumb} />
                           {/* {idx + 1}번째  */}
-                          여행지 {name}
+                          <div>여행지 {name}</div>
                         </ContentDiv>
                         {/* <p>{name}</p> */}
                       </li>
@@ -111,16 +102,24 @@ const Points = ({ idx, name }: props) => {
 export default Points;
 
 const ListDiv = styled.div`
-  border: 2px solid black;
   border-radius: 5px;
   height: 550px;
 `;
 
 const ContentDiv = styled.div`
-  border: 1px solid black;
-  background-color: #eaeaea;
+  background-color: #dce2e8;
   border-radius: 5px;
-  height: 91px;
+  height: 88px;
   display: flex;
   align-items: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
+`;
+
+const ImgTag = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  float: left;
+  margin-left: 10px;
 `;

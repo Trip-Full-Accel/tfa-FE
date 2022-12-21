@@ -46,9 +46,12 @@ const TourListDiv = styled.div`
 `;
 
 const TourContentDiv = styled.div`
+  border-radius: 5px;
   width: 100%;
   height: 90px;
   border: 1px solid black;
   display: flex;
   align-items: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
 `;

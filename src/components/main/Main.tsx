@@ -1,17 +1,24 @@
+import { addDays } from "date-fns";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../../static/all.css";
-import MainBtn from "./MainBtn";
-import styled from "styled-components";
+import { Modal } from "react-bootstrap";
+import { DateRange, DateRangePicker } from "react-date-range";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "store/store";
-import { Spinner } from "reactstrap";
+import styled from "styled-components";
+import "../../static/all.css";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+
+import { ko } from "date-fns/esm/locale";
 interface dataType {
   name: string;
   x: string;
   y: string;
 }
 const Main = () => {
+  const [show, setShow] = useState(false);
+
   const navigate = useNavigate();
   const reduxData = useSelector((state: RootState) => state.user.userId);
   console.log(reduxData);
@@ -37,22 +44,61 @@ const Main = () => {
     navigate(path);
     //, { state: { x: x, y: y } }
   };
-  const scrollToMap = () => {
-    window.scroll({
-      top: 650,
-      left: 650,
-      behavior: "smooth",
-    });
+  const linkTo = (path: string) => {
+    navigate(path);
   };
+
+  const date = new Date();
+  const [state, setState] = useState<any>([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 1),
+      key: "selection",
+      Boolean,
+    },
+  ]);
+
   return (
     <TopLvDiv>
       <FirstDiv>
         <LeftDiv>
           <MainTitle>TFA {local}</MainTitle>
-          <br />
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
-          <br />
-          <StartBtn onClick={scrollToMap}>
+          <div
+            style={{
+              width: "500px",
+              height: "50px",
+              backgroundColor: "darkgrey",
+            }}
+          >
+            <button
+              style={{
+                backgroundColor: "blue",
+                float: "left",
+                marginTop: "1rem",
+                border: "none",
+              }}
+              onClick={() => {
+                setShow(true);
+              }}
+            >
+              날짜
+            </button>
+          </div>
+
+          <input
+            placeholder="여행 제목을 입력해주세요"
+            style={{
+              fontSize: "50x",
+              backgroundColor: "darkgrey",
+              width: "500px",
+              height: "50px",
+              border: "none",
+              margin: "1rem 0 1rem 0",
+            }}
+          ></input>
+
+          <StartBtn onClick={() => linkTo("/maps")}>
             <span>Start</span>
           </StartBtn>
           <br />
@@ -64,15 +110,29 @@ const Main = () => {
       </FirstDiv>
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
-      <SecondDiv>
-        <BtnDiv>
-          {data.map((el: { name: string; x: string; y: string }) => {
-            return (
-              <MainBtn key={el.name} name={el.name} x={el.x} y={el.y}></MainBtn>
-            );
-          })}
-        </BtnDiv>
-      </SecondDiv>
+
+      <div>
+        <Modal
+          className="loginM"
+          size="lg"
+          show={show}
+          onHide={() => setShow(false)}
+          aria-labelledby="example-modal-sizes-title-lg"
+          style={{ borderRadius: "5%" }}
+        >
+          <DateRangePicker
+            editableDateInputs={true}
+            onChange={(item) => setState([item.selection])}
+            moveRangeOnFirstSelection={false}
+            ranges={state}
+            locale={ko}
+            dateDisplayFormat="yyyy-MM-dd (eee)"
+            months={2}
+            minDate={date}
+            direction="horizontal"
+          />
+        </Modal>
+      </div>
     </TopLvDiv>
   );
 };
@@ -98,6 +158,7 @@ const FirstDiv = styled.div`
   display: flex;
   margin: 0 !important;
 `;
+
 const MainTitle = styled.h1`
   font-family: Caveat;
 `;

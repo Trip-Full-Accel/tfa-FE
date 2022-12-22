@@ -58,7 +58,6 @@ const BList = (props: any) => {
     setItemOffset(newOffset);
   };
   const navigate = useNavigate();
-
   const goDetail = (id: number) => {
     console.log(id);
     navigate(`/boardDetail/${id}`, {

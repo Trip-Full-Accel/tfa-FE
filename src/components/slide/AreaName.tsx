@@ -15,7 +15,7 @@ const AreaName = () => {
     { value: "gangwondo", name: "강원도" },
     { value: "yeosu", name: "여수" },
     { value: "pohang", name: "포항" },
-    { value: "busjejuan", name: "제주" },
+    { value: "jeju", name: "제주" },
   ];
   const [data, setData] = useState("");
   const Navigate = useNavigate();
@@ -24,7 +24,14 @@ const AreaName = () => {
     Navigate(path);
   };
   return (
-    <div style={{ display: "flex", flexDirection: "row", paddingTop: "10px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        paddingTop: "10px",
+        width: "50%",
+      }}
+    >
       {areaName.map((el: aa) => {
         return (
           <div

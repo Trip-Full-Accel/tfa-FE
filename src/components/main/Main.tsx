@@ -1,5 +1,5 @@
-import { addDays } from "date-fns";
-import { useState } from "react";
+import { addDays, format } from "date-fns";
+import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { DateRange, DateRangePicker } from "react-date-range";
 import { useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import styled from "styled-components";
 import "../../static/all.css";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-
+import dateFormat, { masks } from "dateformat";
 import { ko } from "date-fns/esm/locale";
 interface dataType {
   name: string;
@@ -52,52 +52,77 @@ const Main = () => {
     navigate("/edit");
   };
   const date = new Date();
-  const [state, setState] = useState<any>([
-    {
+  const [state, setState] = useState<any>({
+    selection1: {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
-      key: "selection",
-      Boolean,
+      key: "selection1",
     },
-  ]);
+  });
 
   return (
     <TopLvDiv>
       <FirstDiv>
         <LeftDiv>
-          <MainTitle>TFA {local}</MainTitle>
+          <MainTitle>{local} </MainTitle>
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
           <div
             style={{
-              width: "500px",
+              width: "300px",
               height: "50px",
-              backgroundColor: "darkgrey",
+              backgroundColor: "#CCCCFF",
+              borderRadius: "10px",
+              textAlign: "center",
+              display: "flex",
             }}
           >
+            <span
+              style={{
+                width: "25%",
+                textAlign: "center",
+                placeSelf: "center",
+                margin: "0 0 0 10px",
+              }}
+            >
+              <img src="/img/calender.png"></img>
+            </span>
             <button
               style={{
-                backgroundColor: "blue",
                 float: "left",
-                marginTop: "1rem",
+                backgroundColor: "transparent",
                 border: "none",
               }}
               onClick={() => {
                 setShow(true);
               }}
             >
-              날짜
+              {`${
+                state.selection1.startDate.toLocaleDateString().split(".")[1] +
+                "월" +
+                state.selection1.startDate.toLocaleDateString().split(".")[2] +
+                "일"
+              } ~ ${
+                state.selection1.endDate.toLocaleDateString().split(".")[1] +
+                "월" +
+                state.selection1.endDate.toLocaleDateString().split(".")[2] +
+                "일"
+              }`}
+              {/* <input
+                value={`${state[0].startDate.toLocaleString()} ~ ${state[0].endDate.toLocaleString()}`}
+              ></input> */}
             </button>
           </div>
 
           <input
-            placeholder="여행 제목을 입력해주세요"
+            placeholder="여행 제???????????????목을 입력해주세요"
             style={{
-              fontSize: "50x",
-              backgroundColor: "darkgrey",
+              fontSize: "1.5rem",
+              backgroundColor: "#CCCCFF",
               width: "500px",
               height: "50px",
               border: "none",
-              margin: "1rem 0 1rem 0",
+              margin: "1rem 0 2rem 0",
+              borderRadius: "10px",
             }}
           ></input>
 
@@ -126,14 +151,15 @@ const Main = () => {
           style={{ borderRadius: "5%" }}
         >
           <DateRangePicker
-            editableDateInputs={true}
-            onChange={(item) => setState([item.selection])}
+            onChange={(item) => setState({ ...state, ...item })}
             moveRangeOnFirstSelection={false}
-            ranges={state}
             locale={ko}
             dateDisplayFormat="yyyy-MM-dd (eee)"
             months={2}
+            ranges={[state.selection1]}
+            showPreview={false}
             minDate={date}
+            showDateDisplay={false}
             direction="horizontal"
           />
         </Modal>
@@ -149,7 +175,6 @@ const LeftDiv = styled.div`
   align-items: right;
   width: 40%;
   text-align: center;
-  font-family: "Nanum Pen Script", cursive;
   align-self: center;
 `;
 const VideoDiv = styled.div`
@@ -164,11 +189,9 @@ const FirstDiv = styled.div`
   margin: 0 !important;
 `;
 
-const MainTitle = styled.h1`
-  font-family: Caveat;
-`;
+const MainTitle = styled.h1``;
 const SubTitle = styled.h3`
-  font-family: Caveat;
+  padding: 1rem;
 `;
 const StartBtn = styled.button`
   border: none;

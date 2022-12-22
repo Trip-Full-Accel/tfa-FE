@@ -1,5 +1,7 @@
 import Account from "components/account/account";
 import BoardDetail from "components/board/boardDetail";
+import Edit from "components/board/boardEditor";
+import BoardModify from "components/board/boardModify";
 import Regist from "components/board/Regist";
 import ForgotPw from "components/forgotPw/forgotPw";
 import KakaoRedirectHandler from "components/kakaoRedirect";
@@ -34,6 +36,7 @@ const MyRoute = () => {
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
+          <Route path="/edit" element={<Edit></Edit>}></Route>
           <Route path="photo" element={<Photo></Photo>}></Route>
           <Route path="photo/busan" element={<BusanSlide></BusanSlide>}></Route>
           <Route path="photo/seoul" element={<SeoulSlide></SeoulSlide>}></Route>
@@ -64,7 +67,11 @@ const MyRoute = () => {
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
           <Route path="/maptest" element={<MapTest></MapTest>}></Route>
           <Route
-            path="/boardDetail"
+            path="/boardModify/:boardId"
+            element={<Regist></Regist>}
+          ></Route>
+          <Route
+            path="/boardDetail/:boardId"
             element={<BoardDetail></BoardDetail>}
           ></Route>
         </Route>

@@ -1,4 +1,3 @@
-import BoardDetail from "components/board/boardDetail";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,7 @@ const BList = (props: any) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     console.log(select);
@@ -59,34 +58,21 @@ const BList = (props: any) => {
     setItemOffset(newOffset);
   };
   const navigate = useNavigate();
-  const asdf = () => {
-    const goDetail = (title: any) => {
-      navigate("/boardDetail");
-    };
+  const goDetail = (id: number) => {
+    console.log(id);
+    navigate(`/boardDetail/${id}`, {
+      state: id,
+    });
   };
   return (
-    <div>
-      <MainDiv>
-        {keyword
-          ? currentItems
-              // .filter((el: any) => el.title.includes(keyword))
-              // .slice(itemOffset, itemOffset + itemsPerPage)
-              .map((el: any, i) => {
-                return (
-                  <div>
-                    <ContentDiv key={i}>
-                      <TitleDiv>{el.title}</TitleDiv>
-                      {/* <div>{el.content}</div> */}
-                      {/* <div>{el.writer}</div> */}
-                      {/* <div>{el.regdate}</div> */}
-                      <LikeDiv>{el.like}</LikeDiv>
-                    </ContentDiv>
-                  </div>
-                );
-              })
-          : currentItems.map((el: any) => {
+    <MainDiv>
+      {keyword
+        ? currentItems
+            // .filter((el: any) => el.title.includes(keyword))
+            // .slice(itemOffset, itemOffset + itemsPerPage)
+            .map((el: any, i) => {
               return (
-                <ContentDiv onClick={() => asdf()} key={el.title}>
+                <ContentDiv onClick={() => goDetail(el.id)} key={i}>
                   <TitleDiv>{el.title}</TitleDiv>
                   {/* <div>{el.content}</div> */}
                   {/* <div>{el.writer}</div> */}
@@ -94,8 +80,18 @@ const BList = (props: any) => {
                   <LikeDiv>{el.like}</LikeDiv>
                 </ContentDiv>
               );
-            })}
-      </MainDiv>
+            })
+        : currentItems.map((el: any) => {
+            return (
+              <ContentDiv onClick={() => goDetail(el.id)} key={el.title}>
+                <TitleDiv>{el.title}</TitleDiv>
+                {/* <div>{el.content}</div> */}
+                {/* <div>{el.writer}</div> */}
+                {/* <div>{el.regdate}</div> */}
+                <LikeDiv>{el.like}</LikeDiv>
+              </ContentDiv>
+            );
+          })}
       <div
         style={{
           lineHeight: "37px",
@@ -121,7 +117,7 @@ const BList = (props: any) => {
           previousClassName={"item previous"}
         />
       </div>
-    </div>
+    </MainDiv>
   );
 };
 export default BList;
@@ -129,7 +125,6 @@ const MainDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 40px;
 `;
 const ContentDiv = styled.div`
   width: 350px;

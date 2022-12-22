@@ -3,12 +3,13 @@ export interface boardState {
 }
 export interface BoardList {
   id: number;
-  selected: string;
+  selected?: string;
   title: string;
   writer: string | number;
   content: string;
   hits?: number | null;
   like?: number | null;
+  img: string | null;
   // select: string;
 }
 export interface BoardUpdate {

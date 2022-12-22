@@ -4,9 +4,11 @@ import costReducer from "./cost/costReducer";
 import counterReducer from "./counter/counterReducer";
 import footerReducer from "./footerName/footerReducer";
 import getMappingTestReducer from "./getMappingTest/getMappingTestReducer";
+import imgReducer from "./image/imgReducer";
 import tokenTest from "./kakaoTokenTest/tokenTest";
 import mapReducer from "./map/mapReducer";
 import postMappingTestReducer from "./postMappingTest/postMappingTestReducer";
+import reduxTestReducer from "./reduxTest/reduxTestReducer";
 import userReducer from "./user/userReducer";
 export const store = configureStore({
   reducer: {
@@ -19,6 +21,8 @@ export const store = configureStore({
     user: userReducer,
     cost: costReducer,
     map: mapReducer,
+    test: reduxTestReducer,
+    img: imgReducer,
   },
   devTools: true,
 });

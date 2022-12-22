@@ -114,8 +114,8 @@ const Regist = () => {
     "image",
   ];
   ///////// test //////////
-  const [goRedux, setGoRedux] = useState<any>([]);
   const [testData, setTestData] = useState<any>("");
+  const [goRedux, setGoRedux] = useState<any>([]);
 
   const onc = () => {
     setGoRedux([...goRedux, testData]);

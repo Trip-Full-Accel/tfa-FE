@@ -1,10 +1,22 @@
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
+import { useSelector } from "react-redux";
+import { TourList } from "store/map/mapType";
+import { RootState } from "store/store";
 import styled from "styled-components";
 
 interface props {
-  idx: number;
-  name: string;
+  markers: {
+    position: {
+      lat: number;
+      lng: number;
+    };
+  }[];
 }
 
 const finalSpaceCharacters = [
@@ -13,65 +25,40 @@ const finalSpaceCharacters = [
     name: "강남",
     thumb: "/img/busan/busan1.jpeg",
   },
-  {
-    id: "2",
-    name: "도봉구",
-    thumb: "/img/seoul/seoul1.jpg",
-  },
-  {
-    id: "3",
-    name: "신사",
-    thumb: "/img/seoul/seoul2.jpg",
-  },
-  {
-    id: "4",
-    name: "압구정",
-    thumb: "/img/seoul/seoul3.jpg",
-  },
-  {
-    id: "5",
-    name: "청담",
-    thumb: "/img/seoul/seoul4.jpg",
-  },
-  {
-    id: "6",
-    name: "신림",
-    thumb: "/img/seoul/seoul5.jpg",
-  },
 ];
 
-const Points = ({ idx, name }: props) => {
-  const [characters, updateCharacters] = useState(finalSpaceCharacters);
+const Points = ({ markers }: props) => {
+  const result1 = useSelector((state: RootState) => state.map.selectedTourList);
+  // console.log(result1);
+  const [selected, setSelected] = useState<any>();
 
-  function handleOnDragEnd(result: any) {
+  const handleChange = (result: DropResult) => {
     if (!result.destination) return;
 
-    const items = Array.from(characters);
+    const items = [...result1];
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    updateCharacters(items);
-  }
-
-  // return (
-  //   <div>
-  //     {idx + 1}번째 여행지 {name}
-  //   </div>
-  // );
+    setSelected(items);
+  };
+  const deleteSelect = () => {
+    const result = [];
+    console.log("동작함");
+  };
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="characters">
+    <DragDropContext onDragEnd={handleChange}>
+      <Droppable droppableId="selected">
         {(provided: any) => (
           <ListDiv>
             <ul
-              className="characters"
+              className="selected"
               {...provided.droppableProps}
               ref={provided.innerRef}
               style={{ listStyle: "none", padding: 0, margin: 0 }}
             >
-              {characters.map(({ id, name, thumb }, index) => {
+              {result1.map(({ id, city, lat, lng, img }, index) => {
                 return (
-                  <Draggable key={id} draggableId={id} index={index}>
+                  <Draggable key={city} draggableId={city} index={Number(id)}>
                     {(provided: any) => (
                       <li
                         style={{ width: "100%" }}
@@ -80,11 +67,23 @@ const Points = ({ idx, name }: props) => {
                         {...provided.dragHandleProps}
                       >
                         <ContentDiv>
-                          <ImgTag src={thumb} />
-                          {/* {idx + 1}번째  */}
-                          <div>여행지 {name}</div>
+                          <img
+                            style={{
+                              width: "70px",
+                              height: "70px",
+                              borderRadius: "50px",
+                              float: "left",
+                              marginLeft: "10px",
+                            }}
+                            src={`${img}`}
+                          />
+                          {/* {index + 1} */}
+                          {city}
                         </ContentDiv>
-                        {/* <p>{name}</p> */}
+                        <i
+                          className="xi-caret-down-min xi-x"
+                          onClick={deleteSelect}
+                        ></i>
                       </li>
                     )}
                   </Draggable>
@@ -107,13 +106,16 @@ const ListDiv = styled.div`
 `;
 
 const ContentDiv = styled.div`
-  background-color: #dce2e8;
+  /* background-color: #dce2e8; */
+  background-color: #fafafa;
   border-radius: 5px;
   height: 88px;
   display: flex;
   align-items: center;
   margin-top: 3px;
   margin-bottom: 3px;
+  border: 1px rgba(0, 0, 0, 0.2) solid;
+  box-shadow: 10px 10px 10px gray;
 `;
 
 const ImgTag = styled.img`

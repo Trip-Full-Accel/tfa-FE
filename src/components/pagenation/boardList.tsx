@@ -9,7 +9,7 @@ const BList = (props: any) => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 9;
+  const itemsPerPage = 6;
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     console.log(select);
@@ -65,14 +65,28 @@ const BList = (props: any) => {
     };
   };
   return (
-    <MainDiv>
-      {keyword
-        ? currentItems
-            // .filter((el: any) => el.title.includes(keyword))
-            // .slice(itemOffset, itemOffset + itemsPerPage)
-            .map((el: any, i) => {
+    <div>
+      <MainDiv>
+        {keyword
+          ? currentItems
+              // .filter((el: any) => el.title.includes(keyword))
+              // .slice(itemOffset, itemOffset + itemsPerPage)
+              .map((el: any, i) => {
+                return (
+                  <div>
+                    <ContentDiv key={i}>
+                      <TitleDiv>{el.title}</TitleDiv>
+                      {/* <div>{el.content}</div> */}
+                      {/* <div>{el.writer}</div> */}
+                      {/* <div>{el.regdate}</div> */}
+                      <LikeDiv>{el.like}</LikeDiv>
+                    </ContentDiv>
+                  </div>
+                );
+              })
+          : currentItems.map((el: any) => {
               return (
-                <ContentDiv key={i}>
+                <ContentDiv onClick={() => asdf()} key={el.title}>
                   <TitleDiv>{el.title}</TitleDiv>
                   {/* <div>{el.content}</div> */}
                   {/* <div>{el.writer}</div> */}
@@ -80,18 +94,8 @@ const BList = (props: any) => {
                   <LikeDiv>{el.like}</LikeDiv>
                 </ContentDiv>
               );
-            })
-        : currentItems.map((el: any) => {
-            return (
-              <ContentDiv onClick={() => asdf()} key={el.title}>
-                <TitleDiv>{el.title}</TitleDiv>
-                {/* <div>{el.content}</div> */}
-                {/* <div>{el.writer}</div> */}
-                {/* <div>{el.regdate}</div> */}
-                <LikeDiv>{el.like}</LikeDiv>
-              </ContentDiv>
-            );
-          })}
+            })}
+      </MainDiv>
       <div
         style={{
           lineHeight: "37px",
@@ -117,7 +121,7 @@ const BList = (props: any) => {
           previousClassName={"item previous"}
         />
       </div>
-    </MainDiv>
+    </div>
   );
 };
 export default BList;
@@ -125,6 +129,7 @@ const MainDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin: 40px;
 `;
 const ContentDiv = styled.div`
   width: 350px;

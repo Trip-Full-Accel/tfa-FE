@@ -4,8 +4,6 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^35.4.0",
-    "@ckeditor/ckeditor5-react": "^5.0.3",
     "@fullpage/react-fullpage": "^0.1.31",
     "@react-oauth/google": "^0.5.1",
     "@reduxjs/toolkit": "^1.9.1",
@@ -28,6 +26,7 @@
     "react-awesome-reveal": "^4.1.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.7.0",
+    "react-chatbot-kit": "^2.1.2",
     "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-fullpage": "^0.1.19",
@@ -77,7 +76,6 @@
     "proxy": "http://localhost:8080"
   },
   "devDependencies": {
-    "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
     "@types/react-slick": "^0.23.10",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.30.0"

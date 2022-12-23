@@ -10,6 +10,13 @@ import "../../static/all.css";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { ko } from "date-fns/esm/locale";
+import config from "components/chatbot/config";
+import MessageParser from "components/chatbot/MessageParser";
+import ActionProvider from "components/chatbot/ActionProvider";
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+import "../chatbot/chatbot.css";
+
 interface dataType {
   name: string;
   x: string;
@@ -17,6 +24,7 @@ interface dataType {
 }
 const Main = () => {
   const [show, setShow] = useState(false);
+  const [chat, setChat] = useState(false);
 
   const navigate = useNavigate();
   // const reduxData = useSelector((state: RootState) => state.user.userId);
@@ -42,10 +50,19 @@ const Main = () => {
     navigate(path);
     //, { state: { x: x, y: y } }
   };
+
   const linkTo = (path: string) => {
     navigate(path);
   };
-
+  const [title, setTitle] = useState<string>("");
+  console.log(title);
+  const goMaps = (path: string) => {
+    if (title.length > 0) {
+      navigate(path);
+    } else {
+      alert("제목입력해라");
+    }
+  };
   const test = () => {
     navigate("/edit");
   };
@@ -57,6 +74,7 @@ const Main = () => {
       key: "selection1",
     },
   });
+  console.log(state);
 
   const [text, setText] = useState("");
 
@@ -64,17 +82,17 @@ const Main = () => {
     if (text.length > 0) {
       navigate("/maps", {
         state: {
-          date: `${
-            state.selection1.startDate.toLocaleDateString().split(".")[1] +
+          date: `${state.selection1.startDate
+            .toLocaleDateString()
+            .split(".")[1] +
             "월" +
             state.selection1.startDate.toLocaleDateString().split(".")[2] +
-            "일"
-          } ~ ${
-            state.selection1.endDate.toLocaleDateString().split(".")[1] +
+            "일"} ~ ${state.selection1.endDate
+            .toLocaleDateString()
+            .split(".")[1] +
             "월" +
             state.selection1.endDate.toLocaleDateString().split(".")[2] +
-            "일"
-          }`,
+            "일"}`,
           title: text,
         },
       });
@@ -83,11 +101,15 @@ const Main = () => {
     }
   };
 
+  const onChatbot = () => {
+    setChat(true);
+  };
+
   return (
     <TopLvDiv>
       <FirstDiv>
         <LeftDiv>
-          <MainTitle>{local} </MainTitle>
+          {/* <MainTitle>{local} </MainTitle> */}
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
           <CalenderDiv>
             <IconSpan>
@@ -98,17 +120,17 @@ const Main = () => {
                 setShow(true);
               }}
             >
-              {`${
-                state.selection1.startDate.toLocaleDateString().split(".")[1] +
+              {`${state.selection1.startDate
+                .toLocaleDateString()
+                .split(".")[1] +
                 "월" +
                 state.selection1.startDate.toLocaleDateString().split(".")[2] +
-                "일"
-              } ~ ${
-                state.selection1.endDate.toLocaleDateString().split(".")[1] +
+                "일"} ~ ${state.selection1.endDate
+                .toLocaleDateString()
+                .split(".")[1] +
                 "월" +
                 state.selection1.endDate.toLocaleDateString().split(".")[2] +
-                "일"
-              }`}
+                "일"}`}
             </CalenderBtn>
           </CalenderDiv>
 
@@ -124,6 +146,7 @@ const Main = () => {
           <StartBtn onClick={strBtn}>
             <span>Start</span>
           </StartBtn>
+          <button onClick={onChatbot}>챗봇</button>
         </LeftDiv>
         {/* video */}
         <VideoDiv>
@@ -133,6 +156,23 @@ const Main = () => {
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
 
+      {/* 챗봇 시작 */}
+      <div>
+        <Modal
+          className="chatModal"
+          size="lg"
+          show={chat}
+          onHide={() => setChat(false)}
+          aria-labelledby="example-modal-sizes-title-lg"
+          style={{ borderRadius: "5%" }}
+        >
+          <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+          />
+        </Modal>
+      </div>
       <div>
         <Modal
           className="loginM"

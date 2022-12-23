@@ -11,11 +11,18 @@ export interface MapList {
 }
 
 export interface TourList {
-  id?: string | undefined;
+  id?: number;
   city: string;
   content?: string;
   lat: string | number;
   lng: string | number;
   img?: string;
   hasMore?: boolean | null | undefined;
+}
+
+export interface TestT {
+  position: {
+    lat?: string | number | null;
+    lng?: string | number | null;
+  };
 }

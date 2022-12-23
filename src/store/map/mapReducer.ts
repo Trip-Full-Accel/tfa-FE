@@ -28,6 +28,7 @@ interface initialType {
   maps: MapList[];
   tourList: TourList[];
   selectedTourList: TourList[];
+  selectedPoints: TourList[];
   status: Status;
   error: Error;
 }
@@ -35,6 +36,8 @@ const initialState: initialType = {
   maps: [],
   tourList: [],
   selectedTourList: [],
+  selectedPoints: [],
+
   status: "idle",
   error: "null",
 };
@@ -48,6 +51,11 @@ const mapReducer = createSlice({
       const { payload } = action;
       console.log(payload);
       state.selectedTourList = [...state.selectedTourList, payload];
+    },
+    pointTest: (state, action) => {
+      const { payload } = action;
+      console.log(payload);
+      state.selectedTourList = payload;
     },
   },
   extraReducers(builder) {
@@ -72,5 +80,5 @@ const mapReducer = createSlice({
       });
   },
 });
-export const { mapTest } = mapReducer.actions;
+export const { mapTest, pointTest } = mapReducer.actions;
 export default mapReducer.reducer;

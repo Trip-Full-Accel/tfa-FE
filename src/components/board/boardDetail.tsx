@@ -8,7 +8,11 @@ import {
   useRoutes,
 } from "react-router-dom";
 import { Button } from "reactstrap";
-import { fetchDeleteBoard, fetchPutBoard } from "store/board/boardReducer";
+import {
+  fetchDeleteBoard,
+  fetchGetDetail,
+  fetchPutBoard,
+} from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
@@ -24,20 +28,24 @@ const BoardDetail = () => {
   const [selected, setSelected] = useState<string>();
 
   const { boardId } = useParams();
+  useEffect(() => {
+    console.log("tlfgod");
+    dispatch(fetchGetDetail(String(boardId)));
+    // console.log("디테일 페이지 리절트", result);
+    // const realData = result.unwrap().then((res) => res.payload);
+    // console.log("디테일 리얼데이터", realData);
+  }, []);
+  // setBoardDetail();
   console.log(boardId);
   // const [boardIdData, setBoardIdData] = useState<any>("");
-  const boardList = useSelector((state: RootState) => state.board.board);
-  console.log(boardList);
+  const boardDetailReturn = useSelector(
+    (state: RootState) => state.board.detailBoard
+  );
+  console.log("밑에 div에서 뿌려줄 값", boardDetailReturn);
+
   const dispatch = useDispatch<AppDispatch>();
-  const [boardDetail, setBoardDetail] = useState<BoardList[]>([]);
+  const [boardDetail, setBoardDetail] = useState<any>();
   // setBoardIdData(boardId);
-  useEffect(() => {
-    const returnValue = boardList.filter(
-      (el: any) => el.id === Number(boardId)
-    );
-    console.log(returnValue);
-    setBoardDetail(returnValue);
-  }, [boardList]);
 
   const deleteHandler = async () => {
     await dispatch(fetchDeleteBoard(Number(boardId)));
@@ -49,87 +57,89 @@ const BoardDetail = () => {
   const navigate = useNavigate();
   const updateHandler = (el: BoardList) => {
     console.log(boardId);
-    navigate(`/boardModify/${boardId}`, {
+    navigate(`/boardModify/${el.id}`, {
       state: el,
     });
   };
-  const titleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-  const contentHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
-  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
-  };
 
   const userId = useSelector((state: RootState) => state.user.successLogin);
-
+  console.log(userId);
+  const local = localStorage.getItem("userId");
+  console.log("loc", local);
+  // console.log("wirter", boardDetailReturn[0].writer);
   return (
     <>
-      <div
-        style={{
-          border: "1px solid grey",
-          width: "1000px",
-          height: "600px",
-          borderRadius: "5px",
-        }}
-      >
-        <div>
-          {boardDetail.map((el) => {
-            if (userId == el.writer) {
-              return (
-                <Detaildiv key={el.id}>
-                  <Titlediv>제목 : {el.title}</Titlediv>
-                  <div
-                    style={{ display: "flex", borderBottom: "1px solid black" }}
-                  >
-                    <Writerdiv>작성자 : {el.writer}</Writerdiv>
-                    <div>글 카테고리 : {el.selected}</div>
-                    <Hitsdiv>조회수 : {el.hits}</Hitsdiv>
-                  </div>
-                  <Contentdiv>
-                    <pre dangerouslySetInnerHTML={{ __html: el.content }}></pre>
-                    {/* <img src=`{{el.img}}` /> */}
-                    {/* {el.img} */}
-
-                    {/* <img src={`${el.img}`}></img> */}
-                  </Contentdiv>
-                  <Btndiv>
-                    <Button onClick={() => deleteHandler()}>삭제테스트</Button>
-                  </Btndiv>
-                  <Btndiv>
-                    <Button onClick={() => updateHandler(el)}>
-                      수정테스트
-                    </Button>
-                  </Btndiv>
-                </Detaildiv>
-              );
-            } else {
-              return (
-                <Detaildiv key={el.id}>
-                  <Titlediv>제목 : {el.title}</Titlediv>
-                  <div
-                    style={{ display: "flex", borderBottom: "1px solid black" }}
-                  >
-                    <Writerdiv>작성자 : {el.writer}</Writerdiv>
-                    <div>글 카테고리 : {el.selected}</div>
-                    <Hitsdiv>조회수 : {el.hits}</Hitsdiv>
-                  </div>
-                  <Contentdiv>
-                    {el.content}
-                    {/* <img src=`{{el.img}}` /> */}
-                    {/* {el.img} */}
-
-                    {/* <img src={`${el.img}`}></img> */}
-                  </Contentdiv>
-                </Detaildiv>
-              );
-            }
-          })}
-        </div>
-        <Likediv>좋아요 </Likediv>
-      </div>
+      {boardDetailReturn.map((detail) =>
+        Number(userId) === detail.id ? (
+          <div
+            key={detail.title}
+            style={{
+              border: "1px solid grey",
+              width: "1000px",
+              height: "600px",
+              borderRadius: "5px",
+            }}
+          >
+            <div>
+              <Detaildiv>
+                <Titlediv>제목 : {detail.title}</Titlediv>
+                <div
+                  style={{ display: "flex", borderBottom: "1px solid black" }}
+                >
+                  <Writerdiv>작성자 : {detail.writer}</Writerdiv>
+                  <div>글 카테고리 : {detail.selected}</div>
+                  <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+                </div>
+                <Contentdiv>
+                  <pre
+                    dangerouslySetInnerHTML={{
+                      __html: detail.content,
+                    }}
+                  ></pre>
+                </Contentdiv>
+                <Btndiv>
+                  <Button onClick={() => deleteHandler()}>삭제테스트</Button>
+                </Btndiv>
+                <Btndiv>
+                  <Button onClick={() => updateHandler(detail)}>
+                    수정테스트
+                  </Button>
+                </Btndiv>
+              </Detaildiv>
+            </div>
+          </div>
+        ) : (
+          <div
+            key={detail.title}
+            style={{
+              border: "1px solid grey",
+              width: "1000px",
+              height: "600px",
+              borderRadius: "5px",
+            }}
+          >
+            <div>
+              <Detaildiv>
+                <Titlediv>제목 : {detail.title}</Titlediv>
+                <div
+                  style={{ display: "flex", borderBottom: "1px solid black" }}
+                >
+                  <Writerdiv>작성자 : {detail.writer}</Writerdiv>
+                  <div>글 카테고리 : {detail.selected}</div>
+                  <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+                </div>
+                <Contentdiv>
+                  <pre
+                    dangerouslySetInnerHTML={{
+                      __html: detail.content,
+                    }}
+                  ></pre>
+                </Contentdiv>
+              </Detaildiv>
+            </div>
+          </div>
+        )
+      )}
     </>
   );
 };

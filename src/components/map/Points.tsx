@@ -56,34 +56,22 @@ const Points = ({ markers }: props) => {
                           {...provided.dragHandleProps}
                         >
                           {index === 0 ? (
-                            <ContentDiv style={{ backgroundColor: "red" }}>
-                              <img
-                                style={{
-                                  width: "70px",
-                                  height: "70px",
-                                  borderRadius: "50px",
-                                  float: "left",
-                                  marginLeft: "10px",
-                                }}
-                                src={`${img}`}
-                              />
+                            <ContentDiv
+                              style={{ border: "3px solid blueviolet" }}
+                            >
+                              <span>
+                                첫번째 <br />
+                                여행지
+                              </span>
+                              <ImgTag src={`${img}`} />
                               {/* {index + 1} */}
-                              {city}
+                              <div style={{ alignItems: "center" }}>{city}</div>
                             </ContentDiv>
                           ) : (
                             <ContentDiv>
-                              <img
-                                style={{
-                                  width: "70px",
-                                  height: "70px",
-                                  borderRadius: "50px",
-                                  float: "left",
-                                  marginLeft: "10px",
-                                }}
-                                src={`${img}`}
-                              />
+                              <ImgTag src={`${img}`} />
                               {/* {index + 1} */}
-                              {city}
+                              <div style={{ alignItems: "center" }}>{city}</div>
                             </ContentDiv>
                           )}
                         </li>
@@ -104,6 +92,7 @@ const Points = ({ markers }: props) => {
 export default Points;
 
 const ListDiv = styled.div`
+  border: 2px solid black;
   border-radius: 5px;
   height: 550px;
 `;
@@ -118,7 +107,6 @@ const ContentDiv = styled.div`
   margin-top: 3px;
   margin-bottom: 3px;
   border: 1px rgba(0, 0, 0, 0.2) solid;
-  box-shadow: 10px 10px 10px gray;
 `;
 
 const ImgTag = styled.img`
@@ -126,5 +114,5 @@ const ImgTag = styled.img`
   height: 70px;
   border-radius: 50px;
   float: left;
-  margin-left: 10px;
+  margin: 0 0 0 10px;
 `;

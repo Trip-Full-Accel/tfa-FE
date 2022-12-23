@@ -80,12 +80,14 @@ const BoardDetail = () => {
             if (userId == el.writer) {
               return (
                 <Detaildiv key={el.id}>
-                  <div style={{ display: "flex" }}>
+                  <Titlediv>제목 : {el.title}</Titlediv>
+                  <div
+                    style={{ display: "flex", borderBottom: "1px solid black" }}
+                  >
                     <Writerdiv>작성자 : {el.writer}</Writerdiv>
                     <div>글 카테고리 : {el.selected}</div>
                     <Hitsdiv>조회수 : {el.hits}</Hitsdiv>
                   </div>
-                  <Titlediv>제목 : {el.title}</Titlediv>
                   <Contentdiv>
                     <pre dangerouslySetInnerHTML={{ __html: el.content }}></pre>
                     {/* <img src=`{{el.img}}` /> */}
@@ -106,12 +108,14 @@ const BoardDetail = () => {
             } else {
               return (
                 <Detaildiv key={el.id}>
-                  <div style={{ display: "flex" }}>
+                  <Titlediv>제목 : {el.title}</Titlediv>
+                  <div
+                    style={{ display: "flex", borderBottom: "1px solid black" }}
+                  >
                     <Writerdiv>작성자 : {el.writer}</Writerdiv>
                     <div>글 카테고리 : {el.selected}</div>
                     <Hitsdiv>조회수 : {el.hits}</Hitsdiv>
                   </div>
-                  <Titlediv>제목 : {el.title}</Titlediv>
                   <Contentdiv>
                     {el.content}
                     {/* <img src=`{{el.img}}` /> */}
@@ -135,9 +139,17 @@ const Detaildiv = styled.div``;
 const Writerdiv = styled.div``;
 const Selecteddiv = styled.div``;
 const Hitsdiv = styled.div``;
+const Titlediv = styled.div`
+  text-align: start;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 1rem;
+  border-bottom: 1px solid grey;
+`;
 const Likediv = styled.div``;
-const Titlediv = styled.div``;
-const Contentdiv = styled.div``;
+const Contentdiv = styled.div`
+  min-height: 30rem;
+`;
 
 const Btndiv = styled.div``;
 

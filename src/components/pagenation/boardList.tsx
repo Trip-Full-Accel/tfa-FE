@@ -64,6 +64,7 @@ const BList = (props: any) => {
       state: id,
     });
   };
+  const [isSelect, setSelect] = useState([false, false]);
   return (
     <div>
       <MainDiv>

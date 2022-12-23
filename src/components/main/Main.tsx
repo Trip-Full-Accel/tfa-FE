@@ -1,20 +1,18 @@
-import { addDays, format } from "date-fns";
-import { useState, useEffect } from "react";
-import { Modal } from "react-bootstrap";
-import { DateRange, DateRangePicker } from "react-date-range";
-import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { RootState } from "store/store";
-import styled from "styled-components";
-import "../../static/all.css";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
-import { ko } from "date-fns/esm/locale";
+import ActionProvider from "components/chatbot/ActionProvider";
 import config from "components/chatbot/config";
 import MessageParser from "components/chatbot/MessageParser";
-import ActionProvider from "components/chatbot/ActionProvider";
+import { addDays } from "date-fns";
+import { ko } from "date-fns/esm/locale";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
 import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import "../../static/all.css";
 import "../chatbot/chatbot.css";
 
 interface dataType {
@@ -82,17 +80,17 @@ const Main = () => {
     if (text.length > 0) {
       navigate("/maps", {
         state: {
-          date: `${state.selection1.startDate
-            .toLocaleDateString()
-            .split(".")[1] +
+          date: `${
+            state.selection1.startDate.toLocaleDateString().split(".")[1] +
             "월" +
             state.selection1.startDate.toLocaleDateString().split(".")[2] +
-            "일"} ~ ${state.selection1.endDate
-            .toLocaleDateString()
-            .split(".")[1] +
+            "일"
+          } ~ ${
+            state.selection1.endDate.toLocaleDateString().split(".")[1] +
             "월" +
             state.selection1.endDate.toLocaleDateString().split(".")[2] +
-            "일"}`,
+            "일"
+          }`,
           title: text,
         },
       });
@@ -120,17 +118,17 @@ const Main = () => {
                 setShow(true);
               }}
             >
-              {`${state.selection1.startDate
-                .toLocaleDateString()
-                .split(".")[1] +
+              {`${
+                state.selection1.startDate.toLocaleDateString().split(".")[1] +
                 "월" +
                 state.selection1.startDate.toLocaleDateString().split(".")[2] +
-                "일"} ~ ${state.selection1.endDate
-                .toLocaleDateString()
-                .split(".")[1] +
+                "일"
+              } ~ ${
+                state.selection1.endDate.toLocaleDateString().split(".")[1] +
                 "월" +
                 state.selection1.endDate.toLocaleDateString().split(".")[2] +
-                "일"}`}
+                "일"
+              }`}
             </CalenderBtn>
           </CalenderDiv>
 

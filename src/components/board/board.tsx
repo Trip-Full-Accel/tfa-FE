@@ -51,11 +51,20 @@ const Board = () => {
         <img src="/img/boardimg.png" />
       </BoardTitleDiv>
       <BoardMainDiv>
-        <div>
-          <Button onClick={() => reviewBtn()}>리뷰글보기</Button>
-          <Button onClick={() => recruitBtn()}>모집글보기</Button>
+        <div
+          style={{
+            width: "85%",
+            display: "flex",
+            paddingTop: "3rem",
+          }}
+        >
+          <TabBtn onClick={() => reviewBtn()}>리뷰</TabBtn>
+          <TabBtn onClick={() => recruitBtn()}>모집</TabBtn>
           <SearchDiv>
-            <select onChange={(e) => searchKeyHandler(e)}>
+            <select
+              style={{ borderRadius: "5px" }}
+              onChange={(e) => searchKeyHandler(e)}
+            >
               <option value="title">제목</option>
               <option value="content">내용</option>
               <option value="writer">작성자</option>
@@ -69,13 +78,11 @@ const Board = () => {
               검색
             </Button>
           </SearchDiv>
+          <Button style={{ width: "90px" }} onClick={() => boardBtn()}>
+            글쓰러
+          </Button>
         </div>
-        <Button
-          style={{ width: "90px", marginLeft: "100px" }}
-          onClick={() => boardBtn()}
-        >
-          글쓰러
-        </Button>
+        <hr />
 
         {load === "loading" ? (
           <Spinner></Spinner>
@@ -108,8 +115,8 @@ const BoardMainDiv = styled.div`
 const RightInput = styled.input`
   border: none;
   text-align: left;
-  height: 50px;
-  width: 100%;
+  height: 3rem;
+  width: 20rem;
   outline: none;
   background: #fafafa;
   border-bottom: 1px solid #000000;
@@ -119,5 +126,12 @@ const RightInput = styled.input`
 `;
 
 const SearchDiv = styled.div`
+  justify-content: center;
+  border-radius: 5px;
   display: flex;
+`;
+
+const TabBtn = styled.button`
+  width: 6rem;
+  border: none;
 `;

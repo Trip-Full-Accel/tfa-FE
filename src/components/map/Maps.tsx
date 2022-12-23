@@ -8,10 +8,7 @@ import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/side.css";
 import MapTest from "./maptest";
-import MapTest2 from "./maptest2";
-import MapTest3 from "./maptest3";
 import Points from "./Points";
-import PointsTest from "./PointsTest";
 /*global kakao*/ //지우면 안됨
 
 interface city {
@@ -151,7 +148,7 @@ const Maps = () => {
         >
           {isVisible &&
             markers.map((marker, index) => (
-              <div style={{ height: "100px" }} key={index}>
+              <div key={index}>
                 <MapMarker
                   image={{
                     src: "/img/mark2.png", // 마커이미지의 주소입니다
@@ -168,7 +165,7 @@ const Maps = () => {
                   }}
                   key={`${marker.position}-${index}`}
                   position={marker.position} // 마커를 표시할 위치
-                ></MapMarker>
+                />
               </div>
             ))}
           <Polyline

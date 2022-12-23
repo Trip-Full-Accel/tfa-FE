@@ -212,6 +212,7 @@ const Header = () => {
     // }))
   };
   const [chat, setChat] = useState(false);
+  const [bot, setBot] = useState(false);
   console.log(loc);
   const onChatbot = () => {
     if (bot === false) {
@@ -220,8 +221,6 @@ const Header = () => {
       setBot(false);
     }
   };
-
-  const [bot, setBot] = useState(false);
 
   return (
     <HeaderMainDiv>
@@ -403,15 +402,16 @@ const Header = () => {
       {/* 챗봇 시작 */}
 
       {bot === true ? (
-        <div>
+        <ChatbotDiv id="chay">
           <Chatbot
             config={config}
             messageParser={MessageParser}
             actionProvider={ActionProvider}
+            placeholderText="궁금한 것을 물어보세요"
           />
-        </div>
+        </ChatbotDiv>
       ) : (
-        <div> qht</div>
+        <div></div>
       )}
 
       <Topbtn></Topbtn>
@@ -472,4 +472,10 @@ const ChatbotBtn = styled.button`
   position: fixed;
   bottom: 6.5rem;
   right: 4rem;
+`;
+
+const ChatbotDiv = styled.div`
+  margin: 8rem;
+  position: absolute;
+  right: 0;
 `;

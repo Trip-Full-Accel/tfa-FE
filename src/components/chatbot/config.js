@@ -7,6 +7,14 @@ const config = {
     ),
   ],
   createChatBotMessage,
+  customStyles: {
+    botMessageBox: {
+      backgroundColor: "#376B7E",
+    },
+    chatButton: {
+      backgroundColor: "#7c74ab",
+    },
+  },
 };
 
 const message = createChatBotMessage("Hello world!");

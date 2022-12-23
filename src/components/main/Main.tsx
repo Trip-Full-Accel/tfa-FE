@@ -168,6 +168,7 @@ const Main = () => {
             config={config}
             messageParser={MessageParser}
             actionProvider={ActionProvider}
+            // message={message}
           />
         </Modal>
       </div>

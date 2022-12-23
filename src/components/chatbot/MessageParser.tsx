@@ -1,8 +1,15 @@
 import React from "react";
 
-const MessageParser = ({ children, actions }) => {
-  const parse = (message) => {
+const MessageParser = ({ children, actions }: any) => {
+  const parse = (message: any) => {
     console.log(message);
+    if (message.includes("안녕")) {
+      actions.handleHello();
+    } else if (message.includes("설명")) {
+      actions.handleTFA();
+    } else {
+      actions.handleJoke();
+    }
   };
 
   return (

@@ -143,7 +143,6 @@ const userReducer = createSlice({
         // state.user = [...state.user, action.payload];
         state.userId = action.payload;
         console.log("회원 가입시 state.user값" + state.userId);
-        // localStorage.setItem("userId", state.userId);
       })
 
       // 비밀번호 찾기 성공시 스테이트에 값 담음
@@ -154,6 +153,7 @@ const userReducer = createSlice({
       // 로그인 성공시 스테이트에 값 담음
       .addCase(fetchPostLogin.fulfilled, (state, action) => {
         state.successLogin = action.payload;
+        localStorage.setItem("userId", state.successLogin);
         // console.log("payload" + action.payload);
       })
 

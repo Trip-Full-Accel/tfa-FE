@@ -5,7 +5,7 @@ export interface BoardList {
   id: number;
   selected?: string;
   title: string;
-  writer: string | number;
+  writer: string | number | undefined;
   content: string;
   hits?: number | null;
   like?: number | null;

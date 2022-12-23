@@ -67,7 +67,14 @@ const BoardDetail = () => {
 
   return (
     <>
-      <div style={{}}>
+      <div
+        style={{
+          border: "1px solid grey",
+          width: "1000px",
+          height: "600px",
+          borderRadius: "5px",
+        }}
+      >
         <div>
           {boardDetail.map((el) => {
             if (userId == el.writer) {

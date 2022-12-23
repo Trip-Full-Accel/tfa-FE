@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { DateRange, DateRangePicker } from "react-date-range";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/all.css";
@@ -27,8 +27,7 @@ const Main = () => {
   const [chat, setChat] = useState(false);
 
   const navigate = useNavigate();
-  const reduxData = useSelector((state: RootState) => state.user.userId);
-  console.log(reduxData);
+  // const reduxData = useSelector((state: RootState) => state.user.userId);
   const local = localStorage.getItem("userId");
 
   const [coordinate, setCoordinate] = useState({ x: "", y: "" });
@@ -77,38 +76,42 @@ const Main = () => {
   });
   console.log(state);
 
+  const [text, setText] = useState("");
+
+  const strBtn = () => {
+    if (text.length > 0) {
+      navigate("/maps", {
+        state: {
+          date: `${state.selection1.startDate
+            .toLocaleDateString()
+            .split(".")[1] +
+            "월" +
+            state.selection1.startDate.toLocaleDateString().split(".")[2] +
+            "일"} ~ ${state.selection1.endDate
+            .toLocaleDateString()
+            .split(".")[1] +
+            "월" +
+            state.selection1.endDate.toLocaleDateString().split(".")[2] +
+            "일"}`,
+          title: text,
+        },
+      });
+    } else {
+      alert("제목.");
+    }
+  };
+
   return (
     <TopLvDiv>
       <FirstDiv>
         <LeftDiv>
           {/* <MainTitle>{local} </MainTitle> */}
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
-          <div
-            style={{
-              width: "300px",
-              height: "50px",
-              backgroundColor: "#CCCCFF",
-              borderRadius: "10px",
-              textAlign: "center",
-              display: "flex",
-            }}
-          >
-            <span
-              style={{
-                width: "25%",
-                textAlign: "center",
-                placeSelf: "center",
-                margin: "0 0 0 10px",
-              }}
-            >
+          <CalenderDiv>
+            <IconSpan>
               <img src="/img/calender.png"></img>
-            </span>
-            <button
-              style={{
-                float: "left",
-                backgroundColor: "transparent",
-                border: "none",
-              }}
+            </IconSpan>
+            <CalenderBtn
               onClick={() => {
                 setShow(true);
               }}
@@ -124,32 +127,21 @@ const Main = () => {
                 "월" +
                 state.selection1.endDate.toLocaleDateString().split(".")[2] +
                 "일"}`}
-              {/* <input
-                value={`${state[0].startDate.toLocaleString()} ~ ${state[0].endDate.toLocaleString()}`}
-              ></input> */}
-            </button>
-          </div>
+            </CalenderBtn>
+          </CalenderDiv>
 
-          <input
+          <TitleInput
+            type="text"
             placeholder="여행 제목을 입력해주세요"
-            style={{
-              fontSize: "1.5rem",
-              backgroundColor: "#CCCCFF",
-              width: "500px",
-              height: "50px",
-              border: "none",
-              margin: "1rem 0 2rem 0",
-              borderRadius: "10px",
+            required
+            onChange={(e) => {
+              setText(e.target.value);
             }}
-            onChange={(e) => setTitle(e.target.value)}
-          ></input>
+          ></TitleInput>
 
-          <StartBtn onClick={() => goMaps("/maps")}>
+          <StartBtn onClick={strBtn}>
             <span>Start</span>
           </StartBtn>
-          <br />
-          <button onClick={() => setChat(true)}>챗봇</button>
-          {/* <img src="https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/143b7a7ce9bc4dbd93f330e851af5c68?alt=media&"></img> */}
         </LeftDiv>
         {/* video */}
         <VideoDiv>
@@ -277,7 +269,35 @@ const Video = styled.video`
     display: none;
   }
 `;
-const SecondDiv = styled.div`
-  display: inline-flex;
-  margin-top: 150px;
+
+const CalenderDiv = styled.div`
+  width: 300px;
+  height: 50px;
+  background-color: #ccccff;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+`;
+
+const TitleInput = styled.input`
+  font-size: 1.2rem;
+  background-color: #ccccff;
+  width: 300px;
+  height: 50px;
+  border: none;
+  margin: 1rem 0 2rem 0;
+  border-radius: 10px;
+`;
+
+const IconSpan = styled.span`
+  width: 25%;
+  text-align: center;
+  place-self: center;
+  margin: 0 0 0 10px;
+`;
+
+const CalenderBtn = styled.button`
+  float: left;
+  background-color: transparent;
+  border: none;
 `;

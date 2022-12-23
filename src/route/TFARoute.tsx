@@ -66,8 +66,8 @@ const MyRoute = () => {
           <Route path="/regist" element={<Regist></Regist>}></Route>
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
-          <Route path="/maptest" element={<MapTest></MapTest>}></Route>
           <Route path="/suggest" element={<Suggest></Suggest>}></Route>
+          {/* <Route path="/maptest" element={<MapTest></MapTest>}></Route> */}
           <Route
             path="/boardModify/:boardId"
             element={<Regist></Regist>}

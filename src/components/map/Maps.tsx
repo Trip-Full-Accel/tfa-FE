@@ -1,16 +1,16 @@
-import { CustomAxios } from "http/customAxios";
 import { useEffect, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { Button } from "reactstrap";
 import { fetchPostMap } from "store/map/mapReducer";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/side.css";
-import Points from "./Points";
-import InfiniteScroll from "react-infinite-scroller";
-import { Button } from "reactstrap";
 import MapTest from "./maptest";
+import MapTest2 from "./maptest2";
+import MapTest3 from "./maptest3";
+import Points from "./Points";
 /*global kakao*/ //지우면 안됨
 
 interface city {
@@ -31,8 +31,8 @@ const Maps = () => {
     {
       // 서울 시청 좌표
       position: {
-        lat: 36.38,
-        lng: 127.51,
+        lat: 37.5662952,
+        lng: 126.9779451,
       },
     },
   ]);
@@ -103,7 +103,7 @@ const Maps = () => {
   };
 
   const mapData = useSelector((state: RootState) => state.map.maps);
-  console.log(mapData);
+  // console.log(mapData);
 
   const onLoadMore = () => {};
   return (
@@ -114,9 +114,7 @@ const Maps = () => {
           <br /> 여행제목: {location.state.title}
         </div>
         <SelectDiv>
-          {addr.map((el, i) => {
-            return <Points key={el.name} idx={i} name={el.name}></Points>;
-          })}
+          <Points markers={markers}></Points>
         </SelectDiv>
         <Button
           style={{ width: "80%", height: "50px", marginTop: "1rem" }}
@@ -149,36 +147,78 @@ const Maps = () => {
         >
           {isVisible &&
             markers.map((marker, index) => (
-              <MapMarker
-                key={`${marker.position}-${index}`}
-                position={marker.position} // 마커를 표시할 위치
-              />
+              <div style={{ height: "100px" }} key={index}>
+                <MapMarker
+                  image={{
+                    src: "/img/mark2.png", // 마커이미지의 주소입니다
+                    size: {
+                      width: 50,
+                      height: 60,
+                    }, // 마커이미지의 크기입니다
+                    options: {
+                      offset: {
+                        x: 27,
+                        y: 69,
+                      }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                    },
+                  }}
+                  key={`${marker.position}-${index}`}
+                  position={marker.position} // 마커를 표시할 위치
+                ></MapMarker>
+              </div>
             ))}
+          <Polyline
+            path={[markers.map((data) => data?.position)]}
+            strokeWeight={10} // 두께
+            strokeColor={"#1296ef"} // 색
+            strokeOpacity={0.6} // 불투명도
+            strokeStyle={"longdash"} // 스타일
+          />
         </Map>
       </MapDiv>
       <TourListTopDiv>
         <span className="">관광지 리스트</span>
-        {travelPoint.map((el) => {
+        {/* {travelPoint.map((el, i) => {
           return (
-            // TourList로 분기하게되면 Mapmarker사용 불가능해서 분기못함 추후에 리덕스에서 가져오면 가능할지도..
-            // ex - BE에서 보내주는 값을 리덕스에 정리해서 TourList에서도 받고 Maps에서도 받아서 동시에 처리하도록
+            TourList로 분기하게되면 Mapmarker사용 불가능해서 분기못함 추후에 리덕스에서 가져오면 가능할지도..
+            ex - BE에서 보내주는 값을 리덕스에 정리해서 TourList에서도 받고 Maps에서도 받아서 동시에 처리하도록
 
-            // <TourList
-            //   key={el.name + el.x}
-            //   name={el.name}
-            //   x={el.x}
-            //   y={el.y}
-            // ></TourList>
-            <div style={{ marginTop: "1rem" }}>
-              <MapTest></MapTest>
+            <TourList
+              key={el.name + el.x}
+              name={el.name}
+              x={el.x}
+              y={el.y}
+            ></TourList>
+            <div key={i} style={{ marginTop: "1rem" }}>
             </div>
           );
-        })}
+        })} */}
+        <MapTest setMarkers={setMarkers} markers={markers}></MapTest>
       </TourListTopDiv>
     </MapPageDiv>
   );
 };
 
+////////////
+// {travelPoint.map((el) => {
+//       return (
+//         // TourList로 분기하게되면 Mapmarker사용 불가능해서 분기못함 추후에 리덕스에서 가져오면 가능할지도..
+//         // ex - BE에서 보내주는 값을 리덕스에 정리해서 TourList에서도 받고 Maps에서도 받아서 동시에 처리하도록
+
+//         // <TourList
+//         //   key={el.name + el.x}
+//         //   name={el.name}
+//         //   x={el.x}
+//         //   y={el.y}
+//         // ></TourList>
+//         <div style={{ marginTop: "1rem" }}>
+//           {/* <MapTest></MapTest> */}
+//           {/* <MapTest3></MapTest3> */}
+//           </div>
+//           );
+//         })}
+
+///////////
 export default Maps;
 
 const MapPageDiv = styled.div`

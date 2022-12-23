@@ -214,8 +214,15 @@ const Header = () => {
   const [chat, setChat] = useState(false);
   console.log(loc);
   const onChatbot = () => {
-    setChat(true);
+    if (bot === false) {
+      setBot(true);
+    } else {
+      setBot(false);
+    }
   };
+
+  const [bot, setBot] = useState(false);
+
   return (
     <HeaderMainDiv>
       <MainNav
@@ -394,22 +401,19 @@ const Header = () => {
       )}
 
       {/* 챗봇 시작 */}
-      <div>
-        <Modal
-          className="chatModal"
-          size="lg"
-          show={chat}
-          onHide={() => setChat(false)}
-          aria-labelledby="example-modal-sizes-title-lg"
-          style={{ borderRadius: "5%" }}
-        >
+
+      {bot === true ? (
+        <div>
           <Chatbot
             config={config}
             messageParser={MessageParser}
             actionProvider={ActionProvider}
           />
-        </Modal>
-      </div>
+        </div>
+      ) : (
+        <div> qht</div>
+      )}
+
       <Topbtn></Topbtn>
     </HeaderMainDiv>
   );

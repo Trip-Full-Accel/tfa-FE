@@ -22,6 +22,21 @@ export const fetchGetSearch = createAsyncThunk(
   }
 );
 
+/** 상셋글 요청 리듀서 */
+export const fetchGetDetail = createAsyncThunk(
+  "BOARDDETAIL/GET",
+  async (boardId: string) => {
+    console.log("boardId = ", boardId);
+    const { data } = await CustomAxios(
+      `/posts/detail/${boardId}`,
+      "GET",
+      boardId
+    );
+    console.log("detail return = ", data);
+    return data;
+  }
+);
+
 /** 글 create 리듀서 */
 export const fetchPostBoard = createAsyncThunk(
   "BOARD/POST",
@@ -60,13 +75,15 @@ type Status = "failed" | "loading" | "succeeded" | "idle";
 type Error = string | undefined;
 interface initialType {
   board: BoardList[];
-  findedbaord: BoardList[];
+  findedBoard: BoardList[];
+  detailBoard: BoardList[];
   status: Status;
   error: Error;
 }
 const initialState: initialType = {
   board: [],
-  findedbaord: [],
+  findedBoard: [],
+  detailBoard: [],
   status: "idle",
   error: "null",
 };
@@ -93,7 +110,10 @@ const boardReducer = createSlice({
         state.error = action.error.message;
       })
       .addCase(fetchGetSearch.fulfilled, (state, action) => {
-        state.findedbaord = action.payload;
+        state.findedBoard = action.payload;
+      })
+      .addCase(fetchGetDetail.fulfilled, (state, action) => {
+        state.detailBoard = action.payload;
       });
   },
 });

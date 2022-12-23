@@ -76,18 +76,36 @@ const MapTest = ({ setMarkers, markers }: setType) => {
     },
   ]);
 
-  const [selectedDiv, setSelectedDiv] = useState("#fafafa");
+  const [div, setDiv] = useState("");
 
+  // let check = false;
   const clickTour = (tourList: any) => {
-    setMarkers([
-      ...markers,
-      {
-        position: {
-          lat: Number(tourList.lat),
-          lng: Number(tourList.lng),
+    setDiv(tourList.id);
+
+    if (div === tourList.id) {
+      alert("이미 추가된 경로 입니다!");
+    } else {
+      setMarkers([
+        ...markers,
+        {
+          position: {
+            lat: Number(tourList.lat),
+            lng: Number(tourList.lng),
+          },
         },
-      },
-    ]);
+      ]);
+      dispatch(mapTest(tourList));
+    }
+
+    // setMarkers([
+    //   ...markers,
+    //   {
+    //     position: {
+    //       lat: Number(tourList.lat),
+    //       lng: Number(tourList.lng),
+    //     },
+    //   },
+    // ]);
     console.log("관광지 이름 : ", tourList.city);
     console.log(tourList.city, "의 위도", tourList.lat);
     console.log(tourList.city, "의 경도", tourList.lng);
@@ -96,13 +114,12 @@ const MapTest = ({ setMarkers, markers }: setType) => {
     // // console.log(img);
     // setSelectedDataGoRedux([...selectedDataGoRedux, selectedData]);
     // setSelectedData("");
-    dispatch(mapTest(tourList));
     // dispatch(pointTest(tourList));
     //
     // setSelectedDataGoRedux([]);
     // setSelectedDataGoRedux([]);
   };
-
+  // const refdd = useRef()
   return (
     <TourListDiv>
       <InfiniteScroll

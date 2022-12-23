@@ -18,6 +18,7 @@ export interface TourList {
   lng: string | number;
   img?: string;
   hasMore?: boolean | null | undefined;
+  check?: boolean | null;
 }
 
 export interface TestT {

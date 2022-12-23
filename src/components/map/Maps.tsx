@@ -9,7 +9,6 @@ import styled from "styled-components";
 import "../../static/side.css";
 import MapTest from "./maptest";
 import MapTest2 from "./maptest2";
-import MapTest3 from "./maptest3";
 import Points from "./Points";
 import PointsTest from "./PointsTest";
 /*global kakao*/ //지우면 안됨

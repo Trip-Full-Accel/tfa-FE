@@ -8,7 +8,11 @@ import {
   useRoutes,
 } from "react-router-dom";
 import { Button } from "reactstrap";
-import { fetchDeleteBoard, fetchPutBoard } from "store/board/boardReducer";
+import {
+  fetchDeleteBoard,
+  fetchGetDetail,
+  fetchPutBoard,
+} from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
@@ -18,6 +22,11 @@ const BoardDetail = () => {
   // console.log(props);
   // const title = useLocation();
   // console.log(title);
+  useEffect(() => {
+    const result = dispatch(fetchGetDetail(String(boardId)));
+    console.log(result);
+    setBoardDetail(result);
+  }, []);
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -26,18 +35,13 @@ const BoardDetail = () => {
   const { boardId } = useParams();
   console.log(boardId);
   // const [boardIdData, setBoardIdData] = useState<any>("");
-  const boardList = useSelector((state: RootState) => state.board.board);
-  console.log(boardList);
+  const boardDetailReturn = useSelector(
+    (state: RootState) => state.board.detailBoard
+  );
+  console.log(boardDetailReturn);
   const dispatch = useDispatch<AppDispatch>();
-  const [boardDetail, setBoardDetail] = useState<BoardList[]>([]);
+  const [boardDetail, setBoardDetail] = useState<any>();
   // setBoardIdData(boardId);
-  useEffect(() => {
-    const returnValue = boardList.filter(
-      (el: any) => el.id === Number(boardId)
-    );
-    console.log(returnValue);
-    setBoardDetail(returnValue);
-  }, [boardList]);
 
   const deleteHandler = async () => {
     await dispatch(fetchDeleteBoard(Number(boardId)));
@@ -53,15 +57,6 @@ const BoardDetail = () => {
       state: el,
     });
   };
-  const titleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-  const contentHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
-  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
-  };
 
   const userId = useSelector((state: RootState) => state.user.successLogin);
 
@@ -76,7 +71,7 @@ const BoardDetail = () => {
         }}
       >
         <div>
-          {boardDetail.map((el) => {
+          {boardDetailReturn.map((el: any) => {
             if (userId == el.writer) {
               return (
                 <Detaildiv key={el.id}>

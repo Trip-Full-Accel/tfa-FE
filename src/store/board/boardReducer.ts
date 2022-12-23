@@ -113,7 +113,9 @@ const boardReducer = createSlice({
         state.findedBoard = action.payload;
       })
       .addCase(fetchGetDetail.fulfilled, (state, action) => {
-        state.detailBoard = action.payload;
+        const result = action.payload;
+        state.detailBoard = result;
+        console.log("리덕스에 담긴 쓸값", state.detailBoard);
       });
   },
 });

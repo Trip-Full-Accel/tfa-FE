@@ -163,6 +163,7 @@ const Header = () => {
       .then((res) => {
         if (res) {
           alert("로그아웃되었음");
+          localStorage.clear();
         } else {
           alert("로그아웃실패했음 관리자한테 문의하삼");
         }

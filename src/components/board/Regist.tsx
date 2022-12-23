@@ -208,7 +208,6 @@ const Regist = () => {
             // // value={}
             onChange={(content, delta, source, editor: any) => {
               contentHandler(content);
-              console.log(content);
             }}
             ref={quillRef}
             theme="snow"

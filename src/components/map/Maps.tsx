@@ -26,6 +26,7 @@ interface travelPoint {
 
 const Maps = () => {
   const location = useLocation();
+  const days = location.state.days;
   const [markers, setMarkers] = useState([
     {
       // 서울 시청 좌표
@@ -108,6 +109,10 @@ const Maps = () => {
   return (
     <MapPageDiv>
       <SelectListDiv>
+        <div style={{ textAlign: "start" }}>
+          날짜: {location.state.date}
+          <br /> 여행제목: {location.state.title}
+        </div>
         <SelectDiv>
           <Points markers={markers}></Points>
         </SelectDiv>

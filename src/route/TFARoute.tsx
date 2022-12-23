@@ -7,6 +7,7 @@ import ForgotPw from "components/forgotPw/forgotPw";
 import KakaoRedirectHandler from "components/kakaoRedirect";
 import GLogin from "components/lgGoogle";
 import NaverLogin from "components/naver";
+import Suggest from "components/suggest/suggest";
 import BusanSlide from "components/slide/BusanSlide";
 import DaeguSlide from "components/slide/DaeguSlide";
 import DaejeonSlide from "components/slide/DaejeonSlide";
@@ -66,6 +67,7 @@ const MyRoute = () => {
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
           <Route path="/maptest" element={<MapTest></MapTest>}></Route>
+          <Route path="/suggest" element={<Suggest></Suggest>}></Route>
           <Route
             path="/boardModify/:boardId"
             element={<Regist></Regist>}

@@ -35,6 +35,7 @@ const Header = () => {
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
     { name: "Info", value: "tfaInfo" },
+    { name: "Suggest", value: "suggest" },
     // { name: "마이페이지", value: "myPage" },
     { name: "Photo", value: "photo" },
     { name: "Board", value: "board" },
@@ -402,7 +403,9 @@ const FirstNavDiv = styled.div`
   width: 90%;
   align-items: center;
 `;
-const TitleNav = styled.div``;
+const TitleNav = styled.div`
+  margin-left: 8rem;
+`;
 
 const TitleB = styled.b`
   color: black;
@@ -417,6 +420,7 @@ const TitleB = styled.b`
 const ListNav = styled.div`
   display: flex;
   cursor: pointer;
+  margin-right: 8rem;
 `;
 const JoinNav = styled.div`
   padding: 0 10px;

@@ -101,6 +101,10 @@ const Main = () => {
     }
   };
 
+  const onChatbot = () => {
+    setChat(true);
+  };
+
   return (
     <TopLvDiv>
       <FirstDiv>
@@ -142,6 +146,7 @@ const Main = () => {
           <StartBtn onClick={strBtn}>
             <span>Start</span>
           </StartBtn>
+          <button onClick={onChatbot}>챗봇</button>
         </LeftDiv>
         {/* video */}
         <VideoDiv>

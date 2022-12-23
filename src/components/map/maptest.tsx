@@ -133,17 +133,15 @@ const MapTest = ({ setMarkers, markers }: setType) => {
         {reduxTourList.map((i, index) => (
           <TourContentDiv key={index}>
             <div
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 clickTour(i);
               }}
             >
-              <div>
-                <img
-                  style={{ width: "50px", height: "50px" }}
-                  src={`${i.img}`}
-                ></img>
-                {i.city}
-              </div>
+              <ImgTiDiv>
+                <ImgTag src={`${i.img}`}></ImgTag>
+                <div>{i.city}</div>
+              </ImgTiDiv>
               <div>{i.content}</div>
             </div>
           </TourContentDiv>
@@ -172,4 +170,14 @@ const TourContentDiv = styled.div`
 
   /* 그림자 부분 */
   box-shadow: 20px 20px 20px gray;
+`;
+
+const ImgTiDiv = styled.div`
+  display: flex;
+`;
+
+const ImgTag = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
 `;

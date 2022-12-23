@@ -8,6 +8,12 @@ import Topbtn from "./../topbtn/Topbtn";
 import "./Header.css";
 import HeaderList from "./HeaderList";
 import "./modal.css";
+import ActionProvider from "components/chatbot/ActionProvider";
+import config from "components/chatbot/config";
+import MessageParser from "components/chatbot/MessageParser";
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+import "../chatbot/chatbot.css";
 
 import {
   MDBCard,
@@ -205,7 +211,11 @@ const Header = () => {
     //   pw:passwordInput
     // }))
   };
-
+  const [chat, setChat] = useState(false);
+  console.log(loc);
+  const onChatbot = () => {
+    setChat(true);
+  };
   return (
     <HeaderMainDiv>
       <MainNav
@@ -375,6 +385,31 @@ const Header = () => {
           </MDBRow>
         </MDBCard>
       </Modal>
+      {loc === "/myPage" ? (
+        <div></div>
+      ) : (
+        <ChatbotBtn onClick={onChatbot}>
+          <img style={{ width: "60px" }} src="/img/chatbot.png" />
+        </ChatbotBtn>
+      )}
+
+      {/* 챗봇 시작 */}
+      <div>
+        <Modal
+          className="chatModal"
+          size="lg"
+          show={chat}
+          onHide={() => setChat(false)}
+          aria-labelledby="example-modal-sizes-title-lg"
+          style={{ borderRadius: "5%" }}
+        >
+          <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+          />
+        </Modal>
+      </div>
       <Topbtn></Topbtn>
     </HeaderMainDiv>
   );
@@ -425,4 +460,12 @@ const ListNav = styled.div`
 `;
 const JoinNav = styled.div`
   padding: 0 10px;
+`;
+
+const ChatbotBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  position: fixed;
+  bottom: 6.5rem;
+  right: 4rem;
 `;

@@ -1,19 +1,13 @@
-import ActionProvider from "components/chatbot/ActionProvider";
-import config from "components/chatbot/config";
-import MessageParser from "components/chatbot/MessageParser";
 import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
-import Chatbot from "react-chatbot-kit";
-import "react-chatbot-kit/build/main.css";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../../static/all.css";
-import "../chatbot/chatbot.css";
 
 interface dataType {
   name: string;
@@ -22,7 +16,6 @@ interface dataType {
 }
 const Main = () => {
   const [show, setShow] = useState(false);
-  const [chat, setChat] = useState(false);
 
   const navigate = useNavigate();
   // const reduxData = useSelector((state: RootState) => state.user.userId);
@@ -99,10 +92,6 @@ const Main = () => {
     }
   };
 
-  const onChatbot = () => {
-    setChat(true);
-  };
-
   return (
     <TopLvDiv>
       <FirstDiv>
@@ -144,7 +133,6 @@ const Main = () => {
           <StartBtn onClick={strBtn}>
             <span>Start</span>
           </StartBtn>
-          <button onClick={onChatbot}>챗봇</button>
         </LeftDiv>
         {/* video */}
         <VideoDiv>
@@ -154,24 +142,6 @@ const Main = () => {
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
 
-      {/* 챗봇 시작 */}
-      <div>
-        <Modal
-          className="chatModal"
-          size="lg"
-          show={chat}
-          onHide={() => setChat(false)}
-          aria-labelledby="example-modal-sizes-title-lg"
-          style={{ borderRadius: "5%" }}
-        >
-          <Chatbot
-            config={config}
-            messageParser={MessageParser}
-            actionProvider={ActionProvider}
-            // message={message}
-          />
-        </Modal>
-      </div>
       <div>
         <Modal
           className="loginM"

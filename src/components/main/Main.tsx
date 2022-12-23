@@ -9,8 +9,14 @@ import styled from "styled-components";
 import "../../static/all.css";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import dateFormat, { masks } from "dateformat";
 import { ko } from "date-fns/esm/locale";
+import config from "components/chatbot/config";
+import MessageParser from "components/chatbot/MessageParser";
+import ActionProvider from "components/chatbot/ActionProvider";
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+import "../chatbot/chatbot.css";
+
 interface dataType {
   name: string;
   x: string;
@@ -18,6 +24,7 @@ interface dataType {
 }
 const Main = () => {
   const [show, setShow] = useState(false);
+  const [chat, setChat] = useState(false);
 
   const navigate = useNavigate();
   const reduxData = useSelector((state: RootState) => state.user.userId);
@@ -44,10 +51,19 @@ const Main = () => {
     navigate(path);
     //, { state: { x: x, y: y } }
   };
+
   const linkTo = (path: string) => {
     navigate(path);
   };
-
+  const [title, setTitle] = useState<string>("");
+  console.log(title);
+  const goMaps = (path: string) => {
+    if (title.length > 0) {
+      navigate(path);
+    } else {
+      alert("제목입력해라");
+    }
+  };
   const test = () => {
     navigate("/edit");
   };
@@ -59,12 +75,13 @@ const Main = () => {
       key: "selection1",
     },
   });
+  console.log(state);
 
   return (
     <TopLvDiv>
       <FirstDiv>
         <LeftDiv>
-          <MainTitle>{local} </MainTitle>
+          {/* <MainTitle>{local} </MainTitle> */}
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
           <div
             style={{
@@ -96,17 +113,17 @@ const Main = () => {
                 setShow(true);
               }}
             >
-              {`${
-                state.selection1.startDate.toLocaleDateString().split(".")[1] +
+              {`${state.selection1.startDate
+                .toLocaleDateString()
+                .split(".")[1] +
                 "월" +
                 state.selection1.startDate.toLocaleDateString().split(".")[2] +
-                "일"
-              } ~ ${
-                state.selection1.endDate.toLocaleDateString().split(".")[1] +
+                "일"} ~ ${state.selection1.endDate
+                .toLocaleDateString()
+                .split(".")[1] +
                 "월" +
                 state.selection1.endDate.toLocaleDateString().split(".")[2] +
-                "일"
-              }`}
+                "일"}`}
               {/* <input
                 value={`${state[0].startDate.toLocaleString()} ~ ${state[0].endDate.toLocaleString()}`}
               ></input> */}
@@ -114,7 +131,7 @@ const Main = () => {
           </div>
 
           <input
-            placeholder="여행 제???????????????목을 입력해주세요"
+            placeholder="여행 제목을 입력해주세요"
             style={{
               fontSize: "1.5rem",
               backgroundColor: "#CCCCFF",
@@ -124,14 +141,15 @@ const Main = () => {
               margin: "1rem 0 2rem 0",
               borderRadius: "10px",
             }}
+            onChange={(e) => setTitle(e.target.value)}
           ></input>
 
-          <StartBtn onClick={() => linkTo("/maps")}>
+          <StartBtn onClick={() => goMaps("/maps")}>
             <span>Start</span>
           </StartBtn>
           <br />
-          <button onClick={test}>에디터</button>
-          <img src="https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/143b7a7ce9bc4dbd93f330e851af5c68?alt=media&"></img>
+          <button onClick={() => setChat(true)}>챗봇</button>
+          {/* <img src="https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/143b7a7ce9bc4dbd93f330e851af5c68?alt=media&"></img> */}
         </LeftDiv>
         {/* video */}
         <VideoDiv>
@@ -141,6 +159,23 @@ const Main = () => {
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
 
+      {/* 챗봇 시작 */}
+      <div>
+        <Modal
+          className="chatModal"
+          size="lg"
+          show={chat}
+          onHide={() => setChat(false)}
+          aria-labelledby="example-modal-sizes-title-lg"
+          style={{ borderRadius: "5%" }}
+        >
+          <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+          />
+        </Modal>
+      </div>
       <div>
         <Modal
           className="loginM"

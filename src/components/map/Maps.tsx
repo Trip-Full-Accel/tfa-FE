@@ -11,6 +11,7 @@ import MapTest from "./maptest";
 import MapTest2 from "./maptest2";
 import MapTest3 from "./maptest3";
 import Points from "./Points";
+import PointsTest from "./PointsTest";
 /*global kakao*/ //지우면 안됨
 
 interface city {
@@ -103,13 +104,16 @@ const Maps = () => {
 
   const mapData = useSelector((state: RootState) => state.map.maps);
   // console.log(mapData);
-
+  const selected = useSelector(
+    (state: RootState) => state.map.selectedTourList
+  );
   const onLoadMore = () => {};
   return (
     <MapPageDiv>
       <SelectListDiv>
         <SelectDiv>
           <Points markers={markers}></Points>
+          {/* <PointsTest markers={markers}></PointsTest> */}
         </SelectDiv>
         <Button
           style={{ width: "80%", height: "50px", marginTop: "1rem" }}
@@ -127,18 +131,18 @@ const Maps = () => {
           }}
           style={{ width: "100%", height: "40rem" }}
           level={8} // 작을 수록 범위가 좁아짐
-          onClick={(_target, mouseEvent) => {
-            setMarkers([
-              ...markers,
-              {
-                position: {
-                  lat: mouseEvent.latLng.getLat(),
-                  lng: mouseEvent.latLng.getLng(),
-                },
-              },
-            ]);
-            getAddr(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
-          }}
+          // onClick={(_target, mouseEvent) => {
+          //   setMarkers([
+          //     ...markers,
+          //     {
+          //       position: {
+          //         lat: mouseEvent.latLng.getLat(),
+          //         lng: mouseEvent.latLng.getLng(),
+          //       },
+          //     },
+          //   ]);
+          //   getAddr(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
+          // }}
         >
           {isVisible &&
             markers.map((marker, index) => (
@@ -163,7 +167,13 @@ const Maps = () => {
               </div>
             ))}
           <Polyline
-            path={[markers.map((data) => data?.position)]}
+            // path={[markers.map((data) => data?.position)]}
+            path={[
+              selected.map((data) => {
+                // const { lat, lng } = data;
+                return { lat: Number(data.lat), lng: Number(data.lng) };
+              }),
+            ]}
             strokeWeight={10} // 두께
             strokeColor={"#1296ef"} // 색
             strokeOpacity={0.6} // 불투명도

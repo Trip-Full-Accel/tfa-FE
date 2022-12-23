@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGetTourList, mapTest } from "store/map/mapReducer";
+import { fetchGetTourList, mapTest, pointTest } from "store/map/mapReducer";
 import { TourList } from "store/map/mapType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
@@ -57,7 +57,7 @@ const MapTest = ({ setMarkers, markers }: setType) => {
     }, 500);
   };
 
-  // 리덕스 전에 set 시키는 state
+  // 리덕스 전에 set 시키는 state // 마지막에 지울것
   const [selectedData, setSelectedData] = useState<any>([
     {
       city: "",
@@ -66,7 +66,7 @@ const MapTest = ({ setMarkers, markers }: setType) => {
       img: "",
     },
   ]);
-  // 리덕스에 보내기위해 set 시키는 state
+  // 리덕스에 보내기위해 set 시키는 state // 마지막에 지울것
   const [selectedDataGoRedux, setSelectedDataGoRedux] = useState<any>([
     {
       city: "",
@@ -75,6 +75,8 @@ const MapTest = ({ setMarkers, markers }: setType) => {
       img: "",
     },
   ]);
+
+  const [selectedDiv, setSelectedDiv] = useState("#fafafa");
 
   const clickTour = (tourList: any) => {
     setMarkers([
@@ -95,6 +97,8 @@ const MapTest = ({ setMarkers, markers }: setType) => {
     // setSelectedDataGoRedux([...selectedDataGoRedux, selectedData]);
     // setSelectedData("");
     dispatch(mapTest(tourList));
+    // dispatch(pointTest(tourList));
+    //
     // setSelectedDataGoRedux([]);
     // setSelectedDataGoRedux([]);
   };

@@ -212,10 +212,16 @@ const Header = () => {
     // }))
   };
   const [chat, setChat] = useState(false);
+  const [bot, setBot] = useState(false);
   console.log(loc);
   const onChatbot = () => {
-    setChat(true);
+    if (bot === false) {
+      setBot(true);
+    } else {
+      setBot(false);
+    }
   };
+
   return (
     <HeaderMainDiv>
       <MainNav
@@ -394,22 +400,20 @@ const Header = () => {
       )}
 
       {/* 챗봇 시작 */}
-      <div>
-        <Modal
-          className="chatModal"
-          size="lg"
-          show={chat}
-          onHide={() => setChat(false)}
-          aria-labelledby="example-modal-sizes-title-lg"
-          style={{ borderRadius: "5%" }}
-        >
+
+      {bot === true ? (
+        <ChatbotDiv id="chay">
           <Chatbot
             config={config}
             messageParser={MessageParser}
             actionProvider={ActionProvider}
+            placeholderText="궁금한 것을 물어보세요"
           />
-        </Modal>
-      </div>
+        </ChatbotDiv>
+      ) : (
+        <div></div>
+      )}
+
       <Topbtn></Topbtn>
     </HeaderMainDiv>
   );
@@ -468,4 +472,10 @@ const ChatbotBtn = styled.button`
   position: fixed;
   bottom: 6.5rem;
   right: 4rem;
+`;
+
+const ChatbotDiv = styled.div`
+  margin: 8rem;
+  position: absolute;
+  right: 0;
 `;

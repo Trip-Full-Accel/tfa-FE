@@ -52,9 +52,6 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const OnLogin = useSelector((state: RootState) => state.user.userId);
 
-  // console.log(idInput);
-  // console.log(passwordInput);
-
   // 스크롤에 따라 업데이트
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -213,12 +210,20 @@ const Header = () => {
   };
   const [chat, setChat] = useState(false);
   const [bot, setBot] = useState(false);
-  console.log(loc);
   const onChatbot = () => {
     if (bot === false) {
       setBot(true);
     } else {
       setBot(false);
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+  const onNav = () => {
+    if (open === false) {
+      setOpen(true);
+    } else {
+      setOpen(false);
     }
   };
 
@@ -391,8 +396,8 @@ const Header = () => {
           </MDBRow>
         </MDBCard>
       </Modal>
-      {loc === "/myPage" ? (
-        <div></div>
+      {loc === "/mypage" ? (
+        <></>
       ) : (
         <ChatbotBtn onClick={onChatbot}>
           <img style={{ width: "60px" }} src="/img/chatbot.png" />
@@ -413,8 +418,7 @@ const Header = () => {
       ) : (
         <div></div>
       )}
-
-      <Topbtn></Topbtn>
+      {loc === "/mypage" ? <></> : <Topbtn></Topbtn>}
     </HeaderMainDiv>
   );
 };

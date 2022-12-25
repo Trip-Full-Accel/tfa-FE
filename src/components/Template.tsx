@@ -8,7 +8,7 @@ const Template = () => {
   const location = useLocation();
   const loc = location.pathname;
   const locFunction = () => {
-    if (loc == "/") {
+    if (loc == "/" || loc == "/mypage") {
       return "top_no_padding";
     } else {
       return "top_padding";
@@ -25,7 +25,7 @@ const Template = () => {
         justifyContent: "space-between",
       }}
     >
-      <Header></Header>
+      {loc === "/mypage" ? <></> : <Header></Header>}
 
       <div
         style={{ flex: 1, width: "100%", backgroundColor: "#fafafa" }}

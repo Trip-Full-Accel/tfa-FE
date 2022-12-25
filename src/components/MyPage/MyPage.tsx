@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 import styled from "styled-components";
@@ -30,6 +30,15 @@ const MyPage = () => {
     onMoveToElement5,
     onMoveToElement6,
   } = UseMoveScroll();
+
+  const [show, setShow] = useState(false);
+  const onRemote = () => {
+    if (show === false) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  };
 
   return (
     <MainContainer>
@@ -75,18 +84,27 @@ const MyPage = () => {
                 style={{ width: "70%", height: "70%" }}
               />
             </ChartDiv>
-            <div style={{ position: "fixed", right: "3rem", bottom: "100px" }}>
-              <div>
-                <RemoteBtn onClick={onMoveToElement}>1</RemoteBtn>
-                <RemoteBtn onClick={onMoveToElement2}>2</RemoteBtn>
-                <RemoteBtn onClick={onMoveToElement3}>3</RemoteBtn>
+            <RemoteShowBtn onClick={onRemote}>
+              <i className="xi-bars" />
+            </RemoteShowBtn>
+            {show === true ? (
+              <div
+                style={{ position: "fixed", right: "3rem", bottom: "100px" }}
+              >
+                <div>
+                  <RemoteBtn onClick={onMoveToElement}>1</RemoteBtn>
+                  <RemoteBtn onClick={onMoveToElement2}>2</RemoteBtn>
+                  <RemoteBtn onClick={onMoveToElement3}>3</RemoteBtn>
+                </div>
+                <div>
+                  <RemoteBtn onClick={onMoveToElement4}>4</RemoteBtn>
+                  <RemoteBtn onClick={onMoveToElement5}>5</RemoteBtn>
+                  <RemoteBtn onClick={onMoveToElement6}>6</RemoteBtn>
+                </div>
               </div>
-              <div>
-                <RemoteBtn onClick={onMoveToElement4}>4</RemoteBtn>
-                <RemoteBtn onClick={onMoveToElement5}>5</RemoteBtn>
-                <RemoteBtn onClick={onMoveToElement6}>6</RemoteBtn>
-              </div>
-            </div>
+            ) : (
+              <></>
+            )}
           </Bottom2Container>
         </Container>
         <Container ref={element2}>
@@ -172,13 +190,13 @@ const MyPage = () => {
 export default MyPage;
 
 const MainContainer = styled.div`
-  overflow: hidden !important;
   display: flex;
   width: 300%;
   height: 200%;
   flex-direction: column;
   flex-wrap: wrap;
   background-color: #fafafa;
+  overflow-y: hidden;
 `;
 const Container = styled.div`
   border-radius: 10px;
@@ -187,19 +205,19 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   border: 2px solid #eaccf8;
-  padding-top: 80px;
 `;
 const Top3Container = styled.div`
   display: flex;
   width: 100%;
-  height: 45%;
+  height: 100vh;
   margin-top: 5px;
+  align-items: center;
 `;
 const Bottom2Container = styled.div`
   display: flex;
   width: 100%;
-  height: 45%;
-  margin-top: 30px;
+  height: 100vh;
+  align-items: center;
 `;
 
 const InfoDiv = styled.div`
@@ -268,4 +286,16 @@ const RemoteBtn = styled.button`
   border-right: 1px solid black;
   border-radius: 5px;
   font-weight: bold;
+`;
+
+const RemoteShowBtn = styled.button`
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 4.3rem;
+  bottom: 50px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 2px #0000ff33;
+  background-color: #e8e4fe;
 `;

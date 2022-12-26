@@ -10,6 +10,11 @@ export interface MapList {
   otherCourseLngs: any[];
 }
 
+export interface Course {
+  userId: number;
+  courseName: string;
+}
+
 export interface TourList {
   id?: number;
   city: string;

@@ -44,7 +44,7 @@ export const fetchPostUserJoin = createAsyncThunk(
   "USERJOIN/POST",
   async (payload: User) => {
     console.log(payload);
-    const { data } = await CustomAxios("/user/join", "POST", payload);
+    const { data } = await CustomAxios("/users", "POST", payload);
     console.log(data.userId);
     return data.userId;
   }
@@ -85,7 +85,8 @@ export const fetchPutUserInfo = createAsyncThunk(
 export const fetchDeleteUser = createAsyncThunk(
   "USERDELETE/DELETE",
   async (id: number) => {
-    await CustomAxios(`/user/delete/${id}`, "DELETE");
+    const result = await CustomAxios(`/users/${id}`, "DELETE");
+    console.log("유저 탈퇴 반환", result);
   }
 );
 

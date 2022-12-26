@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://192.168.0.146:8080";
+axios.defaults.baseURL = "http://192.168.0.148:8081";
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 

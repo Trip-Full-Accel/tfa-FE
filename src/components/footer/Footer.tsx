@@ -1,18 +1,33 @@
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const footerName = useSelector((state: RootState) => state.footerName.foot);
+  const location = useLocation();
+  const loc = location.pathname;
+  console.log(loc);
+  const { t } = useTranslation();
 
   return (
-    <FooterDiv>
-      <span>ENCORE PLAYDATA FINAL PROJECT</span>
-      <section>Group no.1</section>
-      {footerName.map((el, i) => {
-        return <section key={i}>{el}</section>;
-      })}
-    </FooterDiv>
+    <>
+      {loc === "/mypage" ? (
+        <></>
+      ) : (
+        <FooterDiv>
+          <span>{t("footerMain")}</span>
+          <section>{t("footerGroup")}</section>
+          <section>{t("geonho")}</section>
+          <section>{t("sungmin")}</section>
+          <section>{t("hyemin")}</section>
+          <section>{t("gwangdeok")}</section>
+          <section>{t("cheolryeon")}</section>
+          <section>{t("sungho")}</section>
+        </FooterDiv>
+      )}
+    </>
   );
 };
 export default Footer;

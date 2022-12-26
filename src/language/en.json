@@ -3,6 +3,25 @@
   "title": "Trip Full Accel start at yout Trip",
   "month": "month",
   "day": "day",
-
-  "startBtnPlaceHolder": "please write your Trip NickName"
+  "startBtnPlaceHolder": "please write your Trip NickName",
+  "info": "info",
+  "suggest": "suggest",
+  "board": "board",
+  "join": "join",
+  "photo": "photo",
+  "mypage": "mypage",
+  "startBtn": "start",
+  "logout": "logout",
+  "idPlace": "ID",
+  "pwPlace": "PASSWORD",
+  "login": "login",
+  "forgotPw": "Did you forgot your PassWord?",
+  "footerMain": "ENCORE PLAYDATA FINAL PROJECT",
+  "footerGroup": "Group no.1",
+  "geonho": "GeonHo-Kwak",
+  "sungmin": "SungMin-Lim",
+  "hyemin": "HyeMin-Won",
+  "gwangdeok": "GwangDeok-Park",
+  "cheolryeon": "CheolRyeon-Park",
+  "sungho": "SungHo-Kim"
 }

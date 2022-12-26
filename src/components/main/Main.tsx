@@ -13,6 +13,10 @@ import styled from "styled-components";
 import "../../static/all.css";
 import i18n from "language/i18n";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store/store";
+import { fetchDeleteUser } from "store/user/userReducer";
+import { fetchPostCourse } from "store/map/mapReducer";
 interface dataType {
   name: string;
   x: string;
@@ -74,6 +78,7 @@ const Main = () => {
   const [text, setText] = useState("");
 
   const strBtn = () => {
+    dispatch(fetchPostCourse({ userId: 1, courseName: "ddd" }));
     if (text.length > 0) {
       navigate("/maps", {
         state: {
@@ -108,6 +113,12 @@ const Main = () => {
       : i18n.changeLanguage("ko");
   };
 
+  const testid = localStorage.getItem("userId");
+  const dispatch = useDispatch<AppDispatch>();
+  const deleteUser = () => {
+    dispatch(fetchDeleteUser(Number(testid)));
+  };
+
   return (
     <TopLvDiv>
       <Snowfall
@@ -123,7 +134,6 @@ const Main = () => {
           {/* <MainTitle>{local} </MainTitle> */}
           <SubTitle>{t("title")}</SubTitle>
           <CalendarDiv>
-
             <IconSpan>
               <img src="/img/calendar.png"></img>
             </IconSpan>
@@ -158,6 +168,7 @@ const Main = () => {
           <StartBtn onClick={strBtn}>
             <span>Start</span>
           </StartBtn>
+          <Player></Player>
         </LeftDiv>
         {/* video */}
         <VideoDiv>
@@ -190,12 +201,12 @@ const Main = () => {
           />
         </Modal>
       </div>
-      <Player></Player>
 
       <Button onClick={goThree}>3d 화면 실험</Button>
-      <h2>{t("testText")}</h2>
+      <Button onClick={deleteUser}>탈퇴 실험</Button>
+      {/* <h2>{t("testText")}</h2> */}
 
-      <i className="xi-translate xi-4x" onClick={onChangeLang}></i>
+      {/* <i className="xi-translate xi-4x" onClick={onChangeLang}></i> */}
     </TopLvDiv>
   );
 };

@@ -28,24 +28,28 @@ import { Input } from "reactstrap";
 import { AppDispatch, RootState } from "store/store";
 import { fetchPostLogin, fetchUserlogout } from "store/user/userReducer";
 import "../../static/bootmodal.css";
+import Translate from "components/translate/translate";
+import { useTranslation } from "react-i18next";
 
 type tfaPath = {
   value: string;
   name: string;
 };
 const Header = () => {
+  const { t } = useTranslation();
+
   const [lgShow, setLgShow] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [idInput, setIdInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
-    { name: "Info", value: "tfaInfo" },
+    { name: `${t("info")}`, value: "tfaInfo" },
     { name: "Info2", value: "tfaInfo2" },
-    { name: "Suggest", value: "suggest" },
+    { name: `${t("suggest")}`, value: "suggest" },
     // { name: "마이페이지", value: "myPage" },
-    { name: "Photo", value: "photo" },
-    { name: "Board", value: "board" },
+    { name: `${t("photo")}`, value: "photo" },
+    { name: `${t("board")}`, value: "board" },
   ];
   const location = useLocation();
 
@@ -112,6 +116,7 @@ const Header = () => {
       redirectUri: "http://localhost:3000/kakao",
       scope: "profile_nickname, account_email, gender,age_range",
     });
+
     console.log("카톡로그인 메서드 실행됨");
   };
 
@@ -160,14 +165,21 @@ const Header = () => {
   );
   // console.log(successLogin);
 
+  const testUserId = localStorage.getItem("userId");
   // 로그아웃 기능 구현시 식별값 보내줄 거임 백에 따라서 정해짐 일단은 새로고침으로 구현
   const logout = () => {
-    dispatch(fetchUserlogout(idInput))
+    console.log(testUserId);
+
+    // 그냥 로컬스토리지 클리어로 로그아웃 설정
+    dispatch(fetchUserlogout(successLogin))
       .unwrap()
       .then((res) => {
         if (res) {
+          console.log("실행됨");
+
           alert("로그아웃되었음");
           localStorage.removeItem("userId");
+          navigate("/");
         } else {
           alert("로그아웃실패했음 관리자한테 문의하삼");
         }
@@ -236,6 +248,7 @@ const Header = () => {
       <MainNav
         className={scrollPosition < 10 ? "original_header" : "change_header"}
       >
+        <Translate></Translate>
         <FirstNavDiv>
           <TitleNav>
             <TitleB
@@ -262,12 +275,12 @@ const Header = () => {
               <>
                 <JoinNav
                   className={locFunction()}
-                  onClick={() => linkTo("/myPage")}
+                  onClick={() => linkTo("/mypage")}
                 >
-                  &nbsp; Mypage
+                  &nbsp; {t("mypage")}
                 </JoinNav>
                 <JoinNav className={locFunction()} onClick={logout}>
-                  &nbsp; Logout
+                  &nbsp; {t("logout")}
                 </JoinNav>
               </>
             ) : (
@@ -275,7 +288,7 @@ const Header = () => {
                 className={locFunction()}
                 onClick={() => setLgShow(true)}
               >
-                &nbsp; Join
+                &nbsp; {t("join")}
               </JoinNav>
             )}
           </ListNav>
@@ -324,7 +337,7 @@ const Header = () => {
 
                 <Input
                   className="lginputid"
-                  placeholder="ID"
+                  placeholder={`${t("idPlace")}`}
                   type="text"
                   style={{ marginTop: "2rem" }}
                   onChange={(e) => {
@@ -333,7 +346,7 @@ const Header = () => {
                 />
                 <Input
                   className="lginputpw"
-                  placeholder="PASSWORD"
+                  placeholder={`${t("pwPlace")}`}
                   type="password"
                   onChange={(e) => {
                     pwInputHandler(e);
@@ -351,7 +364,7 @@ const Header = () => {
                     marginBottom: "0rem",
                   }}
                 >
-                  Login
+                  {t("login")}
                 </Button>
                 <a
                   className="small text-muted"
@@ -361,7 +374,7 @@ const Header = () => {
                     textDecoration: "none",
                   }}
                 >
-                  비밀번호를 잊으셨나요?
+                  {t("forgotPw")}
                 </a>
 
                 <a
@@ -372,7 +385,7 @@ const Header = () => {
                     textDecoration: "none",
                   }}
                 >
-                  회원가입
+                  {t("join")}
                 </a>
 
                 <div className="wrapper">

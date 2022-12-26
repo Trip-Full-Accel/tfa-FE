@@ -242,6 +242,7 @@ const Header = () => {
               <img src="/img/TFAlogo.png" style={{ width: "200px" }}></img>
             </TitleB>
           </TitleNav>
+          <button onClick={onNav}>닫기</button>
           <ListNav>
             {tfaPath.map((el) => {
               return (

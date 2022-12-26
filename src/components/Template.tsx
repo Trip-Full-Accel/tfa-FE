@@ -3,6 +3,7 @@ import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import "../static/template.css";
 import "static/font/font.css";
+import { useState } from "react";
 
 const Template = () => {
   const location = useLocation();

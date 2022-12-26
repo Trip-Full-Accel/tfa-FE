@@ -1,0 +1,19 @@
+.react-tabs {
+  display: flex;
+  flex-direction: column;
+}
+.react-tabs__tab-list {
+  text-align: left;
+  margin: 0;
+  border: none;
+}
+
+.react-tabs__tab {
+  width: 50%;
+  font-size: 24px;
+  border: none;
+}
+
+.react-tabs__tab-panel {
+  margin: 0;
+}

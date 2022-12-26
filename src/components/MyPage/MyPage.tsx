@@ -4,6 +4,8 @@ import { RootState } from "store/store";
 import styled from "styled-components";
 import UseMoveScroll from "./useMoveScroll";
 import "./MyPage.css";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 interface myPageType {
   pageKey: string;
@@ -59,6 +61,8 @@ const MyPage = () => {
                 <PostLi>3번 여행</PostLi>
               </ul>
             </RecordDiv>
+          </Top3Container>
+          <Bottom2Container>
             <CostDiv>
               <H4Tag>비용 계산</H4Tag>
               <input type="text" value={"교통비"} />
@@ -67,8 +71,6 @@ const MyPage = () => {
               <input type="text" value={"기타"} />
               <input type="text" value={"총비용"} />
             </CostDiv>
-          </Top3Container>
-          <Bottom2Container>
             <PostsDiv>
               <H4Tag>내가 쓴 글</H4Tag>
               <ul>
@@ -92,14 +94,33 @@ const MyPage = () => {
                 style={{ position: "fixed", right: "3rem", bottom: "100px" }}
               >
                 <div>
-                  <RemoteBtn onClick={onMoveToElement}>1</RemoteBtn>
-                  <RemoteBtn onClick={onMoveToElement2}>2</RemoteBtn>
-                  <RemoteBtn onClick={onMoveToElement3}>3</RemoteBtn>
+                  <RemoteBtn id="1" onClick={onMoveToElement}>
+                    1
+                    <ReactTooltip anchorId="1" place="top" content="메인" />
+                  </RemoteBtn>
+
+                  <RemoteBtn id="2" onClick={onMoveToElement2}>
+                    2<ReactTooltip anchorId="2" place="top" content="내 정보" />
+                  </RemoteBtn>
+                  <RemoteBtn id="3" onClick={onMoveToElement3}>
+                    3<ReactTooltip anchorId="3" place="top" content="경로" />
+                  </RemoteBtn>
                 </div>
                 <div>
-                  <RemoteBtn onClick={onMoveToElement4}>4</RemoteBtn>
-                  <RemoteBtn onClick={onMoveToElement5}>5</RemoteBtn>
-                  <RemoteBtn onClick={onMoveToElement6}>6</RemoteBtn>
+                  <RemoteBtn id="4" onClick={onMoveToElement4}>
+                    4<ReactTooltip anchorId="4" place="top" content="예산" />
+                  </RemoteBtn>
+                  <RemoteBtn id="5" onClick={onMoveToElement5}>
+                    5
+                    <ReactTooltip
+                      anchorId="5"
+                      place="top"
+                      content="내가 쓴 글"
+                    />
+                  </RemoteBtn>
+                  <RemoteBtn id="6" onClick={onMoveToElement6}>
+                    6<ReactTooltip anchorId="6" place="top" content="차트" />
+                  </RemoteBtn>
                 </div>
               </div>
             ) : (
@@ -223,14 +244,14 @@ const Bottom2Container = styled.div`
 const InfoDiv = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 45%;
   height: 300px;
   border: 1px solid darkgray;
   border-radius: 10px;
   /* background-color: blueviolet; */
 `;
 const RecordDiv = styled.div`
-  width: 30%;
+  width: 45%;
   height: 300px;
   border: 1px solid darkgray;
   border-radius: 10px;
@@ -244,13 +265,13 @@ const CostDiv = styled.div`
   border-radius: 10px;
 `;
 const PostsDiv = styled.div`
-  width: 45%;
+  width: 30%;
   height: 300px;
   border: 1px solid darkgray;
   border-radius: 10px;
 `;
 const ChartDiv = styled.div`
-  width: 45%;
+  width: 30%;
   height: 300px;
   border: 1px solid darkgray;
   border-radius: 10px;

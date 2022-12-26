@@ -7,6 +7,7 @@ import {
   useParams,
   useRoutes,
 } from "react-router-dom";
+import Snowfall from "react-snowfall";
 import { Button } from "reactstrap";
 import {
   fetchDeleteBoard,
@@ -63,14 +64,17 @@ const BoardDetail = () => {
   };
 
   const userId = useSelector((state: RootState) => state.user.successLogin);
-  console.log(userId);
+  console.log("유저아이디", userId);
   const local = localStorage.getItem("userId");
   console.log("loc", local);
+
+  // console.log("wirter", boardDetailReturn[0].writer);
   // console.log("wirter", boardDetailReturn[0].writer);
   return (
     <>
+      <Snowfall color="white" snowflakeCount={200} />
       {boardDetailReturn.map((detail) =>
-        Number(userId) === detail.id ? (
+        userId == detail.writer ? (
           <div
             key={detail.title}
             style={{

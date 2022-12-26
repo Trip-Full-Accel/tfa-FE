@@ -2,6 +2,7 @@ import BList from "components/pagenation/boardList";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Snowfall from "react-snowfall";
 import { Button, Spinner } from "reactstrap";
 import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
@@ -47,6 +48,7 @@ const Board = () => {
   };
   return (
     <>
+      <Snowfall color="white" snowflakeCount={200} />
       <BoardTitleDiv>
         <img src="/img/boardimg.png" />
       </BoardTitleDiv>

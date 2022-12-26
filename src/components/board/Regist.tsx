@@ -18,6 +18,7 @@ import { CustomAxios } from "../../http/customAxios";
 import "./board.css";
 import axios from "axios";
 import { json } from "stream/consumers";
+import Snowfall from "react-snowfall";
 
 const Regist = () => {
   const loc = useLocation();
@@ -171,6 +172,7 @@ const Regist = () => {
 
   return (
     <RegistMainDiv>
+      <Snowfall color="white" snowflakeCount={200} />
       <RegistFirstdiv>
         <Titlediv>
           <InputTitle

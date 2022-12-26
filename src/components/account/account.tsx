@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Snowfall from "react-snowfall";
 import { Button } from "reactstrap";
 import { AppDispatch } from "store/store";
 import { fetchPostUserJoin, fetchUserCheck } from "store/user/userReducer";
@@ -182,6 +183,7 @@ const Account = () => {
 
   return (
     <GrandDiv>
+      <Snowfall color="white" snowflakeCount={200} />
       <h2>회원가입</h2>
       <InputDiv>
         <InDiv>

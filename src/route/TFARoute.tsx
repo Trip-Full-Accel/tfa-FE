@@ -25,6 +25,8 @@ import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Board from "./../components/board/board";
 import MapTest from "./../components/map/maptest";
+import TfaInfo2 from "components/infomation/tfaInfo2";
+import Three from "components/suggest/three";
 
 const MyRoute = () => {
   return (
@@ -37,6 +39,11 @@ const MyRoute = () => {
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
+          /// info 테스트
+          <Route path="tfaInfo2" element={<TfaInfo2></TfaInfo2>}></Route>
+          /// three 테스트
+          <Route path="three" element={<Three></Three>}></Route>
+          ////
           <Route path="/edit" element={<Edit></Edit>}></Route>
           <Route path="photo" element={<Photo></Photo>}></Route>
           <Route path="photo/busan" element={<BusanSlide></BusanSlide>}></Route>

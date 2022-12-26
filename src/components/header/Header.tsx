@@ -41,6 +41,7 @@ const Header = () => {
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
     { name: "Info", value: "tfaInfo" },
+    { name: "Info2", value: "tfaInfo2" },
     { name: "Suggest", value: "suggest" },
     // { name: "마이페이지", value: "myPage" },
     { name: "Photo", value: "photo" },
@@ -169,7 +170,7 @@ const Header = () => {
       .then((res) => {
         if (res) {
           alert("로그아웃되었음");
-          localStorage.clear();
+          localStorage.removeItem("userId");
         } else {
           alert("로그아웃실패했음 관리자한테 문의하삼");
         }
@@ -213,7 +214,7 @@ const Header = () => {
   };
   const [chat, setChat] = useState(false);
   const [bot, setBot] = useState(false);
-  console.log(loc);
+  // console.log(loc);
   const onChatbot = () => {
     if (bot === false) {
       setBot(true);
@@ -221,6 +222,8 @@ const Header = () => {
       setBot(false);
     }
   };
+  const localUserId = localStorage.getItem("userId");
+  // console.log("로컬스토리지", localUserId);
 
   return (
     <HeaderMainDiv>
@@ -248,7 +251,7 @@ const Header = () => {
               );
             })}
 
-            {successLogin.length > 0 ? (
+            {localUserId !== null ? (
               <>
                 <JoinNav
                   className={locFunction()}

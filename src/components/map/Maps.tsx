@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import Snowfall from "react-snowfall";
 import { Button } from "reactstrap";
 import { fetchPostMap } from "store/map/mapReducer";
 import { AppDispatch, RootState } from "store/store";
@@ -108,6 +109,14 @@ const Maps = () => {
   const onLoadMore = () => {};
   return (
     <MapPageDiv>
+      <Snowfall
+        // Changes the snowflake color
+        color="#b5b0d0"
+        // Applied to the canvas element
+        // style={{ background: "#7c74ab" }}
+        // Controls the number of snowflakes that are created (default 150)
+        snowflakeCount={200}
+      />
       <SelectListDiv>
         <div style={{ textAlign: "start" }}>
           날짜: {location.state.date}

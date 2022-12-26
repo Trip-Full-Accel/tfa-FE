@@ -12,36 +12,28 @@ const Translate = () => {
       setTr(false);
     }
   };
+
   return (
     <TrDiv>
       {tr === false ? (
-        <img
-          style={{
-            width: "30px",
-            height: "30px",
-            border: "none",
-            cursor: "pointer",
-          }}
-          src="/img/translate/KO.png"
-          onClick={onChangeLang}
-        />
+        <ImgTag onClick={onChangeLang} src="/img/translate/KO.png" />
       ) : (
-        <img
-          style={{
-            width: "30px",
-            height: "30px",
-            border: "none",
-            cursor: "pointer",
-          }}
-          onClick={onChangeLang}
-          src="/img/translate/EN.PNG"
-        />
+        <ImgTag onClick={onChangeLang} src="/img/translate/EN.png" />
       )}
     </TrDiv>
   );
 };
 export default Translate;
+
 const TrDiv = styled.div`
   display: flex;
   align-items: center;
+  margin: 0 0 0 50px;
+`;
+
+const ImgTag = styled.img`
+  width: 60px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
 `;

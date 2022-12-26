@@ -258,8 +258,9 @@ const Header = () => {
             >
               <img src="/img/TFAlogo.png" style={{ width: "200px" }}></img>
             </TitleB>
+            <Translate></Translate>
           </TitleNav>
-          <button onClick={onNav}>닫기</button>
+          {/* <button onClick={onNav}>닫기</button> */}
           <ListNav>
             {tfaPath.map((el) => {
               return (
@@ -466,6 +467,7 @@ const FirstNavDiv = styled.div`
   align-items: center;
 `;
 const TitleNav = styled.div`
+  display: flex;
   margin-left: 8rem;
 `;
 
@@ -492,7 +494,7 @@ const ChatbotBtn = styled.button`
   border: none;
   background-color: transparent;
   position: fixed;
-  bottom: 6.5rem;
+  bottom: 10.5rem;
   right: 4rem;
 `;
 

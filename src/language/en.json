@@ -1,8 +1,6 @@
 {
-  "testText": "hello",
+  "testText": "",
   "title": "Trip Full Accel start at yout Trip",
-  "month": "month",
-  "day": "day",
   "startBtnPlaceHolder": "please write your Trip NickName",
   "info": "info",
   "suggest": "suggest",
@@ -23,5 +21,9 @@
   "hyemin": "HyeMin-Won",
   "gwangdeok": "GwangDeok-Park",
   "cheolryeon": "CheolRyeon-Park",
-  "sungho": "SungHo-Kim"
+  "sungho": "SungHo-Kim",
+  "month": ".",
+  "day": "",
+
+  "startBtnPlaceHolder": "please write your Trip NickName"
 }

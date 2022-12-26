@@ -37,7 +37,7 @@ function Topbtn() {
 export default Topbtn;
 
 const TopBtnDiv = styled.div`
-  bottom: 10.5rem;
+  bottom: 6.5rem;
   position: fixed;
   right: 4rem;
   transition: all 0.4s;

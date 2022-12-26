@@ -82,6 +82,7 @@ const BoardDetail = () => {
               width: "1000px",
               height: "600px",
               borderRadius: "5px",
+              marginBottom: "2rem",
             }}
           >
             <div>
@@ -120,6 +121,7 @@ const BoardDetail = () => {
               width: "1000px",
               height: "600px",
               borderRadius: "5px",
+              marginBottom: "2rem",
             }}
           >
             <div>

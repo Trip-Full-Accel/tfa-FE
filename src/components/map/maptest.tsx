@@ -82,6 +82,7 @@ const MapTest = ({ setMarkers, markers }: setType) => {
   const clickTour = (tourList: any) => {
     setDiv(tourList.id);
 
+    /// 배열로 바꾸고 find 나 filter로 안에있는지 체크해야할듯
     if (div === tourList.id) {
       alert("이미 추가된 경로 입니다!");
     } else {

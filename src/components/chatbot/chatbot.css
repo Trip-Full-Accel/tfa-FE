@@ -8,7 +8,14 @@
 .react-chatbot-kit-chat-header {
   display: none;
 }
-
+.react-chatbot-kit-chat-bot-avatar-container {
+  /* background-color: url("/img/chatbot.png"); */
+  background-image: url("../../../public/img/chatbot.png");
+  background-size: 100%;
+}
+.react-chatbot-kit-chat-bot-avatar-container p {
+  display: none;
+}
 .react-chatbot-kit-chat-container {
   /* position: fixed; */
   right: 30px;

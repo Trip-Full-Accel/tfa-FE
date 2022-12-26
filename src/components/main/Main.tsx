@@ -1,3 +1,4 @@
+import Player from "components/music/music";
 import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
 import { useState } from "react";
@@ -6,9 +7,12 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useNavigate } from "react-router-dom";
+import Snowfall from "react-snowfall";
+import { Button } from "reactstrap";
 import styled from "styled-components";
 import "../../static/all.css";
-
+import i18n from "language/i18n";
+import { useTranslation } from "react-i18next";
 interface dataType {
   name: string;
   x: string;
@@ -92,13 +96,34 @@ const Main = () => {
     }
   };
 
+  // three 실험
+  const goThree = () => {
+    navigate("/three");
+  };
+
+  const { t } = useTranslation();
+  const onChangeLang = () => {
+    i18n.language === "ko"
+      ? i18n.changeLanguage("en")
+      : i18n.changeLanguage("ko");
+  };
+
   return (
     <TopLvDiv>
+      <Snowfall
+        // Changes the snowflake color
+        color="white"
+        // Applied to the canvas element
+        // style={{ background: "#fff" }}
+        // Controls the number of snowflakes that are created (default 150)
+        snowflakeCount={200}
+      />
       <FirstDiv>
         <LeftDiv>
           {/* <MainTitle>{local} </MainTitle> */}
-          <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
+          <SubTitle>{t("title")}</SubTitle>
           <CalendarDiv>
+
             <IconSpan>
               <img src="/img/calendar.png"></img>
             </IconSpan>
@@ -109,21 +134,21 @@ const Main = () => {
             >
               {`${
                 state.selection1.startDate.toLocaleDateString().split(".")[1] +
-                "월" +
+                `${t("month")}` +
                 state.selection1.startDate.toLocaleDateString().split(".")[2] +
-                "일"
+                `${t("day")}`
               } ~ ${
                 state.selection1.endDate.toLocaleDateString().split(".")[1] +
-                "월" +
+                `${t("month")}` +
                 state.selection1.endDate.toLocaleDateString().split(".")[2] +
-                "일"
+                `${t("day")}`
               }`}
             </CalendarBtn>
           </CalendarDiv>
 
           <TitleInput
             type="text"
-            placeholder="여행 제목을 입력해주세요"
+            placeholder={`${t("startBtnPlaceHolder")}`}
             required
             onChange={(e) => {
               setText(e.target.value);
@@ -165,6 +190,12 @@ const Main = () => {
           />
         </Modal>
       </div>
+      <Player></Player>
+
+      <Button onClick={goThree}>3d 화면 실험</Button>
+      <h2>{t("testText")}</h2>
+
+      <i className="xi-translate xi-4x" onClick={onChangeLang}></i>
     </TopLvDiv>
   );
 };

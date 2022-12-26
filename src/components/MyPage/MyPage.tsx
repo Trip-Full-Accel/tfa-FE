@@ -4,6 +4,7 @@ import { RootState } from "store/store";
 import styled from "styled-components";
 import UseMoveScroll from "./useMoveScroll";
 import "./MyPage.css";
+import Snowfall from "react-snowfall";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
@@ -44,6 +45,7 @@ const MyPage = () => {
 
   return (
     <MainContainer>
+      <Snowfall color="white" snowflakeCount={200} />
       <Top3Container>
         <Container ref={element1}>
           <Top3Container>

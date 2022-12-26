@@ -53,9 +53,6 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const OnLogin = useSelector((state: RootState) => state.user.userId);
 
-  // console.log(idInput);
-  // console.log(passwordInput);
-
   // 스크롤에 따라 업데이트
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -214,7 +211,7 @@ const Header = () => {
   };
   const [chat, setChat] = useState(false);
   const [bot, setBot] = useState(false);
-  // console.log(loc);
+
   const onChatbot = () => {
     if (bot === false) {
       setBot(true);
@@ -224,6 +221,15 @@ const Header = () => {
   };
   const localUserId = localStorage.getItem("userId");
   // console.log("로컬스토리지", localUserId);
+
+  const [open, setOpen] = useState(false);
+  const onNav = () => {
+    if (open === false) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  };
 
   return (
     <HeaderMainDiv>
@@ -240,6 +246,7 @@ const Header = () => {
               <img src="/img/TFAlogo.png" style={{ width: "200px" }}></img>
             </TitleB>
           </TitleNav>
+          <button onClick={onNav}>닫기</button>
           <ListNav>
             {tfaPath.map((el) => {
               return (
@@ -394,8 +401,8 @@ const Header = () => {
           </MDBRow>
         </MDBCard>
       </Modal>
-      {loc === "/myPage" ? (
-        <div></div>
+      {loc === "/mypage" ? (
+        <></>
       ) : (
         <ChatbotBtn onClick={onChatbot}>
           <img style={{ width: "60px" }} src="/img/chatbot.png" />
@@ -416,8 +423,7 @@ const Header = () => {
       ) : (
         <div></div>
       )}
-
-      <Topbtn></Topbtn>
+      {loc === "/mypage" ? <></> : <Topbtn></Topbtn>}
     </HeaderMainDiv>
   );
 };

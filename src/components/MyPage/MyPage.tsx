@@ -115,7 +115,8 @@ const MyPage = () => {
                   </RemoteBtn>
 
                   <RemoteBtn id="2" onClick={onMoveToElement2}>
-                    2<ReactTooltip anchorId="2" place="top" content="내 정보" />
+                    2
+                    <ReactTooltip anchorId="2" place="top" content="내 정보" />
                   </RemoteBtn>
                   <RemoteBtn id="3" onClick={onMoveToElement3}>
                     3<ReactTooltip anchorId="3" place="top" content="경로" />

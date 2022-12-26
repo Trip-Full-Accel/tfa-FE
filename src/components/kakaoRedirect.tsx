@@ -34,18 +34,23 @@ const KakaoRedirectHandler = () => {
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (response: any) {
-            console.log(response);
+            console.log(response.properties.nickname);
+            // response[0]
           },
           fail: function (error: any) {
             console.log(error);
           },
         });
         api
-          .post("http://localhost:8080/", {
-            accessToken: res.data.access_token,
+          .post("http://192.168.0.148:8081/users", {
+            // accessToken: res.data.access_token,
+            // client_id,
+            nickname: "test2",
+            userCode: "testcode2",
           })
-          .then((res) => {
-            console.log(res);
+          .then((res: any) => {
+            console.log("res 데이터", res);
+            localStorage.setItem("userId", res.data);
           });
       });
 

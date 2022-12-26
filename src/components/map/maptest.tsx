@@ -31,7 +31,11 @@ const MapTest = ({ setMarkers, markers }: setType) => {
   useEffect(() => {
     const result = dispatch(fetchGetTourList())
       .unwrap()
-      .then((res) => setTourListTest({ ...tourListTest, ...res }));
+      .then((res) =>
+        // setTourListTest({ ...tourListTest, ...res })
+
+        console.log(res)
+      );
   }, [dispatch]);
 
   const [tourListTest, setTourListTest] = useState<TourList[]>([

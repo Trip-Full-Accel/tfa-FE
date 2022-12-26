@@ -12,6 +12,11 @@ import Snowfall from "react-snowfall";
 import { Button } from "reactstrap";
 import styled from "styled-components";
 import "../../static/all.css";
+import i18n from "language/i18n";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store/store";
+import { fetchDeleteUser } from "store/user/userReducer";
+import { fetchPostCourse } from "store/map/mapReducer";
 import { cursorTo } from "readline";
 import "../../static/font/font.css";
 interface dataType {
@@ -75,6 +80,7 @@ const Main = () => {
   const [text, setText] = useState("");
 
   const strBtn = () => {
+    dispatch(fetchPostCourse({ userId: 1, courseName: "ddd" }));
     if (text.length > 0) {
       navigate("/maps", {
         state: {
@@ -110,6 +116,12 @@ const Main = () => {
   //     setTr(false);
   //   }
   // };
+
+  const testid = localStorage.getItem("userId");
+  const dispatch = useDispatch<AppDispatch>();
+  const deleteUser = () => {
+    dispatch(fetchDeleteUser(Number(testid)));
+  };
 
   return (
     <TopLvDiv>
@@ -160,6 +172,7 @@ const Main = () => {
           <StartBtn onClick={strBtn}>
             <span>Start</span>
           </StartBtn>
+          <Player></Player>
         </LeftDiv>
         {/* video */}
         <VideoDiv>
@@ -191,6 +204,11 @@ const Main = () => {
           />
         </Modal>
       </div>
+
+      <Button onClick={deleteUser}>탈퇴 실험</Button>
+      {/* <h2>{t("testText")}</h2> */}
+
+      {/* <i className="xi-translate xi-4x" onClick={onChangeLang}></i> */}
       {/* <Player></Player> */}
       {/* <Button onClick={goThree}>3d 화면 실험</Button> */}
     </TopLvDiv>

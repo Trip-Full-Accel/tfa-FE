@@ -1,22 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxiosMap } from "http/customAxiosForMap";
 import { CustomAxios } from "../../http/customAxios";
-import { MapList, TourList } from "./mapType";
+import { Course, MapList, TourList } from "./mapType";
 
 /**추천여행지 불러오는 리듀서 */
 export const fetchGetTourList = createAsyncThunk("TOUR/GET", async () => {
-  const response = await CustomAxios("/tour/list", "GET");
+  const response = await CustomAxios("/recommendations", "GET");
   // console.log(response.data);
   return response.data;
 });
+
+/** 코스이름 create 리듀서 */
+export const fetchPostCourse = createAsyncThunk(
+  "COURSE/POST",
+  async (payload: Course) => {
+    console.log(payload);
+
+    const { data } = await CustomAxiosMap("/courses", "POST", payload);
+    console.log(data);
+
+    // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
+    return data;
+  }
+);
 
 /** 맵 create 리듀서 */
 export const fetchPostMap = createAsyncThunk(
   "MAP/POST",
   async (payload: MapList) => {
     console.log(payload);
-    const { data } = await CustomAxiosMap("/course/create", "POST", payload);
-    // console.log(data);
+    const { data } = await CustomAxiosMap("/courses/create", "POST", payload);
+    console.log(data);
+
+    // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
     return data;
   }
 );

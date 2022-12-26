@@ -1,7 +1,6 @@
 import { useState } from "react";
 import i18n from "language/i18n";
 import styled from "styled-components";
-
 const Translate = () => {
   const [tr, setTr] = useState(false);
   const onChangeLang = () => {
@@ -24,7 +23,6 @@ const Translate = () => {
     </TrDiv>
   );
 };
-
 export default Translate;
 
 const TrDiv = styled.div`

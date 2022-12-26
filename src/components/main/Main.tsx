@@ -98,11 +98,11 @@ const Main = () => {
         <LeftDiv>
           {/* <MainTitle>{local} </MainTitle> */}
           <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
-          <CalenderDiv>
+          <CalendarDiv>
             <IconSpan>
-              <img src="/img/calender.png"></img>
+              <img src="/img/calendar.png"></img>
             </IconSpan>
-            <CalenderBtn
+            <CalendarBtn
               onClick={() => {
                 setShow(true);
               }}
@@ -118,8 +118,8 @@ const Main = () => {
                 state.selection1.endDate.toLocaleDateString().split(".")[2] +
                 "일"
               }`}
-            </CalenderBtn>
-          </CalenderDiv>
+            </CalendarBtn>
+          </CalendarDiv>
 
           <TitleInput
             type="text"
@@ -244,7 +244,7 @@ const Video = styled.video`
   }
 `;
 
-const CalenderDiv = styled.div`
+const CalendarDiv = styled.div`
   width: 300px;
   height: 50px;
   background-color: #ccccff;
@@ -270,7 +270,7 @@ const IconSpan = styled.span`
   margin: 0 0 0 10px;
 `;
 
-const CalenderBtn = styled.button`
+const CalendarBtn = styled.button`
   float: left;
   background-color: transparent;
   border: none;

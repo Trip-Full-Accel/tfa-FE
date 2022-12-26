@@ -38,6 +38,9 @@
 .react-chatbot-kit-chat-input-container {
   padding: 0;
 }
+.react-chatbot-kit-chat-input {
+  text-align: start;
+}
 .react-chatbot-kit-chat-bot-message {
   float: right;
 }
@@ -96,4 +99,12 @@
 }
 .react-chatbot-kit-chat-bot-avatar-container p {
   display: none;
+}
+
+.react-chatbot-kit-chat-bot-avatar {
+  margin: 0;
+}
+
+.react-chatbot-kit-chat-bot-message {
+  margin-left: 23px;
 }

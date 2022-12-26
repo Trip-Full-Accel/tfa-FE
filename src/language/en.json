@@ -1,8 +1,8 @@
 {
-  "testText": "hello",
+  "testText": "",
   "title": "Trip Full Accel start at yout Trip",
-  "month": "month",
-  "day": "day",
+  "month": ".",
+  "day": "",
 
   "startBtnPlaceHolder": "please write your Trip NickName"
 }

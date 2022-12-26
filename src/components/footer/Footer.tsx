@@ -18,6 +18,7 @@ const Footer = () => {
 export default Footer;
 
 const FooterDiv = styled.div`
+  font-weight: bold;
   justify-content: space-evenly;
   display: flex;
   padding-top: 3em;
@@ -28,4 +29,5 @@ const FooterDiv = styled.div`
   background-color: #fafafa;
   height: 96px;
   position: relative;
+  box-shadow: 0 0 5px 5px rgba(232, 228, 254, 0.5);
 `;

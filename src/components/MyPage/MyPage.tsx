@@ -7,6 +7,7 @@ import "./MyPage.css";
 import Snowfall from "react-snowfall";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import { useNavigate } from "react-router-dom";
 
 interface myPageType {
   pageKey: string;
@@ -42,7 +43,10 @@ const MyPage = () => {
       setShow(false);
     }
   };
-
+  const navigate = useNavigate();
+  const linkTo = (path: string) => {
+    navigate(path);
+  };
   return (
     <MainContainer>
       <Snowfall color="white" snowflakeCount={200} />
@@ -95,6 +99,15 @@ const MyPage = () => {
               <div
                 style={{ position: "fixed", right: "3rem", bottom: "100px" }}
               >
+                <div>
+                  <HomeBtn
+                    onClick={() => {
+                      linkTo("/");
+                    }}
+                  >
+                    <i className="xi-home xi-2x" />
+                  </HomeBtn>
+                </div>
                 <div>
                   <RemoteBtn id="1" onClick={onMoveToElement}>
                     1
@@ -321,4 +334,13 @@ const RemoteShowBtn = styled.button`
   border-radius: 5px;
   box-shadow: 0 0 5px 2px #0000ff33;
   background-color: #e8e4fe;
+`;
+
+const HomeBtn = styled.button`
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
 `;

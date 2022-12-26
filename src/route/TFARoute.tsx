@@ -26,6 +26,7 @@ import Board from "./../components/board/board";
 import MapTest from "./../components/map/maptest";
 import TfaInfo2 from "components/infomation/tfaInfo2";
 import Three from "components/suggest/three";
+import Chatting from "./../components/chatting/chatting";
 
 const MyRoute = () => {
   return (
@@ -73,6 +74,7 @@ const MyRoute = () => {
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
           <Route path="/suggest" element={<Suggest></Suggest>}></Route>
+          <Route path="/chatting" element={<Chatting></Chatting>}></Route>
           {/* <Route path="/maptest" element={<MapTest></MapTest>}></Route> */}
           <Route
             path="/boardModify/:boardId"

@@ -28,6 +28,7 @@ import { Input } from "reactstrap";
 import { AppDispatch, RootState } from "store/store";
 import { fetchPostLogin, fetchUserlogout } from "store/user/userReducer";
 import "../../static/bootmodal.css";
+import Translate from "components/translate/translate";
 
 type tfaPath = {
   value: string;
@@ -41,10 +42,10 @@ const Header = () => {
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
     { name: "Info", value: "tfaInfo" },
-    { name: "Info2", value: "tfaInfo2" },
-    { name: "Suggest", value: "suggest" },
+    // { name: "Info2", value: "tfaInfo2" },
+    // { name: "Suggest", value: "suggest" },
     // { name: "마이페이지", value: "myPage" },
-    { name: "Photo", value: "photo" },
+    // { name: "Photo", value: "photo" },
     { name: "Board", value: "board" },
   ];
   const location = useLocation();
@@ -162,12 +163,13 @@ const Header = () => {
 
   // 로그아웃 기능 구현시 식별값 보내줄 거임 백에 따라서 정해짐 일단은 새로고침으로 구현
   const logout = () => {
-    dispatch(fetchUserlogout(idInput))
+    dispatch(fetchUserlogout(successLogin))
       .unwrap()
       .then((res) => {
         if (res) {
           alert("로그아웃되었음");
           localStorage.removeItem("userId");
+          navigate("/");
         } else {
           alert("로그아웃실패했음 관리자한테 문의하삼");
         }
@@ -245,8 +247,9 @@ const Header = () => {
             >
               <img src="/img/TFAlogo.png" style={{ width: "200px" }}></img>
             </TitleB>
+            <Translate></Translate>
           </TitleNav>
-          <button onClick={onNav}>닫기</button>
+          {/* <button onClick={onNav}>닫기</button> */}
           <ListNav>
             {tfaPath.map((el) => {
               return (
@@ -262,7 +265,7 @@ const Header = () => {
               <>
                 <JoinNav
                   className={locFunction()}
-                  onClick={() => linkTo("/myPage")}
+                  onClick={() => linkTo("/mypage")}
                 >
                   &nbsp; Mypage
                 </JoinNav>
@@ -453,6 +456,7 @@ const FirstNavDiv = styled.div`
   align-items: center;
 `;
 const TitleNav = styled.div`
+  display: flex;
   margin-left: 8rem;
 `;
 
@@ -479,7 +483,7 @@ const ChatbotBtn = styled.button`
   border: none;
   background-color: transparent;
   position: fixed;
-  bottom: 6.5rem;
+  bottom: 10.5rem;
   right: 4rem;
 `;
 

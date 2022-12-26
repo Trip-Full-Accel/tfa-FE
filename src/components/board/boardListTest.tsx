@@ -69,7 +69,7 @@ const ContentDiv = styled.div`
 
   position: relative;
   &:hover {
-    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 25%), 0 2px 10px 0 rgb(0 0 0 / 25%) !important;
+    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 25%) !important;
     background-color: #bcb8bcaa;
     cursor: pointer;
   }

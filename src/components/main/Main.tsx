@@ -4,6 +4,7 @@ import { ko } from "date-fns/esm/locale";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { DateRangePicker } from "react-date-range";
+import { useTranslation } from "react-i18next";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useNavigate } from "react-router-dom";
@@ -11,8 +12,8 @@ import Snowfall from "react-snowfall";
 import { Button } from "reactstrap";
 import styled from "styled-components";
 import "../../static/all.css";
-import i18n from "language/i18n";
-import { useTranslation } from "react-i18next";
+import { cursorTo } from "readline";
+import "../../static/font/font.css";
 interface dataType {
   name: string;
   x: string;
@@ -102,11 +103,13 @@ const Main = () => {
   };
 
   const { t } = useTranslation();
-  const onChangeLang = () => {
-    i18n.language === "ko"
-      ? i18n.changeLanguage("en")
-      : i18n.changeLanguage("ko");
-  };
+
+  // const translate = () => {
+  //   if (tr === false) {
+  //   } else {
+  //     setTr(false);
+  //   }
+  // };
 
   return (
     <TopLvDiv>
@@ -123,7 +126,6 @@ const Main = () => {
           {/* <MainTitle>{local} </MainTitle> */}
           <SubTitle>{t("title")}</SubTitle>
           <CalendarDiv>
-
             <IconSpan>
               <img src="/img/calendar.png"></img>
             </IconSpan>
@@ -166,7 +168,6 @@ const Main = () => {
       </FirstDiv>
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
-
       <div>
         <Modal
           className="loginM"
@@ -190,12 +191,8 @@ const Main = () => {
           />
         </Modal>
       </div>
-      <Player></Player>
-
-      <Button onClick={goThree}>3d 화면 실험</Button>
-      <h2>{t("testText")}</h2>
-
-      <i className="xi-translate xi-4x" onClick={onChangeLang}></i>
+      {/* <Player></Player> */}
+      {/* <Button onClick={goThree}>3d 화면 실험</Button> */}
     </TopLvDiv>
   );
 };

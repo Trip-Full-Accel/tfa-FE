@@ -219,7 +219,6 @@ const Header = () => {
     (state: RootState) => state.user.successLogin
   );
   // console.log(successLogin);
-
   const testUserId = localStorage.getItem("userId");
   // 로그아웃 기능 구현시 식별값 보내줄 거임 백에 따라서 정해짐 일단은 새로고침으로 구현
   const logout = () => {
@@ -227,7 +226,11 @@ const Header = () => {
 
     localStorage.clear();
     alert("로그아웃되었습니다.");
-    navigate("/");
+    // window.location.replace("");
+    navigate(loc);
+    if (loc.includes("detail")) {
+      window.location.reload();
+    }
     // 그냥 로컬스토리지 클리어로 로그아웃 설정
     // dispatch(fetchUserlogout(successLogin))
     //   .unwrap()
@@ -556,7 +559,7 @@ const ChatbotBtn = styled.button`
 `;
 
 const ChatbotDiv = styled.div`
-  margin: 10rem;
+  margin: 10rem 5rem 0 0;
   position: absolute;
   right: 0;
 `;

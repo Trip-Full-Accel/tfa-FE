@@ -8,6 +8,10 @@ import Snowfall from "react-snowfall";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Button } from "reactstrap";
+import { fetchDeleteUser } from "store/user/userReducer";
+import { AppDispatch } from "store/store";
 
 interface myPageType {
   pageKey: string;
@@ -43,9 +47,23 @@ const MyPage = () => {
       setShow(false);
     }
   };
+  const testid = localStorage.getItem("userId");
   const navigate = useNavigate();
   const linkTo = (path: string) => {
     navigate(path);
+  };
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [checkConfirm, setCheckConfirm] = useState(false);
+
+  const deleteUser = () => {
+    if (window.confirm("정말 탈퇴하시겠습니까?")) {
+      setCheckConfirm(true);
+      dispatch(fetchDeleteUser(Number(testid)));
+    } else {
+      alert("다행이에요 계속 이용해주세요");
+    }
   };
   return (
     <body className="myBody">
@@ -162,7 +180,9 @@ const MyPage = () => {
             <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
             <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
             <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
-            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <Button onClick={deleteUser}>
+              탈퇴 실험 푸터로 이동해야함 컨펌넣어서 수정함
+            </Button>
           </Container>
           <Container ref={element3}>
             <H1Tag>내가 갔던 여행</H1Tag>

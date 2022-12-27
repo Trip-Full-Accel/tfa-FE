@@ -4,20 +4,17 @@ import { ko } from "date-fns/esm/locale";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { DateRangePicker } from "react-date-range";
-import { useTranslation } from "react-i18next";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
 import { Button } from "reactstrap";
+import { fetchPostCourse } from "store/map/mapReducer";
+import { AppDispatch } from "store/store";
 import styled from "styled-components";
 import "../../static/all.css";
-import i18n from "language/i18n";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "store/store";
-import { fetchDeleteUser } from "store/user/userReducer";
-import { fetchPostCourse } from "store/map/mapReducer";
-import { cursorTo } from "readline";
 import "../../static/font/font.css";
 interface dataType {
   name: string;
@@ -77,6 +74,7 @@ const Main = () => {
   });
   console.log(state);
 
+  const dispatch = useDispatch<AppDispatch>();
   const [text, setText] = useState("");
   const localUserId = localStorage.getItem("userId");
   const strBtn = () => {
@@ -121,16 +119,6 @@ const Main = () => {
   // };
 
   const testid = localStorage.getItem("userId");
-  const dispatch = useDispatch<AppDispatch>();
-  const [checkConfirm, setCheckConfirm] = useState(false);
-  const deleteUser = () => {
-    if (window.confirm("정말 탈퇴하시겠습니까?")) {
-      setCheckConfirm(true);
-      dispatch(fetchDeleteUser(Number(testid)));
-    } else {
-      alert("다행이에요 계속 이용해주세요");
-    }
-  };
 
   const [selected, setSelected] = useState<string>("서울");
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -174,7 +162,7 @@ const Main = () => {
       />
       <FirstDiv>
         <LeftDiv>
-          <div>
+          <div style={{ margin: "9.7rem 0 4rem 0" }}>
             {/* <MainTitle>{local} </MainTitle> */}
             {/* <SubTitle>{t("title")}</SubTitle> */}
             <CalendarDiv>
@@ -204,34 +192,35 @@ const Main = () => {
               </CalendarBtn>
             </CalendarDiv>
 
-            <TitleInput
-              type="text"
-              placeholder={`${t("startBtnPlaceHolder")}`}
-              required
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-            ></TitleInput>
-
-            <SelectBox name="select" onChange={(e) => selectHandler(e)}>
-              <OptionBox value="11">{t("Seoul")}</OptionBox>
-              <OptionBox value="41">{t("Gyeongi")}</OptionBox>
-              <OptionBox value="42">{t("Gangwon")}</OptionBox>
-              <OptionBox value="44">{t("Chungbuk")}</OptionBox>
-              <OptionBox value="43">{t("Chungnam")}</OptionBox>
-              <OptionBox value="45">{t("Jeonbuk")}</OptionBox>
-              <OptionBox value="46">{t("Jeonnam")}</OptionBox>
-              <OptionBox value="47">{t("Gyeongbuk")}</OptionBox>
-              <OptionBox value="48">{t("Gyeongnam")}</OptionBox>
-              <OptionBox value="50">{t("Jeju")}</OptionBox>
-              <OptionBox value="36">{t("Sejong")}</OptionBox>
-              <OptionBox value="29">{t("Gwangju")}</OptionBox>
-              <OptionBox value="26">{t("Busan")}</OptionBox>
-              <OptionBox value="31">{t("Ulsan")}</OptionBox>
-              <OptionBox value="27">{t("Daegu")}</OptionBox>
-              <OptionBox value="30">{t("Daejeon")}</OptionBox>
-              <OptionBox value="28">{t("Incheon")}</OptionBox>
-            </SelectBox>
+            <ValueDiv>
+              <SelectBox name="select" onChange={(e) => selectHandler(e)}>
+                <OptionBox value="11">{t("Seoul")}</OptionBox>
+                <OptionBox value="41">{t("Gyeongi")}</OptionBox>
+                <OptionBox value="42">{t("Gangwon")}</OptionBox>
+                <OptionBox value="44">{t("Chungbuk")}</OptionBox>
+                <OptionBox value="43">{t("Chungnam")}</OptionBox>
+                <OptionBox value="45">{t("Jeonbuk")}</OptionBox>
+                <OptionBox value="46">{t("Jeonnam")}</OptionBox>
+                <OptionBox value="47">{t("Gyeongbuk")}</OptionBox>
+                <OptionBox value="48">{t("Gyeongnam")}</OptionBox>
+                <OptionBox value="50">{t("Jeju")}</OptionBox>
+                <OptionBox value="36">{t("Sejong")}</OptionBox>
+                <OptionBox value="29">{t("Gwangju")}</OptionBox>
+                <OptionBox value="26">{t("Busan")}</OptionBox>
+                <OptionBox value="31">{t("Ulsan")}</OptionBox>
+                <OptionBox value="27">{t("Daegu")}</OptionBox>
+                <OptionBox value="30">{t("Daejeon")}</OptionBox>
+                <OptionBox value="28">{t("Incheon")}</OptionBox>
+              </SelectBox>
+              <TitleInput
+                type="text"
+                placeholder={`${t("startBtnPlaceHolder")}`}
+                required
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              ></TitleInput>
+            </ValueDiv>
 
             <StartBtn onClick={strBtn}>
               <span>Start</span>
@@ -270,9 +259,6 @@ const Main = () => {
         </Modal>
       </div>
 
-      <Button onClick={deleteUser}>
-        탈퇴 실험 푸터로 이동해야함 컨펌넣어서 수정함
-      </Button>
       {/* <h2>{t("testText")}</h2> */}
 
       {/* <i className="xi-translate xi-4x" onClick={onChangeLang}></i> */}
@@ -381,13 +367,19 @@ const CalendarDiv = styled.div`
   display: flex;
 `;
 
+const ValueDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+`;
+
 const TitleInput = styled.input`
   font-size: 1.2rem;
   background-color: #ccccff;
-  width: 300px;
+  width: 230px;
   height: 50px;
   border: none;
-  margin: 1rem 0 2rem 0;
   border-radius: 10px;
 `;
 
@@ -404,7 +396,7 @@ const CalendarBtn = styled.button`
   border: none;
 `;
 const SelectBox = styled.select`
-  width: 100px;
+  width: 70px;
   height: 50px;
   display: inline-block;
   border-radius: 0.375rem;

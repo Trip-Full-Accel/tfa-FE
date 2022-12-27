@@ -2,3 +2,18 @@
   /* border: 1px solid #ccc; */
   border: none !important;
 }
+
+.ql-editor p {
+  text-align: start;
+}
+
+.ql-toolbar.ql-snow {
+  text-align: start;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+pre {
+  text-align-last: start;
+  padding: 3rem;
+}

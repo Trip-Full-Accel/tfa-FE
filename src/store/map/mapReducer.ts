@@ -5,7 +5,7 @@ import { Course, MapList, TourList } from "./mapType";
 
 /**추천여행지 불러오는 리듀서 */
 export const fetchGetTourList = createAsyncThunk("TOUR/GET", async () => {
-  const response = await CustomAxios("/recommendations", "GET");
+  const response = await CustomAxios("/tour/list", "GET");
   // console.log(response.data);
   return response.data;
 });

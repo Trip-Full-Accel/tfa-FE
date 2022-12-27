@@ -248,7 +248,6 @@ const Header = () => {
       <MainNav
         className={scrollPosition < 10 ? "original_header" : "change_header"}
       >
-        <Translate></Translate>
         <FirstNavDiv>
           <TitleNav>
             <TitleB
@@ -419,7 +418,7 @@ const Header = () => {
         <></>
       ) : (
         <ChatbotBtn onClick={onChatbot}>
-          <img style={{ width: "60px" }} src="/img/chatbot.png" />
+          <img style={{ width: "50px" }} src="/img/chatbot.png" />
         </ChatbotBtn>
       )}
 
@@ -437,7 +436,7 @@ const Header = () => {
       ) : (
         <div></div>
       )}
-      {loc === "/mypage" ? <></> : <Topbtn></Topbtn>}
+      {loc === "/mypage" || loc === "/maps" ? <></> : <Topbtn></Topbtn>}
     </HeaderMainDiv>
   );
 };
@@ -494,12 +493,12 @@ const ChatbotBtn = styled.button`
   border: none;
   background-color: transparent;
   position: fixed;
-  bottom: 10.5rem;
-  right: 4rem;
+  bottom: 8rem;
+  right: 2rem;
 `;
 
 const ChatbotDiv = styled.div`
-  margin: 8rem;
+  margin: 10rem;
   position: absolute;
   right: 0;
 `;

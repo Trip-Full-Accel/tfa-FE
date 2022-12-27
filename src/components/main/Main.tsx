@@ -135,43 +135,49 @@ const Main = () => {
       />
       <FirstDiv>
         <LeftDiv>
-          {/* <MainTitle>{local} </MainTitle> */}
-          <SubTitle>{t("title")}</SubTitle>
-          <CalendarDiv>
-            <IconSpan>
-              <img src="/img/calendar.png"></img>
-            </IconSpan>
-            <CalendarBtn
-              onClick={() => {
-                setShow(true);
+          <div>
+            {/* <MainTitle>{local} </MainTitle> */}
+            {/* <SubTitle>{t("title")}</SubTitle> */}
+            <CalendarDiv>
+              <IconSpan>
+                <img src="/img/calendar.png"></img>
+              </IconSpan>
+              <CalendarBtn
+                onClick={() => {
+                  setShow(true);
+                }}
+              >
+                {`${
+                  state.selection1.startDate
+                    .toLocaleDateString()
+                    .split(".")[1] +
+                  `${t("month")}` +
+                  state.selection1.startDate
+                    .toLocaleDateString()
+                    .split(".")[2] +
+                  `${t("day")}`
+                } ~ ${
+                  state.selection1.endDate.toLocaleDateString().split(".")[1] +
+                  `${t("month")}` +
+                  state.selection1.endDate.toLocaleDateString().split(".")[2] +
+                  `${t("day")}`
+                }`}
+              </CalendarBtn>
+            </CalendarDiv>
+
+            <TitleInput
+              type="text"
+              placeholder={`${t("startBtnPlaceHolder")}`}
+              required
+              onChange={(e) => {
+                setText(e.target.value);
               }}
-            >
-              {`${
-                state.selection1.startDate.toLocaleDateString().split(".")[1] +
-                `${t("month")}` +
-                state.selection1.startDate.toLocaleDateString().split(".")[2] +
-                `${t("day")}`
-              } ~ ${
-                state.selection1.endDate.toLocaleDateString().split(".")[1] +
-                `${t("month")}` +
-                state.selection1.endDate.toLocaleDateString().split(".")[2] +
-                `${t("day")}`
-              }`}
-            </CalendarBtn>
-          </CalendarDiv>
+            ></TitleInput>
 
-          <TitleInput
-            type="text"
-            placeholder={`${t("startBtnPlaceHolder")}`}
-            required
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-          ></TitleInput>
-
-          <StartBtn onClick={strBtn}>
-            <span>Start</span>
-          </StartBtn>
+            <StartBtn onClick={strBtn}>
+              <span>Start</span>
+            </StartBtn>
+          </div>
           <Player></Player>
         </LeftDiv>
         {/* video */}

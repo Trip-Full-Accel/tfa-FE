@@ -9,10 +9,10 @@
     position: absolute;
     bottom: -10px;
     left: 0;
-    👉 &.success {
+    &.success {
       color: #8f8c8b;
     }
-    👉 &.error {
+    &.error {
       color: #ff2727;
     }
   }

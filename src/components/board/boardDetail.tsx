@@ -68,6 +68,9 @@ const BoardDetail = () => {
   const local = localStorage.getItem("userId");
   console.log("loc", local);
 
+  const linkTo = (path: string) => {
+    navigate(path);
+  };
   // console.log("wirter", boardDetailReturn[0].writer);
   // console.log("wirter", boardDetailReturn[0].writer);
   return (
@@ -75,75 +78,88 @@ const BoardDetail = () => {
       <Snowfall color="white" snowflakeCount={200} />
       {boardDetailReturn.map((detail) =>
         userId == detail.writer ? (
-          <div
-            key={detail.title}
-            style={{
-              border: "1px solid grey",
-              width: "1000px",
-              height: "600px",
-              borderRadius: "5px",
-              marginBottom: "2rem",
-            }}
-          >
-            <div>
-              <Detaildiv>
-                <Titlediv>제목 : {detail.title}</Titlediv>
-                <div
-                  style={{ display: "flex", borderBottom: "1px solid black" }}
-                >
-                  <Writerdiv>작성자 : {detail.writer}</Writerdiv>
-                  <div>글 카테고리 : {detail.selected}</div>
-                  <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+          <BoardDiv key={detail.title}>
+            <Detaildiv>
+              <Titlediv>
+                {detail.title}
+                <SelectDiv>{detail.selected}</SelectDiv>
+              </Titlediv>
+              <BottomDiv>
+                <div style={{ margin: "0" }}>
+                  <Writerdiv>{detail.writer}</Writerdiv>
+                  <DateDiv>작성일</DateDiv>
                 </div>
-                <Contentdiv>
-                  <pre
-                    dangerouslySetInnerHTML={{
-                      __html: detail.content,
-                    }}
-                  ></pre>
-                </Contentdiv>
-                <Btndiv>
-                  <Button onClick={() => deleteHandler()}>삭제테스트</Button>
-                </Btndiv>
-                <Btndiv>
-                  <Button onClick={() => updateHandler(detail)}>
-                    수정테스트
+                <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+              </BottomDiv>
+              <Contentdiv>
+                <pre
+                  dangerouslySetInnerHTML={{
+                    __html: detail.content,
+                  }}
+                ></pre>
+              </Contentdiv>
+              <Btndiv>
+                <div style={{ margin: "0" }}>
+                  <Button
+                    style={{ marginRight: "10px" }}
+                    onClick={() => deleteHandler()}
+                  >
+                    삭제
                   </Button>
-                </Btndiv>
-              </Detaildiv>
-            </div>
-          </div>
-        ) : (
-          <div
-            key={detail.title}
-            style={{
-              border: "1px solid grey",
-              width: "1000px",
-              height: "600px",
-              borderRadius: "5px",
-              marginBottom: "2rem",
-            }}
-          >
-            <div>
-              <Detaildiv>
-                <Titlediv>제목 : {detail.title}</Titlediv>
-                <div
-                  style={{ display: "flex", borderBottom: "1px solid black" }}
-                >
-                  <Writerdiv>작성자 : {detail.writer}</Writerdiv>
-                  <div>글 카테고리 : {detail.selected}</div>
-                  <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+                  <Button onClick={() => updateHandler(detail)}>수정</Button>
                 </div>
-                <Contentdiv>
-                  <pre
-                    dangerouslySetInnerHTML={{
-                      __html: detail.content,
+                <div style={{ margin: "0" }}>
+                  <Button
+                    onClick={() => {
+                      linkTo("/board");
                     }}
-                  ></pre>
-                </Contentdiv>
-              </Detaildiv>
-            </div>
-          </div>
+                  >
+                    목록
+                  </Button>
+                </div>
+              </Btndiv>
+            </Detaildiv>
+          </BoardDiv>
+        ) : (
+          <BoardDiv key={detail.title}>
+            <Detaildiv>
+              <Titlediv>
+                {detail.title}
+                <SelectDiv>{detail.selected}</SelectDiv>
+              </Titlediv>
+
+              <BottomDiv>
+                <div style={{ margin: "0" }}>
+                  <Writerdiv>{detail.writer}</Writerdiv>
+                  <DateDiv>작성일</DateDiv>
+                </div>
+                <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+              </BottomDiv>
+              <Contentdiv>
+                <pre
+                  dangerouslySetInnerHTML={{
+                    __html: detail.content,
+                  }}
+                ></pre>
+              </Contentdiv>
+              <div
+                style={{
+                  margin: "0",
+                  padding: "0 2rem 1rem 0",
+                  display: "flex",
+                  justifyContent: "end",
+                }}
+              >
+                <Button
+                  onClick={() => {
+                    linkTo("/board");
+                  }}
+                >
+                  목록
+                </Button>
+              </div>
+            </Detaildiv>
+          </BoardDiv>
         )
       )}
     </>
@@ -151,62 +167,52 @@ const BoardDetail = () => {
 };
 
 export default BoardDetail;
+const BoardDiv = styled.div`
+  border: 1px solid #ccc;
+  width: 800px;
+  min-height: 600px;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+`;
 const Detaildiv = styled.div``;
-const Writerdiv = styled.div``;
-const Selecteddiv = styled.div``;
-const Hitsdiv = styled.div``;
 const Titlediv = styled.div`
+  display: flex;
   text-align: start;
   font-size: 20px;
   font-weight: bold;
-  padding: 1rem;
-  border-bottom: 1px solid grey;
+  padding: 1rem 0 1rem 3rem;
+  /* border-bottom: 1px solid #ccc; */
+`;
+const SelectDiv = styled.div`
+  margin-left: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  align-self: end;
+`;
+const Writerdiv = styled.div`
+  padding: 0.5rem 0 0.5rem 3rem;
+`;
+const DateDiv = styled.div`
+  padding: 0 0 0.5rem 3rem;
+`;
+const Hitsdiv = styled.div`
+  margin: 0;
+  padding: 2.5rem 3rem 0 0;
 `;
 const Likediv = styled.div``;
 const Contentdiv = styled.div`
   min-height: 30rem;
 `;
 
-const Btndiv = styled.div``;
-
-const InputTitle = styled.input`
-  width: 55%;
-  height: 50px;
-  display: inline-block;
-  border-radius: 0.375rem;
-  border: 1px solid #ced4da;
-  &:focus::placeholder {
-    color: transparent;
-  }
-  text-align: left;
-  padding-left: 20px;
+const Btndiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  padding: 0 2rem 1rem 2rem;
 `;
 
-const Contentarea = styled.textarea`
-  width: 60%;
-  min-height: 350px;
-  border-radius: 0.375rem;
-  border: 1px solid #ced4da;
-  resize: none;
-  &:focus::placeholder {
-    color: transparent;
-  }
-  padding: 20px 24px;
-  text-align: left;
-  overflow: visible;
-  /* &::-webkit-scrollbar {
-    display: flex !important;
-  } */
-`;
-const SelectBox = styled.select`
-  width: 5%;
-  height: 50px;
-  display: inline-block;
-  border-radius: 0.375rem;
-  border: 1px solid #ced4da;
-`;
-
-const OptionBox = styled.option`
-  border-radius: 0.375rem;
-  border: 1px solid #ced4da;
+const BottomDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
 `;

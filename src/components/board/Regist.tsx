@@ -198,11 +198,13 @@ const Regist = () => {
           ></Contentarea> */}
           <ReactQuill
             style={{
-              height: "400px",
+              minHeight: "400px",
+              height: "100%",
               width: "60%",
               backgroundColor: "white",
-              borderRadius: "0.375rem",
+              borderRadius: "0 0 0.375rem 0.375rem",
               border: "1px solid #ced4da",
+              textAlign: "start",
             }}
             // theme="snow"
             // modules={modules}
@@ -213,30 +215,30 @@ const Regist = () => {
             }}
             ref={quillRef}
             theme="snow"
-            placeholder="플레이스 홀더"
+            placeholder="내용을 입력해주세요"
             value={value}
             // onChange={contentHandler}
             modules={modules}
             formats={formats}
           />
         </Contentdiv>
-        <Btndiv style={{ marginTop: "70px" }}>
+        <Btndiv style={{ margin: "2rem 0 2rem 0" }}>
           <Button onClick={() => registHandler()}>등록</Button>
         </Btndiv>
         {/* TEST 버튼들 추후 삭제 예정 */}
 
-        <div>리덕스 테스트</div>
+        {/* <div>리덕스 테스트</div>
         <input onChange={(e: any) => setTestData(e.target.value)}></input>
         <Btndiv>
           <Button onClick={onc}>스테이트 저장</Button>
         </Btndiv>
         <Btndiv>
           <Button onClick={onc2}>리덕스 저장</Button>
-        </Btndiv>
+        </Btndiv> */}
       </RegistFirstdiv>
 
-      <h2>스테이트값 {goRedux.map((el: any) => el)}</h2>
-      <h2>리덕스값 {redux.map((el: any) => el)}</h2>
+      {/* <h2>스테이트값 {goRedux.map((el: any) => el)}</h2>
+      <h2>리덕스값 {redux.map((el: any) => el)}</h2> */}
     </RegistMainDiv>
   );
 };
@@ -259,8 +261,9 @@ const InputTitle = styled.input`
   width: 55%;
   height: 50px;
   display: inline-block;
-  border-radius: 0.375rem;
+  border-radius: 0.375rem 0 0 0;
   border: 1px solid #ced4da;
+  border-bottom: none;
   &:focus::placeholder {
     color: transparent;
   }
@@ -289,8 +292,10 @@ const SelectBox = styled.select`
   width: 5%;
   height: 50px;
   display: inline-block;
-  border-radius: 0.375rem;
+  border-radius: 0 0.375rem 0 0;
   border: 1px solid #ced4da;
+  border-left: none;
+  border-bottom: none;
 `;
 
 const OptionBox = styled.option`

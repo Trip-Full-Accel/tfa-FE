@@ -29,7 +29,7 @@ const Main = () => {
 
   const navigate = useNavigate();
   // const reduxData = useSelector((state: RootState) => state.user.userId);
-  const local = localStorage.getItem("userId");
+  // const local = localStorage.getItem("userId");
 
   const [coordinate, setCoordinate] = useState({ x: "", y: "" });
   const data: dataType[] = [
@@ -78,9 +78,11 @@ const Main = () => {
   console.log(state);
 
   const [text, setText] = useState("");
-
+  const localUserId = localStorage.getItem("userId");
   const strBtn = () => {
-    dispatch(fetchPostCourse({ userId: 1, courseName: "ddd" }));
+    dispatch(
+      fetchPostCourse({ userId: Number(localUserId), courseName: text })
+    );
     if (text.length > 0) {
       navigate("/maps", {
         state: {
@@ -96,6 +98,7 @@ const Main = () => {
             "일"
           }`,
           title: text,
+          cityCode: selected,
         },
       });
     } else {
@@ -119,10 +122,46 @@ const Main = () => {
 
   const testid = localStorage.getItem("userId");
   const dispatch = useDispatch<AppDispatch>();
+  const [checkConfirm, setCheckConfirm] = useState(false);
   const deleteUser = () => {
-    dispatch(fetchDeleteUser(Number(testid)));
+    if (window.confirm("정말 탈퇴하시겠습니까?")) {
+      setCheckConfirm(true);
+      dispatch(fetchDeleteUser(Number(testid)));
+    } else {
+      alert("다행이에요 계속 이용해주세요");
+    }
   };
 
+  const [selected, setSelected] = useState<string>("서울");
+  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelected(e.target.value);
+  };
+  const [threeValue, setThreeValue] = useState<any>("");
+  const valueHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setThreeValue(e.target.value);
+  };
+
+  const threeName: any = [
+    { value: "chuncheon", name: "춘천" },
+    { value: "Damyang", name: "담양" },
+    { value: "Gangneung", name: "강릉" },
+    { value: "gyeongju", name: "경주" },
+    { value: "gyeongju2", name: "경주2" },
+    { value: "gyeongju3", name: "경주3" },
+    { value: "Jeju1", name: "제주1" },
+    { value: "jeju2", name: "제주2" },
+    { value: "oedo", name: "오이도" },
+    { value: "suwon", name: "수원" },
+  ];
+  const MoveRegionalArea = (e: any) => {
+    console.log(e.innerText);
+
+    navigate("/three", {
+      state: {
+        threeName: e.innerText,
+      },
+    });
+  };
   return (
     <TopLvDiv>
       <Snowfall
@@ -159,7 +198,25 @@ const Main = () => {
               }`}
             </CalendarBtn>
           </CalendarDiv>
-
+          <SelectBox name="select" onChange={(e) => selectHandler(e)}>
+            <OptionBox value="11">{t("Seoul")}</OptionBox>
+            <OptionBox value="41">{t("Gyeongi")}</OptionBox>
+            <OptionBox value="42">{t("Gangwon")}</OptionBox>
+            <OptionBox value="44">{t("Chungbuk")}</OptionBox>
+            <OptionBox value="43">{t("Chungnam")}</OptionBox>
+            <OptionBox value="45">{t("Jeonbuk")}</OptionBox>
+            <OptionBox value="46">{t("Jeonnam")}</OptionBox>
+            <OptionBox value="47">{t("Gyeongbuk")}</OptionBox>
+            <OptionBox value="48">{t("Gyeongnam")}</OptionBox>
+            <OptionBox value="50">{t("Jeju")}</OptionBox>
+            <OptionBox value="36">{t("Sejong")}</OptionBox>
+            <OptionBox value="29">{t("Gwangju")}</OptionBox>
+            <OptionBox value="26">{t("Busan")}</OptionBox>
+            <OptionBox value="31">{t("Ulsan")}</OptionBox>
+            <OptionBox value="27">{t("Daegu")}</OptionBox>
+            <OptionBox value="30">{t("Daejeon")}</OptionBox>
+            <OptionBox value="28">{t("Incheon")}</OptionBox>
+          </SelectBox>
           <TitleInput
             type="text"
             placeholder={`${t("startBtnPlaceHolder")}`}
@@ -205,12 +262,29 @@ const Main = () => {
         </Modal>
       </div>
 
-      <Button onClick={deleteUser}>탈퇴 실험</Button>
+      <Button onClick={deleteUser}>
+        탈퇴 실험 푸터로 이동해야함 컨펌넣어서 수정함
+      </Button>
       {/* <h2>{t("testText")}</h2> */}
 
       {/* <i className="xi-translate xi-4x" onClick={onChangeLang}></i> */}
       {/* <Player></Player> */}
       {/* <Button onClick={goThree}>3d 화면 실험</Button> */}
+
+      <div style={{ display: "flex" }}>
+        {threeName.map((el: any) => {
+          return (
+            <div
+              onClick={(e: any) => MoveRegionalArea(e.target)}
+              onChange={(e) => console.log(e)}
+              key={el.value}
+              style={{ height: "70px", padding: "5px", cursor: "pointer" }}
+            >
+              <h3>{t(`${el.name}`)}</h3>
+            </div>
+          );
+        })}
+      </div>
     </TopLvDiv>
   );
 };
@@ -320,4 +394,16 @@ const CalendarBtn = styled.button`
   float: left;
   background-color: transparent;
   border: none;
+`;
+const SelectBox = styled.select`
+  width: 100px;
+  height: 50px;
+  display: inline-block;
+  border-radius: 0.375rem;
+  border: 1px solid #ced4da;
+`;
+
+const OptionBox = styled.option`
+  border-radius: 0.375rem;
+  border: 1px solid #ced4da;
 `;

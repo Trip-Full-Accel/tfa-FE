@@ -8,7 +8,6 @@ const Footer = () => {
   const footerName = useSelector((state: RootState) => state.footerName.foot);
   const location = useLocation();
   const loc = location.pathname;
-  console.log(loc);
   const { t } = useTranslation();
 
   return (

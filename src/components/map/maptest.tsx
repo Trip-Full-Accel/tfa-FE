@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGetTourList, mapTest, pointTest } from "store/map/mapReducer";
+import { fetchGetTourList, mapTest } from "store/map/mapReducer";
 import { TourList } from "store/map/mapType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
@@ -22,19 +22,21 @@ interface setType {
       lng: number;
     };
   }[];
+  cityCode: number;
 }
-const MapTest = ({ setMarkers, markers }: setType) => {
+const MapTest = ({ setMarkers, markers, cityCode }: setType) => {
   const dispatch = useDispatch<AppDispatch>();
 
   // 추천여행지 불러오는 메서드
   const reduxTourList = useSelector((state: RootState) => state.map.tourList);
   useEffect(() => {
+    console.log("백에 보내줄 cityCode", cityCode);
     const result = dispatch(fetchGetTourList())
       .unwrap()
-      .then((res) =>
-        // setTourListTest({ ...tourListTest, ...res })
+      .then(
+        (res) => setTourListTest({ ...tourListTest, ...res })
 
-        console.log(res)
+        // console.log(res)
       );
   }, [dispatch]);
 
@@ -80,27 +82,48 @@ const MapTest = ({ setMarkers, markers }: setType) => {
     },
   ]);
 
-  const [div, setDiv] = useState("");
-
+  const inDiv = (tourList: any) => {
+    if (tourList.id === "dog") {
+      return true;
+    }
+  };
+  const [div, setDiv] = useState([]);
   // let check = false;
   const clickTour = (tourList: any) => {
-    setDiv(tourList.id);
+    // console.log(tourList.id);
+    setDiv(div.concat(tourList.id));
+    const check = div.find((id) => id === tourList.id);
+    console.log(div);
+    const set = new Set(div);
+    const newArr = [...set];
+    console.log(newArr);
 
-    /// 배열로 바꾸고 find 나 filter로 안에있는지 체크해야할듯
-    if (div === tourList.id) {
-      alert("이미 추가된 경로 입니다!");
-    } else {
-      setMarkers([
-        ...markers,
-        {
-          position: {
-            lat: Number(tourList.lat),
-            lng: Number(tourList.lng),
+    if (check === undefined) {
+      if (newArr.length > 5) {
+        alert("max 6개!");
+        div.pop();
+      } else {
+        setMarkers([
+          ...markers,
+          {
+            position: {
+              lat: Number(tourList.lat),
+              lng: Number(tourList.lng),
+            },
           },
-        },
-      ]);
-      dispatch(mapTest(tourList));
+        ]);
+        dispatch(mapTest(tourList));
+      }
+    } else {
+      if (newArr.length > 6) {
+        alert("max 6개!");
+      } else {
+        alert("이미 추가된 경로 입니다!");
+      }
     }
+
+    // }
+    /// 배열로 바꾸고 find 나 filter로 안에있는지 체크해야할듯
 
     // setMarkers([
     //   ...markers,

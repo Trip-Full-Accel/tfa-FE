@@ -8,7 +8,7 @@ import {
 } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
 extend({ OrbitControls });
 
@@ -19,7 +19,7 @@ const Orbit = () => {
 
 const Box = (props) => {
   const ref = useRef();
-  const texture = useLoader(THREE.TextureLoader, "/img/3d/star.jpg");
+  const texture = useLoader(THREE.TextureLoader, "/img/seoul/seoul1.jpg");
   useFrame((state) => {
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;
@@ -46,8 +46,10 @@ const Box = (props) => {
   );
 };
 const BackGround = (props) => {
-  const texture = useLoader(THREE.TextureLoader, "/img/3d/seoul.jpg");
-
+  const location = useLocation();
+  const name = location.state.threeName;
+  console.log(name);
+  const texture = useLoader(THREE.TextureLoader, `/img/3d/${name}.jpg`);
   const { gl } = useThree();
 
   const formatted = new THREE.WebGLCubeRenderTarget(
@@ -58,6 +60,8 @@ const BackGround = (props) => {
 };
 
 function Three() {
+  // const location = useLocation();
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Snowfall

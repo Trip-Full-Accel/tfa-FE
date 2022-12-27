@@ -28,12 +28,12 @@ export default Translate;
 const TrDiv = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 0 0 50px;
+  margin: 0 0 0 40px;
 `;
 
 const ImgTag = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border: none;
   cursor: pointer;
 `;

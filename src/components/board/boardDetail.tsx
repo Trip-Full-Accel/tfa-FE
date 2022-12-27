@@ -28,7 +28,15 @@ const BoardDetail = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [selected, setSelected] = useState<string>();
-  const userLoginId = localStorage.getItem("userId");
+  const [like, setLike] = useState(false);
+
+  const likeBtn = () => {
+    if (like === false) {
+      setLike(true);
+    } else {
+      setLike(false);
+    }
+  };
 
   const { boardId } = useParams();
   useEffect(() => {
@@ -45,6 +53,8 @@ const BoardDetail = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [boardDetail, setBoardDetail] = useState<any>();
   // setBoardIdData(boardId);
+
+  const userLoginId = localStorage.getItem("userId");
 
   const deleteHandler = async () => {
     await dispatch(fetchDeleteBoard(Number(boardId)));
@@ -101,27 +111,33 @@ const BoardDetail = () => {
                   }}
                 ></pre>
               </Contentdiv>
-              <Btndiv>
+              <BtnDiv>
                 <div style={{ margin: "0" }}>
-                  <Button
-                    style={{ marginRight: "10px" }}
-                    onClick={() => deleteHandler()}
-                  >
-                    삭제
-                  </Button>
-                  <Button onClick={() => updateHandler(detail)}>수정</Button>
+                  <Button onClick={() => deleteHandler()}>삭 제</Button>&nbsp;
+                  <Button onClick={() => updateHandler(detail)}>수 정</Button>
                 </div>
-                <div style={{ margin: "0" }}>
-                  <Button
-                    onClick={() => {
-                      linkTo("/board");
-                      // navigate(-1);
-                    }}
-                  >
-                    목록
-                  </Button>
-                </div>
-              </Btndiv>
+
+                {like === false ? (
+                  <LikeBtn onClick={likeBtn}>
+                    좋아요 &nbsp;
+                    <i className="xi-heart-o" />0
+                  </LikeBtn>
+                ) : (
+                  <div>
+                    <LikeBtn onClick={likeBtn}>
+                      좋아요 &nbsp;
+                      <i className="xi-heart " />1
+                    </LikeBtn>
+                  </div>
+                )}
+                <Button
+                  onClick={() => {
+                    linkTo("/board");
+                  }}
+                >
+                  목 록
+                </Button>
+              </BtnDiv>
             </Detaildiv>
           </BoardDiv>
         ) : (
@@ -146,22 +162,39 @@ const BoardDetail = () => {
                   }}
                 ></pre>
               </Contentdiv>
-              <div
-                style={{
-                  margin: "0",
-                  padding: "0 2rem 1rem 0",
-                  display: "flex",
-                  justifyContent: "end",
-                }}
-              >
-                <Button
-                  onClick={() => {
-                    // navigate(-1);
-                    linkTo("/board");
+
+              <div style={{ display: "flex" }}>
+                <LikeDiv>
+                  {like === false ? (
+                    <LikeBtn onClick={likeBtn}>
+                      좋아요 &nbsp;
+                      <i className="xi-heart-o" />0
+                    </LikeBtn>
+                  ) : (
+                    <div>
+                      <LikeBtn onClick={likeBtn}>
+                        좋아요 &nbsp;
+                        <i className="xi-heart " />1
+                      </LikeBtn>
+                    </div>
+                  )}
+                </LikeDiv>
+                <div
+                  style={{
+                    margin: "0",
+                    padding: "0 2rem 1rem 0",
+                    display: "flex",
+                    justifyContent: "end",
                   }}
                 >
-                  목록
-                </Button>
+                  <Button
+                    onClick={() => {
+                      linkTo("/board");
+                    }}
+                  >
+                    목 록
+                  </Button>
+                </div>
               </div>
             </Detaildiv>
           </BoardDiv>
@@ -209,7 +242,7 @@ const Contentdiv = styled.div`
   min-height: 30rem;
 `;
 
-const Btndiv = styled.div`
+const BtnDiv = styled.div`
   display: flex;
   justify-content: space-between;
   text-align: start;
@@ -220,4 +253,18 @@ const BottomDiv = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #ccc;
+`;
+
+const LikeBtn = styled.button`
+  color: white;
+  border: none;
+  background-color: #7c74ab;
+  border-radius: 10px;
+  width: 70px;
+  height: 40px;
+`;
+
+const LikeDiv = styled.div`
+  align-self: center;
+  padding-bottom: 1rem;
 `;

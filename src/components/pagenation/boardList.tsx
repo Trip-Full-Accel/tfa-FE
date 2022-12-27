@@ -103,22 +103,46 @@ const BList = (props: any) => {
               .map((el: any, i) => {
                 return (
                   <ContentDiv onClick={() => goDetail(el.id)} key={i}>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "40px",
+                        opacity: "0.5",
+                      }}
+                      src="/img/seoul/seoul3.jpg"
+                    />
                     <TitleDiv>{el.title}</TitleDiv>
                     {/* <div>{el.content}</div> */}
                     {/* <div>{el.writer}</div> */}
                     {/* <div>{el.regdate}</div> */}
-                    <LikeDiv>{el.like}</LikeDiv>
+                    <LikeDiv>
+                      <i className="xi-heart xi-x" />
+                      <tr></tr>1{el.like}
+                    </LikeDiv>
                   </ContentDiv>
                 );
               })
           : currentItems.map((el: any) => {
               return (
                 <ContentDiv onClick={() => goDetail(el.id)} key={el.id}>
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "40px",
+                      opacity: "0.5",
+                    }}
+                    src="/img/seoul/seoul3.jpg"
+                  />
                   <TitleDiv>{el.title}</TitleDiv>
                   {/* <div>{el.content}</div> */}
                   {/* <div>{el.writer}</div> */}
                   {/* <div>{el.regdate}</div> */}
-                  <LikeDiv>{el.like}</LikeDiv>
+                  <LikeDiv>
+                    <i className="xi-heart xi-x" />
+                    <tr></tr>1{el.like}
+                  </LikeDiv>
                 </ContentDiv>
               );
             })}
@@ -178,8 +202,12 @@ const TitleDiv = styled.div`
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  font-size: 32px;
+  font-weight: bold;
 `;
 const LikeDiv = styled.div`
-  float: right;
   padding: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
 `;

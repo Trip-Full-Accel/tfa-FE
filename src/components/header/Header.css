@@ -52,3 +52,11 @@
 .titleDiv {
   margin-left: 150px !important;
 }
+
+.MapChatBot {
+  border: none;
+  background-color: transparent;
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+}

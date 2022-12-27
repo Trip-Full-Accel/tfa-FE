@@ -217,7 +217,6 @@ const Header = () => {
   const successLogin = useSelector(
     (state: RootState) => state.user.successLogin
   );
-
   const testUserId = localStorage.getItem("userId");
   const logout = () => {
     if (Kakao.Auth.getAccessToken()) {
@@ -237,6 +236,25 @@ const Header = () => {
     localStorage.clear();
     alert("로그아웃되었습니다.");
     navigate(loc);
+    // window.location.replace("");
+    navigate(loc);
+    if (loc.includes("detail")) {
+      window.location.reload();
+    }
+    // 그냥 로컬스토리지 클리어로 로그아웃 설정
+    // dispatch(fetchUserlogout(successLogin))
+    //   .unwrap()
+    //   .then((res) => {
+    //     if (res) {
+    //       console.log("실행됨");
+
+    //       alert("로그아웃되었음");
+    //       localStorage.removeItem("userId");
+    //       navigate("/");
+    //     } else {
+    //       alert("로그아웃실패했음 관리자한테 문의하삼");
+    //     }
+    //   });
   };
 
   const goToLogin = () => {
@@ -475,7 +493,7 @@ const Header = () => {
           </MDBRow>
         </MDBCard>
       </Modal>
-      {loc === "/mypage" ? (
+      {loc === "/mypage" || loc === "/maps" ? (
         <></>
       ) : (
         <ChatbotBtn onClick={onChatbot}>
@@ -559,7 +577,7 @@ const ChatbotBtn = styled.button`
 `;
 
 const ChatbotDiv = styled.div`
-  margin: 10rem;
+  margin: 10rem 5rem 0 0;
   position: absolute;
   right: 0;
 `;

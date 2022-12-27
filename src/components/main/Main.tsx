@@ -174,61 +174,69 @@ const Main = () => {
       />
       <FirstDiv>
         <LeftDiv>
-          {/* <MainTitle>{local} </MainTitle> */}
-          <SubTitle>{t("title")}</SubTitle>
-          <CalendarDiv>
-            <IconSpan>
-              <img src="/img/calendar.png"></img>
-            </IconSpan>
-            <CalendarBtn
-              onClick={() => {
-                setShow(true);
-              }}
-            >
-              {`${
-                state.selection1.startDate.toLocaleDateString().split(".")[1] +
-                `${t("month")}` +
-                state.selection1.startDate.toLocaleDateString().split(".")[2] +
-                `${t("day")}`
-              } ~ ${
-                state.selection1.endDate.toLocaleDateString().split(".")[1] +
-                `${t("month")}` +
-                state.selection1.endDate.toLocaleDateString().split(".")[2] +
-                `${t("day")}`
-              }`}
-            </CalendarBtn>
-          </CalendarDiv>
-          <SelectBox name="select" onChange={(e) => selectHandler(e)}>
-            <OptionBox value="11">{t("Seoul")}</OptionBox>
-            <OptionBox value="41">{t("Gyeongi")}</OptionBox>
-            <OptionBox value="42">{t("Gangwon")}</OptionBox>
-            <OptionBox value="44">{t("Chungbuk")}</OptionBox>
-            <OptionBox value="43">{t("Chungnam")}</OptionBox>
-            <OptionBox value="45">{t("Jeonbuk")}</OptionBox>
-            <OptionBox value="46">{t("Jeonnam")}</OptionBox>
-            <OptionBox value="47">{t("Gyeongbuk")}</OptionBox>
-            <OptionBox value="48">{t("Gyeongnam")}</OptionBox>
-            <OptionBox value="50">{t("Jeju")}</OptionBox>
-            <OptionBox value="36">{t("Sejong")}</OptionBox>
-            <OptionBox value="29">{t("Gwangju")}</OptionBox>
-            <OptionBox value="26">{t("Busan")}</OptionBox>
-            <OptionBox value="31">{t("Ulsan")}</OptionBox>
-            <OptionBox value="27">{t("Daegu")}</OptionBox>
-            <OptionBox value="30">{t("Daejeon")}</OptionBox>
-            <OptionBox value="28">{t("Incheon")}</OptionBox>
-          </SelectBox>
-          <TitleInput
-            type="text"
-            placeholder={`${t("startBtnPlaceHolder")}`}
-            required
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-          ></TitleInput>
+          <div>
+            {/* <MainTitle>{local} </MainTitle> */}
+            {/* <SubTitle>{t("title")}</SubTitle> */}
+            <CalendarDiv>
+              <IconSpan>
+                <img src="/img/calendar.png"></img>
+              </IconSpan>
+              <CalendarBtn
+                onClick={() => {
+                  setShow(true);
+                }}
+              >
+                {`${
+                  state.selection1.startDate
+                    .toLocaleDateString()
+                    .split(".")[1] +
+                  `${t("month")}` +
+                  state.selection1.startDate
+                    .toLocaleDateString()
+                    .split(".")[2] +
+                  `${t("day")}`
+                } ~ ${
+                  state.selection1.endDate.toLocaleDateString().split(".")[1] +
+                  `${t("month")}` +
+                  state.selection1.endDate.toLocaleDateString().split(".")[2] +
+                  `${t("day")}`
+                }`}
+              </CalendarBtn>
+            </CalendarDiv>
 
-          <StartBtn onClick={strBtn}>
-            <span>Start</span>
-          </StartBtn>
+            <TitleInput
+              type="text"
+              placeholder={`${t("startBtnPlaceHolder")}`}
+              required
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+            ></TitleInput>
+
+            <SelectBox name="select" onChange={(e) => selectHandler(e)}>
+              <OptionBox value="11">{t("Seoul")}</OptionBox>
+              <OptionBox value="41">{t("Gyeongi")}</OptionBox>
+              <OptionBox value="42">{t("Gangwon")}</OptionBox>
+              <OptionBox value="44">{t("Chungbuk")}</OptionBox>
+              <OptionBox value="43">{t("Chungnam")}</OptionBox>
+              <OptionBox value="45">{t("Jeonbuk")}</OptionBox>
+              <OptionBox value="46">{t("Jeonnam")}</OptionBox>
+              <OptionBox value="47">{t("Gyeongbuk")}</OptionBox>
+              <OptionBox value="48">{t("Gyeongnam")}</OptionBox>
+              <OptionBox value="50">{t("Jeju")}</OptionBox>
+              <OptionBox value="36">{t("Sejong")}</OptionBox>
+              <OptionBox value="29">{t("Gwangju")}</OptionBox>
+              <OptionBox value="26">{t("Busan")}</OptionBox>
+              <OptionBox value="31">{t("Ulsan")}</OptionBox>
+              <OptionBox value="27">{t("Daegu")}</OptionBox>
+              <OptionBox value="30">{t("Daejeon")}</OptionBox>
+              <OptionBox value="28">{t("Incheon")}</OptionBox>
+            </SelectBox>
+
+            <StartBtn onClick={strBtn}>
+              <span>Start</span>
+            </StartBtn>
+          </div>
           <Player></Player>
         </LeftDiv>
         {/* video */}

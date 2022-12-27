@@ -476,7 +476,7 @@ const Header = () => {
         <></>
       ) : (
         <ChatbotBtn onClick={onChatbot}>
-          <img style={{ width: "60px" }} src="/img/chatbot.png" />
+          <img style={{ width: "50px" }} src="/img/chatbot.png" />
         </ChatbotBtn>
       )}
 
@@ -551,12 +551,12 @@ const ChatbotBtn = styled.button`
   border: none;
   background-color: transparent;
   position: fixed;
-  bottom: 10.5rem;
-  right: 4rem;
+  bottom: 8rem;
+  right: 2rem;
 `;
 
 const ChatbotDiv = styled.div`
-  margin: 8rem;
+  margin: 10rem;
   position: absolute;
   right: 0;
 `;

@@ -8,6 +8,7 @@ import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
+import "../../static/all.css";
 const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -19,11 +20,12 @@ const Board = () => {
   const [keyword, setKeyword] = useState<string>("");
   // 글작성 페이지 이동
   const boardBtn = () => {
-    if (successLogin.length > 0) {
-      navigate("/regist");
-    } else {
-      alert("로그인하고 와라");
-    }
+    navigate("/regist");
+    // if (successLogin.length > 0) {
+    //   navigate("/regist");
+    // } else {
+    //   alert("로그인하고 와라");
+    // }
   };
   useEffect(() => {
     dispatch(fetchGetBoard());

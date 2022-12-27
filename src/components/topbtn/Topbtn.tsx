@@ -37,9 +37,9 @@ function Topbtn() {
 export default Topbtn;
 
 const TopBtnDiv = styled.div`
-  bottom: 6.5rem;
+  bottom: 4.5rem;
   position: fixed;
-  right: 4rem;
+  right: 2rem;
   transition: all 0.4s;
   background-color: transparent;
 `;
@@ -49,7 +49,7 @@ const Topbutton = styled.button`
 `;
 
 const TopBtnImg = styled.img`
-  width: 60px;
+  width: 50px;
   background-color: transparent;
   border: none;
 `;

@@ -9,6 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import {
   fetchDeleteBoard,
   fetchPostBoard,
+  fetchPostBoardRegist,
   fetchPutBoard,
 } from "store/board/boardReducer";
 import { reduxTest } from "store/reduxTest/reduxTestReducer";
@@ -139,18 +140,27 @@ const Regist = () => {
   const userId = useSelector((state: RootState) => state.user.successLogin);
   console.log(userId);
   const registHandler = async () => {
-    await dispatch(
-      fetchPostBoard({
-        title,
-        selected,
-        content: value,
-        id: 0,
-        writer: userId,
-        img,
-      })
-    );
+    // 테스트 등록
+    // await dispatch(
+    //   fetchPostBoard({
+    //     title,
+    //     selected,
+    //     content: value,
+    //     id: 0,
+    //     writer: userId,
+    //     img,
+    //   })
+    // );
     console.log(img);
     navigate("/board");
+    // 진짜 등록
+    await dispatch(
+      fetchPostBoardRegist({
+        userId: 12,
+        title,
+        content: value,
+      })
+    );
   };
 
   const textRef = useRef<any>();

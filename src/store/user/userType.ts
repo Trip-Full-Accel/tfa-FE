@@ -29,3 +29,8 @@ export interface userLogin {
   userId: string;
   pw: string;
 }
+
+export interface KakaoLogin {
+  userCode: string;
+  nickname: string;
+}

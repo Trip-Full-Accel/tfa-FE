@@ -1,14 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxiosMap } from "http/customAxiosForMap";
 import { CustomAxios } from "../../http/customAxios";
-import { AlgoType, Course, MapList, TourList } from "./mapType";
+import {
+  AlgoResultType,
+  AlgoType,
+  Course,
+  MapCreateReal,
+  MapList,
+  TourList,
+} from "./mapType";
 
 /**추천여행지 불러오는 리듀서 */
-export const fetchGetTourList = createAsyncThunk("TOUR/GET", async () => {
-  const response = await CustomAxios("/tour/list", "GET");
-  // console.log(response.data);
-  return response.data;
-});
+export const fetchGetTourList = createAsyncThunk(
+  "TOUR/GET",
+  async (cityCode: number) => {
+    console.log(cityCode);
+    const response = await CustomAxios(`/recommendations/${cityCode}`, "GET");
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 /** 코스이름 create 리듀서 */
 export const fetchPostCourse = createAsyncThunk(
@@ -28,9 +39,22 @@ export const fetchPostCourse = createAsyncThunk(
 export const fetchPostMapAlgorithm = createAsyncThunk(
   "ALGORITHM/POST",
   async (payload: AlgoType) => {
-    console.log(payload);
+    // console.log(payload);
     const { data } = await CustomAxiosMap("/courses/create", "POST", payload);
     console.log(data);
+
+    // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
+    return data;
+  }
+);
+
+/** 맵 진짜 생성 테스트 */
+export const fetchPostMapReal = createAsyncThunk(
+  "REAL/POST",
+  async (payload: MapCreateReal) => {
+    console.log(payload);
+    const { data } = await CustomAxiosMap("/places", "POST", payload);
+    console.log("asdfsadfasdf", data);
 
     // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
     return data;
@@ -45,7 +69,7 @@ interface initialType {
   tourList: TourList[];
   selectedTourList: TourList[];
   selectedPoints: TourList[];
-  succuessAlgorithm: AlgoType[];
+  succuessAlgorithm: AlgoResultType[];
   status: Status;
   error: Error;
 }
@@ -95,6 +119,7 @@ const mapReducer = createSlice({
       })
       .addCase(fetchGetTourList.fulfilled, (state, action) => {
         state.tourList = action.payload;
+        console.log(state.tourList);
       });
   },
 });

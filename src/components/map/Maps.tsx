@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "reactstrap";
-import { fetchPostMapAlgorithm } from "store/map/mapReducer";
+import { fetchPostMapAlgorithm, fetchPostMapReal } from "store/map/mapReducer";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/side.css";
@@ -26,9 +26,8 @@ interface travelPoint {
 
 const Maps = () => {
   const location = useLocation();
-  const cityCode = location.state.cityCode;
+  const cityCode = location.state?.cityCode;
 
-  const days = location.state.days;
   const [markers, setMarkers] = useState([
     {
       // 서울 시청 좌표
@@ -71,7 +70,7 @@ const Maps = () => {
     });
   }, [location.state]);
 
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [addr, setAddr] = useState([{ name: "서울시청" }]);
 
   const getAddr = (lat: number, lng: number) => {
@@ -92,52 +91,67 @@ const Maps = () => {
   const algorithm = useSelector(
     (state: RootState) => state.map.selectedTourList
   );
-  console.log("알고리즘짤 경로", algorithm[0]);
+  console.log("알고리즘짤 보내줄 경로", algorithm[0]);
   // console.log("알고리즘짤 경로", algorithm[1].city);
   // console.log("알고리즘짤 경로", algorithm[2].city);
   // console.log("알고리즘짤 경로", algorithm[3].city);
   // console.log("알고리즘짤 경로", algorithm[4].city);
   // console.log("알고리즘짤 경로", algorithm[5].city);
   const dispatch = useDispatch<AppDispatch>();
+
+  const result = useSelector((state: RootState) => state.map.succuessAlgorithm);
+  // console.log("result", result.courseResponseList);
+  // const successAlgo = result.courseResponseList
+  console.log("result", result);
+  // console.log("result", result[0]);
+  // setMarkers([
+  //         ...markers,
+  //         {
+  //         position: {
+  //         lat: result[0]?.lat,
+  //         lng: result[0].lng,
+  //         },
+  //         },
+  //         ]);
+
   const [checkConfirm, setCheckConfirm] = useState(false);
   const createMaps = () => {
     if (window.confirm("첫번째 여행지가 맞음?")) {
       setCheckConfirm(true);
+      setIsVisible(true);
       console.log("확인");
       if (algorithm.length === 1) {
         dispatch(
           fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].city,
+            firstCourseName: algorithm[0].name,
             firstCourseLat: algorithm[0].lat,
             firstCourseLng: algorithm[0].lng,
             otherCourseNames: "",
             otherCourseLats: "",
             otherCourseLngs: "",
           })
-        )
-          .unwrap()
-          .then(
-            (res) => console.log("알고리즘 반환받고 까서써야되는 res", res)
+        ).then(
+          (res) => console.log("반환받고 까서써야되는 res", res)
 
-            // res[0][0].lat , res[0][0].lng
-            // res[0][1].lat , res[0][1].lng
-            //setMarkers([
-            // ...markers,
-            // {
-            // position: {
-            // lat: res[0][0].lat,
-            // lng: res[0][0].lng,
-            // },
-            // },
-            // ]);
-          ); // res 보고 어떻게 까서 setMarkers 할지 생각
+          // res[0][0].lat , res[0][0].lng
+          // res[0][1].lat , res[0][1].lng
+          // setMarkers([
+          // ...markers,
+          // {
+          // position: {
+          // lat: res[0].lat,
+          // lng: res[0].lng,
+          // },
+          // },
+          // ]);
+        ); // res 보고 어떻게 까서 setMarkers 할지 생각
       } else if (algorithm.length === 2) {
         dispatch(
           fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].city,
+            firstCourseName: algorithm[0].name,
             firstCourseLat: algorithm[0].lat,
             firstCourseLng: algorithm[0].lng,
-            otherCourseNames: algorithm[1].city,
+            otherCourseNames: algorithm[1].name,
             otherCourseLats: algorithm[1].lat,
             otherCourseLngs: algorithm[1].lng,
           })
@@ -145,10 +159,10 @@ const Maps = () => {
       } else if (algorithm.length === 3) {
         dispatch(
           fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].city,
+            firstCourseName: algorithm[0].name,
             firstCourseLat: algorithm[0].lat,
             firstCourseLng: algorithm[0].lng,
-            otherCourseNames: [algorithm[1].city, algorithm[2].city],
+            otherCourseNames: [algorithm[1].name, algorithm[2].name],
             otherCourseLats: [algorithm[1].lat, algorithm[2].lat],
             otherCourseLngs: [algorithm[1].lng, algorithm[2].lng],
           })
@@ -156,13 +170,13 @@ const Maps = () => {
       } else if (algorithm.length === 4) {
         dispatch(
           fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].city,
+            firstCourseName: algorithm[0].name,
             firstCourseLat: algorithm[0].lat,
             firstCourseLng: algorithm[0].lng,
             otherCourseNames: [
-              algorithm[1].city,
-              algorithm[2].city,
-              algorithm[3].city,
+              algorithm[1].name,
+              algorithm[2].name,
+              algorithm[3].name,
             ],
             otherCourseLats: [
               algorithm[1].lat,
@@ -179,14 +193,14 @@ const Maps = () => {
       } else if (algorithm.length === 5) {
         dispatch(
           fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].city,
+            firstCourseName: algorithm[0].name,
             firstCourseLat: algorithm[0].lat,
             firstCourseLng: algorithm[0].lng,
             otherCourseNames: [
-              algorithm[1].city,
-              algorithm[2].city,
-              algorithm[3].city,
-              algorithm[4].city,
+              algorithm[1].name,
+              algorithm[2].name,
+              algorithm[3].name,
+              algorithm[4].name,
             ],
             otherCourseLats: [
               algorithm[1].lat,
@@ -205,15 +219,15 @@ const Maps = () => {
       } else if (algorithm.length === 6) {
         dispatch(
           fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].city,
+            firstCourseName: algorithm[0].name,
             firstCourseLat: algorithm[0].lat,
             firstCourseLng: algorithm[0].lng,
             otherCourseNames: [
-              algorithm[1].city,
-              algorithm[2].city,
-              algorithm[3].city,
-              algorithm[4].city,
-              algorithm[5].city,
+              algorithm[1].name,
+              algorithm[2].name,
+              algorithm[3].name,
+              algorithm[4].name,
+              algorithm[5].name,
             ],
             otherCourseLats: [
               algorithm[1].lat,
@@ -230,6 +244,20 @@ const Maps = () => {
               algorithm[5].lng,
             ],
           })
+        ).then((res: any) =>
+          // res.payload.courseResponseList[0].lat
+          res.payload.courseResponseList.map((el: any) => {
+            // setMarkers([
+            //   ...markers,
+            //   {
+            //     position: {
+            //       lat: el.lat,
+            //       lng: el.lng,
+            //     },
+            //   },
+            // ]);
+            console.log(el);
+          })
         );
       }
     } else {
@@ -238,6 +266,20 @@ const Maps = () => {
   };
   const navigate = useNavigate();
   const realCreateCourse = () => {
+    dispatch(
+      fetchPostMapReal({
+        courseId: 1,
+        registerPlaceRequestList: [
+          {
+            lat: 0,
+            lng: 0,
+            pathOrder: 0,
+            placeName: "string",
+          },
+        ],
+        userId: 1,
+      })
+    );
     if (checkConfirm) {
       alert("당신의 여행지가 만들어졌습니다 확인해보시고 공유하든가말든가");
       navigate("/");
@@ -263,6 +305,12 @@ const Maps = () => {
     documentTitle: "TFA-Course",
     onAfterPrint: () => alert("pdf 파일 생성완료! "),
   });
+
+  const shareKakao = () => {
+    window.Kakao.Link.sendCustom({
+      templateId: 86680, // 내가 만든 템플릿 아이디를 넣어주면 된다
+    });
+  };
   return (
     <MapPageDiv ref={mapRef}>
       <Snowfall
@@ -275,8 +323,8 @@ const Maps = () => {
       />
       <SelectListDiv>
         <div style={{ textAlign: "start" }}>
-          날짜: {location.state.date}
-          <br /> 여행제목: {location.state.title}
+          날짜: {location.state?.date}
+          <br /> 여행제목: {location.state?.title}
         </div>
         <SelectDiv>
           <Points markers={markers}></Points>
@@ -288,6 +336,12 @@ const Maps = () => {
         >
           경로만들기
         </Button>
+        <button onClick={shareKakao}>
+          <img
+            src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+            alt="카카오링크 보내기 버튼"
+          />
+        </button>
         <Button onClick={handlePDF}>PDF 생성하기</Button>
         {checkConfirm === true ? (
           <Button1 onClick={realCreateCourse}>done</Button1>
@@ -344,13 +398,16 @@ const Maps = () => {
             path={[
               selected.map((data) => {
                 // const { lat, lng } = data;
-                return { lat: Number(data.lat), lng: Number(data.lng) };
+                return {
+                  lat: Number(data.lat),
+                  lng: Number(data.lng),
+                };
               }),
             ]}
-            strokeWeight={10} // 두께
-            strokeColor={"#1296ef"} // 색
+            strokeWeight={6} // 두께
+            strokeColor={"#000d16"} // 색
             strokeOpacity={0.6} // 불투명도
-            strokeStyle={"longdash"} // 스타일
+            strokeStyle={"solid"} // 스타일
           />
         </Map>
       </MapDiv>

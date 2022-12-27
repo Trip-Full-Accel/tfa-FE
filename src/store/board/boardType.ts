@@ -20,3 +20,10 @@ export interface BoardUpdate {
 export interface BoardSearch {
   keyword?: string | null;
 }
+
+////
+export interface BoardListReal {
+  userId: number;
+  title: string;
+  content: string;
+}

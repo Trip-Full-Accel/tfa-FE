@@ -17,6 +17,7 @@ import {
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
+import { walkUpBindingElementsAndPatterns } from "typescript";
 
 const BoardDetail = () => {
   // useLocation Test 기존에 pathName말고도 state에 값 담을수 있음
@@ -27,14 +28,11 @@ const BoardDetail = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [selected, setSelected] = useState<string>();
+  const userLoginId = localStorage.getItem("userId");
 
   const { boardId } = useParams();
   useEffect(() => {
-    console.log("tlfgod");
     dispatch(fetchGetDetail(String(boardId)));
-    // console.log("디테일 페이지 리절트", result);
-    // const realData = result.unwrap().then((res) => res.payload);
-    // console.log("디테일 리얼데이터", realData);
   }, []);
   // setBoardDetail();
   console.log(boardId);
@@ -69,16 +67,21 @@ const BoardDetail = () => {
   console.log("loc", local);
 
   const linkTo = (path: string) => {
-    navigate(path);
+    navigate(path, {
+      state: {
+        id: boardId,
+      },
+    });
   };
+
   // console.log("wirter", boardDetailReturn[0].writer);
   // console.log("wirter", boardDetailReturn[0].writer);
   return (
     <>
       <Snowfall color="white" snowflakeCount={200} />
-      {boardDetailReturn.map((detail) =>
-        userId == detail.writer ? (
-          <BoardDiv key={detail.title}>
+      {boardDetailReturn.map((detail, i) =>
+        userId == detail.writer && userLoginId !== null ? (
+          <BoardDiv key={i}>
             <Detaildiv>
               <Titlediv>
                 {detail.title}
@@ -112,6 +115,7 @@ const BoardDetail = () => {
                   <Button
                     onClick={() => {
                       linkTo("/board");
+                      // navigate(-1);
                     }}
                   >
                     목록
@@ -152,6 +156,7 @@ const BoardDetail = () => {
               >
                 <Button
                   onClick={() => {
+                    // navigate(-1);
                     linkTo("/board");
                   }}
                 >

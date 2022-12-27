@@ -1,14 +1,41 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "./Pagenation.css";
 const BList = (props: any) => {
+  const loc = useLocation();
+  // const his = useNavigate()
+  console.log(props);
+
+  console.log(props.history);
   const { data, keyword, searchKey, select } = props;
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
+
   const itemsPerPage = 6;
+  const cashePage = () => {
+    const id = localStorage.getItem("pageId");
+    console.log(id);
+
+    if (id) {
+      const index = data.findIndex((el: any) => el.id === Number(id));
+      // setItemOffset(parseInt(index / itemsPerPage + "") * itemsPerPage);
+
+      const res = parseInt(index / itemsPerPage + "") * itemsPerPage;
+      return res;
+    } else {
+      return 0;
+    }
+  };
+
+  useEffect(() => {
+    // const id = localStorage.getItem("pageId");
+    // localStorage.removeItem("pageId");
+  }, [cashePage]);
+  const [itemOffset, setItemOffset] = useState(cashePage());
+  // const userLogin = localStorage.getItem("userId");
+
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     console.log(select);
@@ -59,6 +86,7 @@ const BList = (props: any) => {
   };
   const navigate = useNavigate();
   const goDetail = (id: number) => {
+    localStorage.setItem("pageId", String(id));
     console.log(id);
     navigate(`/boardDetail/${id}`, {
       state: id,
@@ -85,7 +113,7 @@ const BList = (props: any) => {
               })
           : currentItems.map((el: any) => {
               return (
-                <ContentDiv onClick={() => goDetail(el.id)} key={el.title}>
+                <ContentDiv onClick={() => goDetail(el.id)} key={el.id}>
                   <TitleDiv>{el.title}</TitleDiv>
                   {/* <div>{el.content}</div> */}
                   {/* <div>{el.writer}</div> */}
@@ -109,6 +137,8 @@ const BList = (props: any) => {
           previousLabel="< 이전"
           // renderOnZeroPageCount={null}
           breakLabel={"~"}
+          // initialPage={parseInt(itemOffset / itemsPerPage + "")}
+          forcePage={parseInt(itemOffset / itemsPerPage + "")}
           /////////
           activeClassName={"item active "}
           breakClassName={"item break-me "}

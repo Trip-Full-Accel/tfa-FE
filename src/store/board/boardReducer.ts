@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { BoardList, BoardSearch } from "./boardType";
+import { BoardList, BoardListReal, BoardSearch } from "./boardType";
 
 /** 전체글 list 요청 리듀서 */
 export const fetchGetBoard = createAsyncThunk("BOARD/GET", async () => {
-  const response = await CustomAxios("/post/list", "GET");
+  const response = await CustomAxios("/posts", "POST");
+  console.log(response);
   return response.data;
 });
 
@@ -56,6 +57,17 @@ export const fetchPutBoard = createAsyncThunk(
       "PUT",
       payload
     );
+    console.log(data);
+    return data;
+  }
+);
+
+////////// Real 글 등록
+export const fetchPostBoardRegist = createAsyncThunk(
+  "BOARDREGIST/POST",
+  async (payload: BoardListReal) => {
+    console.log(payload);
+    const { data } = await CustomAxios(`/posts`, "POST", payload);
     console.log(data);
     return data;
   }

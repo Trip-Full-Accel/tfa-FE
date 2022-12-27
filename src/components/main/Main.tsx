@@ -80,9 +80,16 @@ const Main = () => {
   const [text, setText] = useState("");
   const localUserId = localStorage.getItem("userId");
   const strBtn = () => {
+    console.log(localStorage.getItem("kakaoId"));
+    console.log(text);
+
     dispatch(
-      fetchPostCourse({ userId: Number(localUserId), courseName: text })
+      fetchPostCourse({
+        userId: 12,
+        courseName: text,
+      })
     );
+    console.log(selected);
     if (text.length > 0) {
       navigate("/maps", {
         state: {
@@ -132,7 +139,7 @@ const Main = () => {
     }
   };
 
-  const [selected, setSelected] = useState<string>("서울");
+  const [selected, setSelected] = useState<string>("11");
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(e.target.value);
   };

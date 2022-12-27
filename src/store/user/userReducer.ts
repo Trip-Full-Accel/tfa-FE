@@ -1,12 +1,29 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { findUserPw, User, userInfoUpdate, userLogin } from "./userType";
+import {
+  findUserPw,
+  KakaoLogin,
+  User,
+  userInfoUpdate,
+  userLogin,
+} from "./userType";
 
 /** 유저 정보 가져오는 리듀서*/
 export const fetchGetUserInfo = createAsyncThunk("USERINFO/GET", async () => {
   const response = await CustomAxios("/user/info", "GET");
   return response.data;
 });
+
+/** 카톡 로그인 */
+export const fetchPostKakao = createAsyncThunk(
+  // console.log(payload)
+  "KAKAO/POST",
+  async (payload: KakaoLogin) => {
+    console.log(payload);
+    const { data } = await CustomAxios("/users", "POST", payload);
+    return data;
+  }
+);
 
 /** 로그인 리듀서 */
 export const fetchPostLogin = createAsyncThunk(
@@ -44,7 +61,7 @@ export const fetchPostUserJoin = createAsyncThunk(
   "USERJOIN/POST",
   async (payload: User) => {
     console.log(payload);
-    const { data } = await CustomAxios("/users", "POST", payload);
+    const { data } = await CustomAxios("/user/join", "POST", payload);
     console.log(data.userId);
     return data.userId;
   }
@@ -103,6 +120,8 @@ interface initialType {
   error: Error;
   successLogin: string;
   logout: string;
+  successKakao: string;
+  failKakao: string;
 }
 const initialState: initialType = {
   user: [],
@@ -114,6 +133,8 @@ const initialState: initialType = {
   error: "null",
   successLogin: "",
   logout: "",
+  successKakao: "",
+  failKakao: "",
 };
 
 const userReducer = createSlice({
@@ -156,6 +177,21 @@ const userReducer = createSlice({
         state.successLogin = action.payload;
         localStorage.setItem("userId", state.successLogin);
         // console.log("payload" + action.payload);
+      })
+      // 카톡 성공시 스테이트에 값 담음
+      .addCase(fetchPostKakao.fulfilled, (state, action) => {
+        state.successKakao = action.payload;
+        localStorage.setItem("kakaoId", state.successLogin);
+        console.log("payload" + action.payload);
+      })
+      // 카톡 성공시 스테이트에 값 담음
+      .addCase(fetchPostKakao.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        const fail = action.payload;
+
+        console.log(state.error);
+        console.log(action.error);
       })
 
       // 로그아웃 성공시에 스테이트에 널값할당

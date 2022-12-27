@@ -6,8 +6,8 @@ import "../music/music.css";
 const Player = () => {
   const musicList = ["ali", "christmas", "iu", "crush1", "miyazaki"];
 
-  const aa = Math.random() * 6;
-  console.log(aa);
+  let random = Math.round(Math.random() * 4);
+  console.log(random);
   return (
     <AudioPlayer
       // style={{
@@ -19,7 +19,7 @@ const Player = () => {
       //   border: "2px solid",
       // }}
       className="musicPlayer"
-      src="/music/crush1.mp3"
+      src="/music/christmas.mp3"
     />
   );
 };

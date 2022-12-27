@@ -13,13 +13,7 @@
 }
 @font-face {
   font-family: "KNPSKkomi";
-  font-display: fallback;
-
   src: url(./KNPSKkomi.otf) format(truetype);
   unicode-range: U+0061-007A, U+0041-005A;
   font-style: normal;
-}
-
-body {
-  font-family: "KNPSBandali", "KNPSKkomi";
 }

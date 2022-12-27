@@ -12,7 +12,6 @@
   width: 50%;
   font-size: 24px;
   border: none;
-  position: inherit;
 }
 
 .react-tabs__tab-panel {
@@ -21,4 +20,7 @@
 }
 .react-tabs__tab--selected {
   border: none;
+}
+.react-tabs__tab--selected:focus {
+  display: none;
 }

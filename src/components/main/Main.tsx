@@ -24,6 +24,10 @@ interface dataType {
 const Main = () => {
   const [show, setShow] = useState(false);
 
+  const [selected, setSelected] = useState<string>("choice");
+  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelected(e.target.value);
+  };
   const navigate = useNavigate();
   // const reduxData = useSelector((state: RootState) => state.user.userId);
   // const local = localStorage.getItem("userId");
@@ -81,7 +85,7 @@ const Main = () => {
     dispatch(
       fetchPostCourse({ userId: Number(localUserId), courseName: text })
     );
-    if (text.length > 0) {
+    if (selected !== "choice" && text.length > 0) {
       navigate("/maps", {
         state: {
           date: `${
@@ -100,7 +104,7 @@ const Main = () => {
         },
       });
     } else {
-      alert("제목.");
+      alert("지역 또는 제목을 입력해주세요");
     }
   };
 
@@ -120,10 +124,6 @@ const Main = () => {
 
   const testid = localStorage.getItem("userId");
 
-  const [selected, setSelected] = useState<string>("서울");
-  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelected(e.target.value);
-  };
   const [threeValue, setThreeValue] = useState<any>("");
   const valueHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setThreeValue(e.target.value);
@@ -194,6 +194,7 @@ const Main = () => {
 
             <ValueDiv>
               <SelectBox name="select" onChange={(e) => selectHandler(e)}>
+                <DefaultOption value="choice">{t("choice")}</DefaultOption>
                 <OptionBox value="11">{t("Seoul")}</OptionBox>
                 <OptionBox value="41">{t("Gyeongi")}</OptionBox>
                 <OptionBox value="42">{t("Gangwon")}</OptionBox>
@@ -380,7 +381,7 @@ const TitleInput = styled.input`
   width: 230px;
   height: 50px;
   border: none;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
 `;
 
 const IconSpan = styled.span`
@@ -399,11 +400,17 @@ const SelectBox = styled.select`
   width: 70px;
   height: 50px;
   display: inline-block;
-  border-radius: 0.375rem;
+  border-radius: 10px 0 0 10px;
   border: 1px solid #ced4da;
+  background-color: #ccccff;
+  cursor: pointer;
 `;
 
 const OptionBox = styled.option`
   border-radius: 0.375rem;
   border: 1px solid #ced4da;
+`;
+
+const DefaultOption = styled.option`
+  display: none;
 `;

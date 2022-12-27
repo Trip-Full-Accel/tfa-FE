@@ -110,32 +110,32 @@ const BoardDetail = () => {
                   }}
                 ></pre>
               </Contentdiv>
-              <Btndiv>
+              <BtnDiv>
                 <div style={{ margin: "0" }}>
-                  <Button
-                    style={{ marginRight: "10px" }}
-                    onClick={() => deleteHandler()}
-                  >
-                    삭 제
-                  </Button>
+                  <Button onClick={() => deleteHandler()}>삭 제</Button>&nbsp;
                   <Button onClick={() => updateHandler(detail)}>수 정</Button>
                 </div>
-                <div>
-                  <Button>
-                    좋아요 &nbsp; 1 &nbsp;
-                    <i className="xi-heart xi-x" />
-                  </Button>
-                </div>
-                <div style={{ margin: "0" }}>
-                  <Button
-                    onClick={() => {
-                      linkTo("/board");
-                    }}
-                  >
-                    목 록
-                  </Button>
-                </div>
-              </Btndiv>
+                {like === false ? (
+                  <LikeBtn onClick={likeBtn}>
+                    좋아요 &nbsp;
+                    <i className="xi-heart-o" />0
+                  </LikeBtn>
+                ) : (
+                  <div>
+                    <LikeBtn onClick={likeBtn}>
+                      좋아요 &nbsp;
+                      <i className="xi-heart " />1
+                    </LikeBtn>
+                  </div>
+                )}
+                <Button
+                  onClick={() => {
+                    linkTo("/board");
+                  }}
+                >
+                  목 록
+                </Button>
+              </BtnDiv>
             </Detaildiv>
           </BoardDiv>
         ) : (
@@ -165,13 +165,13 @@ const BoardDetail = () => {
                   {like === false ? (
                     <LikeBtn onClick={likeBtn}>
                       좋아요 &nbsp;
-                      <i className="xi-heart-o" />
+                      <i className="xi-heart-o" />0
                     </LikeBtn>
                   ) : (
                     <div>
                       <LikeBtn onClick={likeBtn}>
                         좋아요 &nbsp;
-                        <i className="xi-heart " />
+                        <i className="xi-heart " />1
                       </LikeBtn>
                     </div>
                   )}
@@ -239,7 +239,7 @@ const Contentdiv = styled.div`
   min-height: 30rem;
 `;
 
-const Btndiv = styled.div`
+const BtnDiv = styled.div`
   display: flex;
   justify-content: space-between;
   text-align: start;

@@ -132,7 +132,7 @@ const Regist = () => {
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [selected, setSelected] = useState<string>("리뷰");
+  const [selected, setSelected] = useState<string>("말머리 선택");
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -149,8 +149,11 @@ const Regist = () => {
         img,
       })
     );
-    console.log(img);
-    navigate("/board");
+    if (selected === "리뷰" || selected === "모집") {
+      navigate("/board");
+    } else {
+      alert("말머리를 선택해주세요");
+    }
   };
 
   const textRef = useRef<any>();
@@ -196,6 +199,7 @@ const Regist = () => {
               }}
             ></InputTitle>
             <SelectBox name="select" onChange={(e) => selectHandler(e)}>
+              <DefaultOption value="">선 택</DefaultOption>
               <OptionBox value="리뷰">리 뷰</OptionBox>
               <OptionBox value="모집">모 집</OptionBox>
             </SelectBox>
@@ -323,6 +327,7 @@ const SelectBox = styled.select`
   color: white;
   font-size: 17px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 const OptionBox = styled.option`
@@ -334,4 +339,8 @@ const BottomDiv = styled.div`
   display: flex;
   margin: 2rem 0 2rem 0;
   justify-content: space-between;
+`;
+
+const DefaultOption = styled.option`
+  display: none;
 `;

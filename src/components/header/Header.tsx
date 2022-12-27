@@ -475,7 +475,7 @@ const Header = () => {
           </MDBRow>
         </MDBCard>
       </Modal>
-      {loc === "/mypage" ? (
+      {loc === "/mypage" || loc === "/maps" ? (
         <></>
       ) : (
         <ChatbotBtn onClick={onChatbot}>

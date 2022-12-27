@@ -165,5 +165,6 @@ const userReducer = createSlice({
   },
 });
 
+export const { loginNick } = userReducer.actions;
 export default userReducer.reducer;
 // export const { session } = userReducer.actions;

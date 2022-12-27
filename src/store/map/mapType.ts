@@ -5,9 +5,9 @@ export interface MapList {
   firstCourseName: string;
   firstCourseLat: any;
   firstCourseLng: any;
-  otherCourseNames: string[];
-  otherCourseLats: any[];
-  otherCourseLngs: any[];
+  otherCourseNames: any[""] | null;
+  otherCourseLats: any[""] | null;
+  otherCourseLngs: any[""] | null;
 }
 
 export interface Course {
@@ -31,4 +31,15 @@ export interface TestT {
     lat?: string | number | null;
     lng?: string | number | null;
   };
+}
+
+export interface AlgoType {
+  userId?: number | null;
+  courseId?: number | null;
+  firstCourseName: string;
+  firstCourseLat: any;
+  firstCourseLng: any;
+  otherCourseNames: any[""] | null;
+  otherCourseLats: any[""] | null;
+  otherCourseLngs: any[""] | null;
 }

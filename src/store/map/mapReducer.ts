@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxiosMap } from "http/customAxiosForMap";
 import { CustomAxios } from "../../http/customAxios";
-import { Course, MapList, TourList } from "./mapType";
+import { AlgoType, Course, MapList, TourList } from "./mapType";
 
 /**추천여행지 불러오는 리듀서 */
 export const fetchGetTourList = createAsyncThunk("TOUR/GET", async () => {
@@ -24,10 +24,10 @@ export const fetchPostCourse = createAsyncThunk(
   }
 );
 
-/** 맵 create 리듀서 */
-export const fetchPostMap = createAsyncThunk(
-  "MAP/POST",
-  async (payload: MapList) => {
+/** 알고리즘 create 리듀서 */
+export const fetchPostMapAlgorithm = createAsyncThunk(
+  "ALGORITHM/POST",
+  async (payload: AlgoType) => {
     console.log(payload);
     const { data } = await CustomAxiosMap("/courses/create", "POST", payload);
     console.log(data);
@@ -45,6 +45,7 @@ interface initialType {
   tourList: TourList[];
   selectedTourList: TourList[];
   selectedPoints: TourList[];
+  succuessAlgorithm: AlgoType[];
   status: Status;
   error: Error;
 }
@@ -53,6 +54,7 @@ const initialState: initialType = {
   tourList: [],
   selectedTourList: [],
   selectedPoints: [],
+  succuessAlgorithm: [],
 
   status: "idle",
   error: "null",
@@ -76,18 +78,18 @@ const mapReducer = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchPostMap.pending, (state, action) => {
+      .addCase(fetchPostMapAlgorithm.pending, (state, action) => {
         state.status = "loading";
         // console.log(action);
       })
-      .addCase(fetchPostMap.fulfilled, (state, action) => {
+      .addCase(fetchPostMapAlgorithm.fulfilled, (state, action) => {
         state.status = "succeeded";
 
         // 건호님이 보내주는 반환데이터 저장후에 maps 페이지 에서 꺼내서 써야함
-        state.maps = action.payload;
+        state.succuessAlgorithm = action.payload;
         // console.log(action.payload);
       })
-      .addCase(fetchPostMap.rejected, (state, action) => {
+      .addCase(fetchPostMapAlgorithm.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })

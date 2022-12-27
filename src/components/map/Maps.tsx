@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
+import { useReactToPrint } from "react-to-print";
 import { Button } from "reactstrap";
-import { fetchPostMap } from "store/map/mapReducer";
+import { fetchPostMapAlgorithm } from "store/map/mapReducer";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/side.css";
@@ -25,6 +26,8 @@ interface travelPoint {
 
 const Maps = () => {
   const location = useLocation();
+  const cityCode = location.state.cityCode;
+
   const days = location.state.days;
   const [markers, setMarkers] = useState([
     {
@@ -86,29 +89,182 @@ const Maps = () => {
     return addr;
   };
 
+  const algorithm = useSelector(
+    (state: RootState) => state.map.selectedTourList
+  );
+  console.log("알고리즘짤 경로", algorithm[0]);
+  // console.log("알고리즘짤 경로", algorithm[1].city);
+  // console.log("알고리즘짤 경로", algorithm[2].city);
+  // console.log("알고리즘짤 경로", algorithm[3].city);
+  // console.log("알고리즘짤 경로", algorithm[4].city);
+  // console.log("알고리즘짤 경로", algorithm[5].city);
   const dispatch = useDispatch<AppDispatch>();
+  const [checkConfirm, setCheckConfirm] = useState(false);
   const createMaps = () => {
-    dispatch(
-      fetchPostMap({
-        firstCourseName: "서울",
-        otherCourseNames: ["경기", "대구", "속초", "대전"],
-        firstCourseLat: 37.56070556,
-        firstCourseLng: 126.9105306,
-        otherCourseLats: [37.65590833, 35.82692778, 35.80361, 37.39444],
-        otherCourseLngs: [126.7770556, 128.5350639, 126.88083, 126.95556],
-      })
-    );
-    alert("첫번째 여행지가 x 맞음?");
+    if (window.confirm("첫번째 여행지가 맞음?")) {
+      setCheckConfirm(true);
+      console.log("확인");
+      if (algorithm.length === 1) {
+        dispatch(
+          fetchPostMapAlgorithm({
+            firstCourseName: algorithm[0].city,
+            firstCourseLat: algorithm[0].lat,
+            firstCourseLng: algorithm[0].lng,
+            otherCourseNames: "",
+            otherCourseLats: "",
+            otherCourseLngs: "",
+          })
+        )
+          .unwrap()
+          .then(
+            (res) => console.log("알고리즘 반환받고 까서써야되는 res", res)
+
+            // res[0][0].lat , res[0][0].lng
+            // res[0][1].lat , res[0][1].lng
+            //setMarkers([
+            // ...markers,
+            // {
+            // position: {
+            // lat: res[0][0].lat,
+            // lng: res[0][0].lng,
+            // },
+            // },
+            // ]);
+          ); // res 보고 어떻게 까서 setMarkers 할지 생각
+      } else if (algorithm.length === 2) {
+        dispatch(
+          fetchPostMapAlgorithm({
+            firstCourseName: algorithm[0].city,
+            firstCourseLat: algorithm[0].lat,
+            firstCourseLng: algorithm[0].lng,
+            otherCourseNames: algorithm[1].city,
+            otherCourseLats: algorithm[1].lat,
+            otherCourseLngs: algorithm[1].lng,
+          })
+        );
+      } else if (algorithm.length === 3) {
+        dispatch(
+          fetchPostMapAlgorithm({
+            firstCourseName: algorithm[0].city,
+            firstCourseLat: algorithm[0].lat,
+            firstCourseLng: algorithm[0].lng,
+            otherCourseNames: [algorithm[1].city, algorithm[2].city],
+            otherCourseLats: [algorithm[1].lat, algorithm[2].lat],
+            otherCourseLngs: [algorithm[1].lng, algorithm[2].lng],
+          })
+        );
+      } else if (algorithm.length === 4) {
+        dispatch(
+          fetchPostMapAlgorithm({
+            firstCourseName: algorithm[0].city,
+            firstCourseLat: algorithm[0].lat,
+            firstCourseLng: algorithm[0].lng,
+            otherCourseNames: [
+              algorithm[1].city,
+              algorithm[2].city,
+              algorithm[3].city,
+            ],
+            otherCourseLats: [
+              algorithm[1].lat,
+              algorithm[2].lat,
+              algorithm[3].lat,
+            ],
+            otherCourseLngs: [
+              algorithm[1].lng,
+              algorithm[2].lng,
+              algorithm[3].lng,
+            ],
+          })
+        );
+      } else if (algorithm.length === 5) {
+        dispatch(
+          fetchPostMapAlgorithm({
+            firstCourseName: algorithm[0].city,
+            firstCourseLat: algorithm[0].lat,
+            firstCourseLng: algorithm[0].lng,
+            otherCourseNames: [
+              algorithm[1].city,
+              algorithm[2].city,
+              algorithm[3].city,
+              algorithm[4].city,
+            ],
+            otherCourseLats: [
+              algorithm[1].lat,
+              algorithm[2].lat,
+              algorithm[3].lat,
+              algorithm[4].lat,
+            ],
+            otherCourseLngs: [
+              algorithm[1].lng,
+              algorithm[2].lng,
+              algorithm[3].lng,
+              algorithm[4].lng,
+            ],
+          })
+        );
+      } else if (algorithm.length === 6) {
+        dispatch(
+          fetchPostMapAlgorithm({
+            firstCourseName: algorithm[0].city,
+            firstCourseLat: algorithm[0].lat,
+            firstCourseLng: algorithm[0].lng,
+            otherCourseNames: [
+              algorithm[1].city,
+              algorithm[2].city,
+              algorithm[3].city,
+              algorithm[4].city,
+              algorithm[5].city,
+            ],
+            otherCourseLats: [
+              algorithm[1].lat,
+              algorithm[2].lat,
+              algorithm[3].lat,
+              algorithm[4].lat,
+              algorithm[5].lat,
+            ],
+            otherCourseLngs: [
+              algorithm[1].lng,
+              algorithm[2].lng,
+              algorithm[3].lng,
+              algorithm[4].lng,
+              algorithm[5].lng,
+            ],
+          })
+        );
+      }
+    } else {
+      console.log("취소");
+    }
   };
+  const navigate = useNavigate();
+  const realCreateCourse = () => {
+    if (checkConfirm) {
+      alert("당신의 여행지가 만들어졌습니다 확인해보시고 공유하든가말든가");
+      navigate("/");
+    } else {
+      alert("경로확정을 지으세요");
+    }
+  };
+
+  const doneAlgo = useSelector(
+    (state: RootState) => state.map.succuessAlgorithm
+  );
 
   const mapData = useSelector((state: RootState) => state.map.maps);
   // console.log(mapData);
   const selected = useSelector(
     (state: RootState) => state.map.selectedTourList
   );
-  const onLoadMore = () => {};
+
+  const mapRef = useRef<any>();
+  const handlePDF = useReactToPrint({
+    content: () => mapRef.current,
+
+    documentTitle: "TFA-Course",
+    onAfterPrint: () => alert("pdf 파일 생성완료! "),
+  });
   return (
-    <MapPageDiv>
+    <MapPageDiv ref={mapRef}>
       <Snowfall
         // Changes the snowflake color
         color="#b5b0d0"
@@ -132,6 +288,12 @@ const Maps = () => {
         >
           경로만들기
         </Button>
+        <Button onClick={handlePDF}>PDF 생성하기</Button>
+        {checkConfirm === true ? (
+          <Button1 onClick={realCreateCourse}>done</Button1>
+        ) : (
+          <Button2 onClick={realCreateCourse}>done</Button2>
+        )}
       </SelectListDiv>
 
       <MapDiv>
@@ -209,7 +371,11 @@ const Maps = () => {
             </div>
           );
         })} */}
-        <MapTest setMarkers={setMarkers} markers={markers}></MapTest>
+        <MapTest
+          setMarkers={setMarkers}
+          markers={markers}
+          cityCode={cityCode}
+        ></MapTest>
       </TourListTopDiv>
     </MapPageDiv>
   );
@@ -266,3 +432,26 @@ const TListDiv = styled.div``;
 const TNameDiv = styled.div``;
 const TImgDiv = styled.div``;
 const TContentDiv = styled.div``;
+
+const Button1 = styled.button`
+  :disabled {
+    background-color: darkgrey;
+  }
+  margin-top: 40px;
+  border-radius: 8px;
+  width: 100px;
+  height: 50px;
+  border: none;
+  color: white;
+  background-color: #7c74ab;
+`;
+
+const Button2 = styled.button`
+  margin-top: 40px;
+  border-radius: 8px;
+  width: 100px;
+  height: 50px;
+  border: none;
+  color: white;
+  background-color: #7c74ab;
+`;

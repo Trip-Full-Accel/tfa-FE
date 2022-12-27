@@ -17,3 +17,7 @@ pre {
   text-align-last: start;
   padding: 3rem;
 }
+
+.ql-editor {
+  font-size: 16px;
+}

@@ -170,25 +170,38 @@ const Regist = () => {
     setSelected(e.target.value);
   };
 
+  const linkTo = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <RegistMainDiv>
       <Snowfall color="white" snowflakeCount={200} />
       <RegistFirstdiv>
-        <Titlediv>
-          <InputTitle
-            placeholder="
+        <div
+          style={{
+            width: "100%",
+            boxShadow: "0px 0px 10px 0px",
+            borderRadius: "5px",
+            border: "none",
+            marginTop: "20px",
+          }}
+        >
+          <Titlediv>
+            <InputTitle
+              placeholder="
           제목을 입력해주세요"
-            onChange={(e) => {
-              titleHandler(e);
-            }}
-          ></InputTitle>
-          <SelectBox name="select" onChange={(e) => selectHandler(e)}>
-            <OptionBox value="리뷰">리뷰</OptionBox>
-            <OptionBox value="모집">모집</OptionBox>
-          </SelectBox>
-        </Titlediv>
-        <Contentdiv>
-          {/* <Contentarea
+              onChange={(e) => {
+                titleHandler(e);
+              }}
+            ></InputTitle>
+            <SelectBox name="select" onChange={(e) => selectHandler(e)}>
+              <OptionBox value="리뷰">리 뷰</OptionBox>
+              <OptionBox value="모집">모 집</OptionBox>
+            </SelectBox>
+          </Titlediv>
+          <Contentdiv>
+            {/* <Contentarea
             ref={textRef}
             placeholder="글내용입력"
             onInput={handleResizeHeight}
@@ -196,35 +209,44 @@ const Regist = () => {
               contentHandler(e);
             }}
           ></Contentarea> */}
-          <ReactQuill
-            style={{
-              minHeight: "400px",
-              height: "100%",
-              width: "60%",
-              backgroundColor: "white",
-              borderRadius: "0 0 0.375rem 0.375rem",
-              border: "1px solid #ced4da",
-              textAlign: "start",
+            <ReactQuill
+              style={{
+                minHeight: "400px",
+                height: "100%",
+                width: "100%",
+                backgroundColor: "white",
+                borderRadius: "0 0 0.375rem 0.375rem",
+                textAlign: "start",
+              }}
+              // theme="snow"
+              // modules={modules}
+              // formats={formats}
+              // // value={}
+              onChange={(content, delta, source, editor: any) => {
+                contentHandler(content);
+              }}
+              ref={quillRef}
+              theme="snow"
+              placeholder="내용을 입력해주세요"
+              value={value}
+              // onChange={contentHandler}
+              modules={modules}
+              formats={formats}
+            />
+          </Contentdiv>
+        </div>
+        <BottomDiv>
+          <Button
+            onClick={() => {
+              linkTo("/board");
             }}
-            // theme="snow"
-            // modules={modules}
-            // formats={formats}
-            // // value={}
-            onChange={(content, delta, source, editor: any) => {
-              contentHandler(content);
-            }}
-            ref={quillRef}
-            theme="snow"
-            placeholder="내용을 입력해주세요"
-            value={value}
-            // onChange={contentHandler}
-            modules={modules}
-            formats={formats}
-          />
-        </Contentdiv>
-        <Btndiv style={{ margin: "2rem 0 2rem 0" }}>
-          <Button onClick={() => registHandler()}>등록</Button>
-        </Btndiv>
+          >
+            목 록
+          </Button>
+          <Btndiv>
+            <Button onClick={() => registHandler()}>등 록</Button>
+          </Btndiv>
+        </BottomDiv>
         {/* TEST 버튼들 추후 삭제 예정 */}
 
         {/* <div>리덕스 테스트</div>
@@ -247,6 +269,7 @@ export default Regist;
 
 const RegistMainDiv = styled.div`
   border: none !important;
+  width: 50%;
 `;
 const RegistFirstdiv = styled.div`
   border: none !important;
@@ -255,24 +278,26 @@ const Titlediv = styled.div``;
 const Contentdiv = styled.div`
   border: none !important;
 `;
-const Btndiv = styled.div``;
+const Btndiv = styled.div`
+  margin: 0;
+`;
 
 const InputTitle = styled.input`
-  width: 55%;
+  width: 90%;
   height: 50px;
   display: inline-block;
   border-radius: 0.375rem 0 0 0;
-  border: 1px solid #ced4da;
-  border-bottom: none;
+  border: none;
   &:focus::placeholder {
     color: transparent;
   }
   text-align: left;
   padding-left: 20px;
+  border-bottom: 1px solid #ced4da;
 `;
 
 const Contentarea = styled.textarea`
-  width: 60%;
+  width: 50%;
   min-height: 350px;
   border-radius: 0.375rem;
   border: 1px solid #ced4da;
@@ -289,16 +314,24 @@ const Contentarea = styled.textarea`
 `;
 
 const SelectBox = styled.select`
-  width: 5%;
+  width: 10%;
   height: 50px;
   display: inline-block;
   border-radius: 0 0.375rem 0 0;
-  border: 1px solid #ced4da;
-  border-left: none;
-  border-bottom: none;
+  border: none;
+  background-color: #7c74ab;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
 `;
 
 const OptionBox = styled.option`
   border-radius: 0.375rem;
   border: 1px solid #ced4da;
+`;
+
+const BottomDiv = styled.div`
+  display: flex;
+  margin: 2rem 0 2rem 0;
+  justify-content: space-between;
 `;

@@ -20,10 +20,8 @@ import TfaInfo from "../components/infomation/TfaInfo";
 import Main from "../components/main/Main";
 import Maps from "../components/map/Maps";
 import MyPage from "../components/MyPage/MyPage";
-import Photo from "../components/photo/Photo";
 import Template from "../components/Template";
 import Board from "./../components/board/board";
-import MapTest from "./../components/map/maptest";
 import TfaInfo2 from "components/infomation/tfaInfo2";
 import Three from "components/suggest/three";
 import Chatting from "./../components/chatting/chatting";
@@ -46,27 +44,35 @@ const MyRoute = () => {
           <Route path="three" element={<Three></Three>}></Route>
           ////
           <Route path="/edit" element={<Edit></Edit>}></Route>
-          <Route path="photo" element={<Photo></Photo>}></Route>
-          <Route path="photo/busan" element={<BusanSlide></BusanSlide>}></Route>
-          <Route path="photo/daegu" element={<DaeguSlide></DaeguSlide>}></Route>
           <Route
-            path="photo/gyeongsangbukdo"
+            path="suggest/busan"
+            element={<BusanSlide></BusanSlide>}
+          ></Route>
+          <Route
+            path="suggest/daegu"
+            element={<DaeguSlide></DaeguSlide>}
+          ></Route>
+          <Route
+            path="suggest/gyeongsangbukdo"
             element={<GyeongsangbukdoSlide></GyeongsangbukdoSlide>}
           ></Route>
           <Route
-            path="photo/daejeon"
+            path="suggest/daejeon"
             element={<DaejeonSlide></DaejeonSlide>}
           ></Route>
           <Route
-            path="photo/gyeonggido"
+            path="suggest/gyeonggido"
             element={<GyeonggidoSlide></GyeonggidoSlide>}
           ></Route>
-          <Route path="photo/seoul" element={<SeoulSlide></SeoulSlide>}></Route>
           <Route
-            path="photo/gangwondo"
+            path="suggest/seoul"
+            element={<SeoulSlide></SeoulSlide>}
+          ></Route>
+          <Route
+            path="suggest/gangwondo"
             element={<GangwondoSlide></GangwondoSlide>}
           ></Route>
-          <Route path="photo/jeju" element={<JejuSlide></JejuSlide>}></Route>
+          <Route path="suggest/jeju" element={<JejuSlide></JejuSlide>}></Route>
           <Route path="board" element={<Board></Board>}></Route>
           <Route
             path="/kakao"

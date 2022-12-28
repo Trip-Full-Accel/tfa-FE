@@ -1,4 +1,6 @@
+import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -29,7 +31,7 @@ const BoardDetail = () => {
   const [content, setContent] = useState<string>("");
   const [selected, setSelected] = useState<string>();
   const [like, setLike] = useState(false);
-
+  const { t } = useTranslation();
   const likeBtn = () => {
     if (like === false) {
       setLike(true);
@@ -181,13 +183,13 @@ const BoardDetail = () => {
               <LikeDiv>
                 {like === false ? (
                   <LikeBtn onClick={likeBtn}>
-                    좋아요 &nbsp;
+                    {t("like")} &nbsp;
                     <i className="xi-heart-o" />0
                   </LikeBtn>
                 ) : (
                   <div>
                     <LikeBtn onClick={likeBtn}>
-                      좋아요 &nbsp;
+                      {t("like")} &nbsp;
                       <i className="xi-heart " />1
                     </LikeBtn>
                   </div>
@@ -206,7 +208,7 @@ const BoardDetail = () => {
                     linkTo("/board");
                   }}
                 >
-                  목 록
+                  {t("list")}
                 </Button>
               </div>
             </div>

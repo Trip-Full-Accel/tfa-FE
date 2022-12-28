@@ -16,6 +16,7 @@ import { AppDispatch } from "store/store";
 import styled from "styled-components";
 import "../../static/all.css";
 import "../../static/font/font.css";
+
 interface dataType {
   name: string;
   x: string;
@@ -116,9 +117,6 @@ const Main = () => {
   };
 
   // three 실험
-  const goThree = () => {
-    navigate("/three");
-  };
 
   const { t } = useTranslation();
 
@@ -136,27 +134,6 @@ const Main = () => {
     setThreeValue(e.target.value);
   };
 
-  const threeName: any = [
-    { value: "chuncheon", name: "춘천" },
-    { value: "Damyang", name: "담양" },
-    { value: "Gangneung", name: "강릉" },
-    { value: "gyeongju", name: "경주" },
-    { value: "gyeongju2", name: "경주2" },
-    { value: "gyeongju3", name: "경주3" },
-    { value: "Jeju1", name: "제주1" },
-    { value: "jeju2", name: "제주2" },
-    { value: "oedo", name: "오이도" },
-    { value: "suwon", name: "수원" },
-  ];
-  const MoveRegionalArea = (e: any) => {
-    console.log(e.innerText);
-
-    navigate("/three", {
-      state: {
-        threeName: e.innerText,
-      },
-    });
-  };
   return (
     <TopLvDiv>
       <Snowfall
@@ -272,22 +249,6 @@ const Main = () => {
       {/* <i className="xi-translate xi-4x" onClick={onChangeLang}></i> */}
       {/* <Player></Player> */}
       {/* <Button onClick={goThree}>3d 화면 실험</Button> */}
-
-      <div style={{ display: "flex" }}>
-        {threeName.map((el: any) => {
-          return (
-            <div
-              onClick={(e: any) => MoveRegionalArea(e.target)}
-              onChange={(e) => console.log(e)}
-              key={el.value}
-              style={{ height: "70px", padding: "5px", cursor: "pointer" }}
-            >
-              <h3>{t(`${el.name}`)}</h3>
-            </div>
-          );
-        })}
-      </div>
-      <img src="https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_07.png?alt=media&token="></img>
     </TopLvDiv>
   );
 };

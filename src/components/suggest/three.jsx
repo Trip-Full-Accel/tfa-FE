@@ -29,7 +29,7 @@ const Box = (props) => {
   // 3d 매쉬 클릭으로 이동 시킴 우리는 각각의 이미지 or 맵화면으로
   const handlePointerDown = (e) => {
     console.log(e);
-    navigate("/");
+    navigate("/suggest");
   };
   return (
     <mesh

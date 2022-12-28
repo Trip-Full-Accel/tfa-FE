@@ -51,5 +51,28 @@
   "제주1": "제주1",
   "제주2": "제주2",
   "오이도": "오이도",
-  "수원": "수원"
+  "수원": "수원",
+
+  "tourlistattraction": "명소",
+  "daynight": "최근 여행지",
+  "360panorama": "360° 파노라마",
+  "day1": "낮",
+  "night": "밤",
+  "suggesttitle": "사용자들이 최근에 간 여행지예요!",
+  "panoramatitle": "아래에서 보고 싶은 도시를 선택해주세요!",
+
+  "review": "리 뷰",
+  "Recruitment": "모 집",
+  "boardtitle": "제목",
+  "content": "내용",
+  "writer": "작성자",
+  "search": "검색",
+  "Writing": "글 쓰기",
+
+  "writedate": "작성일",
+  "views": "조회수",
+  "delete": "삭 제",
+  "modify": "수 정",
+  "like": "좋아요",
+  "list": "목 록"
 }

@@ -25,6 +25,11 @@ interface travelPoint {
   y: number;
 }
 
+interface locationInEachRegion {
+  cityCode: number;
+  lat: number;
+  lng: number;
+}
 const Maps = () => {
   const location = useLocation();
   const cityCode = location.state?.cityCode;
@@ -38,7 +43,25 @@ const Maps = () => {
       },
     },
   ]);
-
+  const locationInEachRegion = [
+    { cityCode: 11, lat: 37.566535, lng: 126.9779692 }, // Seoul
+    { cityCode: 41, lat: 37.4138, lng: 127.5183 }, // Gyeongi
+    { cityCode: 42, lat: 37.8228, lng: 128.1555 }, //Gangwon
+    { cityCode: 44, lat: 36.8, lng: 127.7 }, //Chungbuk
+    { cityCode: 43, lat: 36.5184, lng: 126.8 }, //Chungnam
+    { cityCode: 45, lat: 35.7175, lng: 127.153 }, //Jeonbuk
+    { cityCode: 46, lat: 34.8679, lng: 126.991 }, //Jeonnam
+    { cityCode: 47, lat: 36.4919, lng: 128.8889 }, //Gyeongbuk
+    { cityCode: 48, lat: 35.4606, lng: 128.2132 }, //Gyeongnam
+    { cityCode: 50, lat: 33.4996213, lng: 126.5311884 }, //Jeju
+    { cityCode: 36, lat: 36.4802462, lng: 127.2892335 }, //Sejong
+    { cityCode: 29, lat: 35.1650188, lng: 126.9080434 }, //Gwangju
+    { cityCode: 26, lat: 35.1795543, lng: 129.0756416 }, //Busan
+    { cityCode: 31, lat: 35.5383773, lng: 129.3113596 }, //Ulsan
+    { cityCode: 27, lat: 35.8714354, lng: 128.601445 }, //Daegu
+    { cityCode: 30, lat: 36.3504119, lng: 127.3845475 }, //Daejeon
+    { cityCode: 28, lat: 37.4562557, lng: 126.7052062 }, //Incheon
+  ];
   const city = [
     { name: "부산시청", x: 35.1795543 },
     { name: "대전시청", x: 36.3504119 },
@@ -55,21 +78,27 @@ const Maps = () => {
   ];
 
   useEffect(() => {
-    if (location.state?.x && location.state?.y)
-      setMarkers([
-        {
-          position: {
-            lat: location.state.x,
-            lng: location.state.y,
+    if (location.state?.cityCode) {
+      const findCity = locationInEachRegion.find(
+        (city) => city.cityCode === Number(location.state.cityCode)
+      );
+      console.log("파인드시티", findCity);
+      if (findCity)
+        setMarkers([
+          {
+            position: {
+              lat: findCity?.lat,
+              lng: findCity?.lng,
+            },
           },
-        },
-      ]);
+        ]);
+    }
     city.map((el) => {
       if (location.state?.x == el.x) {
         setAddr([{ name: el.name }]);
       }
     });
-  }, [location.state]);
+  }, [location]);
 
   const [isMarked, setIsMarked] = useState(false);
   const [isPolyline, setIsPolyline] = useState(false);

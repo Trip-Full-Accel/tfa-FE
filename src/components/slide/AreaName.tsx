@@ -1,5 +1,5 @@
-import { el } from "date-fns/locale";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./AreaName.css";
 
@@ -8,7 +8,8 @@ interface aa {
   name: string;
 }
 
-const AreaName = () => {
+const AreaName = ({ dtaa, setData }: any) => {
+  const { t } = useTranslation();
   const areaName = [
     { value: "busan", name: "부산" },
     { value: "daegu", name: "대구" },
@@ -19,17 +20,17 @@ const AreaName = () => {
     { value: "gangwondo", name: "강원도" },
     { value: "jeju", name: "제주" },
   ];
-  const [data, setData] = useState("");
+
   const Navigate = useNavigate();
   const MoveRegionalArea = (path: string) => {
     setData(path);
-    Navigate(path);
+    // Navigate(path);
   };
   const loc = useLocation();
   console.log(loc);
 
   const Tab = (el: aa) => {
-    if ("/photo/" + el.value === loc.pathname) {
+    if ("/suggest/" + el.value === dtaa) {
       return "clickTab";
     } else {
       return "defaultTab";
@@ -49,7 +50,7 @@ const AreaName = () => {
       {areaName.map((el: aa) => {
         return (
           <div
-            onClick={() => MoveRegionalArea(`/photo/${el.value}`)}
+            onClick={() => MoveRegionalArea(`/suggest/${el.value}`)}
             key={el.name}
             style={{
               height: "70px",

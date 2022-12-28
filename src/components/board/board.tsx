@@ -1,5 +1,7 @@
 import BList from "components/pagenation/boardList";
+import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
@@ -27,6 +29,7 @@ const Board = () => {
     //   alert("로그인하고 와라");
     // }
   };
+  const { t } = useTranslation();
   useEffect(() => {
     dispatch(fetchGetBoard());
   }, [navigate]);
@@ -72,17 +75,17 @@ const Board = () => {
               margin: 0,
             }}
           >
-            <TabBtn onClick={() => reviewBtn()}>리 뷰</TabBtn>
-            <TabBtn onClick={() => recruitBtn()}>모 집</TabBtn>
+            <TabBtn onClick={() => reviewBtn()}>{t("review")}</TabBtn>
+            <TabBtn onClick={() => recruitBtn()}>{t("Recruitment")}</TabBtn>
           </div>
           <SearchDiv>
             <select
               style={{ borderRadius: "5px", width: "80px" }}
               onChange={(e) => searchKeyHandler(e)}
             >
-              <option value="title">제목</option>
-              <option value="content">내용</option>
-              <option value="writer">작성자</option>
+              <option value="title">{t("boardtitle")}</option>
+              <option value="content">{t("content")}</option>
+              <option value="writer">{t("writer")}</option>
             </select>
             <RightInput
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +93,11 @@ const Board = () => {
               }}
             ></RightInput>
             <Button style={{ width: "90px" }} onClick={() => searchBtn()}>
-              검 색
+              {t("search")}
             </Button>
           </SearchDiv>
           <Button style={{ width: "90px" }} onClick={() => boardBtn()}>
-            글쓰기
+            {t("Writing")}
           </Button>
         </div>
         <hr />

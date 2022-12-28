@@ -28,7 +28,6 @@ export default class DaeguSlide extends Component {
                   <br></br>
                   <h2>계산성당</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     계산성당은 서울 명동성당, 전주 전동성당과 함께 우리나라 3대
                     성당 중 한 곳이며 세 성당 모두 프와넬 신부가 설계하여 내부
@@ -42,7 +41,6 @@ export default class DaeguSlide extends Component {
                   <ImgTag src="/img/daegu/daegu2.png" />
                   <br></br>
                   <h2>수성못</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     수성구 두산동의 수성못은 도심 속 산책과 휴식 공간이다.
@@ -58,7 +56,6 @@ export default class DaeguSlide extends Component {
                   <br></br>
                   <h2>83타워</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     전망대에서는 대구 시내와 멀리 팔공산까지 한눈에 조망할 수
                     <br />
@@ -72,7 +69,6 @@ export default class DaeguSlide extends Component {
                   <ImgTag src="/img/daegu/daegu4.png" />
                   <br></br>
                   <h2>앞산공원</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     공원에는 계곡, 약수터, 산책로가 있고 낙동강 승전기념관 등
@@ -89,7 +85,6 @@ export default class DaeguSlide extends Component {
                   <br></br>
                   <h2>동화사</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     세계에서 가장 큰 석조불이라는 33m 높이의 통일약사대불은
                     <br />
@@ -102,7 +97,6 @@ export default class DaeguSlide extends Component {
                   <ImgTag src="/img/daegu/daegu6.png" />
                   <br></br>
                   <h2>비슬산군립공원</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     봄이면 고지 30만 평에 걸쳐 진달래꽃이 흐드러지게 피어 장관을
@@ -117,7 +111,6 @@ export default class DaeguSlide extends Component {
                   <br></br>
                   <h2>국채보상운동기념공원</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     대구에서 처음 시작된 국채보상운동의 정신이 깃든 도심 속
                     <br />
@@ -131,7 +124,6 @@ export default class DaeguSlide extends Component {
                   <ImgTag src="/img/daegu/daegu8.png" />
                   <br></br>
                   <h2>이월드</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     놀이기구와 전시공간이 공존하는 유럽식 도시공원으로 남녀노소
@@ -156,9 +148,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
-  border-radius: 15px 15px 0 0;
   width: 100%;
+  border-radius: 15px;
   height: 350px;
-  margin: 10px;
-  margin: 0;
 `;

@@ -1,5 +1,7 @@
+import { el } from "date-fns/locale";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./AreaName.css";
 
 interface aa {
   value: string;
@@ -23,6 +25,18 @@ const AreaName = () => {
     setData(path);
     Navigate(path);
   };
+  const loc = useLocation();
+  console.log(loc);
+
+  const Tab = (el: aa) => {
+    if ("/photo/" + el.value === loc.pathname) {
+      return "clickTab";
+    } else {
+      return "defaultTab";
+    }
+  };
+  console.log("/photo/" + areaName[1].value);
+
   return (
     <div
       style={{
@@ -37,7 +51,15 @@ const AreaName = () => {
           <div
             onClick={() => MoveRegionalArea(`/photo/${el.value}`)}
             key={el.name}
-            style={{ height: "70px", padding: "5px", cursor: "pointer" }}
+            style={{
+              height: "50px",
+              padding: "5px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "2rem",
+            }}
+            className={Tab(el)}
           >
             <h3>{el.name}</h3>
           </div>

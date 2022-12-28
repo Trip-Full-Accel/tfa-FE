@@ -155,6 +155,6 @@ const MainSlideDiv = styled.div`
 const ImgTag = styled.img`
   width: 500px;
   height: 350px;
-  margin: 10px
+  margin: 10px;
   margin: 0;
 `;

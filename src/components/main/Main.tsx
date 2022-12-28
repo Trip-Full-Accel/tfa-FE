@@ -83,8 +83,15 @@ const Main = () => {
   const [text, setText] = useState("");
   const localUserId = localStorage.getItem("userId");
   const strBtn = () => {
+    console.log(localStorage.getItem("kakaoId"));
+    console.log(text);
+
+    const kakaoId = localStorage.getItem("kakaoId");
     dispatch(
-      fetchPostCourse({ userId: Number(localUserId), courseName: text })
+      fetchPostCourse({
+        userId: Number(kakaoId),
+        courseName: text,
+      })
     );
     if (selected !== "choice" && text.length > 0) {
       navigate("/maps", {

@@ -105,15 +105,15 @@ const BoardModify = () => {
 
   const navigate = useNavigate();
   const updateHandler = async () => {
-    await dispatch(
-      fetchPutBoard({
-        id: Number(boardId),
-        title: title,
-        writer: userId,
-        content: content,
-        img,
-      })
-    );
+    // await dispatch(
+    //   fetchPutBoard({
+    //     userId: Number(boardId),
+    //     title: title,
+    //     writer: userId,
+    //     content: content,
+    //     img,
+    //   })
+    // );
 
     // 리턴응답에따라서 다른 alert 처리필요
     alert("수정되었습니다.");
@@ -137,7 +137,7 @@ const BoardModify = () => {
             return (
               <Detaildiv>
                 <div style={{ display: "flex" }}>
-                  <Writerdiv>작성자 : {el.writer}</Writerdiv>
+                  <Writerdiv>작성자 : {el.nickname}</Writerdiv>
                   <Hitsdiv>조회수 : {el.hits}</Hitsdiv>
                   <Likediv>좋아요 </Likediv>
                 </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
   const handleHello = () => {
     const botMessage = createChatBotMessage("안녕하세요");
@@ -40,50 +41,57 @@ const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
     }));
   };
 
-  const handleTFA = () => {
+  const questionHandler = () => {
     const botMessage = createChatBotMessage(
-      "여행 경로를 짜주는 웹사이트 입니다. "
+      "TripFullAccel 고객센터에서 연락드리겠습니다. 문의내용과 연락처를 남겨주세요"
     );
 
-    const botMessage2 = createChatBotMessage(
-      "info페이지에는 자세한 설명이 있어요"
-    );
-    const botMessage3 = createChatBotMessage(
-      "suggest페이지에는 여행지 추천이있어요"
-    );
-    const botMessage4 = createChatBotMessage(
-      "photo페이지에는 여행지별로 자세한 사진이 있어요"
-    );
-    const botMessage5 = createChatBotMessage(
-      "board페이지에는 이용한 여행지 후기와 모집글들이있어요"
-    );
-    const botMessage6 = createChatBotMessage(
-      "Join을 누르고 회원가입을 진행하시면 최단경로 여행지를 추천받아보실수있어요!"
-    );
     setState((prev: any) => ({
       ...prev,
       messages: [...prev.messages, botMessage],
     }));
-    setState((prev: any) => ({
-      ...prev,
-      messages: [...prev.messages, botMessage2],
-    }));
+  };
+  const placeHandler = () => {
+    const botMessage = createChatBotMessage(
+      "새로 추가된 관광지 이름과 주소를 알려주세요. 추후 업데이트에 반영해드릴게요 :)"
+    );
 
     setState((prev: any) => ({
       ...prev,
-      messages: [...prev.messages, botMessage3],
+      messages: [...prev.messages, botMessage],
     }));
+  };
+
+  const myRouteHandler = () => {
+    const greeting =
+      "<span><a style=font-size:16px;color:#faaf88;font-weight:bold href=mypage>[마이페이지]</a> 버튼 을 누르면 갈 수 있어요 </span>";
+    const botMessage = createChatBotMessage(
+      <p dangerouslySetInnerHTML={{ __html: greeting }}></p>
+    );
+
     setState((prev: any) => ({
       ...prev,
-      messages: [...prev.messages, botMessage4],
+      messages: [...prev.messages, botMessage],
     }));
+  };
+  const howToUseHandler = () => {
+    const botMessage = createChatBotMessage(
+      "info 페이지로 안내드릴게요. info페이지에 자세하게 설명되어 있어요 :D"
+    );
+
     setState((prev: any) => ({
       ...prev,
-      messages: [...prev.messages, botMessage5],
+      messages: [...prev.messages, botMessage],
     }));
+  };
+  const customerCenterHandler = () => {
+    const botMessage = createChatBotMessage(
+      "TFA 고객센터에서 연락드리겠습니다. 문의내용과 연락처를 남겨주세요"
+    );
+
     setState((prev: any) => ({
       ...prev,
-      messages: [...prev.messages, botMessage6],
+      messages: [...prev.messages, botMessage],
     }));
   };
 
@@ -94,7 +102,11 @@ const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
           actions: {
             handleHello,
             handleJoke,
-            handleTFA,
+            questionHandler,
+            placeHandler,
+            myRouteHandler,
+            howToUseHandler,
+            customerCenterHandler,
           },
         });
       })}

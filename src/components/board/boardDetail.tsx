@@ -19,6 +19,7 @@ import {
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
+import { walkUpBindingElementsAndPatterns } from "typescript";
 
 const BoardDetail = () => {
   // useLocation Test 기존에 pathName말고도 state에 값 담을수 있음
@@ -41,11 +42,7 @@ const BoardDetail = () => {
 
   const { boardId } = useParams();
   useEffect(() => {
-    console.log("tlfgod");
     dispatch(fetchGetDetail(String(boardId)));
-    // console.log("디테일 페이지 리절트", result);
-    // const realData = result.unwrap().then((res) => res.payload);
-    // console.log("디테일 리얼데이터", realData);
   }, []);
   // setBoardDetail();
   console.log(boardId);
@@ -71,57 +68,119 @@ const BoardDetail = () => {
   const navigate = useNavigate();
   const updateHandler = (el: BoardList) => {
     console.log(boardId);
-    navigate(`/boardModify/${el.id}`, {
+    navigate(`/boardModify/${el.postId}`, {
       state: el,
     });
   };
 
-  const userId = useSelector((state: RootState) => state.user.successLogin);
-  console.log("유저아이디", userId);
-  const local = localStorage.getItem("userId");
-  console.log("loc", local);
+  // const userId = useSelector((state: RootState) => state.user.successLogin);
+  // console.log("유저아이디", userId);
+  // const local = localStorage.getItem("userId");
+  // console.log("loc", local);
 
+  const kakaoId = localStorage.getItem("kakaoId");
   const linkTo = (path: string) => {
-    navigate(path);
+    navigate(path, {
+      state: {
+        id: boardId,
+      },
+    });
   };
 
   // console.log("wirter", boardDetailReturn[0].writer);
   // console.log("wirter", boardDetailReturn[0].writer);
+  console.log("보드리스트 디테일 리턴값 ", boardDetailReturn.createdAt);
+  // const test = () => {
+  //   boardDetailReturn?.map((el: any) => {
+  //     console.log(el.nickname);
+  //   });
+  // };
   return (
     <>
       <Snowfall color="white" snowflakeCount={200} />
-      {boardDetailReturn.map((detail) =>
-        userId == detail.writer && userLoginId !== null ? (
-          <BoardDiv key={detail.title}>
-            <Detaildiv>
-              <Titlediv>
-                {detail.title}
-                <SelectDiv>{detail.selected}</SelectDiv>
-              </Titlediv>
-              <BottomDiv>
-                <div style={{ margin: "0" }}>
-                  <Writerdiv>{detail.writer}</Writerdiv>
-                  <DateDiv>{t("writedate")}</DateDiv>
+
+      {Number(kakaoId) == boardDetailReturn.userId && kakaoId !== null ? (
+        <BoardDiv key={boardDetailReturn.postId}>
+          <Detaildiv>
+            <Titlediv>
+              {boardDetailReturn.title}
+              <SelectDiv></SelectDiv>
+            </Titlediv>
+            <BottomDiv>
+              <div style={{ margin: "0" }}>
+                <Writerdiv>{boardDetailReturn.nickname}</Writerdiv>
+                {/* {boardDetailReturn.createdAt} */}
+                <DateDiv>작성일 : {boardDetailReturn.createdAt}</DateDiv>
+              </div>
+              <Hitsdiv>조회수 : {boardDetailReturn.hits}</Hitsdiv>
+            </BottomDiv>
+            <Contentdiv>
+              <pre
+                dangerouslySetInnerHTML={{
+                  __html: boardDetailReturn.content,
+                }}
+              ></pre>
+            </Contentdiv>
+            <BtnDiv>
+              <div style={{ margin: "0" }}>
+                <Button onClick={() => deleteHandler()}>삭 제</Button>&nbsp;
+                <Button onClick={() => updateHandler(boardDetailReturn)}>
+                  수 정
+                </Button>
+              </div>
+
+              {like === false ? (
+                <LikeBtn onClick={likeBtn}>
+                  좋아요 &nbsp;
+                  <i className="xi-heart-o" />0
+                </LikeBtn>
+              ) : (
+                <div>
+                  <LikeBtn onClick={likeBtn}>
+                    좋아요 &nbsp;
+                    <i className="xi-heart " />1
+                  </LikeBtn>
                 </div>
-                <Hitsdiv>
-                  {t("views")} : {detail.hits}
-                </Hitsdiv>
-              </BottomDiv>
-              <Contentdiv>
-                <pre
-                  dangerouslySetInnerHTML={{
-                    __html: detail.content,
-                  }}
-                ></pre>
-              </Contentdiv>
-              <BtnDiv>
-                <div style={{ margin: "0" }}>
-                  <Button onClick={() => deleteHandler()}>{t("delete")}</Button>
-                  &nbsp;
-                  <Button onClick={() => updateHandler(detail)}>
-                    {t("modify")}
-                  </Button>
-                </div>
+              )}
+              <Button
+                onClick={() => {
+                  linkTo("/board");
+                }}
+              >
+                목 록
+              </Button>
+            </BtnDiv>
+          </Detaildiv>
+        </BoardDiv>
+      ) : (
+        <BoardDiv key={boardDetailReturn.postId}>
+          <Detaildiv>
+            <Titlediv>
+              {boardDetailReturn.title}
+              {/* <SelectDiv>{boardDetailReturn.selected}</SelectDiv> */}
+            </Titlediv>
+
+            <BottomDiv>
+              <div style={{ margin: "0" }}>
+                <Writerdiv>{boardDetailReturn.nickname}</Writerdiv>
+                <DateDiv>작성일: {boardDetailReturn.createdAt}</DateDiv>
+              </div>
+              <Hitsdiv>조회수 : {boardDetailReturn.hits}</Hitsdiv>
+            </BottomDiv>
+            <Contentdiv>
+              <pre
+                dangerouslySetInnerHTML={{
+                  __html: boardDetailReturn.content,
+                }}
+              ></pre>
+              <img
+                style={{ width: "300px", height: "300px" }}
+                src={`${boardDetailReturn.url}`}
+              ></img>
+            </Contentdiv>
+
+            <div style={{ display: "flex" }}>
+              <LikeDiv>
                 {like === false ? (
                   <LikeBtn onClick={likeBtn}>
                     {t("like")} &nbsp;
@@ -135,6 +194,15 @@ const BoardDetail = () => {
                     </LikeBtn>
                   </div>
                 )}
+              </LikeDiv>
+              <div
+                style={{
+                  margin: "0",
+                  padding: "0 2rem 1rem 0",
+                  display: "flex",
+                  justifyContent: "end",
+                }}
+              >
                 <Button
                   onClick={() => {
                     linkTo("/board");
@@ -142,69 +210,10 @@ const BoardDetail = () => {
                 >
                   {t("list")}
                 </Button>
-              </BtnDiv>
-            </Detaildiv>
-          </BoardDiv>
-        ) : (
-          <BoardDiv key={detail.title}>
-            <Detaildiv>
-              <Titlediv>
-                {detail.title}
-                <SelectDiv>{detail.selected}</SelectDiv>
-              </Titlediv>
-
-              <BottomDiv>
-                <div style={{ margin: "0" }}>
-                  <Writerdiv>{detail.writer}</Writerdiv>
-                  <DateDiv>{t("writedate")}</DateDiv>
-                </div>
-                <Hitsdiv>
-                  {t("views")} : {detail.hits}
-                </Hitsdiv>
-              </BottomDiv>
-              <Contentdiv>
-                <pre
-                  dangerouslySetInnerHTML={{
-                    __html: detail.content,
-                  }}
-                ></pre>
-              </Contentdiv>
-              <div style={{ display: "flex" }}>
-                <LikeDiv>
-                  {like === false ? (
-                    <LikeBtn onClick={likeBtn}>
-                      {t("like")} &nbsp;
-                      <i className="xi-heart-o" />0
-                    </LikeBtn>
-                  ) : (
-                    <div>
-                      <LikeBtn onClick={likeBtn}>
-                        {t("like")} &nbsp;
-                        <i className="xi-heart " />1
-                      </LikeBtn>
-                    </div>
-                  )}
-                </LikeDiv>
-                <div
-                  style={{
-                    margin: "0",
-                    padding: "0 2rem 1rem 0",
-                    display: "flex",
-                    justifyContent: "end",
-                  }}
-                >
-                  <Button
-                    onClick={() => {
-                      linkTo("/board");
-                    }}
-                  >
-                    {t("list")}
-                  </Button>
-                </div>
               </div>
-            </Detaildiv>
-          </BoardDiv>
-        )
+            </div>
+          </Detaildiv>
+        </BoardDiv>
       )}
     </>
   );

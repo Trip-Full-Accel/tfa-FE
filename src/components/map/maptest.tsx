@@ -31,7 +31,7 @@ const MapTest = ({ setMarkers, markers, cityCode }: setType) => {
   const reduxTourList = useSelector((state: RootState) => state.map.tourList);
   useEffect(() => {
     console.log("백에 보내줄 cityCode", cityCode);
-    const result = dispatch(fetchGetTourList())
+    const result = dispatch(fetchGetTourList(cityCode))
       .unwrap()
       .then(
         (res) => setTourListTest({ ...tourListTest, ...res })
@@ -42,11 +42,13 @@ const MapTest = ({ setMarkers, markers, cityCode }: setType) => {
 
   const [tourListTest, setTourListTest] = useState<TourList[]>([
     {
-      city: "",
+      name: "",
+      cityCode: "",
       lat: "",
       content: "",
       lng: "",
       img: "",
+      url: "",
     },
   ]);
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -167,10 +169,10 @@ const MapTest = ({ setMarkers, markers, cityCode }: setType) => {
               }}
             >
               <ImgTiDiv>
-                <ImgTag src={`${i.img}`}></ImgTag>
-                <div>{i.city}</div>
+                <ImgTag src={`${i.url}`}></ImgTag>
+                <div>{i.name}</div>
               </ImgTiDiv>
-              <div>{i.content}</div>
+              {/* <div>{i.content}</div> */}
             </div>
           </TourContentDiv>
         ))}

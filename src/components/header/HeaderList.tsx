@@ -20,6 +20,7 @@ const HeaderList = ({ value, name }: Props) => {
   const navigate = useNavigate();
   const linkTo = (path: string) => {
     navigate(path);
+    localStorage.removeItem("pageId");
   };
 
   // locaion

@@ -28,7 +28,6 @@ export default class SeoulSlide extends Component {
                   <br></br>
                   <h2>북한산 둘레길</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     사람과 자연이 하나가 되어 걸을 수 있도록 물길, 흙길, 숲길 등
                     <br />
@@ -41,7 +40,6 @@ export default class SeoulSlide extends Component {
                   <ImgTag src="/img/seoul/seoul2.png" />
                   <br></br>
                   <h2>한강공원</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     기본적인 레포츠 시설을 갖추고 있고, 전망대나 아름다운 분수
@@ -57,7 +55,6 @@ export default class SeoulSlide extends Component {
                   <br></br>
                   <h2>북촌 한옥 마을</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     북촌은 조선시대부터 양반층의 주거지였지만 서울의 개발과 함께
                     한옥을 보존하기 위해 계획적으로 조성된 한옥 주거지다. 이
@@ -69,7 +66,6 @@ export default class SeoulSlide extends Component {
                   <ImgTag src="/img/seoul/seoul4.png" />
                   <br></br>
                   <h2>창경궁 야간개장</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     창경궁 야간개장은 청사초롱과 함께 하기 때문에 더욱
@@ -83,7 +79,6 @@ export default class SeoulSlide extends Component {
                   <ImgTag src="/img/seoul/seoul5.png" />
                   <br></br>
                   <h2>운현궁 양관</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     운현궁 양관은 운현궁 바로 옆 덕성여대 내에 있는 근대
@@ -100,7 +95,6 @@ export default class SeoulSlide extends Component {
                   <br></br>
                   <h2>롯데월드타워</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     2016년에 완공된 롯데월드타워는 555m의 현대적인 고층
                     <br /> 빌딩으로 맨 꼭대기의 전망대에서 360도로 서울의 전경을
@@ -115,7 +109,6 @@ export default class SeoulSlide extends Component {
                   <br></br>
                   <h2>이태원</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     여러 외국 공관을 중심으로 다양한 나라의 사람들이 모이면서
                     <br />
@@ -129,7 +122,6 @@ export default class SeoulSlide extends Component {
                   <ImgTag src="/img/seoul/seoul8.png" />
                   <br></br>
                   <h2>봉은사</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     추사 김정희가 쓴 현판이 걸린 판전에는 화엄경, 금강경 등
@@ -157,8 +149,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
-  width: 500px;
+  border-radius: 15px;
+  width: 100%;
   height: 350px;
-  margin: 10px;
-  margin: 0;
 `;

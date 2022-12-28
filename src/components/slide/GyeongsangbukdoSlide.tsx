@@ -28,7 +28,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <br></br>
                   <h2>경천대</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     경천대 관광지내에는 전망대, 야영장,목교,출렁다리, <br />
                     MBC드라마 "상도" 세트장, 어린이 놀이시설, 수영장, 눈썰매장
@@ -41,7 +40,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <br></br>
                   <h2>경주월드</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     경상북도 경주시 보문관광단지에 위치한 테마파크. 2022년 기준
                     대한민국의 테마파크 중에서 가장 격렬하고 무서운 어트랙션들을
@@ -52,7 +50,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <ImgTag src="/img/gyeongsangbukdo/gyeongsangbukdo3.png" />
                   <br></br>
                   <h2>경주 안압지</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     경주야경 제 1의 명소라는 타이틀이 아깝지 않은 동궁과월지는
@@ -67,7 +64,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <br></br>
                   <h2>청도 프로방스</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     1천만 개의 LED 조명이 공원 전역을 밝히고 있어 매년 빛 축제가
                     펼쳐지는 곳으로 잘 알려져 있으며 아이들을 위한 놀이 시설 등
@@ -81,7 +77,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <br></br>
                   <h2>안동 하회마을</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     하회마을에서는 하회별신굿탈놀이를 상설공연으로 진행하고,
                     <br />
@@ -93,7 +88,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <ImgTag src="/img/gyeongsangbukdo/gyeongsangbukdo6.png" />
                   <br></br>
                   <h2>월영교</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     안동댐 아래 위치한 월영교는 우리나라에서 가장 긴 목책 <br />
@@ -107,7 +101,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <br></br>
                   <h2>호미곶</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     한반도를 호랑이로 보았을 때 꼬리에 해당하는 부분이다.
                     대한민국 본토의 최동단에 위치한다. 대한민국 내륙에서 가장
@@ -119,7 +112,6 @@ export default class GyeongsangbukdoSlide extends Component {
                   <ImgTag src="/img/gyeongsangbukdo/gyeongsangbukdo8.png" />
                   <br></br>
                   <h2>이가리 닻 전망대</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     포항시 북구 청하면 이가리에 위치한 이가리닻전망대는
@@ -148,8 +140,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
-  width: 500px;
+  border-radius: 15px;
+  width: 100%;
   height: 350px;
-  margin: 10px;
-  margin: 0;
 `;

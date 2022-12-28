@@ -28,7 +28,6 @@ export default class GyeonggidoSlide extends Component {
                   <br></br>
                   <h2>아침고요수목원</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     아침고요수목원은 축령산의 빼어난 자연경관을 배경으로 하여
                     <br />
@@ -41,7 +40,6 @@ export default class GyeonggidoSlide extends Component {
                   <ImgTag src="/img/gyeonggido/gyeonggido2.png" />
                   <br></br>
                   <h2>하경정원</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     하경공원은 대한민국 지도 모양으로 설계되어 내려다보는 <br />
@@ -57,7 +55,6 @@ export default class GyeonggidoSlide extends Component {
                   <br></br>
                   <h2>배곧한울공원</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     공원 앞으로 펼쳐진 바다와 이국적인 느낌이 물씬 풍기는
                     <br />
@@ -69,7 +66,6 @@ export default class GyeonggidoSlide extends Component {
                   <ImgTag src="/img/gyeonggido/gyeonggido4.png" />
                   <br></br>
                   <h2>월곶포구</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     언제든지 갓 잡아온 횟감들을 맛볼 수 있다는 싱싱한 즐거움,
@@ -83,7 +79,6 @@ export default class GyeonggidoSlide extends Component {
                   <br></br>
                   <h2>포천 허브아일랜드</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     허브아일랜드 내 식물원과 전시실을 갖춘 1종
                     전문박물관(식물원)으로 등록한 전국 최대 규모의 허브
@@ -95,7 +90,6 @@ export default class GyeonggidoSlide extends Component {
                   <ImgTag src="/img/gyeonggido/gyeonggido6.png" />
                   <br></br>
                   <h2>가평 아침고요수목원</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     아침고요수목원은 축령산의 빼어난 자연경관을 배경으로 하여{" "}
@@ -110,7 +104,6 @@ export default class GyeonggidoSlide extends Component {
                   <br></br>
                   <h2>수원화성</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     다양한 상설 공연을 진행하고, 매년 가을이면 수원화성문화제를
                     개최하여 수원 화성을 알리고 있다. 화성은 역사적 의미와 함께
@@ -122,7 +115,6 @@ export default class GyeonggidoSlide extends Component {
                   <ImgTag src="/img/gyeonggido/gyeonggido8.png" />
                   <br></br>
                   <h2>용인 에버랜드</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     1년 365일, 계절별 다채롭게 펼쳐지는 축제와 어트랙션, 동물,
@@ -147,8 +139,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
-  width: 500px;
+  border-radius: 15px;
+  width: 100%;
   height: 350px;
-  margin: 10px;
-  margin: 0;
 `;

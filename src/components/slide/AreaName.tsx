@@ -52,7 +52,7 @@ const AreaName = () => {
             onClick={() => MoveRegionalArea(`/photo/${el.value}`)}
             key={el.name}
             style={{
-              height: "50px",
+              height: "70px",
               padding: "5px",
               cursor: "pointer",
               display: "flex",

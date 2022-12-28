@@ -248,7 +248,6 @@ const Header = () => {
       <MainNav
         className={scrollPosition < 10 ? "original_header" : "change_header"}
       >
-        <Translate></Translate>
         <FirstNavDiv>
           <TitleNav>
             <TitleB

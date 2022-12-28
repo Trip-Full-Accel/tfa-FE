@@ -28,7 +28,6 @@ export default class DaejeonSlide extends Component {
                   <br></br>
                   <h2>식장산 문화공원</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     대천 최고의 야경 감상 명소로 꼽히던 식장산 정상부에
                     문화공원을 조성하였다. 특히 문화공원 내에 지은 전통누각이
@@ -41,7 +40,6 @@ export default class DaejeonSlide extends Component {
                   <ImgTag src="/img/daejeon/daejeon2.png" />
                   <br></br>
                   <h2>문화예술단지</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     대전예술의 전당, 시립미술관, 이응노 미술관으로 이어지는
@@ -57,7 +55,6 @@ export default class DaejeonSlide extends Component {
                   <br></br>
                   <h2>으느정이 문화의거리</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     화랑·공연장·소극장·전시 및
                     공연시설·표구사·화실·도예점·골동품점 등 문화예술 관련업종
@@ -72,7 +69,6 @@ export default class DaejeonSlide extends Component {
                   <br></br>
                   <h2>장태산자연휴양림</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     메타세쿼이아 숲이 울창해 이국적인 정취를 느낄 수 있고
                     <br /> 맑은 연못과 계곡, 울창한 숲이 어우러진 경관과 함께
@@ -86,7 +82,6 @@ export default class DaejeonSlide extends Component {
                   <br></br>
                   <h2>둘러산길</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     대전둘레산길은 약 300리에 달하는 대전둘레산잇기(133km)
                     코스를 12개 구간으로 나누어 대전의 참 모습을 볼 수 있도록
@@ -97,7 +92,6 @@ export default class DaejeonSlide extends Component {
                   <ImgTag src="/img/daejeon/daejeon6.png" />
                   <br></br>
                   <h2>엑스포과학공원</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     엑스포과학공원의 상징탑인 한빛탑에서는 대전시 주요 지역을
@@ -113,7 +107,6 @@ export default class DaejeonSlide extends Component {
                   <br></br>
                   <h2>오-월드</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     대전시에서 옛 대전동물원을 중심으로 놀이동산과 플라워랜드를
                     <br />
@@ -128,7 +121,6 @@ export default class DaejeonSlide extends Component {
                   <ImgTag src="/img/daejeon/daejeon8.png" />
                   <br></br>
                   <h2>동춘당</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     대덕구 송촌동에 위치한 동춘당은 조선 효종 때 대사헌,
@@ -153,6 +145,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
+  border-radius: 15px 15px 15px 15px;
   width: 500px;
   height: 350px;
   margin: 10px

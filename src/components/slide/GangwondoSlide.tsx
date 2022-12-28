@@ -28,7 +28,6 @@ export default class GangwondoSlide extends Component {
                   <br></br>
                   <h2>대관령 양떼목장</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     연인들의 데이트 코스로도 좋지만 가족단위 여행을 하시면
                     아이들이 양의 먹이인 건초를 주면서 교감하는 모습을 보실 수
@@ -39,7 +38,6 @@ export default class GangwondoSlide extends Component {
                   <ImgTag src="/img/gangwondo/gangwondo2.png" />
                   <br></br>
                   <h2>김유정 레일바이크</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     야외의 푸른 자연과 아름다운 북한강의 그림 같은 풍경을 눈에
@@ -53,7 +51,6 @@ export default class GangwondoSlide extends Component {
                   <ImgTag src="/img/gangwondo/gangwondo3.png" />
                   <br></br>
                   <h2>육백마지기</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     해발 1256m 높은 곳으로 별은 더욱 가까이서 구경할 수 있어
@@ -69,7 +66,6 @@ export default class GangwondoSlide extends Component {
                   <br></br>
                   <h2>쏠비치 삼척</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     쏠비치 삼척은 그리스 산토리니를 모티프 삼아 건축했다. <br />
                     파란 지붕을 인 하얀 건축물이 해안을 따라 들어선 자태가
@@ -84,7 +80,6 @@ export default class GangwondoSlide extends Component {
                   <br></br>
                   <h2>해피초원목장</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     산과 호수가 조화로운 목가적인 그림을 선사한다. 목장 상부에
                     오르면 끝도 없이 뻗어 나갈 듯한 산줄기 사이에 폭 안긴 호수가
@@ -96,7 +91,6 @@ export default class GangwondoSlide extends Component {
                   <ImgTag src="/img/gangwondo/gangwondo6.png" />
                   <br></br>
                   <h2>장호항</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     스노클링을 할 수 있는 공간과 투명카약을 체험할 수 있는
@@ -111,7 +105,6 @@ export default class GangwondoSlide extends Component {
                   <br></br>
                   <h2>천문인마을</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     아마추어 천문인들에게 관측장소로 유명한 곳입니다. 해발 650m
                     자락에 위치한 곳으로 멋집 별 사진을 찍기 위해 많은 사람들이
@@ -125,7 +118,6 @@ export default class GangwondoSlide extends Component {
                   <ImgTag src="/img/gangwondo/gangwondo8.png" />
                   <br></br>
                   <h2>영월 솔고개 소나무</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     영월의 31번 국도를 타고 가다 보면 300년 된 소나무를 만나볼
@@ -151,6 +143,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
+  border-radius: 15px 15px 15px 15px;
   width: 500px;
   height: 350px;
   margin: 10px

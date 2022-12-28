@@ -84,6 +84,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
+  border-radius: 15px 15px 15px 15px;
   width: 500px;
   height: 350px;
   margin: 10px

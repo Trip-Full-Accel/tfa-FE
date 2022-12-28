@@ -28,7 +28,6 @@ export default class JejuSlide extends Component {
                   <br></br>
                   <h2>한라산</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     해발 1,950m로 우리나라에서 가장 높은 산인 한라산은 제주
                     <br />
@@ -44,7 +43,6 @@ export default class JejuSlide extends Component {
                   <br></br>
                   <h2>성산일출봉</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     성산일출봉은 제주를 대표하는 자연경관 중 하나로 제주의 많은
                     <br />
@@ -59,7 +57,6 @@ export default class JejuSlide extends Component {
                   <br></br>
                   <h2>만장굴</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     화산섬인 제주에는 용암동굴이 많은데 만장굴은 그를 대표하는
                     <br />
@@ -73,7 +70,6 @@ export default class JejuSlide extends Component {
                   <br></br>
                   <h2>소정방폭포</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     소정방폭포는 정방폭포에서 동쪽으로 300m 떨어진 해안에 있는
                     곳으로 물줄기와 바위 병풍이 어우러진 곳이다. 소정방폭포는
@@ -86,7 +82,6 @@ export default class JejuSlide extends Component {
                   <ImgTag src="/img/jeju/jeju5.png" />
                   <br></br>
                   <h2>우도</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     우도는 제주에 있는 섬 안의 섬이다. 서귀포 성산항에서 15분
@@ -102,7 +97,6 @@ export default class JejuSlide extends Component {
                   <br></br>
                   <h2>섭지코지</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     섭지코지의 코지는 바다로 돌출되어 나온 지형을 뜻하는 곶의
                     <br />
@@ -117,7 +111,6 @@ export default class JejuSlide extends Component {
                   <br></br>
                   <h2>미니랜드</h2>
                   <br></br>
-                  <br></br>
                   <h4>
                     제주미니랜드는 한국 최초의 세계 미니어처 박물관이며 세계 7대
                     미니어처 테마파크이다. 제주미니랜드는 해외여행을 좋아하는
@@ -130,7 +123,6 @@ export default class JejuSlide extends Component {
                   <ImgTag src="/img/jeju/jeju8.png" />
                   <br></br>
                   <h2>테디베어뮤지엄</h2>
-                  <br></br>
                   <br></br>
                   <h4>
                     제주 테디베어뮤지엄에는 세계 각국의 진귀한 테디베어들이
@@ -156,6 +148,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
+  border-radius: 15px 15px 15px 15px;
   width: 500px;
   height: 350px;
   margin: 10px

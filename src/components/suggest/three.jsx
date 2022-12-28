@@ -19,7 +19,7 @@ const Orbit = () => {
 
 const Box = (props) => {
   const ref = useRef();
-  const texture = useLoader(THREE.TextureLoader, "/img/seoul/seoul1.jpg");
+  const texture = useLoader(THREE.TextureLoader, "/img/3d/강릉.jpg");
   useFrame((state) => {
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;
@@ -29,7 +29,7 @@ const Box = (props) => {
   // 3d 매쉬 클릭으로 이동 시킴 우리는 각각의 이미지 or 맵화면으로
   const handlePointerDown = (e) => {
     console.log(e);
-    navigate("/");
+    navigate("/suggest");
   };
   return (
     <mesh

@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { BoardList, BoardListReal, BoardSearch } from "./boardType";
+import { BoardList, BoardListReal, BoardSearch, Modi } from "./boardType";
 
 /** 전체글 list 요청 리듀서 */
 export const fetchGetBoard = createAsyncThunk("BOARD/GET", async () => {
-  const response = await CustomAxios("/posts", "POST");
+  const response = await CustomAxios("/posts", "GET");
   console.log(response);
   return response.data;
 });
@@ -50,10 +50,10 @@ export const fetchPostBoard = createAsyncThunk(
 /** 글 update 리듀서 */
 export const fetchPutBoard = createAsyncThunk(
   "BOARD/PUT",
-  async (payload: BoardList) => {
+  async (payload: Modi) => {
     console.log(payload);
     const { data } = await CustomAxios(
-      `/post/update/${payload.id}`,
+      `/posts/${payload.postId}`,
       "PUT",
       payload
     );
@@ -77,7 +77,7 @@ export const fetchPostBoardRegist = createAsyncThunk(
 export const fetchDeleteBoard = createAsyncThunk(
   "BOARD/DELETE",
   async (id: number) => {
-    const { data } = await CustomAxios(`/post/delete/${id}`, "DELETE");
+    const { data } = await CustomAxios(`/posts/${id}`, "DELETE");
     return data;
   }
 );
@@ -88,16 +88,20 @@ type Error = string | undefined;
 interface initialType {
   board: BoardList[];
   findedBoard: BoardList[];
-  detailBoard: BoardList[];
+  detailBoard: any;
   status: Status;
+  regist: Status;
   error: Error;
+  loadData: Status;
 }
 const initialState: initialType = {
   board: [],
   findedBoard: [],
   detailBoard: [],
+  regist: "idle",
   status: "idle",
   error: "null",
+  loadData: "idle",
 };
 
 const boardReducer = createSlice({
@@ -109,13 +113,13 @@ const boardReducer = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchGetBoard.pending, (state, action) => {
-        state.status = "loading";
+        state.loadData = "loading";
         // console.log(action);
       })
       .addCase(fetchGetBoard.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.board = action.payload;
-        // console.log(action.payload);
+        console.log(state.board);
       })
       .addCase(fetchGetBoard.rejected, (state, action) => {
         state.status = "failed";
@@ -128,6 +132,9 @@ const boardReducer = createSlice({
         const result = action.payload;
         state.detailBoard = result;
         console.log("리덕스에 담긴 쓸값", state.detailBoard);
+      })
+      .addCase(fetchPostBoardRegist.fulfilled, (state, action) => {
+        state.regist = "succeeded";
       });
   },
 });

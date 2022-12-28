@@ -1,14 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CustomAxiosMap } from "http/customAxiosForMap";
 import { CustomAxios } from "../../http/customAxios";
-import {
-  AlgoResultType,
-  AlgoType,
-  Course,
-  MapCreateReal,
-  MapList,
-  TourList,
-} from "./mapType";
+import { AlgoType, Course, MapCreateReal, MapList, TourList } from "./mapType";
 
 /**추천여행지 불러오는 리듀서 */
 export const fetchGetTourList = createAsyncThunk(
@@ -27,7 +19,7 @@ export const fetchPostCourse = createAsyncThunk(
   async (payload: Course) => {
     console.log(payload);
 
-    const { data } = await CustomAxiosMap("/courses", "POST", payload);
+    const { data } = await CustomAxios("/courses", "POST", payload);
     console.log(data);
 
     // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
@@ -40,7 +32,7 @@ export const fetchPostMapAlgorithm = createAsyncThunk(
   "ALGORITHM/POST",
   async (payload: AlgoType) => {
     // console.log(payload);
-    const { data } = await CustomAxiosMap("/courses/create", "POST", payload);
+    const { data } = await CustomAxios("/courses/create", "POST", payload);
     console.log(data);
 
     // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
@@ -53,7 +45,7 @@ export const fetchPostMapReal = createAsyncThunk(
   "REAL/POST",
   async (payload: MapCreateReal) => {
     console.log(payload);
-    const { data } = await CustomAxiosMap("/places", "POST", payload);
+    const { data } = await CustomAxios("/places", "POST", payload);
     console.log("asdfsadfasdf", data);
 
     // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함

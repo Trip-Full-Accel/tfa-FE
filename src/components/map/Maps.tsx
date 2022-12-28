@@ -197,6 +197,9 @@ const Maps = () => {
   const shareKakao = () => {
     window.Kakao.Link.sendCustom({
       templateId: 86680, // 내가 만든 템플릿 아이디를 넣어주면 된다
+      templateArgs: {
+        SHARE_CONTENT: "1231333333",
+      },
     });
   };
 

@@ -4,8 +4,16 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./suggest.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store/store";
+import { fetchGetSuggest } from "store/pyReducer/boardReducer";
 
 const Suggest = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(fetchGetSuggest());
+  });
   const navigate = useNavigate();
 
   const linkTo = (path: string) => {

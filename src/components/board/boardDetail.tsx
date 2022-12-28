@@ -66,16 +66,17 @@ const BoardDetail = () => {
   const navigate = useNavigate();
   const updateHandler = (el: BoardList) => {
     console.log(boardId);
-    navigate(`/boardModify/${el.id}`, {
+    navigate(`/boardModify/${el.postId}`, {
       state: el,
     });
   };
 
-  const userId = useSelector((state: RootState) => state.user.successLogin);
-  console.log("유저아이디", userId);
-  const local = localStorage.getItem("userId");
-  console.log("loc", local);
+  // const userId = useSelector((state: RootState) => state.user.successLogin);
+  // console.log("유저아이디", userId);
+  // const local = localStorage.getItem("userId");
+  // console.log("loc", local);
 
+  const kakaoId = localStorage.getItem("kakaoId");
   const linkTo = (path: string) => {
     navigate(path, {
       state: {
@@ -86,37 +87,98 @@ const BoardDetail = () => {
 
   // console.log("wirter", boardDetailReturn[0].writer);
   // console.log("wirter", boardDetailReturn[0].writer);
+  console.log("보드리스트 디테일 리턴값 ", boardDetailReturn.createdAt);
+  // const test = () => {
+  //   boardDetailReturn?.map((el: any) => {
+  //     console.log(el.nickname);
+  //   });
+  // };
   return (
     <>
       <Snowfall color="white" snowflakeCount={200} />
-      {boardDetailReturn.map((detail, i) =>
-        userId == detail.writer && userLoginId !== null ? (
-          <BoardDiv key={i}>
-            <Detaildiv>
-              <Titlediv>
-                {detail.title}
-                <SelectDiv>{detail.selected}</SelectDiv>
-              </Titlediv>
-              <BottomDiv>
-                <div style={{ margin: "0" }}>
-                  <Writerdiv>{detail.writer}</Writerdiv>
-                  <DateDiv>작성일</DateDiv>
-                </div>
-                <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
-              </BottomDiv>
-              <Contentdiv>
-                <pre
-                  dangerouslySetInnerHTML={{
-                    __html: detail.content,
-                  }}
-                ></pre>
-              </Contentdiv>
-              <BtnDiv>
-                <div style={{ margin: "0" }}>
-                  <Button onClick={() => deleteHandler()}>삭 제</Button>&nbsp;
-                  <Button onClick={() => updateHandler(detail)}>수 정</Button>
-                </div>
 
+      {Number(kakaoId) == boardDetailReturn.userId && kakaoId !== null ? (
+        <BoardDiv key={boardDetailReturn.postId}>
+          <Detaildiv>
+            <Titlediv>
+              {boardDetailReturn.title}
+              <SelectDiv></SelectDiv>
+            </Titlediv>
+            <BottomDiv>
+              <div style={{ margin: "0" }}>
+                <Writerdiv>{boardDetailReturn.nickname}</Writerdiv>
+                {/* {boardDetailReturn.createdAt} */}
+                <DateDiv>작성일 : {boardDetailReturn.createdAt}</DateDiv>
+              </div>
+              <Hitsdiv>조회수 : {boardDetailReturn.hits}</Hitsdiv>
+            </BottomDiv>
+            <Contentdiv>
+              <pre
+                dangerouslySetInnerHTML={{
+                  __html: boardDetailReturn.content,
+                }}
+              ></pre>
+            </Contentdiv>
+            <BtnDiv>
+              <div style={{ margin: "0" }}>
+                <Button onClick={() => deleteHandler()}>삭 제</Button>&nbsp;
+                <Button onClick={() => updateHandler(boardDetailReturn)}>
+                  수 정
+                </Button>
+              </div>
+
+              {like === false ? (
+                <LikeBtn onClick={likeBtn}>
+                  좋아요 &nbsp;
+                  <i className="xi-heart-o" />0
+                </LikeBtn>
+              ) : (
+                <div>
+                  <LikeBtn onClick={likeBtn}>
+                    좋아요 &nbsp;
+                    <i className="xi-heart " />1
+                  </LikeBtn>
+                </div>
+              )}
+              <Button
+                onClick={() => {
+                  linkTo("/board");
+                }}
+              >
+                목 록
+              </Button>
+            </BtnDiv>
+          </Detaildiv>
+        </BoardDiv>
+      ) : (
+        <BoardDiv key={boardDetailReturn.postId}>
+          <Detaildiv>
+            <Titlediv>
+              {boardDetailReturn.title}
+              {/* <SelectDiv>{boardDetailReturn.selected}</SelectDiv> */}
+            </Titlediv>
+
+            <BottomDiv>
+              <div style={{ margin: "0" }}>
+                <Writerdiv>{boardDetailReturn.nickname}</Writerdiv>
+                <DateDiv>작성일: {boardDetailReturn.createdAt}</DateDiv>
+              </div>
+              <Hitsdiv>조회수 : {boardDetailReturn.hits}</Hitsdiv>
+            </BottomDiv>
+            <Contentdiv>
+              <pre
+                dangerouslySetInnerHTML={{
+                  __html: boardDetailReturn.content,
+                }}
+              ></pre>
+              <img
+                style={{ width: "300px", height: "300px" }}
+                src={`${boardDetailReturn.url}`}
+              ></img>
+            </Contentdiv>
+
+            <div style={{ display: "flex" }}>
+              <LikeDiv>
                 {like === false ? (
                   <LikeBtn onClick={likeBtn}>
                     좋아요 &nbsp;
@@ -130,6 +192,15 @@ const BoardDetail = () => {
                     </LikeBtn>
                   </div>
                 )}
+              </LikeDiv>
+              <div
+                style={{
+                  margin: "0",
+                  padding: "0 2rem 1rem 0",
+                  display: "flex",
+                  justifyContent: "end",
+                }}
+              >
                 <Button
                   onClick={() => {
                     linkTo("/board");
@@ -137,68 +208,10 @@ const BoardDetail = () => {
                 >
                   목 록
                 </Button>
-              </BtnDiv>
-            </Detaildiv>
-          </BoardDiv>
-        ) : (
-          <BoardDiv key={detail.title}>
-            <Detaildiv>
-              <Titlediv>
-                {detail.title}
-                <SelectDiv>{detail.selected}</SelectDiv>
-              </Titlediv>
-
-              <BottomDiv>
-                <div style={{ margin: "0" }}>
-                  <Writerdiv>{detail.writer}</Writerdiv>
-                  <DateDiv>작성일</DateDiv>
-                </div>
-                <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
-              </BottomDiv>
-              <Contentdiv>
-                <pre
-                  dangerouslySetInnerHTML={{
-                    __html: detail.content,
-                  }}
-                ></pre>
-              </Contentdiv>
-
-              <div style={{ display: "flex" }}>
-                <LikeDiv>
-                  {like === false ? (
-                    <LikeBtn onClick={likeBtn}>
-                      좋아요 &nbsp;
-                      <i className="xi-heart-o" />0
-                    </LikeBtn>
-                  ) : (
-                    <div>
-                      <LikeBtn onClick={likeBtn}>
-                        좋아요 &nbsp;
-                        <i className="xi-heart " />1
-                      </LikeBtn>
-                    </div>
-                  )}
-                </LikeDiv>
-                <div
-                  style={{
-                    margin: "0",
-                    padding: "0 2rem 1rem 0",
-                    display: "flex",
-                    justifyContent: "end",
-                  }}
-                >
-                  <Button
-                    onClick={() => {
-                      linkTo("/board");
-                    }}
-                  >
-                    목 록
-                  </Button>
-                </div>
               </div>
-            </Detaildiv>
-          </BoardDiv>
-        )
+            </div>
+          </Detaildiv>
+        </BoardDiv>
       )}
     </>
   );

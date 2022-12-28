@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 import styled from "styled-components";
@@ -12,12 +12,43 @@ import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
 import { fetchDeleteUser } from "store/user/userReducer";
 import { AppDispatch } from "store/store";
+import {
+  fetchMyBoard,
+  fetchMyCost,
+  fetchMyInfo,
+  fetchMyTrip,
+} from "store/mypage/myReducer";
 
 interface myPageType {
   pageKey: string;
   pageKorName: string;
 }
 const MyPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const kakaoId = localStorage.getItem("kakaoId");
+  useEffect(() => {
+    dispatch(
+      fetchMyInfo({
+        userId: Number(kakaoId),
+      })
+    );
+    dispatch(
+      fetchMyBoard({
+        userId: Number(kakaoId),
+      })
+    );
+    dispatch(
+      fetchMyTrip({
+        userId: Number(kakaoId),
+      })
+    );
+    dispatch(
+      fetchMyCost({
+        userId: Number(kakaoId),
+      })
+    );
+  });
+
   const myPageList: myPageType[] = [
     { pageKey: "userInfo", pageKorName: "회원정보수정" },
     { pageKey: "travelRoute", pageKorName: "내 여행 플랜" },
@@ -47,20 +78,17 @@ const MyPage = () => {
       setShow(false);
     }
   };
-  const testid = localStorage.getItem("userId");
   const navigate = useNavigate();
   const linkTo = (path: string) => {
     navigate(path);
   };
-
-  const dispatch = useDispatch<AppDispatch>();
 
   const [checkConfirm, setCheckConfirm] = useState(false);
 
   const deleteUser = () => {
     if (window.confirm("정말 탈퇴하시겠습니까?")) {
       setCheckConfirm(true);
-      dispatch(fetchDeleteUser(Number(testid)));
+      dispatch(fetchDeleteUser(Number(kakaoId)));
     } else {
       alert("다행이에요 계속 이용해주세요");
     }

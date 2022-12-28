@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input } from "reactstrap";
 import { AppDispatch, RootState } from "store/store";
 import {
+  fetchOut,
   fetchPostKakao,
   fetchPostLogin,
   fetchUserlogout,
@@ -42,6 +43,9 @@ type tfaPath = {
   name: string;
 };
 const Header = () => {
+  const successLoginKakao = useSelector(
+    (state: RootState) => state.user.successKakao
+  );
   const { t } = useTranslation();
 
   const [lgShow, setLgShow] = useState(false);
@@ -126,8 +130,7 @@ const Header = () => {
           url: "/v2/user/me",
           success(res: any) {
             // alert(JSON.stringify(res));
-            const kakaoAccount = res.kakao_account;
-            console.log(kakaoAccount);
+
             setLgShow(false);
             navigate(loc);
           },
@@ -150,16 +153,17 @@ const Header = () => {
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (response: any) {
-            setKakaoCode(response.id);
-            console.log("카톡 리스폰스아이디", response.id);
-            setKakaoNick(response.properties.nickname);
-            console.log("카톡 리스폰스닉네임", response.properties.nickname);
-            // dispatch(
-            //   fetchPostKakao({
-            //     userCode: kakaoCode,
-            //     nickname: kakaoNick,
-            //   })
-            // );
+            // setKakaoCode(response.id);
+            // console.log("카톡 리스폰스아이디", response.id);
+            // setKakaoNick(response.properties.nickname);
+            // console.log("카톡 리스폰스닉네임");
+
+            dispatch(
+              fetchPostKakao({
+                userCode: String(response.id),
+                nickname: String(response.properties.nickname),
+              })
+            );
           },
           fail: function (error: any) {
             console.log(error);
@@ -171,8 +175,10 @@ const Header = () => {
       },
     });
   }
-  console.log(kakaoCode);
-  console.log(kakaoNick);
+
+  //
+  // console.log(kakaoCode);
+  // console.log(kakaoNick);
 
   // const CLIENT_ID = "82e8a356b706e9f7b99ef65f77a5fd43";
   // const REDIRECT_URI = "http://localhost:3000/kakao";
@@ -234,6 +240,8 @@ const Header = () => {
     // console.log(testUserId);
 
     localStorage.clear();
+
+    dispatch(fetchOut());
     alert("로그아웃되었습니다.");
     navigate(loc);
     // window.location.replace("");
@@ -241,20 +249,6 @@ const Header = () => {
     if (loc.includes("detail")) {
       window.location.reload();
     }
-    // 그냥 로컬스토리지 클리어로 로그아웃 설정
-    // dispatch(fetchUserlogout(successLogin))
-    //   .unwrap()
-    //   .then((res) => {
-    //     if (res) {
-    //       console.log("실행됨");
-
-    //       alert("로그아웃되었음");
-    //       localStorage.removeItem("userId");
-    //       navigate("/");
-    //     } else {
-    //       alert("로그아웃실패했음 관리자한테 문의하삼");
-    //     }
-    //   });
   };
 
   const goToLogin = () => {
@@ -312,6 +306,13 @@ const Header = () => {
       setOpen(false);
     }
   };
+
+  const fullLogin = async () => {
+    await kakaoLogin2();
+
+    await setLgShow(false);
+  };
+
   const kakaoId = localStorage.getItem("kakaoId");
   return (
     <HeaderMainDiv>
@@ -341,7 +342,7 @@ const Header = () => {
               );
             })}
 
-            {kakaoId !== null ? (
+            {successLoginKakao !== "" ? (
               <>
                 <JoinNav
                   className={locFunction()}
@@ -464,16 +465,7 @@ const Header = () => {
                     <i
                       style={{ fontSize: "35px" }}
                       className="xi-kakaotalk"
-                      onClick={async () => {
-                        await kakaoLogin2();
-                        dispatch(
-                          fetchPostKakao({
-                            userCode: String(kakaoCode),
-                            nickname: String(kakaoNick),
-                          })
-                        );
-                        setLgShow(false);
-                      }}
+                      onClick={fullLogin}
                     ></i>
                   </a>
                   {/* 구글로그인 */}

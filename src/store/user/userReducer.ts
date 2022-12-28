@@ -14,11 +14,17 @@ export const fetchGetUserInfo = createAsyncThunk("USERINFO/GET", async () => {
   return response.data;
 });
 
+/** 카톡 로그아웃 */
+export const fetchOut = createAsyncThunk("KAKAO/OUT", async () => {
+  localStorage.clear();
+  return "로그아웃됨";
+});
 /** 카톡 로그인 */
 export const fetchPostKakao = createAsyncThunk(
   // console.log(payload)
   "KAKAO/POST",
   async (payload: KakaoLogin) => {
+    console.log("2번");
     console.log("로그인 페이로드", payload);
     const { data } = await CustomAxios("/users", "POST", payload);
     console.log("로그인 반환 데이터", data);
@@ -195,6 +201,9 @@ const userReducer = createSlice({
 
         console.log(state.error);
         console.log(action.error);
+      })
+      .addCase(fetchOut.fulfilled, (state, action) => {
+        state.successKakao = "";
       })
 
       // 로그아웃 성공시에 스테이트에 널값할당

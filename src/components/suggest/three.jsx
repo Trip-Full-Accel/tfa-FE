@@ -19,7 +19,7 @@ const Orbit = () => {
 
 const Box = (props) => {
   const ref = useRef();
-  const texture = useLoader(THREE.TextureLoader, "/img/seoul/seoul1.jpg");
+  const texture = useLoader(THREE.TextureLoader, "/img/3d/강릉.jpg");
   useFrame((state) => {
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;

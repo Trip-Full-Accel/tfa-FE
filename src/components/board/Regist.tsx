@@ -139,28 +139,39 @@ const Regist = () => {
   const dispatch = useDispatch<AppDispatch>();
   const userId = useSelector((state: RootState) => state.user.successLogin);
   console.log(userId);
+  const boardDetailReturn = useSelector(
+    (state: RootState) => state.board.detailBoard
+  );
+  const location = useLocation();
+  const boardLoc = location.pathname;
   const registHandler = async () => {
-    // 테스트 등록
-    // await dispatch(
-    //   fetchPostBoard({
-    //     title,
-    //     selected,
-    //     content: value,
-    //     id: 0,
-    //     writer: userId,
-    //     img,
-    //   })
-    // );
-    console.log(img);
+    // console.log(img);
     navigate("/board");
     // 진짜 등록
-    await dispatch(
-      fetchPostBoardRegist({
-        userId: 12,
-        title,
-        content: value,
-      })
-    );
+    // console.log(boardLoc.includes("regist"));
+    const kakaoId = localStorage.getItem("kakaoId");
+    if (boardLoc.includes("regist")) {
+      await dispatch(
+        fetchPostBoardRegist({
+          userId: Number(kakaoId),
+          title,
+          content: value,
+          url: img,
+        })
+      );
+    }
+
+    if (boardLoc.includes("boardModify")) {
+      dispatch(
+        fetchPutBoard({
+          userId: Number(kakaoId),
+          title,
+          content: value,
+          url: img,
+          postId: boardDetailReturn.postId,
+        })
+      );
+    }
 
     if (selected === "리뷰" || selected === "모집") {
       navigate("/board");

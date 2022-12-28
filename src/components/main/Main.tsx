@@ -85,9 +85,10 @@ const Main = () => {
     console.log(localStorage.getItem("kakaoId"));
     console.log(text);
 
+    const kakaoId = localStorage.getItem("kakaoId");
     dispatch(
       fetchPostCourse({
-        userId: 1,
+        userId: Number(kakaoId),
         courseName: text,
       })
     );
@@ -286,6 +287,7 @@ const Main = () => {
           );
         })}
       </div>
+      <img src="https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_07.png?alt=media&token="></img>
     </TopLvDiv>
   );
 };

@@ -4,20 +4,17 @@ import { ko } from "date-fns/esm/locale";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { DateRangePicker } from "react-date-range";
-import { useTranslation } from "react-i18next";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
 import { Button } from "reactstrap";
+import { fetchPostCourse } from "store/map/mapReducer";
+import { AppDispatch } from "store/store";
 import styled from "styled-components";
 import "../../static/all.css";
-import i18n from "language/i18n";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "store/store";
-import { fetchDeleteUser } from "store/user/userReducer";
-import { fetchPostCourse } from "store/map/mapReducer";
-import { cursorTo } from "readline";
 import "../../static/font/font.css";
 interface dataType {
   name: string;
@@ -27,9 +24,13 @@ interface dataType {
 const Main = () => {
   const [show, setShow] = useState(false);
 
+  const [selected, setSelected] = useState<string>("choice");
+  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelected(e.target.value);
+  };
   const navigate = useNavigate();
   // const reduxData = useSelector((state: RootState) => state.user.userId);
-  const local = localStorage.getItem("userId");
+  // const local = localStorage.getItem("userId");
 
   const [coordinate, setCoordinate] = useState({ x: "", y: "" });
   const data: dataType[] = [
@@ -77,11 +78,14 @@ const Main = () => {
   });
   console.log(state);
 
+  const dispatch = useDispatch<AppDispatch>();
   const [text, setText] = useState("");
-
+  const localUserId = localStorage.getItem("userId");
   const strBtn = () => {
-    dispatch(fetchPostCourse({ userId: 1, courseName: "ddd" }));
-    if (text.length > 0) {
+    dispatch(
+      fetchPostCourse({ userId: Number(localUserId), courseName: text })
+    );
+    if (selected !== "choice" && text.length > 0) {
       navigate("/maps", {
         state: {
           date: `${
@@ -96,10 +100,11 @@ const Main = () => {
             "일"
           }`,
           title: text,
+          cityCode: selected,
         },
       });
     } else {
-      alert("제목.");
+      alert("지역 또는 제목을 입력해주세요");
     }
   };
 
@@ -118,11 +123,33 @@ const Main = () => {
   // };
 
   const testid = localStorage.getItem("userId");
-  const dispatch = useDispatch<AppDispatch>();
-  const deleteUser = () => {
-    dispatch(fetchDeleteUser(Number(testid)));
+
+  const [threeValue, setThreeValue] = useState<any>("");
+  const valueHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setThreeValue(e.target.value);
   };
 
+  const threeName: any = [
+    { value: "chuncheon", name: "춘천" },
+    { value: "Damyang", name: "담양" },
+    { value: "Gangneung", name: "강릉" },
+    { value: "gyeongju", name: "경주" },
+    { value: "gyeongju2", name: "경주2" },
+    { value: "gyeongju3", name: "경주3" },
+    { value: "Jeju1", name: "제주1" },
+    { value: "jeju2", name: "제주2" },
+    { value: "oedo", name: "오이도" },
+    { value: "suwon", name: "수원" },
+  ];
+  const MoveRegionalArea = (e: any) => {
+    console.log(e.innerText);
+
+    navigate("/three", {
+      state: {
+        threeName: e.innerText,
+      },
+    });
+  };
   return (
     <TopLvDiv>
       <Snowfall
@@ -135,43 +162,71 @@ const Main = () => {
       />
       <FirstDiv>
         <LeftDiv>
-          {/* <MainTitle>{local} </MainTitle> */}
-          <SubTitle>{t("title")}</SubTitle>
-          <CalendarDiv>
-            <IconSpan>
-              <img src="/img/calendar.png"></img>
-            </IconSpan>
-            <CalendarBtn
-              onClick={() => {
-                setShow(true);
-              }}
-            >
-              {`${
-                state.selection1.startDate.toLocaleDateString().split(".")[1] +
-                `${t("month")}` +
-                state.selection1.startDate.toLocaleDateString().split(".")[2] +
-                `${t("day")}`
-              } ~ ${
-                state.selection1.endDate.toLocaleDateString().split(".")[1] +
-                `${t("month")}` +
-                state.selection1.endDate.toLocaleDateString().split(".")[2] +
-                `${t("day")}`
-              }`}
-            </CalendarBtn>
-          </CalendarDiv>
+          <div style={{ margin: "9.7rem 0 4rem 0" }}>
+            {/* <MainTitle>{local} </MainTitle> */}
+            {/* <SubTitle>{t("title")}</SubTitle> */}
+            <CalendarDiv>
+              <IconSpan>
+                <img src="/img/calendar.png"></img>
+              </IconSpan>
+              <CalendarBtn
+                onClick={() => {
+                  setShow(true);
+                }}
+              >
+                {`${
+                  state.selection1.startDate
+                    .toLocaleDateString()
+                    .split(".")[1] +
+                  `${t("month")}` +
+                  state.selection1.startDate
+                    .toLocaleDateString()
+                    .split(".")[2] +
+                  `${t("day")}`
+                } ~ ${
+                  state.selection1.endDate.toLocaleDateString().split(".")[1] +
+                  `${t("month")}` +
+                  state.selection1.endDate.toLocaleDateString().split(".")[2] +
+                  `${t("day")}`
+                }`}
+              </CalendarBtn>
+            </CalendarDiv>
 
-          <TitleInput
-            type="text"
-            placeholder={`${t("startBtnPlaceHolder")}`}
-            required
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-          ></TitleInput>
+            <ValueDiv>
+              <SelectBox name="select" onChange={(e) => selectHandler(e)}>
+                <DefaultOption value="choice">{t("choice")}</DefaultOption>
+                <OptionBox value="11">{t("Seoul")}</OptionBox>
+                <OptionBox value="41">{t("Gyeongi")}</OptionBox>
+                <OptionBox value="42">{t("Gangwon")}</OptionBox>
+                <OptionBox value="44">{t("Chungbuk")}</OptionBox>
+                <OptionBox value="43">{t("Chungnam")}</OptionBox>
+                <OptionBox value="45">{t("Jeonbuk")}</OptionBox>
+                <OptionBox value="46">{t("Jeonnam")}</OptionBox>
+                <OptionBox value="47">{t("Gyeongbuk")}</OptionBox>
+                <OptionBox value="48">{t("Gyeongnam")}</OptionBox>
+                <OptionBox value="50">{t("Jeju")}</OptionBox>
+                <OptionBox value="36">{t("Sejong")}</OptionBox>
+                <OptionBox value="29">{t("Gwangju")}</OptionBox>
+                <OptionBox value="26">{t("Busan")}</OptionBox>
+                <OptionBox value="31">{t("Ulsan")}</OptionBox>
+                <OptionBox value="27">{t("Daegu")}</OptionBox>
+                <OptionBox value="30">{t("Daejeon")}</OptionBox>
+                <OptionBox value="28">{t("Incheon")}</OptionBox>
+              </SelectBox>
+              <TitleInput
+                type="text"
+                placeholder={`${t("startBtnPlaceHolder")}`}
+                required
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              ></TitleInput>
+            </ValueDiv>
 
-          <StartBtn onClick={strBtn}>
-            <span>Start</span>
-          </StartBtn>
+            <StartBtn onClick={strBtn}>
+              <span>Start</span>
+            </StartBtn>
+          </div>
           <Player></Player>
         </LeftDiv>
         {/* video */}
@@ -205,12 +260,26 @@ const Main = () => {
         </Modal>
       </div>
 
-      <Button onClick={deleteUser}>탈퇴 실험</Button>
       {/* <h2>{t("testText")}</h2> */}
 
       {/* <i className="xi-translate xi-4x" onClick={onChangeLang}></i> */}
       {/* <Player></Player> */}
       {/* <Button onClick={goThree}>3d 화면 실험</Button> */}
+
+      <div style={{ display: "flex" }}>
+        {threeName.map((el: any) => {
+          return (
+            <div
+              onClick={(e: any) => MoveRegionalArea(e.target)}
+              onChange={(e) => console.log(e)}
+              key={el.value}
+              style={{ height: "70px", padding: "5px", cursor: "pointer" }}
+            >
+              <h3>{t(`${el.name}`)}</h3>
+            </div>
+          );
+        })}
+      </div>
     </TopLvDiv>
   );
 };
@@ -299,14 +368,20 @@ const CalendarDiv = styled.div`
   display: flex;
 `;
 
+const ValueDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+`;
+
 const TitleInput = styled.input`
   font-size: 1.2rem;
   background-color: #ccccff;
-  width: 300px;
+  width: 230px;
   height: 50px;
   border: none;
-  margin: 1rem 0 2rem 0;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
 `;
 
 const IconSpan = styled.span`
@@ -320,4 +395,22 @@ const CalendarBtn = styled.button`
   float: left;
   background-color: transparent;
   border: none;
+`;
+const SelectBox = styled.select`
+  width: 70px;
+  height: 50px;
+  display: inline-block;
+  border-radius: 10px 0 0 10px;
+  border: 1px solid #ced4da;
+  background-color: #ccccff;
+  cursor: pointer;
+`;
+
+const OptionBox = styled.option`
+  border-radius: 0.375rem;
+  border: 1px solid #ced4da;
+`;
+
+const DefaultOption = styled.option`
+  display: none;
 `;

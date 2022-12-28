@@ -4,10 +4,13 @@
 import axios from "axios";
 import { useEffect } from "react";
 import api from "axios";
+import { useNavigate } from "react-router-dom";
+import Main from "./main/Main";
 
 const { Kakao } = window;
 
 const KakaoRedirectHandler = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     // let params = new URL(document.location.toString()).searchParams;
     let params = new URL(window.location.toString()).searchParams;
@@ -18,7 +21,6 @@ const KakaoRedirectHandler = () => {
     let grant_type = "authorization_code";
     let client_id = "82e8a356b706e9f7b99ef65f77a5fd43";
     let uri = "http://localhost:3000/kakao";
-
     axios
       .post(
         `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${uri}&code=${code}`,
@@ -34,8 +36,10 @@ const KakaoRedirectHandler = () => {
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (response: any) {
-            console.log(response.properties.nickname);
-            // response[0]
+            alert("로그인 되었습니다");
+
+            console.log("userCode", response.id);
+            console.log("nickName", response.properties.nickname);
           },
           fail: function (error: any) {
             console.log(error);
@@ -51,6 +55,7 @@ const KakaoRedirectHandler = () => {
           .then((res: any) => {
             console.log("res 데이터", res);
             localStorage.setItem("userId", res.data);
+            // navigate("/");
           });
       });
 
@@ -74,7 +79,7 @@ const KakaoRedirectHandler = () => {
     //   });
   }, []);
 
-  return <div>카톡 로그인리다이렉트 페이지</div>;
+  return <Main></Main>;
 };
 
 export default KakaoRedirectHandler;

@@ -24,10 +24,10 @@ const Points = ({ markers }: props) => {
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
     const items = Array.from(data);
-    console.log("items", items);
     const [reorderedItem] = items.splice(result.source.index, 1);
     // const [reorderedItem2] = items.splice(result.source.index, -1);
     console.log("reordereditems", reorderedItem);
+    console.log("items", items);
     items.splice(result.destination.index, 0, reorderedItem);
 
     dispatch(pointTest(items));

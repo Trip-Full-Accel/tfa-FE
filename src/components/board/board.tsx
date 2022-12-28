@@ -8,6 +8,7 @@ import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
+import "../../static/all.css";
 const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -19,11 +20,12 @@ const Board = () => {
   const [keyword, setKeyword] = useState<string>("");
   // 글작성 페이지 이동
   const boardBtn = () => {
-    if (successLogin.length > 0) {
-      navigate("/regist");
-    } else {
-      alert("로그인하고 와라");
-    }
+    navigate("/regist");
+    // if (successLogin.length > 0) {
+    //   navigate("/regist");
+    // } else {
+    //   alert("로그인하고 와라");
+    // }
   };
   useEffect(() => {
     dispatch(fetchGetBoard());
@@ -50,21 +52,32 @@ const Board = () => {
     <>
       <Snowfall color="white" snowflakeCount={200} />
       <BoardTitleDiv>
-        <img src="/img/boardimg.png" />
+        <img style={{ width: "80%" }} src="/img/boardimg.png" />
       </BoardTitleDiv>
       <BoardMainDiv>
         <div
           style={{
-            width: "85%",
+            width: "100%",
             display: "flex",
             paddingTop: "3rem",
+            margin: 0,
+            justifyContent: "space-around",
           }}
         >
-          <TabBtn onClick={() => reviewBtn()}>리뷰</TabBtn>
-          <TabBtn onClick={() => recruitBtn()}>모집</TabBtn>
+          <div
+            style={{
+              width: "200px",
+              display: "flex",
+              justifyContent: "space-between",
+              margin: 0,
+            }}
+          >
+            <TabBtn onClick={() => reviewBtn()}>리 뷰</TabBtn>
+            <TabBtn onClick={() => recruitBtn()}>모 집</TabBtn>
+          </div>
           <SearchDiv>
             <select
-              style={{ borderRadius: "5px" }}
+              style={{ borderRadius: "5px", width: "80px" }}
               onChange={(e) => searchKeyHandler(e)}
             >
               <option value="title">제목</option>
@@ -77,11 +90,11 @@ const Board = () => {
               }}
             ></RightInput>
             <Button style={{ width: "90px" }} onClick={() => searchBtn()}>
-              검색
+              검 색
             </Button>
           </SearchDiv>
           <Button style={{ width: "90px" }} onClick={() => boardBtn()}>
-            글쓰러
+            글쓰기
           </Button>
         </div>
         <hr />
@@ -117,8 +130,9 @@ const BoardMainDiv = styled.div`
 const RightInput = styled.input`
   border: none;
   text-align: left;
+  padding: 10px;
   height: 3rem;
-  width: 20rem;
+  width: 24rem;
   outline: none;
   background: #fafafa;
   border-bottom: 1px solid #000000;
@@ -131,9 +145,15 @@ const SearchDiv = styled.div`
   justify-content: center;
   border-radius: 5px;
   display: flex;
+  margin: 0;
 `;
 
 const TabBtn = styled.button`
   width: 6rem;
+  background-color: #7c74ab;
+  color: white;
+  border-radius: 5px;
   border: none;
+  margin: 0;
+  font-size: 1.2rem;
 `;

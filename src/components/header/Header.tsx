@@ -14,7 +14,7 @@ import MessageParser from "components/chatbot/MessageParser";
 import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import "../chatbot/chatbot.css";
-
+import api from "axios";
 import {
   MDBCard,
   MDBCardBody,
@@ -26,10 +26,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "reactstrap";
 import { AppDispatch, RootState } from "store/store";
-import { fetchPostLogin, fetchUserlogout } from "store/user/userReducer";
+import {
+  fetchPostLogin,
+  fetchUserlogout,
+  loginNick,
+} from "store/user/userReducer";
 import "../../static/bootmodal.css";
 import Translate from "components/translate/translate";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 type tfaPath = {
   value: string;
@@ -113,12 +118,62 @@ const Header = () => {
   const { Kakao } = window;
   const loginKakao = () => {
     Kakao.Auth.authorize({
-      redirectUri: "http://localhost:3000/kakao",
+      redirectUri: "http://localhost:3000/",
       scope: "profile_nickname, account_email, gender,age_range",
     });
-
     console.log("카톡로그인 메서드 실행됨");
   };
+
+  const [userCode, setUserCode] = useState();
+  const [userNick, setUserNick] = useState();
+  useEffect(() => {
+    let params = new URL(window.location.toString()).searchParams;
+    let code = params.get("code"); // 인가코드 받는 부분
+    console.log(code);
+    // console.log(code2);
+    let grant_type = "authorization_code";
+    let client_id = "82e8a356b706e9f7b99ef65f77a5fd43";
+    let uri = "http://localhost:3000/";
+    axios
+      .post(
+        `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${uri}&code=${code}`,
+        {
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        Kakao.Auth.setAccessToken(res.data.access_token);
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success: function (response: any) {
+            console.log("userCode", response.id);
+            setUserCode(response.id);
+            console.log("nickName", response.properties.nickname);
+            setUserNick(response.properties.nickname);
+          },
+          fail: function (error: any) {
+            console.log(error);
+          },
+        });
+        api
+          .post("http://192.168.0.148:8081/users", {
+            // accessToken: res.data.access_token,
+            // client_id,
+            nickname: userNick,
+            userCode: userCode,
+          })
+          .then((res: any) => {
+            console.log("res 데이터", res);
+
+            /// 리덕스에 반환결과 밀어넣을지 아니면 닉네임 밀어넣을지
+            dispatch(loginNick(res));
+            localStorage.setItem("userId", res.data);
+          });
+      });
+  }, [loginKakao]);
 
   // const CLIENT_ID = "82e8a356b706e9f7b99ef65f77a5fd43";
   // const REDIRECT_URI = "http://localhost:3000/kakao";
@@ -164,26 +219,32 @@ const Header = () => {
     (state: RootState) => state.user.successLogin
   );
   // console.log(successLogin);
-
   const testUserId = localStorage.getItem("userId");
   // 로그아웃 기능 구현시 식별값 보내줄 거임 백에 따라서 정해짐 일단은 새로고침으로 구현
   const logout = () => {
     console.log(testUserId);
 
+    localStorage.clear();
+    alert("로그아웃되었습니다.");
+    // window.location.replace("");
+    navigate(loc);
+    if (loc.includes("detail")) {
+      window.location.reload();
+    }
     // 그냥 로컬스토리지 클리어로 로그아웃 설정
-    dispatch(fetchUserlogout(successLogin))
-      .unwrap()
-      .then((res) => {
-        if (res) {
-          console.log("실행됨");
+    // dispatch(fetchUserlogout(successLogin))
+    //   .unwrap()
+    //   .then((res) => {
+    //     if (res) {
+    //       console.log("실행됨");
 
-          alert("로그아웃되었음");
-          localStorage.removeItem("userId");
-          navigate("/");
-        } else {
-          alert("로그아웃실패했음 관리자한테 문의하삼");
-        }
-      });
+    //       alert("로그아웃되었음");
+    //       localStorage.removeItem("userId");
+    //       navigate("/");
+    //     } else {
+    //       alert("로그아웃실패했음 관리자한테 문의하삼");
+    //     }
+    //   });
   };
 
   const goToLogin = () => {
@@ -414,11 +475,11 @@ const Header = () => {
           </MDBRow>
         </MDBCard>
       </Modal>
-      {loc === "/mypage" ? (
+      {loc === "/mypage" || loc === "/maps" ? (
         <></>
       ) : (
         <ChatbotBtn onClick={onChatbot}>
-          <img style={{ width: "60px" }} src="/img/chatbot.png" />
+          <img style={{ width: "50px" }} src="/img/chatbot.png" />
         </ChatbotBtn>
       )}
 
@@ -436,7 +497,7 @@ const Header = () => {
       ) : (
         <div></div>
       )}
-      {loc === "/mypage" ? <></> : <Topbtn></Topbtn>}
+      {loc === "/mypage" || loc === "/maps" ? <></> : <Topbtn></Topbtn>}
     </HeaderMainDiv>
   );
 };
@@ -493,12 +554,12 @@ const ChatbotBtn = styled.button`
   border: none;
   background-color: transparent;
   position: fixed;
-  bottom: 10.5rem;
-  right: 4rem;
+  bottom: 8rem;
+  right: 2rem;
 `;
 
 const ChatbotDiv = styled.div`
-  margin: 8rem;
+  margin: 10rem 5rem 0 0;
   position: absolute;
   right: 0;
 `;

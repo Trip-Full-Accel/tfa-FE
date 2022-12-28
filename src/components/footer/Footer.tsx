@@ -8,7 +8,6 @@ const Footer = () => {
   const footerName = useSelector((state: RootState) => state.footerName.foot);
   const location = useLocation();
   const loc = location.pathname;
-  console.log(loc);
   const { t } = useTranslation();
 
   return (
@@ -25,6 +24,12 @@ const Footer = () => {
           <section>{t("gwangdeok")}</section>
           <section>{t("cheolryeon")}</section>
           <section>{t("sungho")}</section>
+          <div>
+            <i className="xi-instagram xi-2x" />
+            <i className="xi-twitter xi-2x" />
+            <i className="xi-facebook-official xi-2x" />
+            <i className="xi-github xi-2x" />
+          </div>
         </FooterDiv>
       )}
     </>

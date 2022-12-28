@@ -1,3 +1,4 @@
+import { el } from "date-fns/locale";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./AreaName.css";
@@ -25,6 +26,7 @@ const AreaName = () => {
     Navigate(path);
   };
   const loc = useLocation();
+  console.log(loc);
 
   const Tab = (el: aa) => {
     if ("/photo/" + el.value === loc.pathname) {
@@ -33,6 +35,8 @@ const AreaName = () => {
       return "defaultTab";
     }
   };
+  console.log("/photo/" + areaName[1].value);
+
   return (
     <div
       style={{

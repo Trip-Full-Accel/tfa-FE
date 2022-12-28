@@ -143,9 +143,7 @@ const MainSlideDiv = styled.div`
 `;
 
 const ImgTag = styled.img`
-  border-radius: 15px 15px 15px 15px;
-  width: 500px;
+  border-radius: 15px;
+  width: 100%;
   height: 350px;
-  margin: 10px
-  margin: 0;
 `;

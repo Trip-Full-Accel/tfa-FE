@@ -23,6 +23,9 @@ interface dataType {
   y: string;
 }
 const Main = () => {
+  const goChat = () => {
+    navigate("/chatting");
+  };
   const [show, setShow] = useState(false);
 
   const [selected, setSelected] = useState<string>("choice");
@@ -243,6 +246,7 @@ const Main = () => {
           />
         </Modal>
       </div>
+      <Button onClick={goChat}>asdf</Button>
 
       {/* <h2>{t("testText")}</h2> */}
 

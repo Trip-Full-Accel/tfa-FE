@@ -55,7 +55,7 @@ const Header = () => {
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
     { name: `${t("info")}`, value: "tfaInfo" },
-    { name: "Info2", value: "tfaInfo2" },
+    { name: "chat", value: "chat" },
     { name: `${t("suggest")}`, value: "suggest" },
     // { name: "마이페이지", value: "myPage" },
     { name: `${t("board")}`, value: "board" },

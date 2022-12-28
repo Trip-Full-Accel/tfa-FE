@@ -1,73 +1,109 @@
-import Pagenation from "components/pagenation/Pagenation";
+import BList from "components/pagenation/boardList";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
-import { fetchGetBoard } from "store/board/boardReducer";
+import Snowfall from "react-snowfall";
+import { Button, Spinner } from "reactstrap";
+import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
 import { BoardList } from "store/board/boardType";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
-
 const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const successLogin = useSelector(
+    (state: RootState) => state.user.successLogin
+  );
+  //검색어
+  const [firstKeyword, setFirstKeyword] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>("");
+  // 글작성 페이지 이동
   const boardBtn = () => {
-    navigate("/regist");
+    if (successLogin.length > 0) {
+      navigate("/regist");
+    } else {
+      alert("로그인하고 와라");
+    }
   };
-
-  // board페이지 진입시 useEffect 활용해서 getData가 실행되야함 비동기처리필요
   useEffect(() => {
     dispatch(fetchGetBoard());
-    set보드리스트(boardList);
-  }, []);
-
-  //boardReducer에 담긴 data
+  }, [navigate]);
   const boardList = useSelector((state: RootState) => state.board.board);
-  console.log(boardList);
-  const [보드리스트, set보드리스트] = useState<BoardList[]>([]);
-  const [현재페이지, set현재페이지] = useState(1);
-  const [보여줄리스트개수, set보여줄리스트개수] = useState(8);
-  // 리덕스에서 보드리스트 가져와서 set 시키기
-  const 슬라이스마지막값 = 현재페이지 * 보여줄리스트개수;
-  const 슬라이스첫번째값 = 슬라이스마지막값 - 보여줄리스트개수;
-  const 현재보여지는보드리스트 = 보드리스트.slice(
-    슬라이스첫번째값,
-    슬라이스마지막값
-  );
-
+  const load = useSelector((state: RootState) => state.board.status);
+  // 게시판 검색 메서드
+  const searchBtn = () => {
+    setKeyword(firstKeyword);
+  };
+  // 리뷰글, 모집글 구분
+  const [select, setSelect] = useState("");
+  const reviewBtn = () => {
+    setSelect("리뷰");
+  };
+  const recruitBtn = () => {
+    setSelect("모집");
+  };
+  const [searchKey, setSearchKey] = useState<string>("title");
+  const searchKeyHandler = (e: any) => {
+    setSearchKey(e.target.value);
+  };
   return (
-    <div>
-      <BoardTitleDiv>게시판</BoardTitleDiv>
+    <>
+      <Snowfall color="white" snowflakeCount={200} />
+      <BoardTitleDiv>
+        <img src="/img/boardimg.png" />
+      </BoardTitleDiv>
       <BoardMainDiv>
-        {boardList.slice(슬라이스첫번째값, 슬라이스마지막값).map((el, i) => {
-          return (
-            <ContentDiv key={el.title + el.writer}>
-              <TitleDiv>{el.title}</TitleDiv>
-              {/* <div>{el.content}</div> */}
-              {/* <div>{el.writer}</div> */}
-              {/* <div>{el.regdate}</div> */}
-              <LikeDiv>{el.like}</LikeDiv>
-            </ContentDiv>
-          );
-        })}
-        <Pagenation
-          totalPosts={보드리스트.length}
-          currentPage={현재페이지}
-          postsPerPage={보여줄리스트개수}
-          setCurrentPage={set현재페이지}
-        />
+        <div
+          style={{
+            width: "85%",
+            display: "flex",
+            paddingTop: "3rem",
+          }}
+        >
+          <TabBtn onClick={() => reviewBtn()}>리뷰</TabBtn>
+          <TabBtn onClick={() => recruitBtn()}>모집</TabBtn>
+          <SearchDiv>
+            <select
+              style={{ borderRadius: "5px" }}
+              onChange={(e) => searchKeyHandler(e)}
+            >
+              <option value="title">제목</option>
+              <option value="content">내용</option>
+              <option value="writer">작성자</option>
+            </select>
+            <RightInput
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setFirstKeyword(e.target.value);
+              }}
+            ></RightInput>
+            <Button style={{ width: "90px" }} onClick={() => searchBtn()}>
+              검색
+            </Button>
+          </SearchDiv>
+          <Button style={{ width: "90px" }} onClick={() => boardBtn()}>
+            글쓰러
+          </Button>
+        </div>
+        <hr />
+
+        {load === "loading" ? (
+          <Spinner></Spinner>
+        ) : (
+          <BList
+            data={boardList}
+            keyword={keyword}
+            searchKey={searchKey}
+            select={select}
+          />
+        )}
       </BoardMainDiv>
-      <Button onClick={() => boardBtn()}>글쓰러</Button>
-    </div>
+    </>
   );
 };
-
 export default Board;
-
 const BoardTitleDiv = styled.div`
-  padding: 5rem;
+  /* padding: 5rem; */
 `;
-
 const BoardMainDiv = styled.div`
   width: 100%;
   height: 100%;
@@ -76,30 +112,28 @@ const BoardMainDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  flex-direction: column;
 `;
-const ContentDiv = styled.div`
-  width: 350px;
-  height: 300px;
-  background-color: #bcb8bcaa;
-  margin: 1.5rem;
-  border-radius: 40px;
-
-  position: relative;
-  &:hover {
-    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 25%), 0 2px 10px 0 rgb(0 0 0 / 25%) !important;
-    background-color: #bcb8bcaa;
-    cursor: pointer;
+const RightInput = styled.input`
+  border: none;
+  text-align: left;
+  height: 3rem;
+  width: 20rem;
+  outline: none;
+  background: #fafafa;
+  border-bottom: 1px solid #000000;
+  :focus {
+    border-bottom: 3px solid #7c74ab;
   }
 `;
 
-const TitleDiv = styled.div`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
+const SearchDiv = styled.div`
+  justify-content: center;
+  border-radius: 5px;
+  display: flex;
 `;
 
-const LikeDiv = styled.div`
-  float: right;
-  padding: 30px;
+const TabBtn = styled.button`
+  width: 6rem;
+  border: none;
 `;

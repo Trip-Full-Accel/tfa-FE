@@ -1,0 +1,73 @@
+.rhap_container {
+  /* margin-top: 50px; */
+  margin: 0;
+  position: relative;
+  background-color: aliceblue;
+  /* background: #fafafa; */
+  width: 100%;
+  /* border: 0.5px solid #7c74ab; */
+  border: none;
+  border-radius: 20px;
+  height: 110px;
+  justify-content: center;
+  box-shadow: 0px 0px 0px 0px grey;
+}
+.rhap_main rhap_stacked {
+  height: 0px !important;
+  background-color: transparent !important;
+}
+.rhap_controls-section {
+  margin-bottom: 15px;
+}
+
+.rhap_progress-section {
+  height: 10px;
+  display: none;
+  padding-bottom: 20px;
+}
+.rhap_repeat-button {
+  display: none;
+}
+.rhap_main-controls-button {
+  width: 70px !important;
+  height: 70px !important;
+}
+
+.rhap_main-controls-button {
+  width: 10px;
+  height: 10px;
+  display: block;
+}
+
+.rhap_main-controls-button svg {
+  color: #7c74ab;
+  width: 50%;
+  height: 50%;
+}
+.rhap_progress-filled,
+.rhap_progress-indicator {
+  display: none;
+  background-color: #7c74ab !important;
+}
+.rhap_rewind-button,
+.rhap_forward-button {
+  /* display: none; */
+}
+.rhap_button-clear.rhap_volume-button {
+  color: #7c74ab !important;
+}
+.rhap_volume-container {
+  margin-bottom: 8px;
+}
+.rhap_volume-indicator {
+  background-color: #7c74ab;
+}
+
+.rhap_volume-bar {
+  width: 10%;
+  position: absolute;
+}
+.rhap_progress-section {
+  margin-top: 20px;
+  width: 100%;
+}

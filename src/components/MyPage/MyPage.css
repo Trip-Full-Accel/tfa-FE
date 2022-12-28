@@ -1,0 +1,8 @@
+.myBody,
+.mypage-container2 {
+  max-height: 100vh;
+  overflow-x: hidden !important;
+  overflow: hidden !important;
+  /* overflow-y: scroll; */
+  overflow-y: hidden !important;
+}

@@ -11,7 +11,7 @@ function Topbtn() {
   };
   useEffect(() => {
     const handleShowButton = () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 100) {
         setShowButton(true);
       } else {
         setShowButton(false);
@@ -37,9 +37,9 @@ function Topbtn() {
 export default Topbtn;
 
 const TopBtnDiv = styled.div`
-  top: 77%;
+  bottom: 6.5rem;
   position: fixed;
-  left: 90%;
+  right: 4rem;
   transition: all 0.4s;
   background-color: transparent;
 `;
@@ -49,7 +49,7 @@ const Topbutton = styled.button`
 `;
 
 const TopBtnImg = styled.img`
-  width: 50px;
+  width: 60px;
   background-color: transparent;
   border: none;
 `;

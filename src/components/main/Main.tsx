@@ -1,19 +1,34 @@
+import Player from "components/music/music";
+import { addDays } from "date-fns";
+import { ko } from "date-fns/esm/locale";
 import { useState } from "react";
+import { Modal } from "react-bootstrap";
+import { DateRangePicker } from "react-date-range";
+import { useTranslation } from "react-i18next";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import { useNavigate } from "react-router-dom";
-import "../../static/all.css";
-import MainBtn from "./MainBtn";
+import Snowfall from "react-snowfall";
+import { Button } from "reactstrap";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { RootState } from "store/store";
+import "../../static/all.css";
+import i18n from "language/i18n";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store/store";
+import { fetchDeleteUser } from "store/user/userReducer";
+import { fetchPostCourse } from "store/map/mapReducer";
+import { cursorTo } from "readline";
+import "../../static/font/font.css";
 interface dataType {
   name: string;
   x: string;
   y: string;
 }
 const Main = () => {
+  const [show, setShow] = useState(false);
+
   const navigate = useNavigate();
-  const reduxData = useSelector((state: RootState) => state.user.userId);
-  console.log("리덕스에서 가져온 userid값 [" + reduxData + "]");
+  // const reduxData = useSelector((state: RootState) => state.user.userId);
   const local = localStorage.getItem("userId");
 
   const [coordinate, setCoordinate] = useState({ x: "", y: "" });
@@ -36,25 +51,128 @@ const Main = () => {
     navigate(path);
     //, { state: { x: x, y: y } }
   };
-  const scrollToMap = () => {
-    window.scroll({
-      top: 650,
-      left: 650,
-      behavior: "smooth",
-    });
+
+  const linkTo = (path: string) => {
+    navigate(path);
   };
+  const [title, setTitle] = useState<string>("");
+  console.log(title);
+  const goMaps = (path: string) => {
+    if (title.length > 0) {
+      navigate(path);
+    } else {
+      alert("제목입력해라");
+    }
+  };
+  const test = () => {
+    navigate("/edit");
+  };
+  const date = new Date();
+  const [state, setState] = useState<any>({
+    selection1: {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 1),
+      key: "selection1",
+    },
+  });
+  console.log(state);
+
+  const [text, setText] = useState("");
+
+  const strBtn = () => {
+    dispatch(fetchPostCourse({ userId: 1, courseName: "ddd" }));
+    if (text.length > 0) {
+      navigate("/maps", {
+        state: {
+          date: `${
+            state.selection1.startDate.toLocaleDateString().split(".")[1] +
+            "월" +
+            state.selection1.startDate.toLocaleDateString().split(".")[2] +
+            "일"
+          } ~ ${
+            state.selection1.endDate.toLocaleDateString().split(".")[1] +
+            "월" +
+            state.selection1.endDate.toLocaleDateString().split(".")[2] +
+            "일"
+          }`,
+          title: text,
+        },
+      });
+    } else {
+      alert("제목.");
+    }
+  };
+
+  // three 실험
+  const goThree = () => {
+    navigate("/three");
+  };
+
+  const { t } = useTranslation();
+
+  // const translate = () => {
+  //   if (tr === false) {
+  //   } else {
+  //     setTr(false);
+  //   }
+  // };
+
+  const testid = localStorage.getItem("userId");
+  const dispatch = useDispatch<AppDispatch>();
+  const deleteUser = () => {
+    dispatch(fetchDeleteUser(Number(testid)));
+  };
+
   return (
     <TopLvDiv>
+      <Snowfall
+        // Changes the snowflake color
+        color="white"
+        // Applied to the canvas element
+        // style={{ background: "#fff" }}
+        // Controls the number of snowflakes that are created (default 150)
+        snowflakeCount={200}
+      />
       <FirstDiv>
         <LeftDiv>
-          <MainTitle>TFA {local}</MainTitle>
-          <br />
-          <SubTitle>Trip Full Accel 에서 여행을 시작하세요</SubTitle>
-          <br />
-          <StartBtn onClick={scrollToMap}>
+          {/* <MainTitle>{local} </MainTitle> */}
+          <SubTitle>{t("title")}</SubTitle>
+          <CalendarDiv>
+            <IconSpan>
+              <img src="/img/calendar.png"></img>
+            </IconSpan>
+            <CalendarBtn
+              onClick={() => {
+                setShow(true);
+              }}
+            >
+              {`${
+                state.selection1.startDate.toLocaleDateString().split(".")[1] +
+                `${t("month")}` +
+                state.selection1.startDate.toLocaleDateString().split(".")[2] +
+                `${t("day")}`
+              } ~ ${
+                state.selection1.endDate.toLocaleDateString().split(".")[1] +
+                `${t("month")}` +
+                state.selection1.endDate.toLocaleDateString().split(".")[2] +
+                `${t("day")}`
+              }`}
+            </CalendarBtn>
+          </CalendarDiv>
+
+          <TitleInput
+            type="text"
+            placeholder={`${t("startBtnPlaceHolder")}`}
+            required
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+          ></TitleInput>
+
+          <StartBtn onClick={strBtn}>
             <span>Start</span>
           </StartBtn>
-          <br />
+          <Player></Player>
         </LeftDiv>
         {/* video */}
         <VideoDiv>
@@ -63,15 +181,36 @@ const Main = () => {
       </FirstDiv>
       {/* <Polygon></Polygon> */}
       {/* 폴리곤 끝 */}
-      <SecondDiv>
-        <BtnDiv>
-          {data.map((el: { name: string; x: string; y: string }) => {
-            return (
-              <MainBtn key={el.name} name={el.name} x={el.x} y={el.y}></MainBtn>
-            );
-          })}
-        </BtnDiv>
-      </SecondDiv>
+      <div>
+        <Modal
+          className="loginM"
+          size="lg"
+          show={show}
+          onHide={() => setShow(false)}
+          aria-labelledby="example-modal-sizes-title-lg"
+          style={{ borderRadius: "5%" }}
+        >
+          <DateRangePicker
+            onChange={(item) => setState({ ...state, ...item })}
+            moveRangeOnFirstSelection={false}
+            locale={ko}
+            dateDisplayFormat="yyyy-MM-dd (eee)"
+            months={2}
+            ranges={[state.selection1]}
+            showPreview={false}
+            minDate={date}
+            showDateDisplay={false}
+            direction="horizontal"
+          />
+        </Modal>
+      </div>
+
+      <Button onClick={deleteUser}>탈퇴 실험</Button>
+      {/* <h2>{t("testText")}</h2> */}
+
+      {/* <i className="xi-translate xi-4x" onClick={onChangeLang}></i> */}
+      {/* <Player></Player> */}
+      {/* <Button onClick={goThree}>3d 화면 실험</Button> */}
     </TopLvDiv>
   );
 };
@@ -83,7 +222,6 @@ const LeftDiv = styled.div`
   align-items: right;
   width: 40%;
   text-align: center;
-  font-family: "Nanum Pen Script", cursive;
   align-self: center;
 `;
 const VideoDiv = styled.div`
@@ -97,11 +235,10 @@ const FirstDiv = styled.div`
   display: flex;
   margin: 0 !important;
 `;
-const MainTitle = styled.h1`
-  font-family: Caveat;
-`;
+
+const MainTitle = styled.h1``;
 const SubTitle = styled.h3`
-  font-family: Caveat;
+  padding: 1rem;
 `;
 const StartBtn = styled.button`
   border: none;
@@ -152,7 +289,35 @@ const Video = styled.video`
     display: none;
   }
 `;
-const SecondDiv = styled.div`
-  display: inline-flex;
-  margin-top: 150px;
+
+const CalendarDiv = styled.div`
+  width: 300px;
+  height: 50px;
+  background-color: #ccccff;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+`;
+
+const TitleInput = styled.input`
+  font-size: 1.2rem;
+  background-color: #ccccff;
+  width: 300px;
+  height: 50px;
+  border: none;
+  margin: 1rem 0 2rem 0;
+  border-radius: 10px;
+`;
+
+const IconSpan = styled.span`
+  width: 25%;
+  text-align: center;
+  place-self: center;
+  margin: 0 0 0 10px;
+`;
+
+const CalendarBtn = styled.button`
+  float: left;
+  background-color: transparent;
+  border: none;
 `;

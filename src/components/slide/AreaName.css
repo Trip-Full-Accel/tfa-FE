@@ -1,0 +1,11 @@
+.clickTab {
+  background-color: #ccccff;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  text-shadow: 0px 0px 5px #7c74ab;
+}
+
+.defaultTab {
+  background-color: #fafafa;
+}

@@ -3,7 +3,7 @@ import { FooterState } from "./footerType";
 
 const initialState: FooterState = {
   foot: [
-    "GunHo-Kwak",
+    "GeonHo-Kwak",
     "SungMin-Lim",
     "HyeMin-Won",
     "GwangDeok-Park",

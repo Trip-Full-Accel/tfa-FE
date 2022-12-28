@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import "../../static/bootmodal.css";
 import "../../static/loginBtn.css";
 import Topbtn from "./../topbtn/Topbtn";
-import HeaderList from "./HeaderList";
-import { Button, Modal } from "react-bootstrap";
-import "../../static/bootmodal.css";
 import "./Header.css";
+import HeaderList from "./HeaderList";
 import "./modal.css";
-import styled from "styled-components";
+import ActionProvider from "components/chatbot/ActionProvider";
+import config from "components/chatbot/config";
+import MessageParser from "components/chatbot/MessageParser";
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+import "../chatbot/chatbot.css";
 
 import {
   MDBCard,
@@ -17,21 +23,41 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
+import { useDispatch, useSelector } from "react-redux";
 import { Input } from "reactstrap";
+import { AppDispatch, RootState } from "store/store";
+import { fetchPostLogin, fetchUserlogout } from "store/user/userReducer";
 import "../../static/bootmodal.css";
-import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils";
-import { CustomAxios } from "./../../http/customAxios";
+import Translate from "components/translate/translate";
+import { useTranslation } from "react-i18next";
 
 type tfaPath = {
   value: string;
   name: string;
 };
 const Header = () => {
+  const { t } = useTranslation();
+
   const [lgShow, setLgShow] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [idInput, setIdInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const navigate = useNavigate();
+  const tfaPath: tfaPath[] = [
+    { name: `${t("info")}`, value: "tfaInfo" },
+    { name: "Info2", value: "tfaInfo2" },
+    { name: `${t("suggest")}`, value: "suggest" },
+    // { name: "마이페이지", value: "myPage" },
+    { name: `${t("photo")}`, value: "photo" },
+    { name: `${t("board")}`, value: "board" },
+  ];
+  const location = useLocation();
 
+  const loc = location.pathname;
+  const dispatch = useDispatch<AppDispatch>();
+  const OnLogin = useSelector((state: RootState) => state.user.userId);
+
+  // 스크롤에 따라 업데이트
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
@@ -45,22 +71,14 @@ const Header = () => {
     }
   }, [lgShow]);
 
-  const navigate = useNavigate();
-  const tfaPath: tfaPath[] = [
-    { name: "Info", value: "tfaInfo" },
-    // { name: "마이페이지", value: "myPage" },
-    { name: "Photo", value: "photo" },
-    { name: "board", value: "board" },
-  ];
-
   const linkTo = (path: string) => {
     navigate(path);
     if (path === "/account") {
       setLgShow(false);
+    } else if (path === "/forgotPw") {
+      setLgShow(false);
     }
   };
-  const location = useLocation();
-  const loc = location.pathname;
 
   const locFunction = () => {
     if (loc == "/") {
@@ -75,11 +93,7 @@ const Header = () => {
   };
 
   const [loginImges, setLoginImges] = useState("");
-  useEffect(() => {
-    if (lgShow == true) {
-      loginImg();
-    }
-  }, [lgShow]);
+
   const loginImg = () => {
     var imgList = [];
     imgList.push("/img/login/login1.jpg");
@@ -102,6 +116,7 @@ const Header = () => {
       redirectUri: "http://localhost:3000/kakao",
       scope: "profile_nickname, account_email, gender,age_range",
     });
+
     console.log("카톡로그인 메서드 실행됨");
   };
 
@@ -144,12 +159,88 @@ const Header = () => {
     setPasswordInput(e.target.value);
   };
 
-  const goToLogin = async () => {
-    await CustomAxios("/", "POST", {
-      id: idInput,
-      pw: passwordInput,
-    });
-    navigate("/");
+  // 로그인하고 로그인 성공시에 alert로 닉네임 띄워줌
+  const successLogin = useSelector(
+    (state: RootState) => state.user.successLogin
+  );
+  // console.log(successLogin);
+
+  const testUserId = localStorage.getItem("userId");
+  // 로그아웃 기능 구현시 식별값 보내줄 거임 백에 따라서 정해짐 일단은 새로고침으로 구현
+  const logout = () => {
+    console.log(testUserId);
+
+    // 그냥 로컬스토리지 클리어로 로그아웃 설정
+    dispatch(fetchUserlogout(successLogin))
+      .unwrap()
+      .then((res) => {
+        if (res) {
+          console.log("실행됨");
+
+          alert("로그아웃되었음");
+          localStorage.removeItem("userId");
+          navigate("/");
+        } else {
+          alert("로그아웃실패했음 관리자한테 문의하삼");
+        }
+      });
+  };
+
+  const goToLogin = () => {
+    dispatch(fetchPostLogin({ userId: idInput, pw: passwordInput }))
+      .unwrap()
+      .then((res) => {
+        if (res.length > 0) {
+          if (loc === "/") {
+            setLgShow(false);
+            alert("환영해~" + res);
+            navigate("/");
+          } else {
+            setLgShow(false);
+            alert("환영해~" + res);
+          }
+        } else {
+          alert("id or pw 확인해주세요");
+        }
+      });
+
+    // const [nick, setNick] = useState("");
+    // CustomAxios("user/login", "POST", {
+    //   userId: idInput,
+    //   pw: passwordInput,
+    // }).then((res) => {
+    //   const nick = res.data[0].nickName;
+    //   if (nick.length > 0) {
+    //     // setNick(nick);
+    //     setLgShow(false);
+    //     alert(nick);
+    //   }
+    // });
+    // dispatch(loginNick({
+    //   userId:idInput,
+    //   pw:passwordInput
+    // }))
+  };
+  const [chat, setChat] = useState(false);
+  const [bot, setBot] = useState(false);
+
+  const onChatbot = () => {
+    if (bot === false) {
+      setBot(true);
+    } else {
+      setBot(false);
+    }
+  };
+  const localUserId = localStorage.getItem("userId");
+  // console.log("로컬스토리지", localUserId);
+
+  const [open, setOpen] = useState(false);
+  const onNav = () => {
+    if (open === false) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
   };
 
   return (
@@ -166,7 +257,9 @@ const Header = () => {
             >
               <img src="/img/TFAlogo.png" style={{ width: "200px" }}></img>
             </TitleB>
+            <Translate></Translate>
           </TitleNav>
+          {/* <button onClick={onNav}>닫기</button> */}
           <ListNav>
             {tfaPath.map((el) => {
               return (
@@ -177,9 +270,27 @@ const Header = () => {
                 ></HeaderList>
               );
             })}
-            <JoinNav className={locFunction()} onClick={() => setLgShow(true)}>
-              &nbsp; Join
-            </JoinNav>
+
+            {localUserId !== null ? (
+              <>
+                <JoinNav
+                  className={locFunction()}
+                  onClick={() => linkTo("/mypage")}
+                >
+                  &nbsp; {t("mypage")}
+                </JoinNav>
+                <JoinNav className={locFunction()} onClick={logout}>
+                  &nbsp; {t("logout")}
+                </JoinNav>
+              </>
+            ) : (
+              <JoinNav
+                className={locFunction()}
+                onClick={() => setLgShow(true)}
+              >
+                &nbsp; {t("join")}
+              </JoinNav>
+            )}
           </ListNav>
         </FirstNavDiv>
       </MainNav>
@@ -209,7 +320,7 @@ const Header = () => {
                 src={loginImges}
                 alt="login form"
                 className="rounded-start w-100"
-                style={{ height: "513px" }}
+                style={{ height: "100%" }}
               ></MDBCardImage>
             </MDBCol>
 
@@ -218,7 +329,7 @@ const Header = () => {
                 <div className="d-flex flex-row mt-2">
                   <span
                     className="h1 fw-bold mb-0"
-                    style={{ marginTop: "3rem" }}
+                    style={{ marginTop: "0.5rem" }}
                   >
                     Trip Full Accel
                   </span>
@@ -226,7 +337,7 @@ const Header = () => {
 
                 <Input
                   className="lginputid"
-                  placeholder="ID"
+                  placeholder={`${t("idPlace")}`}
                   type="text"
                   style={{ marginTop: "2rem" }}
                   onChange={(e) => {
@@ -235,7 +346,7 @@ const Header = () => {
                 />
                 <Input
                   className="lginputpw"
-                  placeholder="PASSWORD"
+                  placeholder={`${t("pwPlace")}`}
                   type="password"
                   onChange={(e) => {
                     pwInputHandler(e);
@@ -247,19 +358,34 @@ const Header = () => {
                   color="light"
                   size="lg"
                   onClick={() => goToLogin()}
-                  style={{ backgroundColor: "#7C74AB", borderColor: "#7C74AB" }}
+                  style={{
+                    backgroundColor: "#7C74AB",
+                    borderColor: "#7C74AB",
+                    marginBottom: "0rem",
+                  }}
                 >
-                  Login
+                  {t("login")}
                 </Button>
-                <a className="small text-muted" href="#!">
-                  비밀번호를 잊으셨나요?
+                <a
+                  className="small text-muted"
+                  onClick={() => linkTo("/forgotPw")}
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "none",
+                  }}
+                >
+                  {t("forgotPw")}
                 </a>
 
                 <a
                   onClick={() => linkTo("/account")}
-                  style={{ color: "#393f81", cursor: "pointer" }}
+                  style={{
+                    color: "#393f81",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                  }}
                 >
-                  회원가입
+                  {t("join")}
                 </a>
 
                 <div className="wrapper">
@@ -288,7 +414,29 @@ const Header = () => {
           </MDBRow>
         </MDBCard>
       </Modal>
-      <Topbtn></Topbtn>
+      {loc === "/mypage" ? (
+        <></>
+      ) : (
+        <ChatbotBtn onClick={onChatbot}>
+          <img style={{ width: "60px" }} src="/img/chatbot.png" />
+        </ChatbotBtn>
+      )}
+
+      {/* 챗봇 시작 */}
+
+      {bot === true ? (
+        <ChatbotDiv id="chay">
+          <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+            placeholderText="궁금한 것을 물어보세요"
+          />
+        </ChatbotDiv>
+      ) : (
+        <div></div>
+      )}
+      {loc === "/mypage" ? <></> : <Topbtn></Topbtn>}
     </HeaderMainDiv>
   );
 };
@@ -317,7 +465,10 @@ const FirstNavDiv = styled.div`
   width: 90%;
   align-items: center;
 `;
-const TitleNav = styled.div``;
+const TitleNav = styled.div`
+  display: flex;
+  margin-left: 8rem;
+`;
 
 const TitleB = styled.b`
   color: black;
@@ -332,7 +483,22 @@ const TitleB = styled.b`
 const ListNav = styled.div`
   display: flex;
   cursor: pointer;
+  margin-right: 8rem;
 `;
 const JoinNav = styled.div`
   padding: 0 10px;
+`;
+
+const ChatbotBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  position: fixed;
+  bottom: 10.5rem;
+  right: 4rem;
+`;
+
+const ChatbotDiv = styled.div`
+  margin: 8rem;
+  position: absolute;
+  right: 0;
 `;

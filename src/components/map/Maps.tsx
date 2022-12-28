@@ -99,20 +99,44 @@ const Maps = () => {
   // console.log("알고리즘짤 경로", algorithm[5].city);
   const dispatch = useDispatch<AppDispatch>();
 
+  const testResult = [
+    {
+      1: Number,
+      "3.15해양누리공원": String,
+      35.18661034: Number,
+      128.5640647: Number,
+    },
+    {
+      2: Number,
+      SK인천석유화학벚꽃동산d: String,
+      37.51330755: Number,
+      126.6607487: Number,
+    },
+    {
+      3: Number,
+      가남체육공원: String,
+      37.20170935: Number,
+      127.5349142: Number,
+    },
+    { 4: Number, 고사부리성: String, 35.62467101: Number, 126.7690254: Number },
+    {
+      5: Number,
+      가덕도대항인공동굴: String,
+      35.01330955: Number,
+      128.8274686: Number,
+    },
+    {
+      6: Number,
+      "가덕도 등대": String,
+      35.00064712: Number,
+      128.8295937: Number,
+    },
+  ];
+
   const result = useSelector((state: RootState) => state.map.succuessAlgorithm);
   // console.log("result", result.courseResponseList);
   // const successAlgo = result.courseResponseList
   console.log("result", result);
-  // console.log("result", result[0]);
-  // setMarkers([
-  //         ...markers,
-  //         {
-  //         position: {
-  //         lat: result[0]?.lat,
-  //         lng: result[0].lng,
-  //         },
-  //         },
-  //         ]);
 
   const [checkConfirm, setCheckConfirm] = useState(false);
   const createMaps = () => {
@@ -120,153 +144,57 @@ const Maps = () => {
       setCheckConfirm(true);
       setIsVisible(true);
       console.log("확인");
-      if (algorithm.length === 1) {
-        dispatch(
-          fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].name,
-            firstCourseLat: algorithm[0].lat,
-            firstCourseLng: algorithm[0].lng,
-            otherCourseNames: "",
-            otherCourseLats: "",
-            otherCourseLngs: "",
-          })
-        ).then(
-          (res) => console.log("반환받고 까서써야되는 res", res)
 
-          // res[0][0].lat , res[0][0].lng
-          // res[0][1].lat , res[0][1].lng
+      dispatch(
+        fetchPostMapAlgorithm({
+          firstCourseName: algorithm[0].name,
+          firstCourseLat: algorithm[0].lat,
+          firstCourseLng: algorithm[0].lng,
+          otherCourseNames: [
+            algorithm[1].name,
+            algorithm[2].name,
+            algorithm[3].name,
+            algorithm[4].name,
+            algorithm[5].name,
+          ],
+          otherCourseLats: [
+            algorithm[1].lat,
+            algorithm[2].lat,
+            algorithm[3].lat,
+            algorithm[4].lat,
+            algorithm[5].lat,
+          ],
+          otherCourseLngs: [
+            algorithm[1].lng,
+            algorithm[2].lng,
+            algorithm[3].lng,
+            algorithm[4].lng,
+            algorithm[5].lng,
+          ],
+        })
+      ).then((res: any) =>
+        // res.payload.courseResponseList[0].lat
+        res.payload?.courseResponseList?.map((el: any) => {
           // setMarkers([
-          // ...markers,
-          // {
-          // position: {
-          // lat: res[0].lat,
-          // lng: res[0].lng,
-          // },
-          // },
+          //   ...markers,
+          //   {
+          //     position: {
+          //       lat: el?.lat,
+          //       lng: el?.lng,
+          //     },
+          //   },
           // ]);
-        ); // res 보고 어떻게 까서 setMarkers 할지 생각
-      } else if (algorithm.length === 2) {
-        dispatch(
-          fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].name,
-            firstCourseLat: algorithm[0].lat,
-            firstCourseLng: algorithm[0].lng,
-            otherCourseNames: algorithm[1].name,
-            otherCourseLats: algorithm[1].lat,
-            otherCourseLngs: algorithm[1].lng,
-          })
-        );
-      } else if (algorithm.length === 3) {
-        dispatch(
-          fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].name,
-            firstCourseLat: algorithm[0].lat,
-            firstCourseLng: algorithm[0].lng,
-            otherCourseNames: [algorithm[1].name, algorithm[2].name],
-            otherCourseLats: [algorithm[1].lat, algorithm[2].lat],
-            otherCourseLngs: [algorithm[1].lng, algorithm[2].lng],
-          })
-        );
-      } else if (algorithm.length === 4) {
-        dispatch(
-          fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].name,
-            firstCourseLat: algorithm[0].lat,
-            firstCourseLng: algorithm[0].lng,
-            otherCourseNames: [
-              algorithm[1].name,
-              algorithm[2].name,
-              algorithm[3].name,
-            ],
-            otherCourseLats: [
-              algorithm[1].lat,
-              algorithm[2].lat,
-              algorithm[3].lat,
-            ],
-            otherCourseLngs: [
-              algorithm[1].lng,
-              algorithm[2].lng,
-              algorithm[3].lng,
-            ],
-          })
-        );
-      } else if (algorithm.length === 5) {
-        dispatch(
-          fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].name,
-            firstCourseLat: algorithm[0].lat,
-            firstCourseLng: algorithm[0].lng,
-            otherCourseNames: [
-              algorithm[1].name,
-              algorithm[2].name,
-              algorithm[3].name,
-              algorithm[4].name,
-            ],
-            otherCourseLats: [
-              algorithm[1].lat,
-              algorithm[2].lat,
-              algorithm[3].lat,
-              algorithm[4].lat,
-            ],
-            otherCourseLngs: [
-              algorithm[1].lng,
-              algorithm[2].lng,
-              algorithm[3].lng,
-              algorithm[4].lng,
-            ],
-          })
-        );
-      } else if (algorithm.length === 6) {
-        dispatch(
-          fetchPostMapAlgorithm({
-            firstCourseName: algorithm[0].name,
-            firstCourseLat: algorithm[0].lat,
-            firstCourseLng: algorithm[0].lng,
-            otherCourseNames: [
-              algorithm[1].name,
-              algorithm[2].name,
-              algorithm[3].name,
-              algorithm[4].name,
-              algorithm[5].name,
-            ],
-            otherCourseLats: [
-              algorithm[1].lat,
-              algorithm[2].lat,
-              algorithm[3].lat,
-              algorithm[4].lat,
-              algorithm[5].lat,
-            ],
-            otherCourseLngs: [
-              algorithm[1].lng,
-              algorithm[2].lng,
-              algorithm[3].lng,
-              algorithm[4].lng,
-              algorithm[5].lng,
-            ],
-          })
-        ).then((res: any) =>
-          // res.payload.courseResponseList[0].lat
-          res.payload.courseResponseList.map((el: any) => {
-            // setMarkers([
-            //   ...markers,
-            //   {
-            //     position: {
-            //       lat: el.lat,
-            //       lng: el.lng,
-            //     },
-            //   },
-            // ]);
-            console.log(el);
-          })
-        );
-      }
+          console.log("then data", el);
+          setIsVisible(true);
+        })
+      );
     } else {
       console.log("취소");
     }
   };
   const navigate = useNavigate();
-  const realCreateCourse = () => {
-    dispatch(
+  const realCreateCourse = async () => {
+    await dispatch(
       fetchPostMapReal({
         courseId: 1,
         registerPlaceRequestList: [
@@ -277,7 +205,7 @@ const Maps = () => {
             placeName: "string",
           },
         ],
-        userId: 1,
+        userId: 1, //로컬스토리지 태워서 보내면됨,
       })
     );
     if (checkConfirm) {
@@ -311,6 +239,13 @@ const Maps = () => {
       templateId: 86680, // 내가 만든 템플릿 아이디를 넣어주면 된다
     });
   };
+
+  // const [realList, setRealList] = useState(result.courseResponseList);
+  // setRealList(result.courseResponseList);
+  const realList = result?.courseResponseList;
+  console.log("object", realList);
+  console.log("selected", selected);
+
   return (
     <MapPageDiv ref={mapRef}>
       <Snowfall
@@ -391,24 +326,25 @@ const Maps = () => {
                   key={`${marker.position}-${index}`}
                   position={marker.position} // 마커를 표시할 위치
                 />
+                <Polyline
+                  // path={[markers.map((data) => data?.position)]}
+                  path={[
+                    // 셀렉티드 찎어보고 알고리즘 받은 데이터 똑같이 세팅하든가 아니면 잘 뽑아서 쓰던가
+                    realList?.map((data: any) => {
+                      // const { lat, lng } = data;
+                      return {
+                        lat: Number(data?.courseLats),
+                        lng: Number(data?.courseLngs),
+                      };
+                    }),
+                  ]}
+                  strokeWeight={6} // 두께
+                  strokeColor={"#000d16"} // 색
+                  strokeOpacity={0.6} // 불투명도
+                  strokeStyle={"solid"} // 스타일
+                />
               </div>
             ))}
-          <Polyline
-            // path={[markers.map((data) => data?.position)]}
-            path={[
-              selected.map((data) => {
-                // const { lat, lng } = data;
-                return {
-                  lat: Number(data.lat),
-                  lng: Number(data.lng),
-                };
-              }),
-            ]}
-            strokeWeight={6} // 두께
-            strokeColor={"#000d16"} // 색
-            strokeOpacity={0.6} // 불투명도
-            strokeStyle={"solid"} // 스타일
-          />
         </Map>
       </MapDiv>
       <TourListTopDiv>
@@ -434,6 +370,9 @@ const Maps = () => {
           cityCode={cityCode}
         ></MapTest>
       </TourListTopDiv>
+      {/* {result?.courseResponseList?.map((el: any) => {
+        return <div>{el.courseLats}</div>;
+      })} */}
     </MapPageDiv>
   );
 };

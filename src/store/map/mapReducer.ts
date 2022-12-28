@@ -69,7 +69,7 @@ interface initialType {
   tourList: TourList[];
   selectedTourList: TourList[];
   selectedPoints: TourList[];
-  succuessAlgorithm: AlgoResultType[];
+  succuessAlgorithm: any;
   status: Status;
   error: Error;
 }
@@ -111,7 +111,7 @@ const mapReducer = createSlice({
 
         // 건호님이 보내주는 반환데이터 저장후에 maps 페이지 에서 꺼내서 써야함
         state.succuessAlgorithm = action.payload;
-        // console.log(action.payload);
+        console.log(action.payload);
       })
       .addCase(fetchPostMapAlgorithm.rejected, (state, action) => {
         state.status = "failed";

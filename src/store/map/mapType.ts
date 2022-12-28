@@ -47,7 +47,7 @@ export interface AlgoType {
   otherCourseLngs: any[""] | null;
 }
 export interface AlgoResultType {
-  courseResponseList?: any[];
+  courseResponseList?: [];
   courseLats: number;
   courseLngs: number;
   courseOrder: number;

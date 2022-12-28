@@ -1,11 +1,12 @@
 import BList from "components/pagenation/boardList";
+import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
 import { Button, Spinner } from "reactstrap";
-import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
-import { BoardList } from "store/board/boardType";
+import { fetchGetBoard } from "store/board/boardReducer";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/all.css";
@@ -27,11 +28,21 @@ const Board = () => {
     //   alert("로그인하고 와라");
     // }
   };
+  const boardList = useSelector((state: RootState) => state.board.board);
+  const { t } = useTranslation();
   useEffect(() => {
     dispatch(fetchGetBoard());
   }, [navigate]);
-  const boardList = useSelector((state: RootState) => state.board.board);
-  const load = useSelector((state: RootState) => state.board.status);
+  console.log("리덕스에서 가져온 보드리스트", boardList);
+
+  // const load = useSelector((state: RootState) => state.board.status);
+
+  const registStatus = useSelector((state: RootState) => state.board.regist);
+  useEffect(() => {
+    if (registStatus === "succeeded") {
+      dispatch(fetchGetBoard());
+    }
+  }, [registStatus]);
   // 게시판 검색 메서드
   const searchBtn = () => {
     setKeyword(firstKeyword);
@@ -48,6 +59,8 @@ const Board = () => {
   const searchKeyHandler = (e: any) => {
     setSearchKey(e.target.value);
   };
+
+  const boardLoad = useSelector((state: RootState) => state.board.loadData);
   return (
     <>
       <Snowfall color="white" snowflakeCount={200} />
@@ -72,17 +85,17 @@ const Board = () => {
               margin: 0,
             }}
           >
-            <TabBtn onClick={() => reviewBtn()}>리 뷰</TabBtn>
-            <TabBtn onClick={() => recruitBtn()}>모 집</TabBtn>
+            <TabBtn onClick={() => reviewBtn()}>{t("review")}</TabBtn>
+            <TabBtn onClick={() => recruitBtn()}>{t("Recruitment")}</TabBtn>
           </div>
           <SearchDiv>
             <select
               style={{ borderRadius: "5px", width: "80px" }}
               onChange={(e) => searchKeyHandler(e)}
             >
-              <option value="title">제목</option>
-              <option value="content">내용</option>
-              <option value="writer">작성자</option>
+              <option value="title">{t("boardtitle")}</option>
+              <option value="content">{t("content")}</option>
+              <option value="writer">{t("writer")}</option>
             </select>
             <RightInput
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,25 +103,25 @@ const Board = () => {
               }}
             ></RightInput>
             <Button style={{ width: "90px" }} onClick={() => searchBtn()}>
-              검 색
+              {t("search")}
             </Button>
           </SearchDiv>
           <Button style={{ width: "90px" }} onClick={() => boardBtn()}>
-            글쓰기
+            {t("Writing")}
           </Button>
         </div>
         <hr />
 
-        {load === "loading" ? (
+        {/* {boardLoad === "loading" ? (
           <Spinner></Spinner>
-        ) : (
-          <BList
-            data={boardList}
-            keyword={keyword}
-            searchKey={searchKey}
-            select={select}
-          />
-        )}
+        ) : ( */}
+        <BList
+          data={boardList}
+          keyword={keyword}
+          searchKey={searchKey}
+          select={select}
+        />
+        {/* )} */}
       </BoardMainDiv>
     </>
   );

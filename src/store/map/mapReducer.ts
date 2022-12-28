@@ -1,14 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CustomAxiosMap } from "http/customAxiosForMap";
 import { CustomAxios } from "../../http/customAxios";
-import { AlgoType, Course, MapList, TourList } from "./mapType";
+import { AlgoType, Course, MapCreateReal, MapList, TourList } from "./mapType";
 
 /**추천여행지 불러오는 리듀서 */
-export const fetchGetTourList = createAsyncThunk("TOUR/GET", async () => {
-  const response = await CustomAxios("/tour/list", "GET");
-  // console.log(response.data);
-  return response.data;
-});
+export const fetchGetTourList = createAsyncThunk(
+  "TOUR/GET",
+  async (cityCode: number) => {
+    console.log(cityCode);
+    const response = await CustomAxios(`/recommendations/${cityCode}`, "GET");
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 /** 코스이름 create 리듀서 */
 export const fetchPostCourse = createAsyncThunk(
@@ -16,7 +19,7 @@ export const fetchPostCourse = createAsyncThunk(
   async (payload: Course) => {
     console.log(payload);
 
-    const { data } = await CustomAxiosMap("/courses", "POST", payload);
+    const { data } = await CustomAxios("/courses", "POST", payload);
     console.log(data);
 
     // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
@@ -28,9 +31,22 @@ export const fetchPostCourse = createAsyncThunk(
 export const fetchPostMapAlgorithm = createAsyncThunk(
   "ALGORITHM/POST",
   async (payload: AlgoType) => {
-    console.log(payload);
-    const { data } = await CustomAxiosMap("/courses/create", "POST", payload);
+    // console.log(payload);
+    const { data } = await CustomAxios("/courses/create", "POST", payload);
     console.log(data);
+
+    // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
+    return data;
+  }
+);
+
+/** 맵 진짜 생성 테스트 */
+export const fetchPostMapReal = createAsyncThunk(
+  "REAL/POST",
+  async (payload: MapCreateReal) => {
+    console.log(payload);
+    const { data } = await CustomAxios("/places", "POST", payload);
+    console.log("asdfsadfasdf", data);
 
     // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
     return data;
@@ -45,8 +61,9 @@ interface initialType {
   tourList: TourList[];
   selectedTourList: TourList[];
   selectedPoints: TourList[];
-  succuessAlgorithm: AlgoType[];
+  succuessAlgorithm: any;
   status: Status;
+  courseId: any;
   error: Error;
 }
 const initialState: initialType = {
@@ -55,7 +72,7 @@ const initialState: initialType = {
   selectedTourList: [],
   selectedPoints: [],
   succuessAlgorithm: [],
-
+  courseId: "",
   status: "idle",
   error: "null",
 };
@@ -87,7 +104,7 @@ const mapReducer = createSlice({
 
         // 건호님이 보내주는 반환데이터 저장후에 maps 페이지 에서 꺼내서 써야함
         state.succuessAlgorithm = action.payload;
-        // console.log(action.payload);
+        console.log(action.payload);
       })
       .addCase(fetchPostMapAlgorithm.rejected, (state, action) => {
         state.status = "failed";
@@ -95,6 +112,11 @@ const mapReducer = createSlice({
       })
       .addCase(fetchGetTourList.fulfilled, (state, action) => {
         state.tourList = action.payload;
+        console.log(state.tourList);
+      })
+      .addCase(fetchPostCourse.fulfilled, (state, action) => {
+        state.courseId = action.payload;
+        console.log("반환받은 코스아이디", state.courseId);
       });
   },
 });

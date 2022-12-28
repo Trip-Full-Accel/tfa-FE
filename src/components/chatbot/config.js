@@ -3,8 +3,9 @@ import { createChatBotMessage } from "react-chatbot-kit";
 const config = {
   initialMessages: [
     createChatBotMessage(
-      "Trup Full Accel에 방문하신걸 환영합니다. 궁금하신게 있다면 '설명' 이라고 입력해주세요."
+      "안녕하세요, TripFullAccel입니다. 원하시는 키워드를 작성해주시면 안내해드리겠습니다."
     ),
+    createChatBotMessage("[문의] [장소등록] [내경로] [사용방법] [고객센터]"),
   ],
   createChatBotMessage,
   customStyles: {

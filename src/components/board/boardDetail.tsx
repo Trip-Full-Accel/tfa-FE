@@ -1,4 +1,6 @@
+import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -28,7 +30,7 @@ const BoardDetail = () => {
   const [content, setContent] = useState<string>("");
   const [selected, setSelected] = useState<string>();
   const [like, setLike] = useState(false);
-
+  const { t } = useTranslation();
   const likeBtn = () => {
     if (like === false) {
       setLike(true);
@@ -99,9 +101,11 @@ const BoardDetail = () => {
               <BottomDiv>
                 <div style={{ margin: "0" }}>
                   <Writerdiv>{detail.writer}</Writerdiv>
-                  <DateDiv>작성일</DateDiv>
+                  <DateDiv>{t("writedate")}</DateDiv>
                 </div>
-                <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+                <Hitsdiv>
+                  {t("views")} : {detail.hits}
+                </Hitsdiv>
               </BottomDiv>
               <Contentdiv>
                 <pre
@@ -112,18 +116,21 @@ const BoardDetail = () => {
               </Contentdiv>
               <BtnDiv>
                 <div style={{ margin: "0" }}>
-                  <Button onClick={() => deleteHandler()}>삭 제</Button>&nbsp;
-                  <Button onClick={() => updateHandler(detail)}>수 정</Button>
+                  <Button onClick={() => deleteHandler()}>{t("delete")}</Button>
+                  &nbsp;
+                  <Button onClick={() => updateHandler(detail)}>
+                    {t("modify")}
+                  </Button>
                 </div>
                 {like === false ? (
                   <LikeBtn onClick={likeBtn}>
-                    좋아요 &nbsp;
+                    {t("like")} &nbsp;
                     <i className="xi-heart-o" />0
                   </LikeBtn>
                 ) : (
                   <div>
                     <LikeBtn onClick={likeBtn}>
-                      좋아요 &nbsp;
+                      {t("like")} &nbsp;
                       <i className="xi-heart " />1
                     </LikeBtn>
                   </div>
@@ -133,7 +140,7 @@ const BoardDetail = () => {
                     linkTo("/board");
                   }}
                 >
-                  목 록
+                  {t("list")}
                 </Button>
               </BtnDiv>
             </Detaildiv>
@@ -149,9 +156,11 @@ const BoardDetail = () => {
               <BottomDiv>
                 <div style={{ margin: "0" }}>
                   <Writerdiv>{detail.writer}</Writerdiv>
-                  <DateDiv>작성일</DateDiv>
+                  <DateDiv>{t("writedate")}</DateDiv>
                 </div>
-                <Hitsdiv>조회수 : {detail.hits}</Hitsdiv>
+                <Hitsdiv>
+                  {t("views")} : {detail.hits}
+                </Hitsdiv>
               </BottomDiv>
               <Contentdiv>
                 <pre
@@ -164,13 +173,13 @@ const BoardDetail = () => {
                 <LikeDiv>
                   {like === false ? (
                     <LikeBtn onClick={likeBtn}>
-                      좋아요 &nbsp;
+                      {t("like")} &nbsp;
                       <i className="xi-heart-o" />0
                     </LikeBtn>
                   ) : (
                     <div>
                       <LikeBtn onClick={likeBtn}>
-                        좋아요 &nbsp;
+                        {t("like")} &nbsp;
                         <i className="xi-heart " />1
                       </LikeBtn>
                     </div>
@@ -189,7 +198,7 @@ const BoardDetail = () => {
                       linkTo("/board");
                     }}
                   >
-                    목 록
+                    {t("list")}
                   </Button>
                 </div>
               </div>

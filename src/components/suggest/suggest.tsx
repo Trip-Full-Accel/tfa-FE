@@ -4,114 +4,158 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./suggest.css";
 import { useNavigate } from "react-router-dom";
+import Photo from "./../photo/Photo";
+import ThreedPhoto from "./Threed";
+import { useTranslation } from "react-i18next";
+import { tab } from "@testing-library/user-event/dist/tab";
 
 const Suggest = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const linkTo = (path: string) => {
     navigate(path);
   };
   return (
-    <Tabs>
-      <TabList>
-        <Tab>낮</Tab>
-        <Tab style={{ backgroundColor: "black", color: "white" }}>밤</Tab>
-      </TabList>
-      <TabPanel>
-        <DayDiv>
-          <TitleDiv>사용자들이 최근에 간 여행지예요!</TitleDiv>
-          <ImgDiv>
-            <Fade direction="down">
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
+    <div>
+      <Tabs>
+        <TabList>
+          <Tab
+            selectedClassName={"react-tabs__tab-click"}
+            style={{ width: "33%" }}
+          >
+            {t("tourlistattraction")}
+          </Tab>
+          <Tab
+            selectedClassName={"react-tabs__tab-click"}
+            style={{ width: "33%" }}
+          >
+            {t("daynight")}
+          </Tab>
+          <Tab
+            selectedClassName={"react-tabs__tab-click"}
+            style={{ width: "33%" }}
+          >
+            {t("360panorama")}
+          </Tab>
+        </TabList>
+        <TabPanel>
+          <Photo></Photo>
+        </TabPanel>
+        <TabPanel>
+          <Tabs>
+            <TabList>
+              <Tab selectedClassName={"default"}>{t("day1")}</Tab>
+              <Tab
+                selectedClassName={"react-tabs__tab-night"}
+                style={{
+                  backgroundColor: "black",
+                  color: "white",
                 }}
-                src="/img/seoul/seoul2.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={200}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul3.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={300}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul4.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={400}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul5.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={500}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul1.jpg"
-              />
-            </Fade>
-          </ImgDiv>
-        </DayDiv>
-      </TabPanel>
-      <TabPanel>
-        <NightDiv>
-          <TitleDiv>사용자들이 최근에 간 여행지예요!</TitleDiv>
-          <ImgDiv>
-            <Fade direction="down">
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul2.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={200}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul3.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={300}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul4.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={400}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul5.jpg"
-              />
-            </Fade>
-            <Fade direction="down" delay={500}>
-              <TravelImg
-                onClick={() => {
-                  linkTo("/board");
-                }}
-                src="/img/seoul/seoul1.jpg"
-              />
-            </Fade>
-          </ImgDiv>
-        </NightDiv>
-      </TabPanel>
-    </Tabs>
+              >
+                {t("night")}
+              </Tab>
+            </TabList>
+            <TabPanel>
+              <DayDiv>
+                <TitleDiv>{t("suggesttitle")}</TitleDiv>
+                <ImgDiv>
+                  <Fade direction="down">
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul2.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={200}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul3.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={300}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul4.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={400}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul5.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={500}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul1.jpg"
+                    />
+                  </Fade>
+                </ImgDiv>
+              </DayDiv>
+            </TabPanel>
+            <TabPanel>
+              <NightDiv>
+                <TitleDiv>{t("suggesttitle")}</TitleDiv>
+                <ImgDiv>
+                  <Fade direction="down">
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul2.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={200}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul3.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={300}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul4.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={400}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul5.jpg"
+                    />
+                  </Fade>
+                  <Fade direction="down" delay={500}>
+                    <TravelImg
+                      onClick={() => {
+                        linkTo("/board");
+                      }}
+                      src="/img/seoul/seoul1.jpg"
+                    />
+                  </Fade>
+                </ImgDiv>
+              </NightDiv>
+            </TabPanel>
+          </Tabs>
+        </TabPanel>
+        <TabPanel>
+          <ThreedPhoto></ThreedPhoto>
+        </TabPanel>
+      </Tabs>
+    </div>
   );
 };
 

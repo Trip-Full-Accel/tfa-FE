@@ -21,6 +21,18 @@
 .react-tabs__tab--selected {
   border: none;
 }
-.react-tabs__tab--selected:focus {
+
+.react-tabs__tab-click {
+  /* display: none; */
+  background-color: #ccccff;
+  color: white;
+  border-radius: 10px;
+}
+.react-tabs__tab-night:focus {
   display: none;
+}
+
+.react-tabs__tab-click-night {
+  background-color: black;
+  color: white;
 }

@@ -53,7 +53,6 @@ const Header = () => {
     { name: "Info2", value: "tfaInfo2" },
     { name: `${t("suggest")}`, value: "suggest" },
     // { name: "마이페이지", value: "myPage" },
-    { name: `${t("photo")}`, value: "photo" },
     { name: `${t("board")}`, value: "board" },
   ];
   const location = useLocation();

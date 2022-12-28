@@ -11,9 +11,9 @@ import DaeguSlide from "components/slide/DaeguSlide";
 import DaejeonSlide from "components/slide/DaejeonSlide";
 import GangwondoSlide from "components/slide/GangwondoSlide";
 import JejuSlide from "components/slide/JejuSlide";
-import PohangSlide from "components/slide/PohangSlide";
+import GyeonggidoSlide from "components/slide/GyeonggidoSlide";
 import SeoulSlide from "components/slide/SeoulSlide";
-import YeosuSlide from "components/slide/YeosuSlide";
+import GyeongsangbukdoSlide from "components/slide/GyeongsangbukdoSlide";
 import Suggest from "components/suggest/suggest";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TfaInfo from "../components/infomation/TfaInfo";
@@ -47,20 +47,23 @@ const MyRoute = () => {
           <Route path="/edit" element={<Edit></Edit>}></Route>
           <Route path="photo" element={<Photo></Photo>}></Route>
           <Route path="photo/busan" element={<BusanSlide></BusanSlide>}></Route>
-          <Route path="photo/seoul" element={<SeoulSlide></SeoulSlide>}></Route>
           <Route path="photo/daegu" element={<DaeguSlide></DaeguSlide>}></Route>
+          <Route
+            path="photo/gyeongsangbukdo"
+            element={<GyeongsangbukdoSlide></GyeongsangbukdoSlide>}
+          ></Route>
           <Route
             path="photo/daejeon"
             element={<DaejeonSlide></DaejeonSlide>}
           ></Route>
           <Route
+            path="photo/gyeonggido"
+            element={<GyeonggidoSlide></GyeonggidoSlide>}
+          ></Route>
+          <Route path="photo/seoul" element={<SeoulSlide></SeoulSlide>}></Route>
+          <Route
             path="photo/gangwondo"
             element={<GangwondoSlide></GangwondoSlide>}
-          ></Route>
-          <Route path="photo/yeosu" element={<YeosuSlide></YeosuSlide>}></Route>
-          <Route
-            path="photo/pohang"
-            element={<PohangSlide></PohangSlide>}
           ></Route>
           <Route path="photo/jeju" element={<JejuSlide></JejuSlide>}></Route>
           <Route path="board" element={<Board></Board>}></Route>

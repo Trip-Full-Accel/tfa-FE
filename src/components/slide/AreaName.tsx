@@ -9,12 +9,12 @@ interface aa {
 const AreaName = () => {
   const areaName = [
     { value: "busan", name: "부산" },
-    { value: "seoul", name: "서울" },
     { value: "daegu", name: "대구" },
+    { value: "gyeongsangbukdo", name: "경상북도" },
     { value: "daejeon", name: "대전" },
+    { value: "gyeonggido", name: "경기도" },
+    { value: "seoul", name: "서울" },
     { value: "gangwondo", name: "강원도" },
-    { value: "yeosu", name: "여수" },
-    { value: "pohang", name: "포항" },
     { value: "jeju", name: "제주" },
   ];
   const [data, setData] = useState("");

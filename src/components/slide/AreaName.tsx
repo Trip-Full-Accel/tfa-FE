@@ -1,5 +1,7 @@
+import { el } from "date-fns/locale";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./AreaName.css";
 
 interface aa {
   value: string;
@@ -9,12 +11,12 @@ interface aa {
 const AreaName = () => {
   const areaName = [
     { value: "busan", name: "부산" },
-    { value: "seoul", name: "서울" },
     { value: "daegu", name: "대구" },
+    { value: "gyeongsangbukdo", name: "경상북도" },
     { value: "daejeon", name: "대전" },
+    { value: "gyeonggido", name: "경기도" },
+    { value: "seoul", name: "서울" },
     { value: "gangwondo", name: "강원도" },
-    { value: "yeosu", name: "여수" },
-    { value: "pohang", name: "포항" },
     { value: "jeju", name: "제주" },
   ];
   const [data, setData] = useState("");
@@ -23,6 +25,18 @@ const AreaName = () => {
     setData(path);
     Navigate(path);
   };
+  const loc = useLocation();
+  console.log(loc);
+
+  const Tab = (el: aa) => {
+    if ("/photo/" + el.value === loc.pathname) {
+      return "clickTab";
+    } else {
+      return "defaultTab";
+    }
+  };
+  console.log("/photo/" + areaName[1].value);
+
   return (
     <div
       style={{
@@ -37,7 +51,15 @@ const AreaName = () => {
           <div
             onClick={() => MoveRegionalArea(`/photo/${el.value}`)}
             key={el.name}
-            style={{ height: "70px", padding: "5px", cursor: "pointer" }}
+            style={{
+              height: "50px",
+              padding: "5px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "2rem",
+            }}
+            className={Tab(el)}
           >
             <h3>{el.name}</h3>
           </div>

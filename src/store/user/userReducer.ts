@@ -19,8 +19,10 @@ export const fetchPostKakao = createAsyncThunk(
   // console.log(payload)
   "KAKAO/POST",
   async (payload: KakaoLogin) => {
-    console.log(payload);
+    console.log("로그인 페이로드", payload);
     const { data } = await CustomAxios("/users", "POST", payload);
+    console.log("로그인 반환 데이터", data);
+    localStorage.setItem("kakaoId", data.userId);
     return data;
   }
 );
@@ -181,8 +183,9 @@ const userReducer = createSlice({
       // 카톡 성공시 스테이트에 값 담음
       .addCase(fetchPostKakao.fulfilled, (state, action) => {
         state.successKakao = action.payload;
-        localStorage.setItem("kakaoId", state.successLogin);
-        console.log("payload" + action.payload);
+
+        // localStorage.setItem("kakaoId", state.successLogin);
+        console.log("카톡로그인 성공 페이로드" + action.payload);
       })
       // 카톡 성공시 스테이트에 값 담음
       .addCase(fetchPostKakao.rejected, (state, action) => {

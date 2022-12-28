@@ -29,6 +29,7 @@ import Three from "components/suggest/three";
 import Chatting from "./../components/chatting/chatting";
 
 const MyRoute = () => {
+  const kakaoId = localStorage.getItem("kakaoId");
   return (
     <BrowserRouter>
       <Routes>

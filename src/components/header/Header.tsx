@@ -151,9 +151,9 @@ const Header = () => {
           url: "/v2/user/me",
           success: function (response: any) {
             setKakaoCode(response.id);
-            console.log(response.id);
+            console.log("카톡 리스폰스아이디", response.id);
             setKakaoNick(response.properties.nickname);
-            console.log(response.properties.nickname);
+            console.log("카톡 리스폰스닉네임", response.properties.nickname);
             // dispatch(
             //   fetchPostKakao({
             //     userCode: kakaoCode,
@@ -217,7 +217,7 @@ const Header = () => {
   const successLogin = useSelector(
     (state: RootState) => state.user.successLogin
   );
-  const testUserId = localStorage.getItem("userId");
+  // const testUserId = localStorage.getItem("userId");
   const logout = () => {
     if (Kakao.Auth.getAccessToken()) {
       Kakao.API.request({
@@ -231,7 +231,7 @@ const Header = () => {
       });
       Kakao.Auth.setAccessToken(undefined);
     }
-    console.log(testUserId);
+    // console.log(testUserId);
 
     localStorage.clear();
     alert("로그아웃되었습니다.");
@@ -302,7 +302,7 @@ const Header = () => {
       setBot(false);
     }
   };
-  const localUserId = localStorage.getItem("userId");
+  // const localUserId = localStorage.getItem("userId");
 
   const [open, setOpen] = useState(false);
   const onNav = () => {
@@ -468,8 +468,8 @@ const Header = () => {
                         await kakaoLogin2();
                         dispatch(
                           fetchPostKakao({
-                            userCode: "123",
-                            nickname: "park",
+                            userCode: String(kakaoCode),
+                            nickname: String(kakaoNick),
                           })
                         );
                         setLgShow(false);

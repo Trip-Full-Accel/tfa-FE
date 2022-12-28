@@ -71,6 +71,7 @@ interface initialType {
   selectedPoints: TourList[];
   succuessAlgorithm: any;
   status: Status;
+  courseId: any;
   error: Error;
 }
 const initialState: initialType = {
@@ -79,7 +80,7 @@ const initialState: initialType = {
   selectedTourList: [],
   selectedPoints: [],
   succuessAlgorithm: [],
-
+  courseId: "",
   status: "idle",
   error: "null",
 };
@@ -120,6 +121,10 @@ const mapReducer = createSlice({
       .addCase(fetchGetTourList.fulfilled, (state, action) => {
         state.tourList = action.payload;
         console.log(state.tourList);
+      })
+      .addCase(fetchPostCourse.fulfilled, (state, action) => {
+        state.courseId = action.payload;
+        console.log("반환받은 코스아이디", state.courseId);
       });
   },
 });

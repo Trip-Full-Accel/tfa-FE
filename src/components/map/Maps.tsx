@@ -1,3 +1,4 @@
+import { Root } from "@react-three/fiber/dist/declarations/src/core/renderer";
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useDispatch, useSelector } from "react-redux";
@@ -70,7 +71,8 @@ const Maps = () => {
     });
   }, [location.state]);
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [isMarked, setIsMarked] = useState(false);
+  const [isPolyline, setIsPolyline] = useState(false);
   const [addr, setAddr] = useState([{ name: "서울시청" }]);
 
   const getAddr = (lat: number, lng: number) => {
@@ -92,46 +94,8 @@ const Maps = () => {
     (state: RootState) => state.map.selectedTourList
   );
   console.log("알고리즘짤 보내줄 경로", algorithm[0]);
-  // console.log("알고리즘짤 경로", algorithm[1].city);
-  // console.log("알고리즘짤 경로", algorithm[2].city);
-  // console.log("알고리즘짤 경로", algorithm[3].city);
-  // console.log("알고리즘짤 경로", algorithm[4].city);
-  // console.log("알고리즘짤 경로", algorithm[5].city);
-  const dispatch = useDispatch<AppDispatch>();
 
-  const testResult = [
-    {
-      1: Number,
-      "3.15해양누리공원": String,
-      35.18661034: Number,
-      128.5640647: Number,
-    },
-    {
-      2: Number,
-      SK인천석유화학벚꽃동산d: String,
-      37.51330755: Number,
-      126.6607487: Number,
-    },
-    {
-      3: Number,
-      가남체육공원: String,
-      37.20170935: Number,
-      127.5349142: Number,
-    },
-    { 4: Number, 고사부리성: String, 35.62467101: Number, 126.7690254: Number },
-    {
-      5: Number,
-      가덕도대항인공동굴: String,
-      35.01330955: Number,
-      128.8274686: Number,
-    },
-    {
-      6: Number,
-      "가덕도 등대": String,
-      35.00064712: Number,
-      128.8295937: Number,
-    },
-  ];
+  const dispatch = useDispatch<AppDispatch>();
 
   const result = useSelector((state: RootState) => state.map.succuessAlgorithm);
   // console.log("result", result.courseResponseList);
@@ -142,7 +106,7 @@ const Maps = () => {
   const createMaps = () => {
     if (window.confirm("첫번째 여행지가 맞음?")) {
       setCheckConfirm(true);
-      setIsVisible(true);
+      setIsMarked(true);
       console.log("확인");
 
       dispatch(
@@ -175,17 +139,8 @@ const Maps = () => {
       ).then((res: any) =>
         // res.payload.courseResponseList[0].lat
         res.payload?.courseResponseList?.map((el: any) => {
-          // setMarkers([
-          //   ...markers,
-          //   {
-          //     position: {
-          //       lat: el?.lat,
-          //       lng: el?.lng,
-          //     },
-          //   },
-          // ]);
           console.log("then data", el);
-          setIsVisible(true);
+          // setIsVisible(true);
         })
       );
     } else {
@@ -193,32 +148,37 @@ const Maps = () => {
     }
   };
   const navigate = useNavigate();
+  const courseId = useSelector((state: RootState) => state.map.courseId);
+  console.log("리덕스에서 가져온 코스아이디", courseId.courseId);
+  // console.log(
+  //   "최종경로로 보내줄 값",
+  //   result?.courseResponseList?.courseLats[0]
+  // );
+
+  const doneList = result?.courseResponseList?.map((el: any) => {
+    return {
+      lat: el.courseLngs,
+      lng: el.courseLats,
+      pathOrder: el.courseOrders,
+      placeName: el.courseNames,
+    };
+  });
+
   const realCreateCourse = async () => {
     await dispatch(
       fetchPostMapReal({
-        courseId: 1,
-        registerPlaceRequestList: [
-          {
-            lat: 0,
-            lng: 0,
-            pathOrder: 0,
-            placeName: "string",
-          },
-        ],
-        userId: 1, //로컬스토리지 태워서 보내면됨,
+        courseId: courseId.courseId,
+        registerPlaceRequestList: [...doneList],
+        userId: Number(localStorage.getItem("kakaoId")), //로컬스토리지 태워서 보내면됨,
       })
     );
     if (checkConfirm) {
-      alert("당신의 여행지가 만들어졌습니다 확인해보시고 공유하든가말든가");
+      alert("당신의 여행지가 만들어졌습니다!");
       navigate("/");
     } else {
       alert("경로확정을 지으세요");
     }
   };
-
-  const doneAlgo = useSelector(
-    (state: RootState) => state.map.succuessAlgorithm
-  );
 
   const mapData = useSelector((state: RootState) => state.map.maps);
   // console.log(mapData);
@@ -306,45 +266,50 @@ const Maps = () => {
           //   getAddr(mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng());
           // }}
         >
-          {isVisible &&
-            markers.map((marker, index) => (
-              <div key={index}>
-                <MapMarker
-                  image={{
-                    src: "/img/mark2.png", // 마커이미지의 주소입니다
-                    size: {
-                      width: 50,
-                      height: 60,
-                    }, // 마커이미지의 크기입니다
-                    options: {
-                      offset: {
-                        x: 27,
-                        y: 69,
-                      }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-                    },
-                  }}
-                  key={`${marker.position}-${index}`}
-                  position={marker.position} // 마커를 표시할 위치
-                />
-                <Polyline
-                  // path={[markers.map((data) => data?.position)]}
-                  path={[
-                    // 셀렉티드 찎어보고 알고리즘 받은 데이터 똑같이 세팅하든가 아니면 잘 뽑아서 쓰던가
-                    realList?.map((data: any) => {
-                      // const { lat, lng } = data;
-                      return {
-                        lat: Number(data?.courseLats),
-                        lng: Number(data?.courseLngs),
-                      };
-                    }),
-                  ]}
-                  strokeWeight={6} // 두께
-                  strokeColor={"#000d16"} // 색
-                  strokeOpacity={0.6} // 불투명도
-                  strokeStyle={"solid"} // 스타일
-                />
-              </div>
-            ))}
+          {markers.map((marker, index) => (
+            <div key={index}>
+              <MapMarker
+                image={{
+                  src: "/img/mark2.png", // 마커이미지의 주소입니다
+                  size: {
+                    width: 50,
+                    height: 60,
+                  }, // 마커이미지의 크기입니다
+                  options: {
+                    offset: {
+                      x: 27,
+                      y: 69,
+                    }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                  },
+                }}
+                key={`${marker.position}-${index}`}
+                position={marker.position} // 마커를 표시할 위치
+              />
+            </div>
+          ))}
+          {result.courseResponseList !== undefined ? (
+            <Polyline
+              // path={[markers.map((data) => data?.position)]}
+              path={[
+                // 셀렉티드 찎어보고 알고리즘 받은 데이터 똑같이 세팅하든가 아니면 잘 뽑아서 쓰던가
+                result?.courseResponseList?.map((data: any) => {
+                  console.log(1);
+
+                  // const { lat, lng } = data;
+                  return {
+                    lat: data?.courseLats,
+                    lng: data?.courseLngs,
+                  };
+                }),
+              ]}
+              strokeWeight={6} // 두께
+              strokeColor={"#000d16"} // 색
+              strokeOpacity={0.6} // 불투명도
+              strokeStyle={"solid"} // 스타일
+            />
+          ) : (
+            <></>
+          )}
         </Map>
       </MapDiv>
       <TourListTopDiv>

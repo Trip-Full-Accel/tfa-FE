@@ -87,7 +87,7 @@ const Main = () => {
 
     dispatch(
       fetchPostCourse({
-        userId: 12,
+        userId: 1,
         courseName: text,
       })
     );

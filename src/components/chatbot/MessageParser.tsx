@@ -5,8 +5,16 @@ const MessageParser = ({ children, actions }: any) => {
     console.log(message);
     if (message.includes("안녕")) {
       actions.handleHello();
-    } else if (message.includes("설명")) {
-      actions.handleTFA();
+    } else if (message.includes("문의")) {
+      actions.questionHandler();
+    } else if (message.includes("장소등록")) {
+      actions.placeHandler();
+    } else if (message.includes("내경로")) {
+      actions.myRouteHandler();
+    } else if (message.includes("사용방법")) {
+      actions.howToUseHandler();
+    } else if (message.includes("고객센터")) {
+      actions.customerCenterHandler();
     } else {
       actions.handleJoke();
     }

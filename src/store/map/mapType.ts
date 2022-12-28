@@ -56,13 +56,6 @@ export interface AlgoResultType {
 
 export interface MapCreateReal {
   courseId: number;
-  registerPlaceRequestList: [
-    {
-      lat: number;
-      lng: number;
-      pathOrder: number;
-      placeName: string;
-    }
-  ];
+  registerPlaceRequestList: any;
   userId: number;
 }

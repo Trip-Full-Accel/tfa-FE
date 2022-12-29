@@ -16,6 +16,7 @@ import GyeongsangbukdoSlide from "components/slide/GyeongsangbukdoSlide";
 import JejuSlide from "components/slide/JejuSlide";
 import SeoulSlide from "components/slide/SeoulSlide";
 import Suggest from "components/suggest/suggest";
+import ThreedPhoto from "components/suggest/Threed";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TfaInfo from "../components/infomation/TfaInfo";
 import Main from "../components/main/Main";
@@ -38,7 +39,7 @@ const MyRoute = () => {
           <Route path="chat" element={<Chat></Chat>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
-          <Route path="three" element={<Three></Three>}></Route>
+          <Route path="three" element={<ThreedPhoto></ThreedPhoto>}></Route>
           ////
           <Route path="/edit" element={<Edit></Edit>}></Route>
           <Route

@@ -145,8 +145,12 @@ const Regist = () => {
   const location = useLocation();
   const boardLoc = location.pathname;
   const registHandler = async () => {
-    // console.log(img);
-    navigate("/board");
+    if (selected === "리뷰" || selected === "모집") {
+      navigate("/board");
+    } else {
+      alert("말머리를 선택해주세요");
+      return;
+    }
     // 진짜 등록
     // console.log(boardLoc.includes("regist"));
     const kakaoId = localStorage.getItem("kakaoId");
@@ -171,12 +175,6 @@ const Regist = () => {
           postId: boardDetailReturn.postId,
         })
       );
-    }
-
-    if (selected === "리뷰" || selected === "모집") {
-      navigate("/board");
-    } else {
-      alert("말머리를 선택해주세요");
     }
   };
 

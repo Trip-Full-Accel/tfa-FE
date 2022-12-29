@@ -13,6 +13,10 @@ const MessageParser = ({ children, actions }: any) => {
       actions.myRouteHandler();
     } else if (message.includes("사용방법")) {
       actions.howToUseHandler();
+    } else if (message.includes("추천")) {
+      actions.suggestHandler();
+    } else if (message.includes("게시판")) {
+      actions.boardHandler();
     } else if (message.includes("고객센터")) {
       actions.customerCenterHandler();
     } else {

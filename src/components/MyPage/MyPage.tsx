@@ -9,16 +9,16 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Button } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import { fetchDeleteUser } from "store/user/userReducer";
 import { AppDispatch } from "store/store";
 import {
+  fetchMakeCost,
   fetchMyBoard,
   fetchMyCost,
   fetchMyInfo,
   fetchMyTrip,
 } from "store/mypage/myReducer";
-
 interface myPageType {
   pageKey: string;
   pageKorName: string;
@@ -26,22 +26,41 @@ interface myPageType {
 const MyPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const kakaoId = localStorage.getItem("kakaoId");
+  const [myInfo, setMyInfo] = useState<any>();
+  const [boardErr, setBoardErr] = useState<string>("");
+  const [myBoard, setMyBoard] = useState<any>([]);
+  const [costErr, setCostErr] = useState<string>("");
+  const [myCost, setMyCost] = useState<any>([]);
   useEffect(() => {
     dispatch(
       fetchMyInfo({
         userId: Number(kakaoId),
       })
-    );
+    ).then((res) => setMyInfo(res.payload));
     dispatch(
       fetchMyBoard({
         userId: Number(kakaoId),
       })
+    ).then((res: any) =>
+      res.payload === undefined
+        ? setBoardErr(
+            "작성하신글이 아직없습니다! 게시판에가서 글을 작성해주세요"
+          )
+        : setMyBoard(res.payload)
     );
     dispatch(
       fetchMyTrip({
         userId: Number(kakaoId),
       })
     );
+
+    // .then((res) =>
+    //   // console.log(res.payload)
+
+    //   res.payload === undefined
+    //     ? setTripErr("확정지은 여행경로가 없습니다.")
+    //     : setMyTrip(res.payload)
+    // );
     dispatch(
       fetchMyCost({
         userId: Number(kakaoId),
@@ -69,7 +88,6 @@ const MyPage = () => {
     onMoveToElement5,
     onMoveToElement6,
   } = UseMoveScroll();
-
   const [show, setShow] = useState(false);
   const onRemote = () => {
     if (show === false) {
@@ -82,9 +100,7 @@ const MyPage = () => {
   const linkTo = (path: string) => {
     navigate(path);
   };
-
   const [checkConfirm, setCheckConfirm] = useState(false);
-
   const deleteUser = () => {
     if (window.confirm("정말 탈퇴하시겠습니까?")) {
       setCheckConfirm(true);
@@ -102,9 +118,19 @@ const MyPage = () => {
             <Top3Container>
               <InfoDiv>
                 <H4Tag>내 정보</H4Tag>
-                <InfoInsideDiv>ID: test1</InfoInsideDiv>
-                <InfoInsideDiv>닉네임: test1</InfoInsideDiv>
-                <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+                <div style={{ padding: "1rem", margin: "0" }}>
+                  <InfoInsideDiv>
+                    아이디 : 카카오 로그인은 아이디가 없어요!{" "}
+                  </InfoInsideDiv>
+                  <InfoInsideDiv>닉네임: {myInfo?.nickname}</InfoInsideDiv>
+                  {myInfo?.email === undefined ? (
+                    <InfoInsideDiv>
+                      이메일 : 이메일이 아직 등록되지 않았어요!
+                    </InfoInsideDiv>
+                  ) : (
+                    <InfoInsideDiv>{myInfo?.email}</InfoInsideDiv>
+                  )}
+                </div>
               </InfoDiv>
               <RecordDiv>
                 <H4Tag>내가 갔던 여행</H4Tag>
@@ -118,19 +144,44 @@ const MyPage = () => {
             <Bottom2Container>
               <CostDiv>
                 <H4Tag>비용 계산</H4Tag>
-                <input type="text" value={"교통비"} />
-                <input type="text" value={"식비"} />
-                <input type="text" value={"숙소비"} />
-                <input type="text" value={"기타"} />
-                <input type="text" value={"총비용"} />
+                {myCost === undefined ? (
+                  <Spinner></Spinner>
+                ) : costErr.length > 0 ? (
+                  <Spinner></Spinner>
+                ) : (
+                  <div>{myCost.totalCost}</div>
+                )}
               </CostDiv>
               <PostsDiv>
                 <H4Tag>내가 쓴 글</H4Tag>
-                <ul>
-                  <PostLi>1번 게시글</PostLi>
-                  <PostLi>2번 게시글</PostLi>
-                  <PostLi>3번 게시글</PostLi>
-                </ul>
+                {boardErr.length > 0 ? (
+                  <PostLi>
+                    작성하신글이 아직없습니다! 게시판에가서 글을 작성해보세요!
+                  </PostLi>
+                ) : (
+                  // 받으면 맵
+                  myBoard?.postDetailResponseList?.map((el: any) => {
+                    return (
+                      <div style={{ padding: "0 0.5rem 0.5rem 1.5rem" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <h4 style={{ margin: "0" }}>제목 : </h4>
+                          <h4 style={{ margin: "0" }}> {el.title}</h4>
+                        </div>
+                        <div style={{ display: "flex" }}>
+                          <h5 style={{ margin: "0" }}>내용 : </h5>
+                          <span
+                            style={{ margin: "0" }}
+                            dangerouslySetInnerHTML={{ __html: el.content }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
               </PostsDiv>
               <ChartDiv>
                 <H4Tag>차트</H4Tag>
@@ -160,7 +211,6 @@ const MyPage = () => {
                       1
                       <ReactTooltip anchorId="1" place="top" content="메인" />
                     </RemoteBtn>
-
                     <RemoteBtn id="2" onClick={onMoveToElement2}>
                       2
                       <ReactTooltip
@@ -294,7 +344,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   border: 2px solid #eaccf8;
 `;
 const Top3Container = styled.div`
@@ -310,7 +360,6 @@ const Bottom2Container = styled.div`
   height: 100vh;
   align-items: center;
 `;
-
 const InfoDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -339,6 +388,7 @@ const PostsDiv = styled.div`
   height: 300px;
   border: 1px solid darkgray;
   border-radius: 10px;
+  overflow: hidden;
 `;
 const ChartDiv = styled.div`
   width: 30%;
@@ -346,29 +396,24 @@ const ChartDiv = styled.div`
   border: 1px solid darkgray;
   border-radius: 10px;
 `;
-
 const PostLi = styled.li`
   padding: 15px;
 `;
-
 const InfoInsideDiv = styled.div`
   width: 100%;
   text-align: left;
   padding: 10px;
 `;
-
 const H4Tag = styled.h4`
   width: 100%;
   text-align: left;
   padding: 15px;
 `;
-
 const H1Tag = styled.h1`
   width: 100%;
   text-align: left;
   padding: 20px;
 `;
-
 const RemoteBtn = styled.button`
   border: none;
   width: 30px;
@@ -378,7 +423,6 @@ const RemoteBtn = styled.button`
   border-radius: 5px;
   font-weight: bold;
 `;
-
 const RemoteShowBtn = styled.button`
   width: 50px;
   height: 50px;
@@ -390,7 +434,6 @@ const RemoteShowBtn = styled.button`
   box-shadow: 0 0 5px 2px #0000ff33;
   background-color: #e8e4fe;
 `;
-
 const HomeBtn = styled.button`
   border: none;
   width: 40px;

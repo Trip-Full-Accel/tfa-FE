@@ -7,8 +7,8 @@ import StompJs from "stompjs";
 const Chat = () => {
   const goChat = () => {
     console.log(1);
-    axios.get("http://192.168.0.4:8081/chat/rooms").then((response) => {
-      console.log(response.data);
+    axios.get("http://192.168.0.65:8081/chat/room").then((response) => {
+      console.log(response);
       window.open(response.data);
       return <p dangerouslySetInnerHTML={{ __html: response.data }}></p>;
     });

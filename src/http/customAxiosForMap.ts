@@ -11,7 +11,7 @@ export const CustomAxiosPy = async (
 ) => {
   const data = await axios({
     // 백서버올라가면 바꿔야함
-    url: "http://192.168.0.61:5000" + url,
+    url: "http://backend.tripfullaccel.site:5000" + url,
     method,
     data: body,
   });

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { myType } from "./myType";
-
+import { CostType, myType } from "./myType";
 /**나의정보 */
 export const fetchMyInfo = createAsyncThunk(
   "MYINFO/GET",
@@ -11,7 +10,6 @@ export const fetchMyInfo = createAsyncThunk(
     return data;
   }
 );
-
 /** 나의 게시글 */
 export const fetchMyBoard = createAsyncThunk(
   "MYBOARD/GET",
@@ -20,7 +18,6 @@ export const fetchMyBoard = createAsyncThunk(
     return data;
   }
 );
-
 // /** 나의여행 */ cousreId
 export const fetchMyTrip = createAsyncThunk(
   "MYTRIP/GET",
@@ -29,7 +26,6 @@ export const fetchMyTrip = createAsyncThunk(
     return data;
   }
 );
-
 /** 나의비용 */
 export const fetchMyCost = createAsyncThunk(
   "MYCOST/GET",
@@ -38,7 +34,14 @@ export const fetchMyCost = createAsyncThunk(
     return data;
   }
 );
-
+/** 코스트 create 리듀서 */
+export const fetchMakeCost = createAsyncThunk(
+  "MAKECOST/POST",
+  async (payload: CostType) => {
+    console.log("gkgkugiug", payload);
+    await CustomAxios("/costs", "POST", payload);
+  }
+);
 // 타입에 따라서 처리 가능
 type Status = "failed" | "loading" | "succeeded" | "idle";
 type Error = string | undefined;
@@ -49,6 +52,7 @@ interface initialType {
   myCost: [];
   status: Status;
   error: Error;
+  makedCost: any;
 }
 const initialState: initialType = {
   myInfo: [],
@@ -57,8 +61,8 @@ const initialState: initialType = {
   myCost: [],
   status: "idle",
   error: "null",
+  makedCost: [],
 };
-
 const myReducer = createSlice({
   name: "maps",
   initialState,
@@ -76,6 +80,9 @@ const myReducer = createSlice({
       })
       .addCase(fetchMyCost.fulfilled, (state, action) => {
         state.myCost = action.payload;
+      })
+      .addCase(fetchMakeCost.fulfilled, (state, action) => {
+        state.makedCost = action.payload;
       });
   },
 });

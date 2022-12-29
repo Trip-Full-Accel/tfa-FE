@@ -46,7 +46,8 @@ export const fetchPostMapReal = createAsyncThunk(
   async (payload: MapCreateReal) => {
     console.log(payload);
     const { data } = await CustomAxios("/places", "POST", payload);
-    console.log("asdfsadfasdf", data);
+    console.log("asdfsadfasdf", data?.courseId);
+    localStorage.setItem("courseId", data.courseId);
 
     // 리턴받는 데이터 리덕스에 넣어서 맵에 찍어야함
     return data;
@@ -116,6 +117,7 @@ const mapReducer = createSlice({
       })
       .addCase(fetchPostCourse.fulfilled, (state, action) => {
         state.courseId = action.payload;
+        // localStorage.setItem("courseId", state.courseId);
         console.log("반환받은 코스아이디", state.courseId);
       });
   },

@@ -55,29 +55,11 @@ const TfaInfo = () => {
             </div>
             <div>
               <TextSpan>
-                <br></br>
-                <br></br>
                 iPhone 14 Pro는 iPhone을 완전히 새로운 방식으로 다룰 수 있게
                 <br></br>
                 해주는 Dynamic Island, 중요한 정보를 언제나 한눈에 볼 수 있게
                 <br></br>
                 iPhone 14 Pro는 iPhone을 완전히 새로운 방식으로 다룰 수 있게
-                <br></br>
-                해주는 Dynamic Island, 중요한 정보를 언제나 한눈에 볼 수 있게
-                <br></br>
-                iPhone 14 Pro는 iPhone을 완전히 새로운 방식으로 다룰 수 있게
-                <br></br>
-                해주는 Dynamic Island, 중요한 정보를 언제나 한눈에 볼 수 있게
-                <br></br>
-                iPhone 14 Pro는 iPhone을 완전히 새로운 방식으로 다룰 수 있게
-                <br></br>
-                해주는 Dynamic Island, 중요한 정보를 언제나 한눈에 볼 수 있게
-                <br></br>
-                iPhone 14 Pro는 iPhone을 완전히 새로운 방식으로 다룰 수 있게
-                <br></br>
-                해주는 Dynamic Island, 중요한 정보를 언제나 한눈에 볼 수 있게
-                <br></br>
-                해주는 상시표시형 디스플레이를 갖추었습니다.
               </TextSpan>
             </div>
           </BoxDiv>

@@ -133,47 +133,47 @@ const Maps = () => {
 
   const [checkConfirm, setCheckConfirm] = useState(false);
   const createMaps = () => {
-    if (window.confirm("첫번째 여행지가 맞음?")) {
-      setCheckConfirm(true);
-      setIsMarked(true);
-      console.log("확인");
-
-      dispatch(
-        fetchPostMapAlgorithm({
-          firstCourseName: algorithm[0].name,
-          firstCourseLat: algorithm[0].lat,
-          firstCourseLng: algorithm[0].lng,
-          otherCourseNames: [
-            algorithm[1].name,
-            algorithm[2].name,
-            algorithm[3].name,
-            algorithm[4].name,
-            algorithm[5].name,
-          ],
-          otherCourseLats: [
-            algorithm[1].lat,
-            algorithm[2].lat,
-            algorithm[3].lat,
-            algorithm[4].lat,
-            algorithm[5].lat,
-          ],
-          otherCourseLngs: [
-            algorithm[1].lng,
-            algorithm[2].lng,
-            algorithm[3].lng,
-            algorithm[4].lng,
-            algorithm[5].lng,
-          ],
-        })
-      ).then((res: any) =>
-        // res.payload.courseResponseList[0].lat
-        res.payload?.courseResponseList?.map((el: any) => {
-          console.log("then data", el);
-          // setIsVisible(true);
-        })
-      );
+    if (selected.length < 6) {
+      alert("6개의 여행지를 선택해주세요");
     } else {
-      console.log("취소");
+      if (window.confirm("첫번째 여행지가 맞음?")) {
+        dispatch(
+          fetchPostMapAlgorithm({
+            firstCourseName: algorithm[0].name,
+            firstCourseLat: algorithm[0].lat,
+            firstCourseLng: algorithm[0].lng,
+            otherCourseNames: [
+              algorithm[1].name,
+              algorithm[2].name,
+              algorithm[3].name,
+              algorithm[4].name,
+              algorithm[5].name,
+            ],
+            otherCourseLats: [
+              algorithm[1].lat,
+              algorithm[2].lat,
+              algorithm[3].lat,
+              algorithm[4].lat,
+              algorithm[5].lat,
+            ],
+            otherCourseLngs: [
+              algorithm[1].lng,
+              algorithm[2].lng,
+              algorithm[3].lng,
+              algorithm[4].lng,
+              algorithm[5].lng,
+            ],
+          })
+        ).then((res: any) =>
+          // res.payload.courseResponseList[0].lat
+          res.payload?.courseResponseList?.map((el: any) => {
+            console.log("then data", el);
+            // setIsVisible(true);
+          })
+        );
+        setCheckConfirm(true);
+        setIsMarked(true);
+      }
     }
   };
   const navigate = useNavigate();
@@ -374,26 +374,6 @@ const Maps = () => {
   );
 };
 
-////////////
-// {travelPoint.map((el) => {
-//       return (
-//         // TourList로 분기하게되면 Mapmarker사용 불가능해서 분기못함 추후에 리덕스에서 가져오면 가능할지도..
-//         // ex - BE에서 보내주는 값을 리덕스에 정리해서 TourList에서도 받고 Maps에서도 받아서 동시에 처리하도록
-
-//         // <TourList
-//         //   key={el.name + el.x}
-//         //   name={el.name}
-//         //   x={el.x}
-//         //   y={el.y}
-//         // ></TourList>
-//         <div style={{ marginTop: "1rem" }}>
-//           {/* <MapTest></MapTest> */}
-//           {/* <MapTest3></MapTest3> */}
-//           </div>
-//           );
-//         })}
-
-///////////
 export default Maps;
 
 const MapPageDiv = styled.div`

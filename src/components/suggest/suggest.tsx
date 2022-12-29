@@ -91,22 +91,6 @@ const Suggest = () => {
                       src="/img/seoul/seoul4.jpg"
                     />
                   </Fade>
-                  <Fade direction="down" delay={400}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul5.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={500}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul1.jpg"
-                    />
-                  </Fade>
                 </ImgDiv>
               </DayDiv>
             </TabPanel>
@@ -136,22 +120,6 @@ const Suggest = () => {
                         linkTo("/board");
                       }}
                       src="/img/seoul/seoul4.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={400}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul5.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={500}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul1.jpg"
                     />
                   </Fade>
                 </ImgDiv>
@@ -187,8 +155,8 @@ const NightDiv = styled.div`
 `;
 
 const TravelImg = styled.img`
-  width: 250px;
-  height: 200px;
+  width: 350px;
+  height: 300px;
   border-radius: 50px;
   cursor: pointer;
 `;

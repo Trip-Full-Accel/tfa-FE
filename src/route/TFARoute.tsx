@@ -22,7 +22,6 @@ import Maps from "../components/map/Maps";
 import MyPage from "../components/MyPage/MyPage";
 import Template from "../components/Template";
 import Board from "./../components/board/board";
-import TfaInfo2 from "components/infomation/tfaInfo2";
 import Three from "components/suggest/three";
 import Chatting from "./../components/chatting/chatting";
 
@@ -37,9 +36,6 @@ const MyRoute = () => {
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
-          /// info 테스트
-          <Route path="tfaInfo2" element={<TfaInfo2></TfaInfo2>}></Route>
-          /// three 테스트
           <Route path="three" element={<Three></Three>}></Route>
           ////
           <Route path="/edit" element={<Edit></Edit>}></Route>

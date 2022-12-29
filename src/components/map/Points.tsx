@@ -44,7 +44,7 @@ const Points = ({ markers }: props) => {
               ref={provided.innerRef}
               style={{ listStyle: "none", padding: 0, margin: 0 }}
             >
-              {data.map(({ id, city, lat, lng, img }, index) => {
+              {data.map(({ id, name, lat, lng, url }, index) => {
                 return (
                   <Draggable key={id} draggableId={String(id)} index={index}>
                     {(provided) => {
@@ -63,15 +63,15 @@ const Points = ({ markers }: props) => {
                                 첫번째 <br />
                                 여행지
                               </span>
-                              <ImgTag src={`${img}`} />
+                              <ImgTag src={`${url}`} />
                               {/* {index + 1} */}
-                              <div style={{ alignItems: "center" }}>{city}</div>
+                              <div style={{ alignItems: "center" }}>{name}</div>
                             </ContentDiv>
                           ) : (
                             <ContentDiv>
-                              <ImgTag src={`${img}`} />
+                              <ImgTag src={`${url}`} />
                               {/* {index + 1} */}
-                              <div style={{ alignItems: "center" }}>{city}</div>
+                              <div style={{ alignItems: "center" }}>{name}</div>
                             </ContentDiv>
                           )}
                         </li>

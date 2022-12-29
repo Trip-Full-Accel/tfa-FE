@@ -1,14 +1,44 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "./Pagenation.css";
 const BList = (props: any) => {
+  const loc = useLocation();
+  // const his = useNavigate()
+  console.log(props);
+
+  console.log(props.history);
   const { data, keyword, searchKey, select } = props;
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
+
+  const kakaoId = localStorage.getItem("kakaoId");
   const itemsPerPage = 6;
+  const cashePage = () => {
+    const id = localStorage.getItem("pageId");
+    console.log(id);
+
+    if (id) {
+      const index = data?.postsResponses?.findIndex(
+        (el: any) => el.userId === Number(id)
+      );
+      // setItemOffset(parseInt(index / itemsPerPage + "") * itemsPerPage);
+
+      const res = parseInt(index / itemsPerPage + "") * itemsPerPage;
+      return res;
+    } else {
+      return 0;
+    }
+  };
+
+  useEffect(() => {
+    // const id = localStorage.getItem("pageId");
+    // localStorage.removeItem("pageId");
+  }, [cashePage]);
+  const [itemOffset, setItemOffset] = useState(cashePage());
+  // const userLogin = localStorage.getItem("userId");
+
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     console.log(select);
@@ -28,37 +58,47 @@ const BList = (props: any) => {
       );
     } else if (searchKey === "title") {
       setCurrentItems(
-        data
-          .filter((el: any) => el.title.includes(keyword))
-          .slice(itemOffset, endOffset)
+        data?.postsResponses
+          ?.filter((el: any) => el.title.includes(keyword))
+          ?.slice(itemOffset, endOffset)
       );
     } else if (searchKey === "content") {
       setCurrentItems(
-        data
-          .filter((el: any) => el.content.includes(keyword))
-          .slice(itemOffset, endOffset)
+        data?.postsResponses
+          ?.filter((el: any) => el.content.includes(keyword))
+          ?.slice(itemOffset, endOffset)
       );
     } else if (searchKey === "writer") {
       setCurrentItems(
-        data
-          .filter((el: any) => el.writer.includes(keyword))
-          .slice(itemOffset, endOffset)
+        data?.postsResponses
+          ?.filter((el: any) => el.nickname.includes(keyword))
+          ?.slice(itemOffset, endOffset)
       );
     } else if (keyword === null) {
       setCurrentItems(
-        data
-          // .filter((el: any) => el.writer.includes(keyword))
-          .slice(itemOffset, endOffset)
+        data?.postsResponses?.slice(itemOffset, endOffset)
+        // .filter((el: any) => el.writer.includes(keyword))
       );
     }
-    setPageCount(Math.ceil(data.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, data, keyword, select, searchKey]);
+    setPageCount(Math.ceil(data?.postsResponses?.length / itemsPerPage));
+  }, [
+    itemOffset,
+    itemsPerPage,
+    data?.postsResponses,
+    keyword,
+    select,
+    searchKey,
+  ]);
   const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPage) % data.length;
+    const newOffset =
+      (event.selected * itemsPerPage) % data?.postsResponses?.length;
     setItemOffset(newOffset);
   };
   const navigate = useNavigate();
   const goDetail = (id: number) => {
+    console.log(id);
+
+    localStorage.setItem("pageId", String(id));
     console.log(id);
     navigate(`/boardDetail/${id}`, {
       state: id,
@@ -72,9 +112,9 @@ const BList = (props: any) => {
           ? currentItems
               // .filter((el: any) => el.title.includes(keyword))
               // .slice(itemOffset, itemOffset + itemsPerPage)
-              .map((el: any, i) => {
+              ?.map((el: any, i) => {
                 return (
-                  <ContentDiv onClick={() => goDetail(el.id)} key={i}>
+                  <ContentDiv onClick={() => goDetail(el.boardId)} key={i}>
                     <img
                       style={{
                         width: "100%",
@@ -82,7 +122,7 @@ const BList = (props: any) => {
                         borderRadius: "40px",
                         opacity: "0.5",
                       }}
-                      src="/img/seoul/seoul3.jpg"
+                      src={`${el.url}`}
                     />
                     <TitleDiv>{el.title}</TitleDiv>
                     {/* <div>{el.content}</div> */}
@@ -90,14 +130,17 @@ const BList = (props: any) => {
                     {/* <div>{el.regdate}</div> */}
                     <LikeDiv>
                       <i className="xi-heart xi-x" />
-                      <tr></tr>1{el.like}
+                      {/* <tr></tr>1{el.like} */}
                     </LikeDiv>
                   </ContentDiv>
                 );
               })
-          : currentItems.map((el: any) => {
+          : currentItems?.map((el: any) => {
               return (
-                <ContentDiv onClick={() => goDetail(el.id)} key={el.title}>
+                <ContentDiv
+                  onClick={() => goDetail(el.postId)}
+                  key={el.boardId}
+                >
                   <img
                     style={{
                       width: "100%",
@@ -105,7 +148,7 @@ const BList = (props: any) => {
                       borderRadius: "40px",
                       opacity: "0.5",
                     }}
-                    src="/img/seoul/seoul3.jpg"
+                    src={`${el.url}`}
                   />
                   <TitleDiv>{el.title}</TitleDiv>
                   {/* <div>{el.content}</div> */}
@@ -113,7 +156,7 @@ const BList = (props: any) => {
                   {/* <div>{el.regdate}</div> */}
                   <LikeDiv>
                     <i className="xi-heart xi-x" />
-                    <tr></tr>1{el.like}
+                    {/* <tr></tr>1{el.like} */}
                   </LikeDiv>
                 </ContentDiv>
               );
@@ -133,6 +176,8 @@ const BList = (props: any) => {
           previousLabel="< 이전"
           // renderOnZeroPageCount={null}
           breakLabel={"~"}
+          // initialPage={parseInt(itemOffset / itemsPerPage + "")}
+          forcePage={parseInt(itemOffset / itemsPerPage + "")}
           /////////
           activeClassName={"item active "}
           breakClassName={"item break-me "}

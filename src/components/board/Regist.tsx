@@ -9,6 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import {
   fetchDeleteBoard,
   fetchPostBoard,
+  fetchPostBoardRegist,
   fetchPutBoard,
 } from "store/board/boardReducer";
 import { reduxTest } from "store/reduxTest/reduxTestReducer";
@@ -138,17 +139,40 @@ const Regist = () => {
   const dispatch = useDispatch<AppDispatch>();
   const userId = useSelector((state: RootState) => state.user.successLogin);
   console.log(userId);
+  const boardDetailReturn = useSelector(
+    (state: RootState) => state.board.detailBoard
+  );
+  const location = useLocation();
+  const boardLoc = location.pathname;
   const registHandler = async () => {
-    await dispatch(
-      fetchPostBoard({
-        title,
-        selected,
-        content: value,
-        id: 0,
-        writer: userId,
-        img,
-      })
-    );
+    // console.log(img);
+    navigate("/board");
+    // 진짜 등록
+    // console.log(boardLoc.includes("regist"));
+    const kakaoId = localStorage.getItem("kakaoId");
+    if (boardLoc.includes("regist")) {
+      await dispatch(
+        fetchPostBoardRegist({
+          userId: Number(kakaoId),
+          title,
+          content: value,
+          url: img,
+        })
+      );
+    }
+
+    if (boardLoc.includes("boardModify")) {
+      dispatch(
+        fetchPutBoard({
+          userId: Number(kakaoId),
+          title,
+          content: value,
+          url: img,
+          postId: boardDetailReturn.postId,
+        })
+      );
+    }
+
     if (selected === "리뷰" || selected === "모집") {
       navigate("/board");
     } else {

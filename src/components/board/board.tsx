@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
 import { Button, Spinner } from "reactstrap";
-import { fetchGetBoard, fetchGetSearch } from "store/board/boardReducer";
-import { BoardList } from "store/board/boardType";
+import { fetchGetBoard } from "store/board/boardReducer";
 import { AppDispatch, RootState } from "store/store";
 import styled from "styled-components";
 import "../../static/all.css";
@@ -29,12 +28,21 @@ const Board = () => {
     //   alert("로그인하고 와라");
     // }
   };
+  const boardList = useSelector((state: RootState) => state.board.board);
   const { t } = useTranslation();
   useEffect(() => {
     dispatch(fetchGetBoard());
   }, [navigate]);
-  const boardList = useSelector((state: RootState) => state.board.board);
-  const load = useSelector((state: RootState) => state.board.status);
+  console.log("리덕스에서 가져온 보드리스트", boardList);
+
+  // const load = useSelector((state: RootState) => state.board.status);
+
+  const registStatus = useSelector((state: RootState) => state.board.regist);
+  useEffect(() => {
+    if (registStatus === "succeeded") {
+      dispatch(fetchGetBoard());
+    }
+  }, [registStatus]);
   // 게시판 검색 메서드
   const searchBtn = () => {
     setKeyword(firstKeyword);
@@ -51,6 +59,8 @@ const Board = () => {
   const searchKeyHandler = (e: any) => {
     setSearchKey(e.target.value);
   };
+
+  const boardLoad = useSelector((state: RootState) => state.board.loadData);
   return (
     <>
       <Snowfall color="white" snowflakeCount={200} />
@@ -102,16 +112,16 @@ const Board = () => {
         </div>
         <hr />
 
-        {load === "loading" ? (
+        {/* {boardLoad === "loading" ? (
           <Spinner></Spinner>
-        ) : (
-          <BList
-            data={boardList}
-            keyword={keyword}
-            searchKey={searchKey}
-            select={select}
-          />
-        )}
+        ) : ( */}
+        <BList
+          data={boardList}
+          keyword={keyword}
+          searchKey={searchKey}
+          select={select}
+        />
+        {/* )} */}
       </BoardMainDiv>
     </>
   );

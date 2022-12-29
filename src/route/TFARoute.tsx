@@ -2,6 +2,7 @@ import Account from "components/account/account";
 import BoardDetail from "components/board/boardDetail";
 import Edit from "components/board/boardEditor";
 import Regist from "components/board/Regist";
+import Chat from "components/chat/chat";
 import ForgotPw from "components/forgotPw/forgotPw";
 import KakaoRedirectHandler from "components/kakaoRedirect";
 import GLogin from "components/lgGoogle";
@@ -10,10 +11,10 @@ import BusanSlide from "components/slide/BusanSlide";
 import DaeguSlide from "components/slide/DaeguSlide";
 import DaejeonSlide from "components/slide/DaejeonSlide";
 import GangwondoSlide from "components/slide/GangwondoSlide";
-import JejuSlide from "components/slide/JejuSlide";
 import GyeonggidoSlide from "components/slide/GyeonggidoSlide";
-import SeoulSlide from "components/slide/SeoulSlide";
 import GyeongsangbukdoSlide from "components/slide/GyeongsangbukdoSlide";
+import JejuSlide from "components/slide/JejuSlide";
+import SeoulSlide from "components/slide/SeoulSlide";
 import Suggest from "components/suggest/suggest";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TfaInfo from "../components/infomation/TfaInfo";
@@ -22,10 +23,10 @@ import Maps from "../components/map/Maps";
 import MyPage from "../components/MyPage/MyPage";
 import Template from "../components/Template";
 import Board from "./../components/board/board";
-import Three from "components/suggest/three";
 import Chatting from "./../components/chatting/chatting";
 
 const MyRoute = () => {
+  const kakaoId = localStorage.getItem("kakaoId");
   return (
     <BrowserRouter>
       <Routes>
@@ -34,6 +35,7 @@ const MyRoute = () => {
           <Route path="account" element={<Account></Account>}></Route>
           <Route path="maps" element={<Maps></Maps>}></Route>
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
+          <Route path="chat" element={<Chat></Chat>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
           <Route path="three" element={<Three></Three>}></Route>
@@ -79,7 +81,6 @@ const MyRoute = () => {
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/forgotPw" element={<ForgotPw></ForgotPw>}></Route>
           <Route path="/suggest" element={<Suggest></Suggest>}></Route>
-          <Route path="/chatting" element={<Chatting></Chatting>}></Route>
           {/* <Route path="/maptest" element={<MapTest></MapTest>}></Route> */}
           <Route
             path="/boardModify/:boardId"

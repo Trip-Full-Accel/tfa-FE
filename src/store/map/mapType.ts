@@ -17,7 +17,9 @@ export interface Course {
 
 export interface TourList {
   id?: number;
-  city: string;
+  name: string;
+  url: string;
+  cityCode: number | string;
   content?: string;
   lat: string | number;
   lng: string | number;
@@ -33,6 +35,7 @@ export interface TestT {
   };
 }
 
+//////////// be 연동 테스트
 export interface AlgoType {
   userId?: number | null;
   courseId?: number | null;
@@ -42,4 +45,17 @@ export interface AlgoType {
   otherCourseNames: any[""] | null;
   otherCourseLats: any[""] | null;
   otherCourseLngs: any[""] | null;
+}
+export interface AlgoResultType {
+  courseResponseList?: [];
+  courseLats: number;
+  courseLngs: number;
+  courseOrder: number;
+  courseNames: string;
+}
+
+export interface MapCreateReal {
+  courseId: number;
+  registerPlaceRequestList: any;
+  userId: number;
 }

@@ -27,6 +27,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input } from "reactstrap";
 import { AppDispatch, RootState } from "store/store";
 import {
+  fetchOut,
+  fetchPostKakao,
   fetchPostLogin,
   fetchUserlogout,
   loginNick,
@@ -41,6 +43,9 @@ type tfaPath = {
   name: string;
 };
 const Header = () => {
+  const successLoginKakao = useSelector(
+    (state: RootState) => state.user.successKakao
+  );
   const { t } = useTranslation();
 
   const [lgShow, setLgShow] = useState(false);
@@ -50,6 +55,7 @@ const Header = () => {
   const navigate = useNavigate();
   const tfaPath: tfaPath[] = [
     { name: `${t("info")}`, value: "tfaInfo" },
+    { name: "chat", value: "chat" },
     { name: `${t("suggest")}`, value: "suggest" },
     // { name: "마이페이지", value: "myPage" },
     { name: `${t("board")}`, value: "board" },
@@ -113,65 +119,65 @@ const Header = () => {
   };
 
   // 카톡 로그인 구현
-  const { Kakao } = window;
-  const loginKakao = () => {
-    Kakao.Auth.authorize({
-      redirectUri: "http://localhost:3000/",
-      scope: "profile_nickname, account_email, gender,age_range",
-    });
-    console.log("카톡로그인 메서드 실행됨");
-  };
-
   const [userCode, setUserCode] = useState();
   const [userNick, setUserNick] = useState();
-  useEffect(() => {
-    let params = new URL(window.location.toString()).searchParams;
-    let code = params.get("code"); // 인가코드 받는 부분
-    console.log(code);
-    // console.log(code2);
-    let grant_type = "authorization_code";
-    let client_id = "82e8a356b706e9f7b99ef65f77a5fd43";
-    let uri = "http://localhost:3000/";
-    axios
-      .post(
-        `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${uri}&code=${code}`,
-        {
-          headers: {
-            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+  const { Kakao } = window;
+  const kakaoLogin = () => {
+    Kakao.Auth.login({
+      success() {
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success(res: any) {
+            // alert(JSON.stringify(res));
+
+            setLgShow(false);
+            navigate(loc);
           },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        Kakao.Auth.setAccessToken(res.data.access_token);
+          fail(error: any) {
+            console.log(error);
+          },
+        });
+      },
+      fail(error: any) {
+        console.log(error);
+      },
+    });
+  };
+
+  const [kakaoCode, setKakaoCode] = useState<string>("");
+  const [kakaoNick, setKakaoNick] = useState<string>("");
+  function kakaoLogin2() {
+    Kakao.Auth.login({
+      success: function (response: any) {
         Kakao.API.request({
           url: "/v2/user/me",
           success: function (response: any) {
-            console.log("userCode", response.id);
-            setUserCode(response.id);
-            console.log("nickName", response.properties.nickname);
-            setUserNick(response.properties.nickname);
+            // setKakaoCode(response.id);
+            // console.log("카톡 리스폰스아이디", response.id);
+            // setKakaoNick(response.properties.nickname);
+            // console.log("카톡 리스폰스닉네임");
+
+            dispatch(
+              fetchPostKakao({
+                userCode: String(response.id),
+                nickname: String(response.properties.nickname),
+              })
+            );
           },
           fail: function (error: any) {
             console.log(error);
           },
         });
-        api
-          .post("http://192.168.0.148:8081/users", {
-            // accessToken: res.data.access_token,
-            // client_id,
-            nickname: userNick,
-            userCode: userCode,
-          })
-          .then((res: any) => {
-            console.log("res 데이터", res);
+      },
+      fail: function (error: any) {
+        console.log(error);
+      },
+    });
+  }
 
-            /// 리덕스에 반환결과 밀어넣을지 아니면 닉네임 밀어넣을지
-            dispatch(loginNick(res));
-            localStorage.setItem("userId", res.data);
-          });
-      });
-  }, [loginKakao]);
+  //
+  // console.log(kakaoCode);
+  // console.log(kakaoNick);
 
   // const CLIENT_ID = "82e8a356b706e9f7b99ef65f77a5fd43";
   // const REDIRECT_URI = "http://localhost:3000/kakao";
@@ -216,33 +222,32 @@ const Header = () => {
   const successLogin = useSelector(
     (state: RootState) => state.user.successLogin
   );
-  // console.log(successLogin);
-  const testUserId = localStorage.getItem("userId");
-  // 로그아웃 기능 구현시 식별값 보내줄 거임 백에 따라서 정해짐 일단은 새로고침으로 구현
+  // const testUserId = localStorage.getItem("userId");
   const logout = () => {
-    console.log(testUserId);
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: "/v1/user/unlink",
+        success: function (response: any) {
+          console.log(response);
+        },
+        fail: function (error: any) {
+          console.log(error);
+        },
+      });
+      Kakao.Auth.setAccessToken(undefined);
+    }
+    // console.log(testUserId);
 
     localStorage.clear();
+
+    dispatch(fetchOut());
     alert("로그아웃되었습니다.");
+    navigate(loc);
     // window.location.replace("");
     navigate(loc);
     if (loc.includes("detail")) {
       window.location.reload();
     }
-    // 그냥 로컬스토리지 클리어로 로그아웃 설정
-    // dispatch(fetchUserlogout(successLogin))
-    //   .unwrap()
-    //   .then((res) => {
-    //     if (res) {
-    //       console.log("실행됨");
-
-    //       alert("로그아웃되었음");
-    //       localStorage.removeItem("userId");
-    //       navigate("/");
-    //     } else {
-    //       alert("로그아웃실패했음 관리자한테 문의하삼");
-    //     }
-    //   });
   };
 
   const goToLogin = () => {
@@ -290,8 +295,7 @@ const Header = () => {
       setBot(false);
     }
   };
-  const localUserId = localStorage.getItem("userId");
-  // console.log("로컬스토리지", localUserId);
+  // const localUserId = localStorage.getItem("userId");
 
   const [open, setOpen] = useState(false);
   const onNav = () => {
@@ -302,6 +306,13 @@ const Header = () => {
     }
   };
 
+  const fullLogin = async () => {
+    await kakaoLogin2();
+
+    await setLgShow(false);
+  };
+
+  const kakaoId = localStorage.getItem("kakaoId");
   return (
     <HeaderMainDiv>
       <MainNav
@@ -330,7 +341,7 @@ const Header = () => {
               );
             })}
 
-            {localUserId !== null ? (
+            {successLoginKakao !== "" ? (
               <>
                 <JoinNav
                   className={locFunction()}
@@ -453,7 +464,7 @@ const Header = () => {
                     <i
                       style={{ fontSize: "35px" }}
                       className="xi-kakaotalk"
-                      onClick={() => loginKakao()}
+                      onClick={fullLogin}
                     ></i>
                   </a>
                   {/* 구글로그인 */}

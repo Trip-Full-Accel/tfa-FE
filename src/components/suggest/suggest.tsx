@@ -4,12 +4,20 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./suggest.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store/store";
+import { fetchGetSuggest } from "store/pyReducer/boardReducer";
 import Photo from "./../photo/Photo";
 import ThreedPhoto from "./Threed";
 import { useTranslation } from "react-i18next";
 import { tab } from "@testing-library/user-event/dist/tab";
 
 const Suggest = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(fetchGetSuggest());
+  });
   const navigate = useNavigate();
   const { t } = useTranslation();
   const linkTo = (path: string) => {

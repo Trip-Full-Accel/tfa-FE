@@ -38,7 +38,7 @@ function PointsTest({ markers }: props) {
               ref={provided.innerRef}
               style={{ listStyle: "none", padding: 0, margin: 0 }}
             >
-              {selected.map(({ id, city, lat, lng, img }, index) => {
+              {selected.map(({ id, name, lat, lng, img }, index) => {
                 return (
                   <Draggable key={id} draggableId={String(id)} index={index}>
                     {(provided) => (
@@ -50,7 +50,7 @@ function PointsTest({ markers }: props) {
                         <ContentDiv>
                           <ImgTag src={`${img}`} />
                           {/* {index + 1} */}
-                          {city}
+                          {name}
                         </ContentDiv>
                       </li>
                     )}

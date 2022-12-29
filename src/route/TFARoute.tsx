@@ -3,6 +3,8 @@ import BoardDetail from "components/board/boardDetail";
 import Edit from "components/board/boardEditor";
 import Regist from "components/board/Regist";
 import Chat from "components/chat/chat";
+import ChatRoom from "components/chat/room";
+import RealRoom from "components/chat/realroom";
 import ForgotPw from "components/forgotPw/forgotPw";
 import TfaInfo2 from "components/infomation/tfaInfo2";
 import KakaoRedirectHandler from "components/kakaoRedirect";
@@ -36,6 +38,11 @@ const MyRoute = () => {
           <Route path="account" element={<Account></Account>}></Route>
           <Route path="maps" element={<Maps></Maps>}></Route>
           <Route path="mypage" element={<MyPage></MyPage>}></Route>
+          <Route path="/chatRoom" element={<ChatRoom></ChatRoom>}></Route>
+          <Route
+            path="/chat/room/enter/:roomId"
+            element={<RealRoom></RealRoom>}
+          ></Route>
           <Route path="chat" element={<Chat></Chat>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>

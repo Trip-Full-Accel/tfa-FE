@@ -116,6 +116,9 @@ const mapReducer = createSlice({
       })
       .addCase(fetchPostCourse.fulfilled, (state, action) => {
         state.courseId = action.payload;
+
+        localStorage.setItem("courseId", state.courseId);
+
         console.log("반환받은 코스아이디", state.courseId);
       });
   },

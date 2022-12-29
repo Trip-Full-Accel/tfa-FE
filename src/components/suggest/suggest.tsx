@@ -4,20 +4,27 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./suggest.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "store/store";
-import { fetchGetSuggest } from "store/pyReducer/boardReducer";
+import { AppDispatch, RootState } from "store/store";
+import { fetchGetSuggest } from "store/pyReducer/suggestReducer";
 import Photo from "./../photo/Photo";
 import ThreedPhoto from "./Threed";
-import { useTranslation } from "react-i18next";
+import { useSSR, useTranslation } from "react-i18next";
 import { tab } from "@testing-library/user-event/dist/tab";
+import { useSelector } from "react-redux";
 
 const Suggest = () => {
+  const [dayImg, setDayImg] = useState([]);
+  const [nightImg, setNightImg] = useState([]);
+  // const [suggestImg, setSuggestImg] = useState([]);
+  const suggestImg = useSelector((state: RootState) => state.suggest.suggest);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchGetSuggest());
-  });
+  }, []);
+
+  console.log("cncjs", suggestImg[0]);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const linkTo = (path: string) => {
@@ -67,46 +74,20 @@ const Suggest = () => {
               <DayDiv>
                 <TitleDiv>{t("suggesttitle")}</TitleDiv>
                 <ImgDiv>
-                  <Fade direction="down">
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul2.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={200}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul3.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={300}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul4.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={400}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul5.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={500}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul1.jpg"
-                    />
-                  </Fade>
+                  {suggestImg.length > 0 &&
+                    suggestImg[0].map((data: any) => {
+                      return (
+                        <Fade direction="down">
+                          asdf
+                          <TravelImg
+                            onClick={() => {
+                              linkTo("/board");
+                            }}
+                            src={`${data.image}`}
+                          />
+                        </Fade>
+                      );
+                    })}
                 </ImgDiv>
               </DayDiv>
             </TabPanel>
@@ -114,46 +95,20 @@ const Suggest = () => {
               <NightDiv>
                 <TitleDiv>{t("suggesttitle")}</TitleDiv>
                 <ImgDiv>
-                  <Fade direction="down">
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul2.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={200}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul3.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={300}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul4.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={400}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul5.jpg"
-                    />
-                  </Fade>
-                  <Fade direction="down" delay={500}>
-                    <TravelImg
-                      onClick={() => {
-                        linkTo("/board");
-                      }}
-                      src="/img/seoul/seoul1.jpg"
-                    />
-                  </Fade>
+                  {suggestImg.length > 1 &&
+                    suggestImg[1].map((data: any) => {
+                      return (
+                        <Fade direction="down">
+                          asdf
+                          <TravelImg
+                            onClick={() => {
+                              linkTo("/board");
+                            }}
+                            src={`${data.image}`}
+                          />
+                        </Fade>
+                      );
+                    })}
                 </ImgDiv>
               </NightDiv>
             </TabPanel>

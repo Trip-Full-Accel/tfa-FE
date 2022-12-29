@@ -24,7 +24,7 @@ interface dataType {
 }
 const Main = () => {
   const goChat = () => {
-    navigate("/chatting");
+    navigate("/chatRoom");
   };
   const [show, setShow] = useState(false);
 
@@ -114,6 +114,8 @@ const Main = () => {
           cityCode: selected,
         },
       });
+      localStorage.setItem("courseName", text);
+      // localStorage.setItem("courseId", asdf)
     } else {
       alert("지역 또는 제목을 입력해주세요");
     }

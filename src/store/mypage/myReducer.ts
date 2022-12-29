@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
-import { myType } from "./myType";
+import { CostType, myType } from "./myType";
 
 /**나의정보 */
 export const fetchMyInfo = createAsyncThunk(
@@ -39,6 +39,15 @@ export const fetchMyCost = createAsyncThunk(
   }
 );
 
+/** 코스트 create 리듀서 */
+export const fetchMakeCost = createAsyncThunk(
+  "MAKECOST/POST",
+  async (payload: CostType) => {
+    console.log(payload);
+    await CustomAxios("/costs", "POST", payload);
+  }
+);
+
 // 타입에 따라서 처리 가능
 type Status = "failed" | "loading" | "succeeded" | "idle";
 type Error = string | undefined;
@@ -46,9 +55,10 @@ interface initialType {
   myInfo: [];
   myBoard: [];
   myTrip: [];
-  myCost: [];
+  myCost: CostType[];
   status: Status;
   error: Error;
+  makedCost: any;
 }
 const initialState: initialType = {
   myInfo: [],
@@ -57,6 +67,7 @@ const initialState: initialType = {
   myCost: [],
   status: "idle",
   error: "null",
+  makedCost: [],
 };
 
 const myReducer = createSlice({
@@ -76,6 +87,9 @@ const myReducer = createSlice({
       })
       .addCase(fetchMyCost.fulfilled, (state, action) => {
         state.myCost = action.payload;
+      })
+      .addCase(fetchMakeCost.fulfilled, (state, action) => {
+        state.makedCost = action.payload;
       });
   },
 });

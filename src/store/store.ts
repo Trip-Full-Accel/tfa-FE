@@ -9,6 +9,7 @@ import tokenTest from "./kakaoTokenTest/tokenTest";
 import mapReducer from "./map/mapReducer";
 import myReducer from "./mypage/myReducer";
 import postMappingTestReducer from "./postMappingTest/postMappingTestReducer";
+import suggestReducer from "./pyReducer/suggestReducer";
 import reduxTestReducer from "./reduxTest/reduxTestReducer";
 import userReducer from "./user/userReducer";
 export const store = configureStore({
@@ -25,6 +26,7 @@ export const store = configureStore({
     test: reduxTestReducer,
     img: imgReducer,
     my: myReducer,
+    suggest: suggestReducer,
   },
   devTools: true,
 });

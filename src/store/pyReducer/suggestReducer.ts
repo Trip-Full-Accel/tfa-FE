@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxiosPy } from "http/customAxiosForMap";
-import { BoardList } from "./boardType";
+import { BoardList } from "./suggest";
 
 /** 전체글 list 요청 리듀서 */
 export const fetchGetSuggest = createAsyncThunk("SUGGEST/GET", async () => {
@@ -15,10 +15,12 @@ type Error = string | undefined;
 interface initialType {
   status: Status;
   error: Error;
+  suggest: any;
 }
 const initialState: initialType = {
   status: "idle",
   error: "null",
+  suggest: [],
 };
 
 const boardReducer = createSlice({
@@ -35,7 +37,7 @@ const boardReducer = createSlice({
       })
       .addCase(fetchGetSuggest.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // state.board = action.payload;
+        state.suggest = action.payload;
         console.log("일단 연결성공");
       });
   },

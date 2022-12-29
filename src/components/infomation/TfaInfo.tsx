@@ -110,7 +110,7 @@ const TfaInfo = () => {
               </TextSpan>
             </TextDiv>
             <div>
-              <MapImg src="/img/login/login4.jpg"></MapImg>
+              <MapImg src="/img/map.png"></MapImg>
             </div>
           </BoxDiv>
         </Fade>

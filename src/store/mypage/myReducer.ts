@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomAxios } from "../../http/customAxios";
 import { CostType, myType } from "./myType";
-
 /**나의정보 */
 export const fetchMyInfo = createAsyncThunk(
   "MYINFO/GET",
@@ -11,7 +10,6 @@ export const fetchMyInfo = createAsyncThunk(
     return data;
   }
 );
-
 /** 나의 게시글 */
 export const fetchMyBoard = createAsyncThunk(
   "MYBOARD/GET",
@@ -20,7 +18,6 @@ export const fetchMyBoard = createAsyncThunk(
     return data;
   }
 );
-
 // /** 나의여행 */ cousreId
 export const fetchMyTrip = createAsyncThunk(
   "MYTRIP/GET",
@@ -29,7 +26,6 @@ export const fetchMyTrip = createAsyncThunk(
     return data;
   }
 );
-
 /** 나의비용 */
 export const fetchMyCost = createAsyncThunk(
   "MYCOST/GET",
@@ -38,7 +34,6 @@ export const fetchMyCost = createAsyncThunk(
     return data;
   }
 );
-
 /** 코스트 create 리듀서 */
 export const fetchMakeCost = createAsyncThunk(
   "MAKECOST/POST",
@@ -69,7 +64,6 @@ const initialState: initialType = {
   error: "null",
   makedCost: [],
 };
-
 const myReducer = createSlice({
   name: "maps",
   initialState,

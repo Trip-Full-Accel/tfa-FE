@@ -1,13 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Snowfall from "react-snowfall";
-import { Button } from "reactstrap";
 import { AppDispatch } from "store/store";
 import { fetchPostUserJoin, fetchUserCheck } from "store/user/userReducer";
 import styled from "styled-components";
 const Account = () => {
-  // 중복까지 체크해야지 가입버튼 뚫림 있는 아이디면 안뚤림
+  // 중복까지 체크해야지 가입버튼 뚫림 있는 아이디면 안뚫림
   const [중복, set중복] = useState<boolean>(false);
   const [닉중복, set닉중복] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
@@ -80,7 +79,8 @@ const Account = () => {
   };
   // 비밀번호 유효성검사
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*null)(?=.*[0-9]).{4,25}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,10}$/;
     const { value, name } = e.target;
     setJoin({ ...join, [name]: value });
 

@@ -75,8 +75,34 @@ const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
     }));
   };
   const howToUseHandler = () => {
+    const method =
+      "<span>info 페이지로 안내드릴게요. <a style=font-size:16px;color:#faaf88;font-weight:bold href=tfainfo>[info]</a> 페이지에 자세하게 설명되어 있어요 :D <span>";
     const botMessage = createChatBotMessage(
-      "info 페이지로 안내드릴게요. info페이지에 자세하게 설명되어 있어요 :D"
+      <p dangerouslySetInnerHTML={{ __html: method }}></p>
+    );
+
+    setState((prev: any) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+  const suggestHandler = () => {
+    const method =
+      "<span>추천 페이지로 안내드릴게요. <a style=font-size:16px;color:#faaf88;font-weight:bold href=suggest>[suggest]</a> 페이지에 자세하게 설명되어 있어요 :D <span>";
+    const botMessage = createChatBotMessage(
+      <p dangerouslySetInnerHTML={{ __html: method }}></p>
+    );
+
+    setState((prev: any) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+  const boardHandler = () => {
+    const method =
+      "<span>게시판 페이지로 안내드릴게요. <a style=font-size:16px;color:#faaf88;font-weight:bold href=board>[board]</a> 페이지에 자세하게 설명되어 있어요 :D <span>";
+    const botMessage = createChatBotMessage(
+      <p dangerouslySetInnerHTML={{ __html: method }}></p>
     );
 
     setState((prev: any) => ({
@@ -106,6 +132,8 @@ const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
             placeHandler,
             myRouteHandler,
             howToUseHandler,
+            suggestHandler,
+            boardHandler,
             customerCenterHandler,
           },
         });

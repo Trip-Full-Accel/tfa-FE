@@ -22,11 +22,6 @@ const Board = () => {
   // 글작성 페이지 이동
   const boardBtn = () => {
     navigate("/regist");
-    // if (successLogin.length > 0) {
-    //   navigate("/regist");
-    // } else {
-    //   alert("로그인하고 와라");
-    // }
   };
   const boardList = useSelector((state: RootState) => state.board.board);
   const { t } = useTranslation();
@@ -34,8 +29,6 @@ const Board = () => {
     dispatch(fetchGetBoard());
   }, [navigate]);
   console.log("리덕스에서 가져온 보드리스트", boardList);
-
-  // const load = useSelector((state: RootState) => state.board.status);
 
   const registStatus = useSelector((state: RootState) => state.board.regist);
   useEffect(() => {

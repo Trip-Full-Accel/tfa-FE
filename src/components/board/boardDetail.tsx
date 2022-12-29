@@ -168,12 +168,7 @@ const BoardDetail = () => {
             <BottomDiv>
               <div style={{ margin: "0" }}>
                 <Writerdiv>{boardDetailReturn.nickname}</Writerdiv>
-                <DateDiv>
-                  작성일:{" "}
-                  {new Date(boardDetailReturn.createdAt)
-                    .toLocaleString()
-                    .substring(0, 11)}
-                </DateDiv>
+                <DateDiv>작성일: {boardDetailReturn.createdAt}</DateDiv>
               </div>
               <Hitsdiv>조회수 : {boardDetailReturn.hits}</Hitsdiv>
             </BottomDiv>
@@ -253,6 +248,7 @@ const SelectDiv = styled.div`
   align-self: end;
 `;
 const Writerdiv = styled.div`
+  text-align: start;
   padding: 0.5rem 0 0.5rem 3rem;
 `;
 const DateDiv = styled.div`

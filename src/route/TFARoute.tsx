@@ -6,7 +6,6 @@ import Chat from "components/chat/chat";
 import ChatRoom from "components/chat/room";
 import RealRoom from "components/chat/realroom";
 import ForgotPw from "components/forgotPw/forgotPw";
-import TfaInfo2 from "components/infomation/tfaInfo2";
 import KakaoRedirectHandler from "components/kakaoRedirect";
 import GLogin from "components/lgGoogle";
 import NaverLogin from "components/naver";
@@ -19,7 +18,7 @@ import GyeongsangbukdoSlide from "components/slide/GyeongsangbukdoSlide";
 import JejuSlide from "components/slide/JejuSlide";
 import SeoulSlide from "components/slide/SeoulSlide";
 import Suggest from "components/suggest/suggest";
-import Three from "components/suggest/three";
+import ThreedPhoto from "components/suggest/Threed";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TfaInfo from "../components/infomation/TfaInfo";
 import Main from "../components/main/Main";
@@ -27,6 +26,7 @@ import Maps from "../components/map/Maps";
 import MyPage from "../components/MyPage/MyPage";
 import Template from "../components/Template";
 import Board from "./../components/board/board";
+import Chatting from "./../components/chatting/chatting";
 
 const MyRoute = () => {
   const kakaoId = localStorage.getItem("kakaoId");
@@ -46,10 +46,7 @@ const MyRoute = () => {
           <Route path="chat" element={<Chat></Chat>}></Route>
           {/* 마이페이지도 나중에 로케이션 펑션에 태워야함 */}
           <Route path="tfaInfo" element={<TfaInfo></TfaInfo>}></Route>
-          /// info 테스트
-          <Route path="tfaInfo2" element={<TfaInfo2></TfaInfo2>}></Route>
-          /// three 테스트
-          <Route path="three" element={<Three></Three>}></Route>
+          <Route path="three" element={<ThreedPhoto></ThreedPhoto>}></Route>
           ////
           <Route path="/edit" element={<Edit></Edit>}></Route>
           <Route

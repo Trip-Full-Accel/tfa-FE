@@ -142,8 +142,8 @@ const NightDiv = styled.div`
 `;
 
 const TravelImg = styled.img`
-  width: 250px;
-  height: 200px;
+  width: 350px;
+  height: 300px;
   border-radius: 50px;
   cursor: pointer;
 `;

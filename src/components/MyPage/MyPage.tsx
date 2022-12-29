@@ -9,16 +9,16 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Button } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import { fetchDeleteUser } from "store/user/userReducer";
 import { AppDispatch } from "store/store";
 import {
+  fetchMakeCost,
   fetchMyBoard,
   fetchMyCost,
   fetchMyInfo,
   fetchMyTrip,
 } from "store/mypage/myReducer";
-
 interface myPageType {
   pageKey: string;
   pageKorName: string;
@@ -26,12 +26,9 @@ interface myPageType {
 const MyPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const kakaoId = localStorage.getItem("kakaoId");
-
   const [myInfo, setMyInfo] = useState<any>();
   const [boardErr, setBoardErr] = useState<string>("");
   const [myBoard, setMyBoard] = useState<any>([]);
-  const [tripErr, setTripErr] = useState<string>("");
-  const [myTrip, setMyTrip] = useState<any>([]);
   const [costErr, setCostErr] = useState<string>("");
   const [myCost, setMyCost] = useState<any>([]);
   useEffect(() => {
@@ -55,27 +52,21 @@ const MyPage = () => {
       fetchMyTrip({
         userId: Number(kakaoId),
       })
-    ).then((res) =>
-      // console.log(res.payload)
-
-      res.payload === undefined
-        ? setTripErr("확정지은 여행경로가 없습니다.")
-        : setMyTrip(res.payload)
     );
+
+    // .then((res) =>
+    //   // console.log(res.payload)
+
+    //   res.payload === undefined
+    //     ? setTripErr("확정지은 여행경로가 없습니다.")
+    //     : setMyTrip(res.payload)
+    // );
     dispatch(
       fetchMyCost({
         userId: Number(kakaoId),
       })
-    ).then((res) =>
-      // console.log(res.payload)
-
-      res.payload === undefined
-        ? setCostErr("등록한 코스트가 없습니다.")
-        : setMyCost(res.payload)
     );
-  }, []);
-  // console.log("내 게시글", myBoard?.postDetailResponseList);
-  console.log("내 경로", myTrip?.foundCoursesByUserId);
+  });
 
   const myPageList: myPageType[] = [
     { pageKey: "userInfo", pageKorName: "회원정보수정" },
@@ -83,10 +74,6 @@ const MyPage = () => {
     { pageKey: "travelCost", pageKorName: "여행 경비계산" },
   ];
 
-  // const myInfo = useSelector((state: RootState) => state.my.myInfo);
-  // console.log(myInfo.userId);
-  // console.log(myInfo.nickname)
-  // console.log(myInfo.userId)
   const {
     element1,
     element2,
@@ -101,7 +88,6 @@ const MyPage = () => {
     onMoveToElement5,
     onMoveToElement6,
   } = UseMoveScroll();
-
   const [show, setShow] = useState(false);
   const onRemote = () => {
     if (show === false) {
@@ -114,9 +100,7 @@ const MyPage = () => {
   const linkTo = (path: string) => {
     navigate(path);
   };
-
   const [checkConfirm, setCheckConfirm] = useState(false);
-
   const deleteUser = () => {
     if (window.confirm("정말 탈퇴하시겠습니까?")) {
       setCheckConfirm(true);
@@ -125,17 +109,6 @@ const MyPage = () => {
       alert("다행이에요 계속 이용해주세요");
     }
   };
-  const cousrName = localStorage.getItem("courseName");
-
-  const [food, setFood] = useState();
-  const [home, setHome] = useState();
-  const [etc, setEtc] = useState();
-  const [trans, setTrans] = useState();
-  const [total, setTotal] = useState<any>();
-  const allTotal = () => {
-    setTotal(Number(food) + Number(home) + Number(etc) + Number(trans));
-  };
-
   return (
     <body className="myBody">
       <MainContainer>
@@ -145,70 +118,67 @@ const MyPage = () => {
             <Top3Container>
               <InfoDiv>
                 <H4Tag>내 정보</H4Tag>
-                <InfoInsideDiv>
-                  아이디 : 카카오 로그인은 아이디가 없어요!{" "}
-                </InfoInsideDiv>
-                <InfoInsideDiv>닉네임: {myInfo?.nickname}</InfoInsideDiv>
-                {myInfo?.email === undefined ? (
+                <div style={{ padding: "1rem", margin: "0" }}>
                   <InfoInsideDiv>
-                    {" "}
-                    이메일이 아직 등록되지 않았어요!
+                    아이디 : 카카오 로그인은 아이디가 없어요!{" "}
                   </InfoInsideDiv>
-                ) : (
-                  <InfoInsideDiv>{myInfo?.email}</InfoInsideDiv>
-                )}
+                  <InfoInsideDiv>닉네임: {myInfo?.nickname}</InfoInsideDiv>
+                  {myInfo?.email === undefined ? (
+                    <InfoInsideDiv>
+                      이메일 : 이메일이 아직 등록되지 않았어요!
+                    </InfoInsideDiv>
+                  ) : (
+                    <InfoInsideDiv>{myInfo?.email}</InfoInsideDiv>
+                  )}
+                </div>
               </InfoDiv>
               <RecordDiv>
-                <H4Tag>내가 갔던 최근 여행</H4Tag>
-                여행이름: {cousrName}
-                {tripErr.length > 0 ? (
-                  <ul>
-                    <PostLi>아직 확정지은 경로가 없습니다.</PostLi>
-                  </ul>
-                ) : (
-                  myTrip?.foundCoursesByUserId?.map((el: any, i: number) => {
-                    return (
-                      <div>
-                        {" "}
-                        {i + 1}번째 여행이름 {el.courseName}
-                      </div>
-                    );
-                  })
-                )}
+                <H4Tag>내가 갔던 여행</H4Tag>
+                <ul>
+                  <PostLi>1번 여행</PostLi>
+                  <PostLi>2번 여행</PostLi>
+                  <PostLi>3번 여행</PostLi>
+                </ul>
               </RecordDiv>
             </Top3Container>
             <Bottom2Container>
               <CostDiv>
                 <H4Tag>비용 계산</H4Tag>
-                {costErr.length > 0 ? (
-                  <div>등록하신 비용이 없습니다.</div>
+                {myCost === undefined ? (
+                  <Spinner></Spinner>
+                ) : costErr.length > 0 ? (
+                  <Spinner></Spinner>
                 ) : (
-                  <div>등록되면 보이는 프리뷰</div>
+                  <div>{myCost.totalCost}</div>
                 )}
               </CostDiv>
               <PostsDiv>
                 <H4Tag>내가 쓴 글</H4Tag>
                 {boardErr.length > 0 ? (
-                  <ul>
-                    <PostLi>
-                      작성하신글이 아직없습니다! 게시판에가서 글을 작성해보세요!
-                    </PostLi>
-                  </ul>
+                  <PostLi>
+                    작성하신글이 아직없습니다! 게시판에가서 글을 작성해보세요!
+                  </PostLi>
                 ) : (
                   // 받으면 맵
-
                   myBoard?.postDetailResponseList?.map((el: any) => {
                     return (
-                      <ul>
-                        <PostLi>
-                          제목 : {el.title}
-                          <br></br>
-                          내용 :{" "}
+                      <div style={{ padding: "0 0.5rem 0.5rem 1.5rem" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <h4 style={{ margin: "0" }}>제목 : </h4>
+                          <h4 style={{ margin: "0" }}> {el.title}</h4>
+                        </div>
+                        <div style={{ display: "flex" }}>
+                          <h5 style={{ margin: "0" }}>내용 : </h5>
                           <span
+                            style={{ margin: "0" }}
                             dangerouslySetInnerHTML={{ __html: el.content }}
                           />
-                        </PostLi>
-                      </ul>
+                        </div>
+                      </div>
                     );
                   })
                 )}
@@ -241,7 +211,6 @@ const MyPage = () => {
                       1
                       <ReactTooltip anchorId="1" place="top" content="메인" />
                     </RemoteBtn>
-
                     <RemoteBtn id="2" onClick={onMoveToElement2}>
                       2
                       <ReactTooltip
@@ -281,75 +250,57 @@ const MyPage = () => {
             <InfoInsideDiv>ID: test1</InfoInsideDiv>
             <InfoInsideDiv>닉네임: test1</InfoInsideDiv>
             <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
-
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
+            <InfoInsideDiv>이메일: test@naver.com</InfoInsideDiv>
             <Button onClick={deleteUser}>
               탈퇴 실험 푸터로 이동해야함 컨펌넣어서 수정함
             </Button>
           </Container>
           <Container ref={element3}>
             <H1Tag>내가 갔던 여행</H1Tag>
-            {myTrip?.foundCoursesByUserId?.map((el: any) =>
-              el?.placesFromCourseList?.map((data: any, i: number) => {
-                return (
-                  <div>
-                    {" "}
-                    {i + 1}번째 여행지 {data.placeName}
-                    <hr></hr>
-                  </div>
-                );
-              })
-            )}
+            <ul>
+              <PostLi>1번 여행</PostLi>
+              <PostLi>2번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+              <PostLi>3번 여행</PostLi>
+            </ul>
           </Container>
         </Top3Container>
         <Top3Container>
           <Container ref={element4}>
             <H1Tag>비용 계산</H1Tag>
-            <GrandDiv>
-              <InDiv>
-                <LeftDiv>숙박비</LeftDiv>
-                <RightInput
-                  type="text"
-                  required
-                  onChange={(e: any) => setHome(e.target.value)}
-                ></RightInput>
-              </InDiv>
-              <InDiv>
-                <LeftDiv>교통비</LeftDiv>
-                <RightInput
-                  type="text"
-                  required
-                  onChange={(e: any) => setTrans(e.target.value)}
-                ></RightInput>
-              </InDiv>
-              <InDiv>
-                <LeftDiv>식비</LeftDiv>
-                <RightInput
-                  type="text"
-                  required
-                  onChange={(e: any) => setFood(e.target.value)}
-                ></RightInput>
-              </InDiv>
-              <InDiv>
-                <LeftDiv>기타</LeftDiv>
-                <RightInput
-                  type="text"
-                  required
-                  onChange={(e: any) => setEtc(e.target.value)}
-                ></RightInput>
-              </InDiv>
-              <InDiv>
-                <LeftDiv>총 비용</LeftDiv>
-                <RightInput
-                  type="text"
-                  readOnly
-                  value={total}
-                  // onChange={(e: any) => setTotal(e.target.value)}
-                ></RightInput>
-              </InDiv>
-              <Button style={{ marginTop: "1rem" }} onClick={allTotal}>
-                계산
-              </Button>
-            </GrandDiv>
+            <input type="text" value={"교통비"} />
+            <input type="text" value={"식비"} />
+            <input type="text" value={"숙소비"} />
+            <input type="text" value={"기타"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
+            <input type="text" value={"총비용"} />
           </Container>
           <Container ref={element5}>
             <H1Tag>내가 쓴 글</H1Tag>
@@ -437,6 +388,7 @@ const PostsDiv = styled.div`
   height: 300px;
   border: 1px solid darkgray;
   border-radius: 10px;
+  overflow: hidden;
 `;
 const ChartDiv = styled.div`
   width: 30%;
@@ -445,7 +397,6 @@ const ChartDiv = styled.div`
   border-radius: 10px;
 `;
 const PostLi = styled.li`
-  text-align: start;
   padding: 15px;
 `;
 const InfoInsideDiv = styled.div`
@@ -490,38 +441,4 @@ const HomeBtn = styled.button`
   border-radius: 5px;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
-`;
-const InDiv = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  margin-top: 30px;
-  position: relative;
-`;
-const LeftDiv = styled.div`
-  width: 35%;
-  text-align: left;
-  font-weight: bold;
-  letter-spacing: -1px;
-`;
-const RightInput = styled.input`
-  border: none;
-  text-align: left;
-  height: 50px;
-  width: 100%;
-  outline: none;
-  background: #fafafa;
-  border-bottom: 1px solid #000000;
-  :focus {
-    border-bottom: 3px solid #7c74ab;
-  }
-`;
-const GrandDiv = styled.div`
-  font-size: 1.5rem;
-  width: 400px;
-  height: 500px;
-  padding: 1rem;
-  border: 2px solid #eaccf8;
-  margin: auto !important;
-  border-radius: 20px;
 `;

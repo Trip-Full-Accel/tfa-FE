@@ -263,17 +263,32 @@ const Maps = () => {
         >
           경로만들기
         </Button>
-        <button onClick={shareKakao}>
-          <img
-            src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
-            alt="카카오링크 보내기 버튼"
-          />
-        </button>
-        <Button onClick={handlePDF}>PDF 생성하기</Button>
+        <Button
+          style={{ width: "80%", height: "50px", marginTop: "1rem" }}
+          onClick={shareKakao}
+        >
+          카카오톡으로 경로 보내기
+        </Button>
+        <Button
+          style={{ width: "80%", height: "50px", marginTop: "1rem" }}
+          onClick={handlePDF}
+        >
+          PDF 생성하기
+        </Button>
         {checkConfirm === true ? (
-          <Button1 onClick={realCreateCourse}>done</Button1>
+          <Button1
+            style={{ width: "80%", height: "50px", marginTop: "1rem" }}
+            onClick={realCreateCourse}
+          >
+            완료
+          </Button1>
         ) : (
-          <Button2 onClick={realCreateCourse}>done</Button2>
+          <Button2
+            style={{ width: "80%", height: "50px", margin: "1rem 0 1rem 0" }}
+            onClick={realCreateCourse}
+          >
+            완료
+          </Button2>
         )}
       </SelectListDiv>
 

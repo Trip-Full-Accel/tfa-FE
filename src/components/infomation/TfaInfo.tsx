@@ -45,22 +45,19 @@ const TfaInfo = () => {
     <div ref={outerDivRef} className="outer">
       <Info scrollIndex={scrollIndex} />
       <div className="inner bg-yellow">
-        <Fade direction="left" style={{ marginLeft: "10rem" }}>
+        <Fade direction="left">
           <BoxDiv>
             <div>
-              <br></br>
-              <br></br>
-              <br></br>
-              <LeftImg src="/img/login/login1.jpg"></LeftImg>
+              <LeftImg
+                src="/img/login/login1.jpg"
+                style={{ width: "550px", height: "350px" }}
+              ></LeftImg>
             </div>
-            <div>
-              <TextSpan>
-                iPhone 14 Pro는 iPhone을 완전히 새로운 방식으로 다룰 수 있게
-                <br></br>
-                해주는 Dynamic Island, 중요한 정보를 언제나 한눈에 볼 수 있게
-                <br></br>
-                iPhone 14 Pro는 iPhone을 완전히 새로운 방식으로 다룰 수 있게
-              </TextSpan>
+            <div style={{ alignSelf: "center", marginLeft: "38px" }}>
+              <TitleSpan>
+                여행의 모든 것<br />
+                TFA에서 쉽고 간편하게
+              </TitleSpan>
             </div>
           </BoxDiv>
         </Fade>
@@ -68,23 +65,15 @@ const TfaInfo = () => {
       <div className="inner bg-blue">
         <Fade delay={100} direction="right" style={{ marginLeft: "30rem" }}>
           <BoxDiv>
-            <div>
-              <TextSpan>
-                ‘앱 추적 투명성’ 기능은 어떤 앱이 당신의 활동을 추적할 수
-                있는지를
-                <br></br>
-                당신이 직접 결정할 수 있게 해줍니다. 이는 무엇을 공유하고, 또
-                <br></br>
-                누구와 공유할지를 당신이 직접 제어할 수 있도록 iPhone이
-                <br></br>
-                설계되었다는 점을 여실히 보여주는 수많은 예 중 하나죠.
-              </TextSpan>
+            <div style={{ marginRight: "38px", alignSelf: "center" }}>
+              <ContentSpan>
+                국내 모든 여행지를 한눈에 확인하세요.
+                <br /> 이제껏 경험 못 했던 쉽고 편리한 여행 서비스,
+                <br /> TFA와 함께라면 당신의 여행이 새로워질 거예요.
+              </ContentSpan>
             </div>
             <div>
-              <RightImg
-                src="/img/login/login2.jpg"
-                style={{ width: "300px", height: "300px" }}
-              ></RightImg>
+              <RightImg src="/img/login/login2.jpg"></RightImg>
             </div>
           </BoxDiv>
         </Fade>
@@ -93,36 +82,35 @@ const TfaInfo = () => {
         <Fade direction="left" style={{ marginLeft: "10rem" }}>
           <BoxDiv>
             <div>
-              <LeftImg
-                src="/img/login/login3.jpg"
-                style={{ width: "300px", height: "300px" }}
-              ></LeftImg>
+              <LeftImg src="/img/main.png"></LeftImg>
             </div>
-            <div>
+            <TextDiv>
+              <SubSpan>메인</SubSpan>
+              <br />
               <TextSpan>
-                iPhone 14은 심각한 자동차 충돌 사고 발생 시 이를 감지해 119에
-                <br></br>
-                전화를 걸어주고, 긴급 연락처로 알림까지 보낼 수 있습니다.
+                내 여행계획,
+                <br />
+                지역부터 일정까지
+                <br /> 똑똑하게
               </TextSpan>
-            </div>
+            </TextDiv>
           </BoxDiv>
         </Fade>
       </div>
       <div className="inner bg-yellow">
         <Fade direction="right" style={{ marginLeft: "30rem" }}>
           <BoxDiv>
-            <div>
+            <TextDiv>
+              <SubSpan>코스</SubSpan>
+              <br />
               <TextSpan>
-                iPhone 14 Plus는 iPhone 사상 최고의 배터리 성능을 선사합니다.
-                <br></br>
-                iPhone 14 역시 온종일 가는 놀라운 배터리 성능을 자랑하죠.
+                쉽고 간편하게
+                <br />
+                이런 계획 짜보셨나요?
               </TextSpan>
-            </div>
+            </TextDiv>
             <div>
-              <RightImg
-                src="/img/login/login4.jpg"
-                style={{ width: "300px", height: "300px" }}
-              ></RightImg>
+              <MapImg src="/img/login/login4.jpg"></MapImg>
             </div>
           </BoxDiv>
         </Fade>
@@ -130,22 +118,43 @@ const TfaInfo = () => {
     </div>
   );
 };
+//height: 100vh;
 export default TfaInfo;
 const BoxDiv = styled.div`
-  height: 100vh;
   display: flex;
   justify-content: space-around;
   align-items: start;
-  margin: 0 !important;
+  margin: 13rem 0 0 0 !important;
 `;
 const LeftImg = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 450px;
+  height: 330px;
 `;
 const RightImg = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 450px;
+  height: 330px;
+  margin-right: 170px;
+`;
+const TitleSpan = styled.span`
+  font-size: 50px;
+`;
+const SubSpan = styled.span`
+  font-size: 30px;
 `;
 const TextSpan = styled.span`
-  font-size: 25px;
+  font-size: 50px;
+`;
+
+const TextDiv = styled.div`
+  text-align: start !important;
+  margin: 0 38px 0 38px;
+`;
+
+const MapImg = styled.img`
+  width: 450px;
+  height: 330px;
+  margin-right: 170px;
+`;
+const ContentSpan = styled.span`
+  font-size: 36px;
 `;

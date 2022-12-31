@@ -1,5 +1,5 @@
 <p align="center">
-<img src="" alt="pick-git-logo" width="300" height="300">
+<img src="/" alt="pick-git-logo" width="300" height="300">
 로고자리
 </p>
 <div align="center">

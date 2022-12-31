@@ -1,5 +1,5 @@
 <p align="center">
-<img src="/" alt="pick-git-logo" width="300" height="300">
+<img src="https://user-images.githubusercontent.com/109786486/210124465-eb67da95-ff29-4760-b7a2-ada665803394.png"  width="300" height="300">
 로고자리
 </p>
 <div align="center">
